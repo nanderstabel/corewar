@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/16 21:05:44 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/04/23 11:58:20 by moana         ########   odam.nl         */
+/*   Updated: 2020/04/23 16:34:31 by moana         ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ void				ft_strclr(char *s);
 int					ft_strcmp(const char *s1, const char *s2);
 char				*ft_strcpy(char *dst, const char *src);
 void				ft_strdel(char **as);
+void				ft_strarrdel(char ***arr);
 char				*ft_strdup(const char *s);
 int					ft_strequ(const char *s1, const char *s2);
 void				ft_striter(char *s, void(*f)(char*));

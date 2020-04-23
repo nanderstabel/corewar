@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         ::::::::             #
-#    mini_srcs                                          :+:    :+:             #
+#    _file_names                                        :+:    :+:             #
 #                                                      +:+                     #
 #    By: mmarcell <mmarcell@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/01/08 16:46:03 by mmarcell      #+#    #+#                  #
-#    Updated: 2020/04/22 17:30:16 by moana         ########   odam.nl          #
+#    Updated: 2020/04/23 16:35:11 by moana         ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ FILES := ft_putchar.c ft_putchar_fd.c \
 	ft_memchr.c \
 	ft_memmove.c \
 	ft_strnew.c ft_strdel.c \
+	ft_strarrdel.c \
 	ft_strlen.c \
 	ft_strcmp.c ft_strncmp.c \
 	ft_strcpy.c ft_strncpy.c \
