@@ -6,7 +6,7 @@
 #    By: mmarcell <mmarcell@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/02/14 13:21:34 by mmarcell      #+#    #+#                  #
-#    Updated: 2020/04/22 17:32:25 by moana         ########   odam.nl          #
+#    Updated: 2020/04/24 11:24:40 by zitzak        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,6 +56,8 @@ clean:
 fclean: clean
 	@rm -fv $(NAME) | sed -e $$'s/^/ $(MINUS) /'
 
-re: fclean all
+re: 
+	$(MAKE) fclean
+	$(MAKE) all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean objs re
