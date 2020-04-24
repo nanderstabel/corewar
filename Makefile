@@ -6,7 +6,7 @@
 #    By: mmarcell <mmarcell@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/01/07 18:47:20 by mmarcell      #+#    #+#                  #
-#    Updated: 2020/04/23 12:59:06 by moana         ########   odam.nl          #
+#    Updated: 2020/04/24 11:25:05 by zitzak        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,8 @@ HDRS := $(INCLUDES_PATH)/corewar.h
 
 PLUS := \033[0;32m+\033[0;00m
 MINUS := \033[0;31m-\033[0;00m
+
+MAX_PARALLEL = 6
 
 all: $(NAME)
 
@@ -53,11 +55,14 @@ objs/%.o: srcs/%.c $(HDRS) | objs
 objs:
 	@mkdir -p $@
 
+multi:
+	@$(MAKE) -j$(MAX_PARALLEL) all
+
 $(LIBFT): FORCE
-	@make -C $(LIBFT_PATH) | sed -e $$'s/^/$(LIBFT_PATH): /'
+	@+make -C $(LIBFT_PATH) | sed -e $$'s/^/$(LIBFT_PATH): /'
 
 clean: lclean
-	@make clean -C $(LIBFT_PATH) | sed -e $$'s/^/$(LIBFT_PATH): /'
+	@+make clean -C $(LIBFT_PATH) | sed -e $$'s/^/$(LIBFT_PATH): /'
 
 lclean:
 	@rm -rfv objs | sed -e $$'s/^/ $(MINUS) /'
@@ -68,13 +73,17 @@ fclean: clean lfclean
 lfclean: lclean
 	@rm -fv $(NAME) | sed -e $$'s/^/ $(MINUS) /'
 
-re: fclean all
+re:
+	$(MAKE) fclean
+	$(MAKE) all
 
-lre: lfclean all
+lre:
+	$(MAKE) lfclean
+	$(MAKE) all
 
 test: $(LIBFT) $(OBJS) $(HDRS)
 	@make -C tests
 
 FORCE:
 
-.PHONY: all clean fclean re FORCE
+.PHONY: all clean fclean lclean lfclean lre test re multi objs FORCE
