@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/16 21:05:44 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/04/23 16:34:31 by moana         ########   odam.nl         */
+/*   Updated: 2020/04/25 17:39:40 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ size_t				ft_lstcount(t_list *lst);
 void				*ft_memdup(void *ptr, size_t size);
 long long int		ft_atoi(const char *s);
 void				ft_bzero(void *s, size_t n);
-void				ft_swap(void *ptr1, void *ptr2);
+void				ft_swap_ptr(void **ptr1, void **ptr2);
 int					ft_isint(char *str);
 int					ft_isalnum(int c);
 int					ft_isalpha(int c);
