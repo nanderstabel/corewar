@@ -6,7 +6,7 @@
 #    By: mmarcell <mmarcell@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/01/07 18:47:20 by mmarcell      #+#    #+#                  #
-#    Updated: 2020/04/24 11:25:05 by zitzak        ########   odam.nl          #
+#    Updated: 2020/04/25 21:23:01 by mmarcell      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,32 +25,20 @@ INCLUDES_PATH := includes
 INCLUDES := -I $(INCLUDES_PATH) -I $(LIBFT_PATH)
 HDRS := $(INCLUDES_PATH)/corewar.h
 
-PLUS := \033[0;32m+\033[0;00m
-MINUS := \033[0;31m-\033[0;00m
+PLUS := $$(tput setaf 2)+$$(tput sgr0)
+MINUS := $$(tput setaf 1)-$$(tput sgr0)
 
 MAX_PARALLEL = 6
 
 all: $(NAME)
 
-# uncomment for linux
 $(NAME): $(LIBFT) $(OBJS)
 	@$(CC) $(CFLAGS) -o $@ $^ $(LIBFT)
-	@echo -e " $(PLUS) $@"
+	@echo " $(PLUS) $@"
 
-# uncomment for linux
 objs/%.o: srcs/%.c $(HDRS) | objs
 	@$(CC) -c $(CFLAGS) -o $@ $(INCLUDES) $<
-	@echo -e " $(PLUS) $@"
-
-## uncomment for macOS
-#$(NAME): $(LIBFT) $(OBJS)
-#	@$(CC) $(CFLAGS) -o $@ $^ $(LIBFT)
-#	@echo " $(PLUS) $@"
-#
-## uncomment for macOS
-#objs/%.o: srcs/%.c $(HDRS) | objs
-#	@$(CC) -c $(CFLAGS) -o $@ $(INCLUDES) $<
-#	@echo " $(PLUS) $@"
+	@echo " $(PLUS) $@"
 
 objs:
 	@mkdir -p $@
@@ -65,13 +53,13 @@ clean: lclean
 	@+make clean -C $(LIBFT_PATH) | sed -e $$'s/^/$(LIBFT_PATH): /'
 
 lclean:
-	@rm -rfv objs | sed -e $$'s/^/ $(MINUS) /'
+	@rm -rfv objs | sed "s/removed / $(MINUS) /"
 
 fclean: clean lfclean
-	@rm -fv $(LIBFT) | sed -e $$'s/^/ $(MINUS) /'
+	@rm -fv $(LIBFT) | sed "s/removed / $(MINUS) /"
 
 lfclean: lclean
-	@rm -fv $(NAME) | sed -e $$'s/^/ $(MINUS) /'
+	@rm -fv $(NAME) | sed "s/removed / $(MINUS) /"
 
 re:
 	$(MAKE) fclean

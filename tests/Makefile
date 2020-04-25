@@ -6,7 +6,7 @@
 #    By: mmarcell <mmarcell@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/01/08 13:03:52 by mmarcell      #+#    #+#                  #
-#    Updated: 2020/04/23 11:40:45 by moana         ########   odam.nl          #
+#    Updated: 2020/04/25 21:22:37 by mmarcell      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,39 +27,27 @@ INCLUDES_PATH := ../includes
 INCLUDES := -I $(INCLUDES_PATH) -I $(LIBFT_PATH)
 HDRS := $(INCLUDES_PATH)/
 
-PLUS = \033[38;5;40m+\033[0;00m
-MINUS = \033[38;5;160m-\033[0;00m
+PLUS := $$(tput setaf 2)+$$(tput sgr0)
+MINUS := $$(tput setaf 1)-$$(tput sgr0)
 
 all: test
 
-# uncomment for linux
 test: $(OBJS) $(TESTS_OBJS)
 	@$(CC) -o $@ $^ -lcriterion $(LIBFT)
-	@echo -e " ${PLUS} $@"
+	@echo " ${PLUS} $@"
 
-# uncomment for linux
 objs/%.o: srcs/%.c $(HDRS) | objs
 	@$(CC) -c $(CFLAGS) -o $@ $(INCLUDES) $<
-	@echo -e " ${PLUS} $@"
-
-## uncomment for macOS
-#test: $(OBJS) $(TESTS_OBJS)
-#	@$(CC) -o $@ $^ -lcriterion $(LIBFT)
-#	@echo " ${PLUS} $@"
-#
-## uncomment for macOS
-#objs/%.o: srcs/%.c $(HDRS) | objs
-#	@$(CC) -c $(CFLAGS) -o $@ $(INCLUDES) $<
-#	@echo " ${PLUS} $@"
+	@echo " ${PLUS} $@"
 
 objs:
 	@mkdir -p $@
 
 clean:
-	@rm -fv $(TESTS_OBJS) | sed -e $$'s/^/ $(MINUS) /'
+	@rm -fv $(TESTS_OBJS) | sed "s/removed / $(MINUS) /"
 
 fclean: clean
-	@rm -fv test | sed -e $$'s/^/ $(MINUS) /'
+	@rm -fv test | sed "s/removed / $(MINUS) /"
 
 re: fclean all
 
