@@ -6,7 +6,7 @@
 #    By: mmarcell <mmarcell@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/01/07 18:47:20 by mmarcell      #+#    #+#                  #
-#    Updated: 2020/04/25 21:23:01 by mmarcell      ########   odam.nl          #
+#    Updated: 2020/04/27 13:04:05 by mmarcell      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,10 +47,10 @@ multi:
 	@$(MAKE) -j$(MAX_PARALLEL) all
 
 $(LIBFT): FORCE
-	@+make -C $(LIBFT_PATH) | sed -e $$'s/^/$(LIBFT_PATH): /'
+	@+make -C $(LIBFT_PATH) | sed "s/removed / $(MINUS) /"
 
 clean: lclean
-	@+make clean -C $(LIBFT_PATH) | sed -e $$'s/^/$(LIBFT_PATH): /'
+	@+make clean -C $(LIBFT_PATH) | sed "s/removed / $(MINUS) /"
 
 lclean:
 	@rm -rfv objs | sed "s/removed / $(MINUS) /"
