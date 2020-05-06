@@ -1,23 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   corewar.h                                          :+:    :+:            */
+/*   asm_tokenize_input.c                               :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
+/*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/05/06 18:53:02 by nstabel       ########   odam.nl         */
+/*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
+/*   Updated: 2020/05/06 20:35:23 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COREWAR_H
-# define COREWAR_H
+#include "corewar.h"
 
-#include "libft.h"
-#include "asm.h"
-
-
-void	some_vm_function(char *s);
-
-
-#endif
+t_bool			tokenize_input(t_project *as)
+{
+	as->count = (as->flags & DEBUG_O) ? ft_printf("%s\n", __func__) : 0;
+	return (SUCCESS);	
+}

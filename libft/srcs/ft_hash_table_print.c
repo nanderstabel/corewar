@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   corewar.h                                          :+:    :+:            */
+/*   ft_hash_table_print.c                              :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
+/*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/05/06 18:53:02 by nstabel       ########   odam.nl         */
+/*   Created: 2020/04/16 19:56:32 by nstabel       #+#    #+#                 */
+/*   Updated: 2020/04/16 19:56:32 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COREWAR_H
-# define COREWAR_H
-
 #include "libft.h"
-#include "asm.h"
 
-
-void	some_vm_function(char *s);
-
-
-#endif
+void				*ft_hash_table_print(t_hash_table *table, \
+						void *(*columns)(t_hash_table *table))
+{
+	if (!table)
+		return (NULL);
+	ft_hash_table_update(table, columns);
+	ft_puttbl(table);
+	return (table);
+}

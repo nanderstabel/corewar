@@ -1,23 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   corewar.h                                          :+:    :+:            */
+/*   ft_freezero.c                                      :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
+/*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/05/06 18:53:02 by nstabel       ########   odam.nl         */
+/*   Created: 2020/01/18 19:00:00 by nstabel       #+#    #+#                 */
+/*   Updated: 2020/04/12 14:34:32 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COREWAR_H
-# define COREWAR_H
-
 #include "libft.h"
-#include "asm.h"
 
-
-void	some_vm_function(char *s);
-
-
-#endif
+void	ft_freezero(void *mem, size_t size)
+{
+	ft_bzero(mem, size);
+	ft_memdel(&mem);
+}

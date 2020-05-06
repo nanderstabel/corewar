@@ -1,23 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   corewar.h                                          :+:    :+:            */
+/*   ft_hash.c                                          :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
+/*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/05/06 18:53:02 by nstabel       ########   odam.nl         */
+/*   Created: 2020/02/25 10:06:46 by nstabel       #+#    #+#                 */
+/*   Updated: 2020/04/12 15:21:20 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COREWAR_H
-# define COREWAR_H
-
 #include "libft.h"
-#include "asm.h"
 
+size_t				ft_hash(char *key)
+{
+	size_t	index;
+	size_t	hash;
 
-void	some_vm_function(char *s);
-
-
-#endif
+	index = 0;
+	hash = 0;
+	while (key[index])
+	{
+		hash += (key[index] * (key[index] - 1) * (key[index] - 2) * \
+			(key[index] - 3)) * (index + 1);
+		++index;
+	}
+	hash *= index;
+	return (hash);
+}
