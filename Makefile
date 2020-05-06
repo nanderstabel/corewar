@@ -6,11 +6,11 @@
 #    By: mmarcell <mmarcell@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/01/07 18:47:20 by mmarcell      #+#    #+#                  #
-#    Updated: 2020/04/27 13:14:19 by mmarcell      ########   odam.nl          #
+#    Updated: 2020/05/06 14:26:18 by zitzak        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
-include srcs/_files
+include srcs/_files.mk
 
 NAME := corewar
 

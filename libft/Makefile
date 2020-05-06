@@ -6,11 +6,11 @@
 #    By: mmarcell <mmarcell@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/02/14 13:21:34 by mmarcell      #+#    #+#                  #
-#    Updated: 2020/04/27 13:07:43 by mmarcell      ########   odam.nl          #
+#    Updated: 2020/05/06 14:26:25 by zitzak        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
-include srcs/_file_names
+include srcs/_file_names.mk
 
 NAME := libft.a
 
