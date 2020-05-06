@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/16 21:05:44 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/04/25 17:39:40 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/05/06 21:12:23 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stdarg.h>
 # include <stdio.h>
+# include <stdlib.h>
 
 # define TRUE 1
 # define FALSE 0
@@ -22,6 +23,23 @@
 # define FD_MAX 4864
 # define CONV_CHAR_START 'B'
 # define CONV_CHAR_END 121
+# define BOLD			"\x1B[1m"
+# define ITALICS		"\x1B[3m"
+# define UNDERLINE		"\x1B[4m"
+# define INVERSE		"\x1B[7m"
+# define BOLD_OFF		"\x1B[22m"
+# define ITALICS_OFF	"\x1B[23m"
+# define UNDERLINE_OFF	"\x1B[24m"
+# define INVERSE_OFF	"\x1B[27m"
+# define BLACK 			"\x1B[30m"
+# define RED 			"\x1B[31m"
+# define GREEN 			"\x1B[32m"
+# define YELLOW 		"\x1B[33m"
+# define BLUE 			"\x1B[34m"
+# define MAGENTA 		"\x1B[35m"
+# define CYAN 			"\x1B[36m"
+# define WHITE 			"\x1B[37m"
+# define EOC 			"\e[0m"
 
 typedef struct		s_list
 {
@@ -77,6 +95,35 @@ typedef struct	s_machine
 	t_state		last_state;
 	t_bool		transition;
 }				t_machine;
+
+typedef	struct		s_adlist
+{
+	void			*address;
+	struct s_adlist	*next;
+}					t_adlist;
+
+typedef struct		s_elem
+{
+	size_t			index;
+	char			*name;
+	size_t			hash;
+	t_adlist		*body_content;
+	t_list			*misc;
+	void			*content;
+}					t_elem;
+
+typedef struct		s_hash_table
+{
+	char			*title;
+	char			*format;
+	t_list			*header_format;
+	t_list			*header_content;
+	t_list			*body_format;
+	t_adlist		*width;
+	size_t			size;
+	char			mounted;
+	t_elem			**elem;
+}					t_hash_table;
 
 typedef void		(*t_conversion_table[CONV_CHAR_END - CONV_CHAR_START])
 					(va_list ap, t_buffer *buf, t_flags *flags);
@@ -201,8 +248,35 @@ void				handler_sc(char *s, t_buffer *buf, t_flags *flags,
 void				launch_c(va_list ap, t_buffer *buf, t_flags *flags);
 void				launch_s(va_list ap, t_buffer *buf, t_flags *flags);
 void				handle_char(char c, t_buffer *buf, t_flags *flags);
+
 t_bool				install_machine(t_machine **machine, t_state end);
-void				run_machine(t_machine *machine, t_project *project, t_state g_transitions[][2], t_event g_events[])
+void				run_machine(t_machine *machine, t_project *project, \
+					t_state g_transitions[][2], t_event g_events[]);
 t_bool				uninstall_machine(t_machine **machine);
+void				ft_freezero(void *mem, size_t size);
+void				ft_free_hash_table(t_hash_table **table, \
+					void (*free_cont)(void *));
+size_t				ft_hash(char *key);
+t_elem				*ft_hash_table_add(t_hash_table *hash_table, char *key, \
+					void *content);
+void				*ft_hash_table_append(t_hash_table *table, \
+					void *(*columns)(t_hash_table *table));
+void				*ft_hash_table_drop(t_hash_table *table, size_t cutoff);
+t_elem				*ft_hash_table_get(t_hash_table *hash_table, char *key);
+void				*ft_hash_table_print(t_hash_table *table, \
+					void *(*columns)(t_hash_table *table));
+void				*ft_hash_table_update(t_hash_table *table, \
+					void *(*columns)(t_hash_table *table));
+void				ft_puttbl(t_hash_table *table);
+void				ft_addr_lstadd(t_adlist **alst, t_adlist *newlst);
+void				ft_addr_lstapp(t_adlist **alst, t_adlist *newlst);
+void				ft_addr_lstdel(t_adlist **alst);
+void				ft_addr_lstdelone(t_adlist **alst);
+void				ft_addr_lstiter(t_adlist *lst, void (*f)(t_adlist *elem));
+t_adlist			*ft_addr_lstnew(void *address);
+t_adlist			*ft_addr_lstrev(t_adlist *alst);
+void				ft_addr_lstsrt(t_adlist **alst, \
+					int (*method)(void *, void *));
+char				*ft_itoa_base(unsigned long long value, int base);
 
 #endif

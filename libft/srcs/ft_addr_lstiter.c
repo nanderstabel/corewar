@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   corewar.h                                          :+:    :+:            */
+/*   ft_addr_lstiter.c                                  :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
+/*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/05/06 18:53:02 by nstabel       ########   odam.nl         */
+/*   Created: 2020/03/20 18:56:24 by nstabel       #+#    #+#                 */
+/*   Updated: 2020/03/20 18:56:24 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COREWAR_H
-# define COREWAR_H
-
 #include "libft.h"
-#include "asm.h"
 
-
-void	some_vm_function(char *s);
-
-
-#endif
+void	ft_addr_lstiter(t_adlist *lst, void (*f)(t_adlist *elem))
+{
+	if (lst)
+	{
+		while (lst->next != NULL)
+		{
+			f(lst);
+			lst = lst->next;
+		}
+		f(lst);
+	}
+}

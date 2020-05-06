@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "machine.h"
+#include "libft.h"
 
 /*
 ** For the program to be able to continue, it needs to update it's current
@@ -19,10 +19,12 @@
 ** indices in the transition table to find the new state of the machine.
 */
 
-static void		update_current_state(t_machine *machine, t_state g_transitions[][2])
+static void		update_current_state(t_machine *machine, \
+	t_state g_transitions[][2])
 {
 	machine->last_state = machine->current_state;
-	machine->current_state = g_transitions[machine->last_state][machine->transition];
+	machine->current_state = \
+		g_transitions[machine->last_state][machine->transition];
 }
 
 /*
@@ -32,7 +34,8 @@ static void		update_current_state(t_machine *machine, t_state g_transitions[][2]
 ** transition ('FAIL' or 'SUCCES').
 */
 
-static void		execute_event(t_machine *machine, t_project *project, t_event g_events[])
+static void		execute_event(t_machine *machine, t_project *project, \
+	t_event g_events[])
 {
 	machine->transition = g_events[machine->current_state](project);
 }
@@ -43,7 +46,8 @@ static void		execute_event(t_machine *machine, t_project *project, t_event g_eve
 ** state gets updated, and then the corresponding event gets executed.
 */
 
-void			run_machine(t_machine *machine, t_project *project, t_state g_transitions[][2], t_event g_events[])
+void			run_machine(t_machine *machine, t_project *project, \
+	t_state g_transitions[][2], t_event g_events[])
 {
 	while (1)
 	{

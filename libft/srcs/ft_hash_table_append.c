@@ -1,25 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   uninstall_machine.c                                :+:    :+:            */
+/*   ft_hash_table_append.c                             :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/02/21 17:38:34 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/12 14:45:25 by nstabel       ########   odam.nl         */
+/*   Created: 2020/03/07 12:28:27 by nstabel       #+#    #+#                 */
+/*   Updated: 2020/04/12 15:21:39 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdlib.h>
 
-/*
-** 'Uninstalling' the machine means to free all the allocated memory that the
-** machine has used during the run of the program.
-*/
-
-t_bool			uninstall_machine(t_machine **machine)
+void	*ft_hash_table_append(t_hash_table *table, \
+	void *(*columns)(t_hash_table *table))
 {
-	free(*machine);
-	return (SUCCESS);
+	t_adlist	*last_width;
+
+	if (table == NULL || columns == NULL)
+		return (NULL);
+	last_width = table->width;
+	while (last_width->next)
+		last_width = last_width->next;
+	last_width->address += 2;
+	if (columns(table))
+	{
+		table->mounted = 1;
+		return (table);
+	}
+	return (NULL);
 }

@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   corewar.h                                          :+:    :+:            */
+/*   ft_addr_lstdel.c                                   :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
+/*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/05/06 18:53:02 by nstabel       ########   odam.nl         */
+/*   Created: 2019/02/09 19:54:06 by nstabel       #+#    #+#                 */
+/*   Updated: 2020/04/07 09:30:24 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COREWAR_H
-# define COREWAR_H
-
 #include "libft.h"
-#include "asm.h"
 
+void	ft_addr_lstdel(t_adlist **alst)
+{
+	t_adlist	*tmp;
 
-void	some_vm_function(char *s);
-
-
-#endif
+	while (*alst)
+	{
+		tmp = *alst;
+		ft_addr_lstdelone(&tmp);
+		*alst = (*alst)->next;
+	}
+	ft_memdel((void **)alst);
+}

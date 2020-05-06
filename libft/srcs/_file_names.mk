@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         ::::::::             #
-#    _file_names                                        :+:    :+:             #
+#    _file_names.mk                                     :+:    :+:             #
 #                                                      +:+                     #
 #    By: mmarcell <mmarcell@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/01/08 16:46:03 by mmarcell      #+#    #+#                  #
-#    Updated: 2020/04/25 17:39:08 by mmarcell      ########   odam.nl          #
+#    Updated: 2020/05/06 21:06:37 by nstabel       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,4 +62,9 @@ FILES := ft_putchar.c ft_putchar_fd.c \
 	printf_formatting_prep.c printf_formatting.c printf_ftobuf.c \
 	printf_itobuf.c printf_launcher_int.c printf_launcher_double.c \
 	printf_launcher_string.c printf_launcher_n.c \
-	install_machine.c run_machine.c uninstall_machine.c
+	install_machine.c run_machine.c uninstall_machine.c \
+	ft_hash_table_add.c ft_hash_table_append.c ft_hash_table_drop.c \
+	ft_hash_table_get.c ft_hash_table_print.c ft_hash_table_update.c \
+	ft_hash.c ft_free_hash_table.c ft_freezero.c ft_puttbl.c \
+	ft_addr_lstadd.c ft_addr_lstapp.c ft_addr_lstdel.c ft_addr_lstdelone.c \
+	ft_addr_lstiter.c ft_addr_lstnew.c ft_addr_lstrev.c ft_addr_lstsrt.c \

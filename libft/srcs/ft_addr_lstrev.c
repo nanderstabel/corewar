@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   corewar.h                                          :+:    :+:            */
+/*   ft_addr_lstrev.c                                   :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
+/*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/05/06 18:53:02 by nstabel       ########   odam.nl         */
+/*   Created: 2020/03/20 13:57:24 by nstabel       #+#    #+#                 */
+/*   Updated: 2020/03/20 13:57:24 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef COREWAR_H
-# define COREWAR_H
-
 #include "libft.h"
-#include "asm.h"
 
+t_adlist				*ft_addr_lstrev(t_adlist *alst)
+{
+	t_adlist	*a;
+	t_adlist	*b;
 
-void	some_vm_function(char *s);
-
-
-#endif
+	if (!alst)
+		return (NULL);
+	a = alst;
+	while (a->next)
+	{
+		b = alst;
+		alst = a->next;
+		a->next = alst->next;
+		alst->next = b;
+	}
+	return (alst);
+}
