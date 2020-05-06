@@ -61,4 +61,5 @@ FILES := ft_putchar.c ft_putchar_fd.c \
 	printf_ft_printf.c printf_buffer.c printf_flags.c \
 	printf_formatting_prep.c printf_formatting.c printf_ftobuf.c \
 	printf_itobuf.c printf_launcher_int.c printf_launcher_double.c \
-	printf_launcher_string.c printf_launcher_n.c
+	printf_launcher_string.c printf_launcher_n.c \
+	install_machine.c run_machine.c uninstall_machine.c

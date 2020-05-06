@@ -60,6 +60,24 @@ typedef struct		s_buffer
 	int			fd;
 }					t_buffer;
 
+typedef enum
+{
+	FAIL,
+	SUCCESS,
+}	t_bool;
+
+typedef struct s_project	t_project;
+typedef t_bool				(*t_event)(t_project *);
+typedef short				t_state;
+
+typedef struct	s_machine
+{
+	t_state		size;
+	t_state		current_state;
+	t_state		last_state;
+	t_bool		transition;
+}				t_machine;
+
 typedef void		(*t_conversion_table[CONV_CHAR_END - CONV_CHAR_START])
 					(va_list ap, t_buffer *buf, t_flags *flags);
 int					ft_power(int base, unsigned int exp);
@@ -183,5 +201,8 @@ void				handler_sc(char *s, t_buffer *buf, t_flags *flags,
 void				launch_c(va_list ap, t_buffer *buf, t_flags *flags);
 void				launch_s(va_list ap, t_buffer *buf, t_flags *flags);
 void				handle_char(char c, t_buffer *buf, t_flags *flags);
+t_bool				install_machine(t_machine **machine, t_state end);
+void				run_machine(t_machine *machine, t_project *project, t_state g_transitions[][2], t_event g_events[])
+t_bool				uninstall_machine(t_machine **machine);
 
 #endif
