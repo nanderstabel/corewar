@@ -6,15 +6,19 @@
 #    By: mmarcell <mmarcell@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/01/07 18:47:20 by mmarcell      #+#    #+#                  #
-#    Updated: 2020/05/06 14:26:18 by zitzak        ########   odam.nl          #
+#    Updated: 2020/05/06 16:34:18 by zitzak        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 include srcs/_files.mk
 
-NAME := corewar
+VM_NAME := corewar
 
-OBJS := $(FILES:%.c=objs/%.o) objs/main.o
+ASM_NAME := asm
+
+VM_OBJS := $(VM_FILES:%.c=objs/%.o) objs/vm_main.o
+
+ASM_OBJS := $(ASM_FILES:%.c=objs/%.o) objs/asm_main.o
 
 CFLAGS := -Wall -Wextra -Werror -g
 
@@ -23,16 +27,20 @@ LIBFT := $(LIBFT_PATH)/libft.a
 
 INCLUDES_PATH := includes
 INCLUDES := -I $(INCLUDES_PATH) -I $(LIBFT_PATH)
-HDRS := $(INCLUDES_PATH)/corewar.h
+HDRS := $(INCLUDES_PATH)/corewar.h $(INCLUDES_PATH)/asm.h
 
 PLUS := $$(tput setaf 2)+$$(tput sgr0)
 MINUS := $$(tput setaf 1)-$$(tput sgr0)
 
 MAX_PARALLEL = 6
 
-all: $(NAME)
+all: $(VM_NAME) $(ASM_NAME)
 
-$(NAME): $(LIBFT) $(OBJS)
+$(VM_NAME): $(LIBFT) $(VM_OBJS)
+	@$(CC) $(CFLAGS) -o $@ $^ $(LIBFT)
+	@echo " $(PLUS) $@"
+
+$(ASM_NAME): $(LIBFT) $(ASM_OBJS)
 	@$(CC) $(CFLAGS) -o $@ $^ $(LIBFT)
 	@echo " $(PLUS) $@"
 
@@ -59,7 +67,7 @@ fclean: clean lfclean
 	@rm -fv $(LIBFT) | sed "s/^/ $(MINUS) /"
 
 lfclean: lclean
-	@rm -fv $(NAME) | sed "s/^/ $(MINUS) /"
+	@rm -fv $(VM_NAME) $(ASM_NAME) | sed "s/^/ $(MINUS) /"
 
 re:
 	$(MAKE) fclean
