@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/05/06 20:27:45 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/07 18:05:38 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define ASM_H
 
 # include "libft.h"
+# include "op.h"
 
 # define OPTIONS				"agu"
 
@@ -31,6 +32,7 @@ typedef struct		s_project
 	int				flags;
 	size_t			index;
 	char			*string;
+	t_hash_table	*labels;
 }					t_project;
 
 t_bool				set_options(t_project *as);
