@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/16 21:05:44 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/05/06 21:12:23 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/06 22:20:58 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # define FD_MAX 4864
 # define CONV_CHAR_START 'B'
 # define CONV_CHAR_END 121
+# define FORMAT_LEFT	"%-*s"
+# define FORMAT_RIGHT	"%+*s"
 # define BOLD			"\x1B[1m"
 # define ITALICS		"\x1B[3m"
 # define UNDERLINE		"\x1B[4m"
@@ -256,6 +258,8 @@ t_bool				uninstall_machine(t_machine **machine);
 void				ft_freezero(void *mem, size_t size);
 void				ft_free_hash_table(t_hash_table **table, \
 					void (*free_cont)(void *));
+t_hash_table		*ft_malloc_hash_table(size_t size, char *title, \
+					char *format);
 size_t				ft_hash(char *key);
 t_elem				*ft_hash_table_add(t_hash_table *hash_table, char *key, \
 					void *content);
@@ -267,6 +271,8 @@ void				*ft_hash_table_print(t_hash_table *table, \
 					void *(*columns)(t_hash_table *table));
 void				*ft_hash_table_update(t_hash_table *table, \
 					void *(*columns)(t_hash_table *table));
+void				*ft_hash_table_naive_resize(t_hash_table *table, \
+					size_t add);
 void				ft_puttbl(t_hash_table *table);
 void				ft_addr_lstadd(t_adlist **alst, t_adlist *newlst);
 void				ft_addr_lstapp(t_adlist **alst, t_adlist *newlst);
@@ -278,5 +284,6 @@ t_adlist			*ft_addr_lstrev(t_adlist *alst);
 void				ft_addr_lstsrt(t_adlist **alst, \
 					int (*method)(void *, void *));
 char				*ft_itoa_base(unsigned long long value, int base);
+size_t				ft_ndigits(long long nbr);
 
 #endif
