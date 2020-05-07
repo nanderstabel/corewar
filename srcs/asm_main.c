@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:02:07 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/06 20:08:18 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/06 22:39:37 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static t_event	g_events[] =
 static void			initialize_project(t_project **as)
 {
 	*as = (t_project *)ft_memalloc(sizeof(t_project));
-	(*as)->count = 1;//temporary use of count (acts as debug flag atm)
+	(*as)->labels = ft_malloc_hash_table(101, "Labels", FORMAT_LEFT);
 }
 
 int					main(int argc, char **argv)
