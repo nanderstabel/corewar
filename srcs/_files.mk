@@ -6,6 +6,7 @@
 #    By: mmarcell <mmarcell@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/02/28 18:56:22 by mmarcell      #+#    #+#                  #
+#    Updated: 2020/05/11 14:21:34 by zitzak        ########   odam.nl          #
 #    Updated: 2020/05/11 16:16:52 by nstabel       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
@@ -21,5 +22,7 @@ ASM_FILES :=	op.c						\
 				asm_analyze_parameters.c 	\
 				asm_analyze_instructions.c 	\
 				asm_create_output_file.c 	\
+				asm_write_translation.c		\
+				asm_lexical_analysis.c    \
 				asm_translate_to_byte.c 	\
 				asm_write_translation.c
