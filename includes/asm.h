@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/05/07 18:05:38 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/11 17:31:06 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ enum
 typedef struct		s_project
 {
 	int				count;
+	int				fd;
 	int				argc;
 	char			**argv;
 	int				flags;
@@ -40,5 +41,6 @@ t_bool				get_input_file(t_project *as);
 t_bool				tokenize_input(t_project *as);
 t_bool				create_output_file(t_project *as);
 t_bool				write_translation(t_project *as);
+t_bool				lexical_analysis(t_machine *as);
 
 #endif
