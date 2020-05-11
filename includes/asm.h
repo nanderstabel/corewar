@@ -6,10 +6,10 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/05/11 17:31:06 by zitzak        ########   odam.nl         */
-/*   Updated: 2020/05/11 16:11:22 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/11 18:06:21 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef ASM_H
 # define ASM_H
@@ -48,5 +48,6 @@ t_bool				create_output_file(t_project *as);
 t_bool				translate_to_byte(t_project *as);
 t_bool				write_translation(t_project *as);
 t_bool				lexical_analysis(t_machine *as);
+t_bool				print_usage_message(t_project *as);
 
 #endif
