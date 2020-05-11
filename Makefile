@@ -16,7 +16,7 @@ VM_NAME := corewar
 
 ASM_NAME := asm
 
-VM_OBJS := $(VM_FILES:%.c=objs/%.o) objs/vm_main.o
+VM_OBJS := $(VM_FILES:%.c=objs/%.o) objs/cor_main.o
 
 ASM_OBJS := $(ASM_FILES:%.c=objs/%.o) objs/asm_main.o
 
@@ -27,7 +27,7 @@ LIBFT := $(LIBFT_PATH)/libft.a
 
 INCLUDES_PATH := includes
 INCLUDES := -I $(INCLUDES_PATH) -I $(LIBFT_PATH)
-HDRS := $(INCLUDES_PATH)/corewar.h $(INCLUDES_PATH)/asm.h
+HDRS := $(INCLUDES_PATH)/corewar.h $(INCLUDES_PATH)/asm.h $(INCLUDES_PATH)/op.h
 
 PLUS := $$(tput setaf 2)+$$(tput sgr0)
 MINUS := $$(tput setaf 1)-$$(tput sgr0)
