@@ -6,11 +6,11 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/06 20:35:23 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/07 11:24:24 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
+#include "asm.h"
 
 t_bool			write_translation(t_project *as)
 {
