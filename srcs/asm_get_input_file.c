@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/11 18:36:31 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/05/12 08:39:02 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@
 
 t_bool			get_input_file(t_project *as)
 {
-	char	*temp;
+	size_t	len;
 
 	as->count = (as->flags & DEBUG_O) ? ft_printf("%s\n", __func__) : 0;
-	temp = ft_strchr(*as->argv, '.');
-	if ((temp == NULL) | (!ft_strequ(temp, ".s")))
+	len = ft_strlen(*as->argv);
+	if ((len < 3) | ((*as->argv)[len - 1] != 's' &&
+	(*as->argv)[len - 2] != '.'))
 	{
-		ft_printf("string %s", *as->argv);
 		print_usage_message(as);
 		return (FAIL);
 	}
