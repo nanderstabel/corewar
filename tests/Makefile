@@ -6,16 +6,15 @@
 #    By: mmarcell <mmarcell@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/01/08 13:03:52 by mmarcell      #+#    #+#                  #
-#    Updated: 2020/04/27 13:07:57 by mmarcell      ########   odam.nl          #
+#    Updated: 2020/05/11 19:30:00 by zitzak        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
-include ../srcs/_files
-include ./srcs/_test_files
+include ../srcs/_files.mk
+include ./srcs/_test_files.mk
 
-NAME := 
+OBJS := $(ASM_FILES:%.c=../objs/%.o) $(VM_FILES:%.c=../objs/%.o)
 
-OBJS := $(FILES:%.c=../objs/%.o)
 TESTS_OBJS := $(TEST_FILES:%.c=objs/%.o)
 
 CFLAGS := -Wall -Wextra -Werror
