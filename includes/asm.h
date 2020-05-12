@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/05/12 16:26:30 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/05/12 16:57:26 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,17 @@ enum
 	STRING,
 	ENDLINE,
 	INDIRECT,
-	END1 // Ik heb hier even END1 van gemaakt ivm conflict in set_options
+	END
 }	e_token;
 
 typedef struct s_token
 {
-	size_t		row;
-	size_t		column;
-	short		token_type;
-	char		*literal_str;
-}				t_token;
+	size_t			row;
+	size_t			column;
+	short			token_type;
+	char			*literal_str;
+	struct s_token	*next;
+}					t_token;
 
 typedef struct		s_project
 {
@@ -74,6 +75,14 @@ typedef struct s_redirect
 	t_f			func;
 }				t_redirect;
 
+typedef struct		s_token_tab
+{
+	char			*string;
+	char			next[END + 1];
+}					t_token_tab;
+
+extern t_token_tab	token_tab[END + 1];
+
 t_bool				set_options(t_project *as);
 t_bool				get_input_file(t_project *as);
 t_bool				analyze_lexicon(t_project *as);
@@ -89,4 +98,5 @@ t_bool				print_usage_message(t_project *as);
 void				skip_whitespaces(t_project *as, char **line);
 void				process_line(t_project *as, char **line);
 void				skip_comment_line(t_project *as, char **line);
+
 #endif

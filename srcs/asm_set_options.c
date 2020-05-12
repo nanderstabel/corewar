@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/07 11:24:38 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/12 14:34:44 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ enum
 	FIND_OPTION,
 	VALIDATE_ARGUMENT,
 	PRINT_USAGE_MESSAGE,
-	END
+	UNINSTALL
 }	e_state;
 
 t_bool				read_argument(t_project *as)
@@ -90,12 +90,12 @@ t_bool				print_usage_message(t_project *as)
 
 static t_state	g_transitions[][2] =
 {
-	[INITIALIZE] = {END, READ_ARGUMENT},
-	[READ_ARGUMENT] = {END, FIND_DASH},
-	[FIND_DASH] = {END, FIND_OPTION},
+	[INITIALIZE] = {UNINSTALL, READ_ARGUMENT},
+	[READ_ARGUMENT] = {UNINSTALL, FIND_DASH},
+	[FIND_DASH] = {UNINSTALL, FIND_OPTION},
 	[FIND_OPTION] = {VALIDATE_ARGUMENT, FIND_OPTION},
 	[VALIDATE_ARGUMENT] = {PRINT_USAGE_MESSAGE, READ_ARGUMENT},
-	[PRINT_USAGE_MESSAGE] = {END, END}
+	[PRINT_USAGE_MESSAGE] = {UNINSTALL, UNINSTALL}
 };
 
 static t_event	g_events[] =
@@ -112,7 +112,7 @@ t_bool			set_options(t_project *as)
 	t_machine	*machine;
 
 	as->count = (as->flags & DEBUG_O) ? ft_printf("%s\n", __func__) : 0;
-	if (install_machine(&machine, END))
+	if (install_machine(&machine, UNINSTALL))
 		run_machine(machine, as, g_transitions, g_events);
 	uninstall_machine(&machine);
 	return (SUCCESS);	
