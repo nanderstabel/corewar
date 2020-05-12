@@ -6,11 +6,11 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:02:07 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/11 16:13:43 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/12 13:41:04 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
+#include "asm.h"
 
 enum
 {
@@ -67,7 +67,7 @@ int					main(int argc, char **argv)
 {
 	t_machine	*machine;
 	t_project	*as;//'asm' is a keyword in c so we can not use it as a variable
-
+	
 	initialize_project(&as);
 	as->argc = argc;
 	as->argv = argv;
