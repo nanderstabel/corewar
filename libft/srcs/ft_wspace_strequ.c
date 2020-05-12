@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/12 17:10:29 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/05/12 18:53:56 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/05/12 20:31:26 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		ft_wspace_strequ(const char *s1, const char *s2)
 	}
 	if (s1[index] == '\0')
 		return (0);
-	if (ft_strncmp(s1, s2, index + 1) == 0)
+	if (ft_strncmp(s1, s2, index) == 0)
 		return (1);
 	return (0);
 }
