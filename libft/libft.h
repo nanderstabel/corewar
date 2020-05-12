@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/16 21:05:44 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/05/12 17:22:46 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/05/12 19:35:32 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,7 @@ void				ft_lstdelone(t_list **alst, void (*del)(void *, size_t));
 void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 t_list				*ft_lstnew(void const *content, size_t content_size);
+t_list				*ft_lstnew_ptr(void const *content, size_t content_size);
 void				*ft_memalloc(size_t size);
 void				*ft_memccpy(void *dst, const void *src, int c, size_t n);
 void				*ft_memchr(const void *s, int c, size_t n);
