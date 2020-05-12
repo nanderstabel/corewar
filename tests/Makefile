@@ -6,16 +6,22 @@
 #    By: mmarcell <mmarcell@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/01/08 13:03:52 by mmarcell      #+#    #+#                  #
-#    Updated: 2020/05/11 19:30:00 by zitzak        ########   odam.nl          #
+#    Updated: 2020/05/12 18:44:00 by zitzak        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 include ../srcs/_files.mk
 include ./srcs/_test_files.mk
 
+TEST_MAIN = test_main
+
+TEST_MAIN_FILE = test_main.c
+
 OBJS := $(ASM_FILES:%.c=../objs/%.o) $(VM_FILES:%.c=../objs/%.o)
 
 TESTS_OBJS := $(TEST_FILES:%.c=objs/%.o)
+
+TEST_MAIN_OBJ := $(TEST_MAIN_FILE:%.c=objs/%.o)
 
 CFLAGS := -Wall -Wextra -Werror
 
@@ -42,11 +48,14 @@ objs/%.o: srcs/%.c $(HDRS) | objs
 objs:
 	@mkdir -p $@
 
+test_main: $(TEST_MAIN_OBJ) $(OBJS)
+	@$(CC) -o $(TEST_MAIN) $^ $(INCLUDES) $(LIBFT) $(CFLAGS) -g
+
 clean:
-	@rm -fv $(TESTS_OBJS) | sed "s/^/ $(MINUS) /"
+	@rm -fv $(TESTS_OBJS) $(TEST_MAIN_OBJ) | sed "s/^/ $(MINUS) /"
 
 fclean: clean
-	@rm -fv test | sed "s/^/ $(MINUS) /"
+	@rm -fv test test_main | sed "s/^/ $(MINUS) /"
 
 re: fclean all
 
