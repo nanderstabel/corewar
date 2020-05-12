@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/12 17:37:52 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/05/12 18:40:31 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,6 +167,7 @@ t_bool			analyze_lexicon(t_project *as)
 	char		*line;
 	char		*temp;
 
+	return (SUCCESS);	//Delete this
 	as->count = (as->flags & DEBUG_O) ? ft_printf("%s\n", __func__) : 0;
 	as->token_list = ft_lstnew(NULL, 0);
 	while (get_next_line(as->fd, &line))
