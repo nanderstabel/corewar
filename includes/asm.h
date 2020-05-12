@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/05/12 16:26:30 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/05/12 17:08:48 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 # define OPTIONS				"agu"
 
-typedef void				(*t_f)(t_project *, char**);
+typedef t_bool				(*t_f)(t_project *, char**);
 
 enum
 {
@@ -86,7 +86,10 @@ t_bool				translate_to_byte(t_project *as);
 t_bool				write_translation(t_project *as);
 t_bool				lexical_analysis(t_machine *as);
 t_bool				print_usage_message(t_project *as);
-void				skip_whitespaces(t_project *as, char **line);
-void				process_line(t_project *as, char **line);
-void				skip_comment_line(t_project *as, char **line);
+t_bool				skip_whitespaces(t_project *as, char **line);
+t_bool				process_line(t_project *as, char **line);
+t_bool				skip_comment_line(t_project *as, char **line);
+t_bool				direct_token(t_project *as, char **line);
+t_bool				direct_label_token(t_project *as, char **line);
+t_bool				command_token(t_project *as, char **line);
 #endif
