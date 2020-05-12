@@ -6,11 +6,11 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:02:07 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/11 16:13:43 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/12 14:34:24 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
+#include "asm.h"
 
 enum
 {
@@ -25,22 +25,22 @@ enum
 	CREATE_OUTPUT_FILE,
 	TRANSLATE_TO_BYTE,
 	WRITE_TRANSLATION,
-	END
+	UNINSTALL
 }	e_state;
 
 static t_state	g_transitions[][2] =
 {
-	[INITIALIZE] = {END, SET_OPTIONS},
-	[SET_OPTIONS] = {END, GET_INPUT_FILE},
-	[GET_INPUT_FILE] = {END, ANALYZE_LEXICON},
-	[ANALYZE_LEXICON] = {END, TOKENIZE_INPUT},
-	[TOKENIZE_INPUT] = {END, ANALYZE_SYNTAX},
-	[ANALYZE_SYNTAX] = {END, ANALYZE_PARAMETERS},
-	[ANALYZE_PARAMETERS] = {END, ANALYZE_INSTRUCTIONS},
-	[ANALYZE_INSTRUCTIONS] = {END, CREATE_OUTPUT_FILE},
-	[CREATE_OUTPUT_FILE] = {END, TRANSLATE_TO_BYTE},
-	[TRANSLATE_TO_BYTE] = {END, WRITE_TRANSLATION},
-	[WRITE_TRANSLATION] = {END, END}
+	[INITIALIZE] = {UNINSTALL, SET_OPTIONS},
+	[SET_OPTIONS] = {UNINSTALL, GET_INPUT_FILE},
+	[GET_INPUT_FILE] = {UNINSTALL, ANALYZE_LEXICON},
+	[ANALYZE_LEXICON] = {UNINSTALL, TOKENIZE_INPUT},
+	[TOKENIZE_INPUT] = {UNINSTALL, ANALYZE_SYNTAX},
+	[ANALYZE_SYNTAX] = {UNINSTALL, ANALYZE_PARAMETERS},
+	[ANALYZE_PARAMETERS] = {UNINSTALL, ANALYZE_INSTRUCTIONS},
+	[ANALYZE_INSTRUCTIONS] = {UNINSTALL, CREATE_OUTPUT_FILE},
+	[CREATE_OUTPUT_FILE] = {UNINSTALL, TRANSLATE_TO_BYTE},
+	[TRANSLATE_TO_BYTE] = {UNINSTALL, WRITE_TRANSLATION},
+	[WRITE_TRANSLATION] = {UNINSTALL, UNINSTALL}
 };
 
 static t_event	g_events[] =
@@ -67,11 +67,11 @@ int					main(int argc, char **argv)
 {
 	t_machine	*machine;
 	t_project	*as;//'asm' is a keyword in c so we can not use it as a variable
-
+	
 	initialize_project(&as);
 	as->argc = argc;
 	as->argv = argv;
-	if (install_machine(&machine, END))
+	if (install_machine(&machine, UNINSTALL))
 		run_machine(machine, as, g_transitions, g_events);
 	uninstall_machine(&machine);
 	return (0);
