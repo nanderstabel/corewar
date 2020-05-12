@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/05/12 17:28:55 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/05/12 17:39:01 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,4 +101,6 @@ t_bool				skip_comment_line(t_project *as, char **line);
 t_bool				direct_token(t_project *as, char **line);
 t_bool				direct_label_token(t_project *as, char **line);
 t_bool				command_token(t_project *as, char **line);
+t_token				*new_token(t_project *as, short type, char *str);
+
 #endif
