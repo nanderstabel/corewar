@@ -6,7 +6,7 @@
 #    By: mmarcell <mmarcell@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/01/08 13:03:52 by mmarcell      #+#    #+#                  #
-#    Updated: 2020/05/12 18:21:53 by zitzak        ########   odam.nl          #
+#    Updated: 2020/05/12 18:44:00 by zitzak        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,8 +49,7 @@ objs:
 	@mkdir -p $@
 
 test_main: $(TEST_MAIN_OBJ) $(OBJS)
-	@$(CC) -o $(TEST_MAIN) $^ $(INCLUDES) $(LIBFT) $(CFLAGS)
-	@./test_main
+	@$(CC) -o $(TEST_MAIN) $^ $(INCLUDES) $(LIBFT) $(CFLAGS) -g
 
 clean:
 	@rm -fv $(TESTS_OBJS) $(TEST_MAIN_OBJ) | sed "s/^/ $(MINUS) /"
