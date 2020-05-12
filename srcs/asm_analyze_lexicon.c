@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/12 18:40:31 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/12 21:26:10 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,22 @@ t_redirect	look_up[] =
 t_bool			command_token(t_project *as, char **line)
 {
 	as->count = (as->flags & DEBUG_O) ? ft_printf("%s\n", __func__) : 0;
-	if (ft_wspace_strequ(*line, ".name") == 0)
+	if (ft_wspace_strequ(*line, ".name"))
 	{
 		as->column += 5;
-		ft_lstadd(&as->token_list, (void*)new_token(as, COMMAND_NAME, ".name"));
+		ft_lstadd_back(&as->token_list,
+		ft_lstnew_ptr((void*)new_token(as,
+		COMMAND_NAME, ".name"), sizeof(t_token)));
 	}
-	else if (ft_wspace_strequ(*line, ".comment") == 0)
+	else if (ft_wspace_strequ(*line, ".comment"))
 	{
 		as->column += 8;
-		ft_lstadd(&as->token_list, (void*)new_token(as, COMMAND_COMMENT, ".comment"));
+		ft_lstadd_back(&as->token_list,
+		ft_lstnew_ptr((void*)new_token(as,
+		COMMAND_COMMENT, ".comment"), sizeof(t_token)));
 	}
 	else
-	{
 		return (FAIL);
-	}
 	return (SUCCESS);
 }
 
@@ -169,7 +171,6 @@ t_bool			analyze_lexicon(t_project *as)
 
 	return (SUCCESS);	//Delete this
 	as->count = (as->flags & DEBUG_O) ? ft_printf("%s\n", __func__) : 0;
-	as->token_list = ft_lstnew(NULL, 0);
 	while (get_next_line(as->fd, &line))
 	{
 		as->row++;
@@ -179,9 +180,9 @@ t_bool			analyze_lexicon(t_project *as)
 			//print error
 			return (FAIL);
 		}
-		ft_lstadd(&as->token_list, (void*)new_token(as, ENDLINE, NULL));
+		ft_lstadd_back(&as->token_list, ft_lstnew_ptr((void*)new_token(as, ENDLINE, NULL), sizeof(t_token)));
 	}
-	ft_lstadd(&as->token_list, (void*)new_token(as, END, NULL));
+	ft_lstadd(&as->token_list, ft_lstnew_ptr((void*)new_token(as, END, NULL), sizeof(t_token)));
 	
 	return (SUCCESS);	
 }

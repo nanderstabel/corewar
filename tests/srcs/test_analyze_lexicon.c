@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/12 10:18:45 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/05/12 17:01:07 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/05/12 20:31:02 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,18 +39,46 @@ Test(test_lexical_analysis, process_line_test)
 
 }
 
-Test(test_lexical_analysis, direct_token_test)
+// Test(test_lexical_analysis, direct_token_test)
+// {
+// 	t_project	*as;
+// 	char 		*line;
+
+// 	as = (t_project*)ft_memalloc(sizeof(t_project));
+
+// 	line = ft_strdup("%:jkdf");
+// 	direct_token(as, &line);
+	
+
+// }
+
+Test(test_lexical_analysis, command_token_test)
 {
 	t_project	*as;
 	char 		*line;
+	t_bool		ret;
+	t_list		*temp;
 
 	as = (t_project*)ft_memalloc(sizeof(t_project));
 
-	line = ft_strdup("%:jkdf");
-	direct_token(as, &line);
+	line = ft_strdup(".name   \t");
+	command_token(as, &line);
+	temp = as->token_list;
+	cr_assert(((t_token*)temp->content)->token_type == COMMAND_NAME);
+
+	line = ft_strdup(".comment   \t");
+	command_token(as, &line);
+	temp = as->token_list->next;
+	cr_assert(((t_token*)temp->content)->token_type == COMMAND_COMMENT);
+
+	line = ft_strdup(".extwebndsdfa   \t");
+	ret = command_token(as, &line);
+	temp = as->token_list->next;
+	cr_assert(ret == FAIL);
 	
 
 }
+
 
 Test(test_lexical_analysis, skip_whitespaces_test)
 {
