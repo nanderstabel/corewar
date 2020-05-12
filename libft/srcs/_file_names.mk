@@ -6,7 +6,7 @@
 #    By: mmarcell <mmarcell@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/01/08 16:46:03 by mmarcell      #+#    #+#                  #
-#    Updated: 2020/05/06 22:22:08 by nstabel       ########   odam.nl          #
+#    Updated: 2020/05/12 17:23:52 by zitzak        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,4 +68,5 @@ FILES := ft_putchar.c ft_putchar_fd.c \
 	ft_hash.c ft_free_hash_table.c ft_freezero.c ft_puttbl.c \
 	ft_addr_lstadd.c ft_addr_lstapp.c ft_addr_lstdel.c ft_addr_lstdelone.c \
 	ft_addr_lstiter.c ft_addr_lstnew.c ft_addr_lstrev.c ft_addr_lstsrt.c \
-	ft_malloc_hash_table.c ft_hash_table_naive_resize.c ft_ndigits.c
+	ft_malloc_hash_table.c ft_hash_table_naive_resize.c ft_ndigits.c \
+	ft_wspace_strequ.c
