@@ -6,7 +6,7 @@
 #    By: mmarcell <mmarcell@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/02/28 18:56:22 by mmarcell      #+#    #+#                  #
-#    Updated: 2020/05/12 14:28:55 by nstabel       ########   odam.nl          #
+#    Updated: 2020/05/12 16:40:51 by nstabel       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,6 +14,7 @@
 VM_FILES := some_vm_function.c
 
 ASM_FILES :=	op.c						\
+				asm_token_tab.c				\
 				asm_set_options.c 			\
 				asm_get_input_file.c 		\
 				asm_analyze_lexicon.c 		\
