@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:02:07 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/12 14:34:24 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/12 18:43:00 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ static t_state	g_transitions[][2] =
 	[GET_INPUT_FILE] = {UNINSTALL, ANALYZE_LEXICON},
 	[ANALYZE_LEXICON] = {UNINSTALL, TOKENIZE_INPUT},
 	[TOKENIZE_INPUT] = {UNINSTALL, ANALYZE_SYNTAX},
-	[ANALYZE_SYNTAX] = {UNINSTALL, ANALYZE_PARAMETERS},
-	[ANALYZE_PARAMETERS] = {UNINSTALL, ANALYZE_INSTRUCTIONS},
-	[ANALYZE_INSTRUCTIONS] = {UNINSTALL, CREATE_OUTPUT_FILE},
+	[ANALYZE_SYNTAX] = {UNINSTALL, ANALYZE_INSTRUCTIONS},
+	[ANALYZE_INSTRUCTIONS] = {UNINSTALL, ANALYZE_PARAMETERS},
+	[ANALYZE_PARAMETERS] = {UNINSTALL, CREATE_OUTPUT_FILE},
 	[CREATE_OUTPUT_FILE] = {UNINSTALL, TRANSLATE_TO_BYTE},
 	[TRANSLATE_TO_BYTE] = {UNINSTALL, WRITE_TRANSLATION},
 	[WRITE_TRANSLATION] = {UNINSTALL, UNINSTALL}
@@ -50,8 +50,8 @@ static t_event	g_events[] =
 	[ANALYZE_LEXICON] = analyze_lexicon,
 	[TOKENIZE_INPUT] = tokenize_input,
 	[ANALYZE_SYNTAX] = analyze_syntax,
-	[ANALYZE_PARAMETERS] = analyze_parameters,
 	[ANALYZE_INSTRUCTIONS] = analyze_instructions,
+	[ANALYZE_PARAMETERS] = analyze_parameters,
 	[CREATE_OUTPUT_FILE] = create_output_file,
 	[TRANSLATE_TO_BYTE] = translate_to_byte,
 	[WRITE_TRANSLATION] = write_translation

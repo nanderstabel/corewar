@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/05/12 17:39:01 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/05/12 20:33:22 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,10 @@
 # include "op.h"
 
 # define OPTIONS				"agu"
+# define SYNTAX_ERR				"Syntax error at token [TOKEN]"
+# define INSTRUCTION_ERR		"Invalid instruction at token [TOKEN]"
+
+# define ERROR_FORMAT			"[%3.3u:%3.3u] %s \"%s\"\n"
 
 typedef t_bool				(*t_f)(t_project *, char**);
 
@@ -66,7 +70,9 @@ typedef struct		s_project
 	char			*string;
 	t_hash_table	*labels;
 	t_list			*token_list;
+	t_list			*tmp;
 	t_token			*current_token;
+	t_token			*next_token;
 }					t_project;
 
 typedef struct s_redirect
@@ -102,5 +108,7 @@ t_bool				direct_token(t_project *as, char **line);
 t_bool				direct_label_token(t_project *as, char **line);
 t_bool				command_token(t_project *as, char **line);
 t_token				*new_token(t_project *as, short type, char *str);
+t_bool				loop_token_list(t_project *as, \
+					t_bool (*check)(t_project *as));
 
 #endif
