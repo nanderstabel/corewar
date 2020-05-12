@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/05/12 14:21:20 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/05/12 16:26:30 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,19 @@ enum
 	END1 // Ik heb hier even END1 van gemaakt ivm conflict in set_options
 }	e_token;
 
+typedef struct s_token
+{
+	size_t		row;
+	size_t		column;
+	short		token_type;
+	char		*literal_str;
+}				t_token;
+
 typedef struct		s_project
 {
 	int				count;
+	size_t			row;
+	size_t			column;
 	int				fd;
 	int				argc;
 	char			**argv;
@@ -54,12 +64,14 @@ typedef struct		s_project
 	size_t			index;
 	char			*string;
 	t_hash_table	*labels;
+	t_list			*token_list;
+	t_token			*current_token;
 }					t_project;
 
 typedef struct s_redirect
 {
-	char		c;
-	t_f			f;
+	char		*chars;
+	t_f			func;
 }				t_redirect;
 
 t_bool				set_options(t_project *as);
@@ -76,4 +88,5 @@ t_bool				lexical_analysis(t_machine *as);
 t_bool				print_usage_message(t_project *as);
 void				skip_whitespaces(t_project *as, char **line);
 void				process_line(t_project *as, char **line);
+void				skip_comment_line(t_project *as, char **line);
 #endif
