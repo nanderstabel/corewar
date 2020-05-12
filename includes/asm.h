@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/05/12 14:21:20 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/05/12 14:34:29 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ enum
 	STRING,
 	ENDLINE,
 	INDIRECT,
-	END1 // Ik heb hier even END1 van gemaakt ivm conflict in set_options
+	END
 }	e_token;
 
 typedef struct		s_project
