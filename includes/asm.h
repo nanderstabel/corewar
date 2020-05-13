@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/05/13 15:55:01 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/05/13 17:04:08 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # define ERROR_FORMAT			"[%3.3u:%3.3u] %s \"%s\"\n"
 # define LEXICAL_ERR			"Lexical error at [%d:%d]\n"
 # define END_LABEL_CHARS		",%#\";\n \t\v\f"
+
 
 typedef t_bool				(*t_f)(t_project *, char**);
 
