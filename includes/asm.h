@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/05/13 02:47:49 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/13 15:55:01 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # define INSTRUCTION_ERR		"Invalid instruction at token [TOKEN]"
 
 # define ERROR_FORMAT			"[%3.3u:%3.3u] %s \"%s\"\n"
+# define LEXICAL_ERR			"Lexical error at [%d:%d]\n"
+# define END_LABEL_CHARS		",%#\";\n \t\v\f"
 
 typedef t_bool				(*t_f)(t_project *, char**);
 
@@ -72,7 +74,7 @@ typedef struct		s_project
 	int				flags;
 	size_t			index;
 	t_arg_type		octal;
-	char			*string;
+	char			*temp;
 	char			*buffer;
 	t_hash_table	*labels;
 	size_t			n_labels;
@@ -117,7 +119,8 @@ t_bool				skip_comment_line(t_project *as, char **line);
 t_bool				direct_token(t_project *as, char **line);
 t_bool				direct_label_token(t_project *as, char **line);
 t_bool				command_token(t_project *as, char **line);
-t_token				*new_token(t_project *as, short type, char *str);
+t_token				*new_token(t_project *as, size_t y_axis, \
+					short type, char *str);
 t_bool				loop_token_list(t_project *as, \
 					t_bool (*check)(t_project *as));
 t_bool				translate_indirect_label(t_project *as);
@@ -126,5 +129,11 @@ t_bool				translate_register(t_project *as);
 t_bool				translate_direct_label(t_project *as);
 t_bool				translate_direct(t_project *as);
 t_bool				translate_indirect(t_project *as);
+void				increment_line(t_project *as, char **line, size_t len);
+t_bool				is_valid_label_chars(t_project *as, char **line);
+void				skip_to_end_number(t_project *as, char **line);
+t_bool				indirect_label_token(t_project *as, char **line);
+t_bool				label_token(t_project *as, char **line);
+t_bool				register_token(t_project *as, char **line);
 
 #endif
