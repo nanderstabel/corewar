@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/12 21:26:10 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/13 07:55:38 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,6 +177,7 @@ t_bool			analyze_lexicon(t_project *as)
 		temp = line;
 		if (!process_line(as, &temp))
 		{
+			ft_printf("Lexical error bla bla");
 			//print error
 			return (FAIL);
 		}
