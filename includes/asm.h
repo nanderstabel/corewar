@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/05/12 20:33:22 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/13 02:47:49 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,12 @@ typedef struct s_token
 {
 	size_t			row;
 	size_t			column;
+	char			opcode;
+	char			encoding;
+	char			size;
 	short			token_type;
+	short			address;
 	char			*literal_str;
-	struct s_token	*next;
 }					t_token;
 
 typedef struct		s_project
@@ -65,12 +68,17 @@ typedef struct		s_project
 	int				fd;
 	int				argc;
 	char			**argv;
+	size_t			pc;
 	int				flags;
 	size_t			index;
+	t_arg_type		octal;
 	char			*string;
+	char			*buffer;
 	t_hash_table	*labels;
+	size_t			n_labels;
 	t_list			*token_list;
 	t_list			*tmp;
+	t_list			*trail;
 	t_token			*current_token;
 	t_token			*next_token;
 }					t_project;
@@ -84,6 +92,8 @@ typedef struct s_redirect
 typedef struct		s_token_tab
 {
 	char			*string;
+	char			size;
+	t_event			translate;
 	char			next[END + 1];
 }					t_token_tab;
 
@@ -110,5 +120,11 @@ t_bool				command_token(t_project *as, char **line);
 t_token				*new_token(t_project *as, short type, char *str);
 t_bool				loop_token_list(t_project *as, \
 					t_bool (*check)(t_project *as));
+t_bool				translate_indirect_label(t_project *as);
+t_bool				translate_instruction(t_project *as);
+t_bool				translate_register(t_project *as);
+t_bool				translate_direct_label(t_project *as);
+t_bool				translate_direct(t_project *as);
+t_bool				translate_indirect(t_project *as);
 
 #endif
