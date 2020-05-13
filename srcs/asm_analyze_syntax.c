@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/13 02:59:29 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/13 03:19:16 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,8 @@ t_bool			syntax_check(t_project *as)
 	if (!token_tab[as->current_token->token_type].\
 		next[as->next_token->token_type])
 	{
-		ft_printf(SYNTAX_ERR ERROR_FORMAT, as->next_token->row, \
+		ft_printf(SYNTAX_ERR);
+		ft_printf(ERROR_FORMAT, as->next_token->row, \
 		as->next_token->column, token_tab[as->next_token->token_type].string, \
 		as->next_token->literal_str);
 		return (FAIL);
@@ -78,7 +79,7 @@ t_bool			analyze_syntax(t_project *as)
 	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, DIRECT, ft_strdup("%5")), 0));
 	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, ENDLINE, ft_strdup("\n")), 0));
 	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, LABEL, ft_strdup("label2:")), 0));
-	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, INSTRUCTION, ft_strdup("and")), 0));
+	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, INSTRUCTION, ft_strdup("andv")), 0));
 	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, DIRECT, ft_strdup("%2")), 0));
 	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, SEPARATOR, ft_strdup(",")), 0));
 	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, DIRECT_LABEL, ft_strdup("%:l1")), 0));
