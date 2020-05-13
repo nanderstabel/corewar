@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/05/13 17:17:56 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/05/13 21:05:12 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,10 @@
 # define ERROR_FORMAT			"[%3.3u:%3.3u] %s \"%s\"\n"
 # define LEXICAL_ERR			"Lexical error at [%d:%d]\n"
 # define END_LABEL_CHARS		",%#\";\n \t\v\f"
+# define WHITESPACES			" \t\v\f"
+# define DIGITS_INDIRECT		"-0123456789"
+
+# define TWO_DIGITS				4
 
 typedef t_bool				(*t_f)(t_project *, char**);
 
@@ -133,7 +137,10 @@ void				increment_line(t_project *as, char **line, size_t len);
 t_bool				is_valid_label_chars(t_project *as, char **line);
 void				skip_to_end_number(t_project *as, char **line);
 t_bool				indirect_label_token(t_project *as, char **line);
-t_bool				label_token(t_project *as, char **line);
+t_bool				label_instruction_token(t_project *as, char **line);
 t_bool				register_token(t_project *as, char **line);
-
+t_bool				label_chars_redirect(t_project *as, char **line);
+t_bool				indrect_token(t_project *as, char **line);	
+t_bool				separator_token(t_project *as, char **line);
+t_bool			string_token(t_project *as, char **line);
 #endif
