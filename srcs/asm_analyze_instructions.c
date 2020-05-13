@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/11 16:07:54 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/13 02:18:02 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/13 03:18:19 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 /*
 ** -------------------------------------------------------------------------- **
-** 
 ** checks if the current token is of type INSTRUCTION. If this is the case,
 ** then it will loop through the op_tab table to check if the instruction
 ** is valid. If not, then an error message is printed and FAIL is returned.
@@ -48,9 +47,11 @@ t_bool			instruction_check(t_project *as)
 			}
 			++as->index;
 		}
-		ft_printf(INSTRUCTION_ERR ERROR_FORMAT, as->current_token->row, \
-			as->current_token->column, token_tab[as->current_token->token_type]\
-			.string, as->current_token->literal_str);
+		ft_printf(INSTRUCTION_ERR);
+		ft_printf(ERROR_FORMAT, as->current_token->row, \
+			as->current_token->column, \
+			token_tab[as->current_token->token_type].string, \
+			as->current_token->literal_str);
 		return (FAIL);
 	}
 	else if (as->current_token->token_type == LABEL)
