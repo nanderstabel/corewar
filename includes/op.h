@@ -6,13 +6,15 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/07 18:01:44 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/12 13:48:40 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/12 22:06:30 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #ifndef OP_H
 # define OP_H
+
+#include <stdlib.h>
 
 /*
 ** Toutes les tailles sont en octets.
@@ -82,7 +84,7 @@ typedef struct		header_s
 typedef struct		s_op
 {
 	char			*operation;
-	char			n_args;
+	size_t			n_args;
 	t_arg_type		args[3];
 	char			opcode;
 	short			cycles_to_wait;

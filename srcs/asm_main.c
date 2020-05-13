@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:02:07 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/12 18:43:00 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/13 02:36:30 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,13 @@ static t_event	g_events[] =
 static void			initialize_project(t_project **as)
 {
 	*as = (t_project *)ft_memalloc(sizeof(t_project));
-	(*as)->labels = ft_malloc_hash_table(101, "Labels", FORMAT_LEFT);
+	(*as)->buffer = (char *)ft_memalloc(sizeof(char) * CHAMP_MAX_SIZE);
 }
 
 int					main(int argc, char **argv)
 {
 	t_machine	*machine;
-	t_project	*as;//'asm' is a keyword in c so we can not use it as a variable
+	t_project	*as;
 	
 	initialize_project(&as);
 	as->argc = argc;
