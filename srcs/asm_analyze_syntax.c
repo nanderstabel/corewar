@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/13 03:19:16 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/13 14:32:20 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,35 +66,5 @@ t_bool			syntax_check(t_project *as)
 t_bool			analyze_syntax(t_project *as)
 {
 	as->count = (as->flags & DEBUG_O) ? ft_printf("%s\n", __func__) : 0;
-	
-	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, COMMAND_NAME, ft_strdup(".name")), 0));
-	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, STRING, ft_strdup("JimmyJoy")), 0));
-	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, ENDLINE, ft_strdup("\n")), 0));
-	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, COMMAND_COMMENT, ft_strdup(".comment")), 0));
-	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, STRING, ft_strdup("My name is Jimmy")), 0));
-	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, ENDLINE, ft_strdup("\n")), 0));
-	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, LABEL, ft_strdup("label1:")), 0));
-	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, ENDLINE, ft_strdup("\n")), 0));
-	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, INSTRUCTION, ft_strdup("live")), 0));
-	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, DIRECT, ft_strdup("%5")), 0));
-	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, ENDLINE, ft_strdup("\n")), 0));
-	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, LABEL, ft_strdup("label2:")), 0));
-	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, INSTRUCTION, ft_strdup("andv")), 0));
-	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, DIRECT, ft_strdup("%2")), 0));
-	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, SEPARATOR, ft_strdup(",")), 0));
-	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, DIRECT_LABEL, ft_strdup("%:l1")), 0));
-	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, SEPARATOR, ft_strdup(",")), 0));
-	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, REGISTER, ft_strdup("r1")), 0));
-	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, ENDLINE, ft_strdup("\n")), 0));
-	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, LABEL, ft_strdup("label3:")), 0));
-	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, INSTRUCTION, ft_strdup("sub")), 0));
-	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, REGISTER, ft_strdup("r1")), 0));
-	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, SEPARATOR, ft_strdup(",")), 0));
-	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, REGISTER, ft_strdup("r2")), 0));
-	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, SEPARATOR, ft_strdup(",")), 0));
-	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, REGISTER, ft_strdup("r3")), 0));
-	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, ENDLINE, ft_strdup("\n")), 0));
-	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, END, ft_strdup("")), 0));
-
 	return (loop_token_list(as, syntax_check));
 }
