@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/16 21:05:44 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/05/13 00:53:59 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/14 11:33:52 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define LIBFT_H
 
 # include <stdarg.h>
-# include <stdio.h>
+# include <stdio.h>//norm?
 # include <stdlib.h>
 # include <unistd.h>
 # include <sys/types.h>
