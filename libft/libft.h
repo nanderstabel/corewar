@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/16 21:05:44 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/05/14 22:43:01 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/14 22:59:54 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -294,6 +294,6 @@ int					ft_strequ_till_whitespaces(const char *s1, const char *s2);
 int					ft_nchar(const char *str, int c);
 char				*ft_strndup(const char *src, size_t len);
 t_list				*ft_list_last_elem(t_list *head);
-int					get_next_newline(const int fd, char **line);
+int					get_next_endline(const int fd, char **line);
 
 #endif
