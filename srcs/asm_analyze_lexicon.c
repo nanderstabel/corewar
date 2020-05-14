@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/13 22:20:26 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/05/14 09:51:15 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,10 +107,8 @@ t_bool			string_token(t_project *as, char **line)
 	temp_list = as->token_list;
 	if (as->index)
 	{
-		while (!temp_list->next)
-		{
-			temp_list = temp_list->next;
-		}
+		temp_list = ft_list_last_elem(as->token_list);
+		delete = ((t_token*)temp_list->content)->literal_str;
 	}
 	if (!as->index)
 		increment_line(as, line, 1);
@@ -120,35 +118,44 @@ t_bool			string_token(t_project *as, char **line)
 	{
 		if (as->index)
 		{
-			delete = ((t_token*)temp_list->content)->literal_str;
+			// delete = ((t_token*)temp_list->content)->literal_str;
 			((t_token*)temp_list->content)->literal_str = ft_strjoin(delete, *line);
 			free(delete);
 		}
 		else
 		{
 			ft_lstadd_back(&as->token_list, ft_lstnew_ptr((void*)new_token(as,
-			as->column, STRING, ft_strdup(as->temp)), sizeof(t_token)));
+			(as->column - (*line - as->temp)), STRING, ft_strdup(as->temp)), sizeof(t_token)));
 		}
 		increment_line(as, line, ft_strlen(*line) - 1);
 		as->index = 1;
 	}
 	else
 	{
-		len = as->temp - temp_str;
+		len =  temp_str - as->temp;
 		if (as->index)
 		{
-			delete = ((t_token*)temp_list->content)->literal_str;
-			temp_str = ft_strndup(as->temp, len);
+			// ft_printf("len - %d\nas->temp - %s\nchar - %c\n", len, as->temp, as->temp[len]);
+			// delete = ((t_token*)temp_list->content)->literal_str;
+			temp_str = ft_strndup(as->temp, len + 1);
+			// ft_printf("string in list - %s\nstr to join - %s\n", delete, temp_str);
 			((t_token*)temp_list->content)->literal_str = ft_strjoin(delete, temp_str);
 			free(delete);
 			free(temp_str);
+			as->index = 0;
+			// increment_line(as, line, len);
+
 		}
 		else
 		{
+			// ft_printf("new token\n");
 			ft_lstadd_back(&as->token_list, ft_lstnew_ptr((void*)new_token(as,
-			as->column, STRING, ft_strndup(as->temp, len)), sizeof(t_token)));
+			(as->column - (*line - as->temp)), STRING, ft_strndup(as->temp, len + 1)), sizeof(t_token)));
 		}
+		increment_line(as, line, len);
+		// ft_printf("print char line %c\n", *((*line) - 1));
 	}
+	// "sdkfjsdk"F
 	return (SUCCESS);
 }
 
