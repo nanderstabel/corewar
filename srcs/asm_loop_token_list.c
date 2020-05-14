@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/12 20:32:11 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/12 21:59:47 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/14 20:40:28 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@ t_bool			loop_token_list(t_project *as, t_bool (*check)(t_project *as))
 	as->tmp = as->token_list;
 	if (!as->tmp)
 		return (FAIL);
-	while (as->tmp->next)
+	while (as->tmp)
 	{
+		if (!as->tmp->next)
+			break ;
 		as->current_token = (t_token *)as->tmp->content;
 		as->next_token = (t_token *)as->tmp->next->content;
 		if (check(as) == FAIL)

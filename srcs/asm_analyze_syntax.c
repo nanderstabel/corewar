@@ -6,11 +6,40 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/14 11:33:22 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/14 21:53:03 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+
+t_bool			syntax_error(t_project *as)
+{
+	ft_printf(SYNTAX_ERR);
+	if (as->next_token->token_type == ENDLINE)
+		ft_printf(ENDLINE_FORMAT, as->next_token->row + 1, \
+		as->next_token->column + 1, token_tab[as->next_token->token_type].string);
+	else
+		ft_printf(ERROR_FORMAT, as->next_token->row + 1, \
+		as->next_token->column + 1, token_tab[as->next_token->token_type].string, \
+		as->next_token->literal_str);
+	return (FAIL);
+}
+
+t_bool			command_syntax_check(t_project *as)
+{
+	as->count = (as->flags & DEBUG_O) ? ft_printf("\t\t%s\n", __func__) : 0;
+	if (as->current_token->token_type == COMMAND_NAME)
+		++as->name_found;
+	else if (as->current_token->token_type == COMMAND_COMMENT)
+		++as->comment_found;
+	if (as->next_token->token_type == COMMAND_NAME && as->name_found)
+		return (syntax_error(as));
+	else if (as->next_token->token_type == COMMAND_COMMENT && as->comment_found)
+		return (syntax_error(as));
+	else if (as->next_token->token_type == END && !(as->name_found && as->comment_found))
+		return (syntax_error(as));
+	return (SUCCESS);
+}
 
 /*
 ** -------------------------------------------------------------------------- **
@@ -33,15 +62,11 @@
 t_bool			syntax_check(t_project *as)
 {
 	as->count = (as->flags & DEBUG_O) ? ft_printf("\t\t%s\n", __func__) : 0;
+	if (command_syntax_check(as) == FAIL)
+		return (FAIL);
 	if (!token_tab[as->current_token->token_type].\
 		next[as->next_token->token_type])
-	{
-		ft_printf(SYNTAX_ERR);
-		ft_printf(ERROR_FORMAT, as->next_token->row, \
-		as->next_token->column, token_tab[as->next_token->token_type].string, \
-		as->next_token->literal_str);
-		return (FAIL);
-	}
+		return (syntax_error(as));
 	if (as->current_token->token_type == SEPARATOR)
 	{
 		as->tmp = as->trail;
@@ -66,5 +91,10 @@ t_bool			syntax_check(t_project *as)
 t_bool			analyze_syntax(t_project *as)
 {
 	as->count = (as->flags & DEBUG_O) ? ft_printf("%s\n", __func__) : 0;
+	while (as->token_list)
+	{
+		ft_printf("token: %s\n", token_tab[((t_token *)as->token_list->content)->token_type].string);
+		as->token_list = as->token_list->next;
+	}
 	return (loop_token_list(as, syntax_check));
 }
