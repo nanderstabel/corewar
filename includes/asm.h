@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/05/14 10:54:32 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/14 10:55:05 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,8 @@ void				skip_to_end_number(t_project *as, char **line);
 t_bool				indirect_label_token(t_project *as, char **line);
 t_bool				label_token(t_project *as, char **line);
 t_bool				register_token(t_project *as, char **line);
+
+t_bool				syntax_check(t_project *as);
 
 t_bool				syntax_check(t_project *as);
 
