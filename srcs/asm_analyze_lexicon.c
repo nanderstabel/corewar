@@ -6,13 +6,13 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/14 09:51:15 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/05/14 17:23:22 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-t_redirect	look_up[] = 
+t_redirect		look_up[LOOK_UP_LEVELS] =
 {
 	{WHITESPACES, skip_whitespaces},
 	{"#;", skip_comment_line},
@@ -28,19 +28,23 @@ t_redirect	look_up[] =
 t_bool			command_token(t_project *as, char **line)
 {
 	as->count = (as->flags & DEBUG_O) ? ft_printf("%s\n", __func__) : 0;
-	if (ft_wspace_strequ(*line, ".name"))
+	if (ft_strequ_till_whitespaces(*line, ".name"))
 	{
-		as->column += 5;
 		ft_lstadd_back(&as->token_list,
 		ft_lstnew_ptr((void*)new_token(as, as->column,
 		COMMAND_NAME, ".name"), sizeof(t_token)));
+		increment_line(as, line, 5);
+		as->count =
+		(as->flags & DEBUG_L) ? ft_printf("--add COMMAND_NAME token\n") : 0;
 	}
-	else if (ft_wspace_strequ(*line, ".comment"))
+	else if (ft_strequ_till_whitespaces(*line, ".comment"))
 	{
-		as->column += 8;
 		ft_lstadd_back(&as->token_list,
 		ft_lstnew_ptr((void*)new_token(as, as->column,
 		COMMAND_COMMENT, ".comment"), sizeof(t_token)));
+		increment_line(as, line, 8);
+		as->count =
+		(as->flags & DEBUG_L) ? ft_printf("--add COMMAND_COMMENT token\n") : 0;
 	}
 	else
 		return (FAIL);
@@ -49,12 +53,12 @@ t_bool			command_token(t_project *as, char **line)
 
 t_bool			register_token(t_project *as, char **line)
 {
-	int		increment;
+	int			increment;
 
 	increment = 1;
 	as->count = (as->flags & DEBUG_O) ? ft_printf("%s\n", __func__) : 0;
 	increment_line(as, line, 1);
-	if ((**line == '0' && ft_strchr(END_LABEL_CHARS,*((*line) + 1))) ||
+	if ((**line == '0' && ft_strchr(END_LABEL_CHARS, *((*line) + 1))) ||
 	(**line == '0' && *((*line) + 1) == '0'))
 	{
 		if (*((*line) + 1) == '0')
@@ -67,136 +71,7 @@ t_bool			register_token(t_project *as, char **line)
 	ft_lstadd_back(&as->token_list, ft_lstnew_ptr((void*)new_token(as,
 	(as->column - (*line - as->temp)), REGISTER, ft_strndup(as->temp,
 	(*line - as->temp))), sizeof(t_token)));
-	return (SUCCESS);
-}
-
-t_bool			label_instruction_token(t_project *as, char **line)
-{
-	as->count = (as->flags & DEBUG_O) ? ft_printf("%s\n", __func__) : 0;
-	if (!is_valid_label_chars(as, line))
-	{
-		if (**line == ':')
-		{
-			increment_line(as, line, 1);
-			ft_lstadd_back(&as->token_list, ft_lstnew_ptr((void*)new_token(as,
-			(as->column - (*line - as->temp)), LABEL, ft_strndup(as->temp,
-			(*line - as->temp))), sizeof(t_token)));
-		}
-		else
-			return (FAIL);
-	}
-	else
-	{
-		ft_lstadd_back(&as->token_list, ft_lstnew_ptr((void*)new_token(as,
-		(as->column - (*line - as->temp)), INSTRUCTION, ft_strndup(as->temp,
-		(*line - as->temp))), sizeof(t_token)));
-	}
-	return (SUCCESS);
-}
-
-
-t_bool			string_token(t_project *as, char **line)
-{
-	char		*temp_str;
-	char		*delete;
-	t_list		*temp_list;
-	int			len;
-
-	len = 0;
-	delete = NULL;
-	temp_list = as->token_list;
-	if (as->index)
-	{
-		temp_list = ft_list_last_elem(as->token_list);
-		delete = ((t_token*)temp_list->content)->literal_str;
-	}
-	if (!as->index)
-		increment_line(as, line, 1);
-	as->count = (as->flags & DEBUG_O) ? ft_printf("%s\n", __func__) : 0;
-	temp_str = ft_strchr(*line, (int)'"');
-	if (!temp_str)
-	{
-		if (as->index)
-		{
-			// delete = ((t_token*)temp_list->content)->literal_str;
-			((t_token*)temp_list->content)->literal_str = ft_strjoin(delete, *line);
-			free(delete);
-		}
-		else
-		{
-			ft_lstadd_back(&as->token_list, ft_lstnew_ptr((void*)new_token(as,
-			(as->column - (*line - as->temp)), STRING, ft_strdup(as->temp)), sizeof(t_token)));
-		}
-		increment_line(as, line, ft_strlen(*line) - 1);
-		as->index = 1;
-	}
-	else
-	{
-		len =  temp_str - as->temp;
-		if (as->index)
-		{
-			// ft_printf("len - %d\nas->temp - %s\nchar - %c\n", len, as->temp, as->temp[len]);
-			// delete = ((t_token*)temp_list->content)->literal_str;
-			temp_str = ft_strndup(as->temp, len + 1);
-			// ft_printf("string in list - %s\nstr to join - %s\n", delete, temp_str);
-			((t_token*)temp_list->content)->literal_str = ft_strjoin(delete, temp_str);
-			free(delete);
-			free(temp_str);
-			as->index = 0;
-			// increment_line(as, line, len);
-
-		}
-		else
-		{
-			// ft_printf("new token\n");
-			ft_lstadd_back(&as->token_list, ft_lstnew_ptr((void*)new_token(as,
-			(as->column - (*line - as->temp)), STRING, ft_strndup(as->temp, len + 1)), sizeof(t_token)));
-		}
-		increment_line(as, line, len);
-		// ft_printf("print char line %c\n", *((*line) - 1));
-	}
-	// "sdkfjsdk"F
-	return (SUCCESS);
-}
-
-t_bool			separator_token(t_project *as, char **line)
-{
-	as->count = (as->flags & DEBUG_O) ? ft_printf("%s\n", __func__) : 0;
-	ft_lstadd_back(&as->token_list, ft_lstnew_ptr((void*)new_token(as,
-	(as->column - (*line - as->temp)), SEPARATOR, ft_strndup(as->temp,
-	(*line - as->temp))), sizeof(t_token)));
-	increment_line(as, line, 1);
-	return (SUCCESS);
-}
-
-t_bool			label_chars_redirect(t_project *as, char **line)
-{
-	int			index;
-
-	index = 0;
-	as->count = (as->flags & DEBUG_O) ? ft_printf("%s\n", __func__) : 0;
-	if (**line == 'r')
-	{
-		while (ft_isdigit((int)(*line)[index + 1]))
-			index++;
-		if (index + 1 <= TWO_DIGITS && *((*line) + index + 1) != ':' &&
-		ft_strchr(END_LABEL_CHARS, *((*line) + index + 1)) &&
-		!ft_strchr(LABEL_CHARS, *((*line) + index + 1)))
-		{
-			if (!register_token(as, line))
-				return (FAIL);
-			return (SUCCESS);
-		}
-	}
-	while (ft_isdigit((int)(*line)[index]))
-		index++;
-	if (index > 0 && ft_strchr(END_LABEL_CHARS, *((*line) + index)))
-	{
-		indrect_token(as, line);
-		return (SUCCESS);
-	}
-	if (!label_instruction_token(as, line))
-		return (FAIL);
+	as->count = (as->flags & DEBUG_L) ? ft_printf("--add REGISTER token\n") : 0;
 	return (SUCCESS);
 }
 
@@ -212,6 +87,152 @@ t_bool			is_valid_label_chars(t_project *as, char **line)
 	return (SUCCESS);
 }
 
+t_bool			label_instruction_token(t_project *as, char **line)
+{
+	as->count = (as->flags & DEBUG_O) ? ft_printf("%s\n", __func__) : 0;
+	if (!is_valid_label_chars(as, line))
+	{
+		if (**line == ':')
+		{
+			increment_line(as, line, 1);
+			ft_lstadd_back(&as->token_list, ft_lstnew_ptr((void*)new_token(as,
+			(as->column - (*line - as->temp)), LABEL, ft_strndup(as->temp,
+			(*line - as->temp))), sizeof(t_token)));
+			as->count =
+			(as->flags & DEBUG_L) ? ft_printf("--add LABEL token\n") : 0;
+		}
+		else
+			return (FAIL);
+	}
+	else
+	{
+		as->count =
+		(as->flags & DEBUG_L) ? ft_printf("--add INSTRUCTION token\n") : 0;
+		ft_lstadd_back(&as->token_list, ft_lstnew_ptr((void*)new_token(as,
+		(as->column - (*line - as->temp)), INSTRUCTION, ft_strndup(as->temp,
+		(*line - as->temp))), sizeof(t_token)));
+	}
+	return (SUCCESS);
+}
+
+t_bool			label_chars_redirect(t_project *as, char **line)
+{
+	int			index;
+
+	index = 0;
+	as->count = (as->flags & DEBUG_O) ? ft_printf("%s\n", __func__) : 0;
+	if (**line == 'r')
+	{
+		while (ft_isdigit((int)(*line)[index + 1]))
+			index++;
+		if (index <= TWO_DIGITS &&
+		ft_strchr(END_LABEL_CHARS, *((*line) + index + 1)))
+		{
+			if (!register_token(as, line))
+				return (FAIL);
+			return (SUCCESS);
+		}
+		index = 0;
+	}
+	while (ft_isdigit((int)(*line)[index]))
+		index++;
+	if (index > 0 && ft_strchr(END_LABEL_CHARS, *((*line) + index)))
+		indrect_token(as, line);
+	else if (!label_instruction_token(as, line))
+		return (FAIL);
+	return (SUCCESS);
+}
+
+int				add_to_string_token(t_project *as, char **line)
+{
+	char		*old_str;
+	t_list		*l_temp;
+	char		*temp;
+	int			len;
+
+	as->count = (as->flags & DEBUG_O) ? ft_printf("%s\n", __func__) : 0;
+	l_temp = ft_list_last_elem(as->token_list);
+	old_str = ((t_token*)l_temp->content)->literal_str;
+	temp = ft_strchr(*line, (int)'"');
+	len = (temp - as->temp);
+	if (!temp)
+		((t_token*)l_temp->content)->literal_str = ft_strjoin(old_str, *line);
+	else
+	{
+		temp = ft_strndup(as->temp, len + 1);
+		((t_token*)l_temp->content)->literal_str = ft_strjoin(old_str, temp);
+		free(temp);
+	}
+	as->count = (as->flags & DEBUG_L) ? ft_printf("--add STRING token\n") : 0;
+	free(old_str);
+	if (!temp)
+		return (0);
+	return (len);
+}
+
+int				new_string_token(t_project *as, char **line)
+{
+	char		*str_temp;
+	int			len;
+
+	as->count = (as->flags & DEBUG_O) ? ft_printf("%s\n", __func__) : 0;
+	increment_line(as, line, 1);
+	str_temp = ft_strchr(*line, (int)'"');
+	len = str_temp - as->temp;
+	if (!str_temp)
+	{
+		ft_lstadd_back(&as->token_list, ft_lstnew_ptr((void*)new_token(as,
+		(as->column - (*line - as->temp)), STRING, ft_strdup(as->temp)),
+		sizeof(t_token)));
+		as->count =
+		(as->flags & DEBUG_L) ? ft_printf("--add STRING token\n") : 0;
+		return (0);
+	}
+	else
+	{
+		ft_lstadd_back(&as->token_list, ft_lstnew_ptr((void*)new_token(as,
+		(as->column - (*line - as->temp)), STRING, ft_strndup(as->temp,
+		len + 1)), sizeof(t_token)));
+		as->count =
+		(as->flags & DEBUG_L) ? ft_printf("--add STRING token\n") : 0;
+		return (len);
+	}
+}
+
+t_bool			string_token(t_project *as, char **line)
+{
+	int			ret;
+
+	as->count = (as->flags & DEBUG_O) ? ft_printf("%s\n", __func__) : 0;
+	if (as->index)
+		ret = add_to_string_token(as, line);
+	else
+		ret = new_string_token(as, line);
+	if (ret)
+	{
+		as->index = 0;
+		increment_line(as, line, ret);
+	}
+	else
+	{
+		increment_line(as, line, ft_strlen(*line) - 1);
+		as->index = 1;
+	}
+	return (SUCCESS);
+}
+
+t_bool			separator_token(t_project *as, char **line)
+{
+	as->count = (as->flags & DEBUG_O) ? ft_printf("%s\n", __func__) : 0;
+	ft_lstadd_back(&as->token_list, ft_lstnew_ptr(
+	(void*)new_token(as, as->column, SEPARATOR,
+	ft_strndup(as->temp, 1)), sizeof(t_token)));
+	increment_line(as, line, 1);
+	as->count =
+	(as->flags & DEBUG_L) ? ft_printf("--add SEPARATOR token\n") : 0;
+	return (SUCCESS);
+}
+
 t_bool			indirect_label_token(t_project *as, char **line)
 {
 	as->count = (as->flags & DEBUG_O) ? ft_printf("%s\n", __func__) : 0;
@@ -222,8 +243,10 @@ t_bool			indirect_label_token(t_project *as, char **line)
 			return (FAIL);
 		ft_lstadd_back(&as->token_list, ft_lstnew_ptr(
 			(void*)new_token(as, (as->column - (*line - as->temp)),
-			INDIRECT_LABEL,
-			ft_strndup(as->temp,(*line - as->temp))), sizeof(t_token)));		
+			INDIRECT_LABEL, ft_strndup(as->temp,
+			(*line - as->temp))), sizeof(t_token)));
+		as->count =
+		(as->flags & DEBUG_L) ? ft_printf("--add INDIRECT_LABEL token\n") : 0;
 		return (SUCCESS);
 	}
 	return (FAIL);
@@ -238,12 +261,14 @@ t_bool			direct_label_token(t_project *as, char **line)
 	ft_lstadd_back(&as->token_list, ft_lstnew_ptr((void*)new_token(as,
 	(as->column - (*line - as->temp)), DIRECT_LABEL, ft_strndup(as->temp,
 	(*line - as->temp))), sizeof(t_token)));
+	as->count =
+	(as->flags & DEBUG_L) ? ft_printf("--add DIRECT_LABEL token\n") : 0;
 	return (SUCCESS);
 }
 
 void			increment_line(t_project *as, char **line, size_t len)
 {
-	size_t index;
+	size_t		index;
 
 	index = 0;
 	as->count = (as->flags & DEBUG_O) ? ft_printf("%s\n", __func__) : 0;
@@ -264,6 +289,7 @@ t_bool			indrect_token(t_project *as, char **line)
 	ft_lstadd_back(&as->token_list, ft_lstnew_ptr((void*)new_token(as,
 	(as->column - (*line - as->temp)), INDIRECT, ft_strndup(as->temp,
 	(*line - as->temp))), sizeof(t_token)));
+	as->count = (as->flags & DEBUG_L) ? ft_printf("--add INDIRECT token\n") : 0;
 	return (SUCCESS);
 }
 
@@ -296,6 +322,8 @@ t_bool			direct_token(t_project *as, char **line)
 			ft_lstadd_back(&as->token_list, ft_lstnew_ptr((void*)new_token(as,
 			(as->column - (*line - as->temp)), DIRECT, ft_strndup(as->temp,
 			(*line - as->temp))), sizeof(t_token)));
+			as->count =
+			(as->flags & DEBUG_L) ? ft_printf("--add DIRECT token\n") : 0;
 		}
 	}
 	return (SUCCESS);
@@ -318,13 +346,12 @@ t_bool			skip_whitespaces(t_project *as, char **line)
 	return (SUCCESS);
 }
 
-t_bool				process_line(t_project *as, char **line)
+t_bool			process_line(t_project *as, char **line)
 {
+	size_t			index;
 
-	int		index;
-
-	index = 0;
 	as->count = (as->flags & DEBUG_O) ? ft_printf("%s\n", __func__) : 0;
+	index = 0;
 	while (**line)
 	{
 		if (ft_strchr(look_up[index].chars, **line))
@@ -332,13 +359,31 @@ t_bool				process_line(t_project *as, char **line)
 			as->temp = *line;
 			if (!(look_up[index].func(as, line)))
 				return (FAIL);
-			index = 0;
+			index = -1;
 		}
 		index++;
+		if (index == (LOOK_UP_LEVELS))
+			return (FAIL);
 	}
-	as->column++;
 	return (SUCCESS);
+}
 
+void			endline_token(t_project *as)
+{
+	as->count = (as->flags & DEBUG_O) ? ft_printf("%s\n", __func__) : 0;
+	ft_lstadd_back(&as->token_list,
+	ft_lstnew_ptr((void*)new_token(as, as->column,
+	ENDLINE, NULL), sizeof(t_token)));
+	as->count = (as->flags & DEBUG_L) ? ft_printf("--add ENDLINE token\n") : 0;
+}
+
+void			end_token(t_project *as)
+{
+	as->count = (as->flags & DEBUG_O) ? ft_printf("%s\n", __func__) : 0;
+	ft_lstadd_back(&as->token_list,
+	ft_lstnew_ptr((void*)new_token(as, as->column,
+	END, NULL), sizeof(t_token)));
+	as->count = (as->flags & DEBUG_L) ? ft_printf("--add END token\n") : 0;
 }
 
 t_token			*new_token(t_project *as, size_t y_axis, short type, char *str)
@@ -360,25 +405,26 @@ t_bool			analyze_lexicon(t_project *as)
 	char		*line;
 	char		*temp;
 
-	return (SUCCESS);	//Delete this
 	as->count = (as->flags & DEBUG_O) ? ft_printf("%s\n", __func__) : 0;
 	while (get_next_line(as->fd, &line))
 	{
-		as->row++;
+		as->column = 0;
 		temp = line;
 		if (as->index)
 			string_token(as, &temp);
 		if (!process_line(as, &temp))
 		{
-			ft_printf(LEXICAL_ERR, as->row, (as->column - 1));
+			ft_printf(LEXICAL_ERR, (as->row + 1), (as->column + 1));
 			return (FAIL);
 		}
-		ft_lstadd_back(&as->token_list,
-		ft_lstnew_ptr((void*)new_token(as, as->column,
-		ENDLINE, NULL), sizeof(t_token)));
+		endline_token(as);
+		as->count =
+		(as->flags & DEBUG_L) ? ft_printf("--add ENDLINE token\n") : 0;
+		free(line);
+		as->row++;
+		as->temp = NULL;
 	}
-	ft_lstadd(&as->token_list,
-	ft_lstnew_ptr((void*)new_token(as, as->column,
-	END, NULL), sizeof(t_token)));
-	return (SUCCESS);	
+	end_token(as);
+	as->count = (as->flags & DEBUG_L) ? ft_printf("--add END token\n") : 0;
+	return (SUCCESS);
 }
