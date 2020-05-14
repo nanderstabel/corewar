@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/12 10:18:45 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/05/14 17:34:02 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/05/14 17:43:42 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -847,7 +847,7 @@ Test(test_lexical_analysis, string_token_test)
 	temp = as->token_list;
 	cr_assert(((t_token*)temp->content)->token_type == STRING);
 	cr_assert(ret == SUCCESS);
-	cr_assert(as->column == 10, "instead %d", as->column);
+	cr_assert(as->column == 10, "instead %zu", as->column);
 	cr_assert_str_eq(((t_token*)temp->content)->literal_str, "\"sdkfjsdk\"");
 	cr_assert(((t_token*)temp->content)->column == 0);
 
@@ -859,7 +859,7 @@ Test(test_lexical_analysis, string_token_test)
 	temp = temp->next;
 	cr_assert(((t_token*)temp->content)->token_type == STRING);
 	cr_assert(ret == SUCCESS);
-	cr_assert(as->column == 10, "instead %d", as->column);
+	cr_assert(as->column == 10, "instead %zu", as->column);
 	cr_assert_str_eq(((t_token*)temp->content)->literal_str, "\"898fjsdk\"");
 	cr_assert(((t_token*)temp->content)->column == 0);
 
@@ -871,7 +871,7 @@ Test(test_lexical_analysis, string_token_test)
 	temp = temp->next;
 	cr_assert(((t_token*)temp->content)->token_type == STRING);
 	cr_assert(ret == SUCCESS);
-	cr_assert(as->column == 12, "instead %d", as->column);
+	cr_assert(as->column == 12, "instead %zu", as->column);
 	cr_assert_str_eq(((t_token*)temp->content)->literal_str, "\"Dit is een n");
 	cr_assert(((t_token*)temp->content)->column == 0);
 
@@ -883,7 +883,7 @@ Test(test_lexical_analysis, string_token_test)
 	// temp = temp->next;
 	cr_assert(((t_token*)temp->content)->token_type == STRING);
 	cr_assert(ret == SUCCESS);
-	cr_assert(as->column == 10, "instead %d", as->column);
+	cr_assert(as->column == 10, "instead %zu", as->column);
 	cr_assert_str_eq(((t_token*)temp->content)->literal_str, "\"Dit is een nieuwe test\"");
 	cr_assert(((t_token*)temp->content)->column == 0);
 
@@ -895,7 +895,7 @@ Test(test_lexical_analysis, string_token_test)
 	temp = temp->next;
 	cr_assert(((t_token*)temp->content)->token_type == STRING);
 	cr_assert(ret == SUCCESS);
-	cr_assert(as->column == 12, "instead %d", as->column);
+	cr_assert(as->column == 12, "instead %zu", as->column);
 	cr_assert_str_eq(((t_token*)temp->content)->literal_str, "\"Een wat lang");
 	cr_assert(((t_token*)temp->content)->column == 0);
 
@@ -907,7 +907,7 @@ Test(test_lexical_analysis, string_token_test)
 	// temp = temp->next;
 	cr_assert(((t_token*)temp->content)->token_type == STRING);
 	cr_assert(ret == SUCCESS);
-	cr_assert(as->column == 13, "instead %d", as->column);
+	cr_assert(as->column == 13, "instead %zu", as->column);
 	cr_assert_str_eq(((t_token*)temp->content)->literal_str, "\"Een wat langere test met t");
 	cr_assert(((t_token*)temp->content)->column == 0);
 
@@ -918,7 +918,7 @@ Test(test_lexical_analysis, string_token_test)
 	// temp = temp->next;
 	cr_assert(((t_token*)temp->content)->token_type == STRING);
 	cr_assert(ret == SUCCESS);
-	cr_assert(as->column == 20, "instead %d", as->column);
+	cr_assert(as->column == 20, "instead %zu", as->column);
 	cr_assert_str_eq(((t_token*)temp->content)->literal_str, "\"Een wat langere test met twee keer een newline\"");
 	cr_assert(((t_token*)temp->content)->column == 0);
 
@@ -942,7 +942,7 @@ Test(test_lexical_analysis, separator_token_test)
 	temp = as->token_list;
 	cr_assert(((t_token*)temp->content)->token_type == SEPARATOR);
 	cr_assert(ret == SUCCESS);
-	cr_assert(as->column == 1, "instead %d", as->column);
+	cr_assert(as->column == 1, "instead %zu", as->column);
 	cr_assert_str_eq(((t_token*)temp->content)->literal_str, ",");
 	cr_assert(((t_token*)temp->content)->column == 0);
 
@@ -953,7 +953,7 @@ Test(test_lexical_analysis, separator_token_test)
 	temp = temp->next;
 	cr_assert(((t_token*)temp->content)->token_type == SEPARATOR);
 	cr_assert(ret == SUCCESS);
-	cr_assert(as->column == 13, "instead %d", as->column);
+	cr_assert(as->column == 13, "instead %zu", as->column);
 	cr_assert_str_eq(((t_token*)temp->content)->literal_str, ",");
 	cr_assert(((t_token*)temp->content)->column == 12);
 }
@@ -994,7 +994,7 @@ Test(test_lexical_analysis, process_line_test)
 	cr_assert(ret == SUCCESS);
 	temp = as->token_list;
 	cr_assert(((t_token*)temp->content)->token_type == LABEL);
-	cr_assert(as->column == 15, "instead %d", as->column);
+	cr_assert(as->column == 15, "instead %zu", as->column);
 	cr_assert_str_eq(((t_token*)temp->content)->literal_str, "entree:");
 	cr_assert(((t_token*)temp->content)->column == 0);
 	temp = temp->next;
@@ -1016,7 +1016,7 @@ Test(test_lexical_analysis, process_line_test)
 	// ft_printf(LEXICAL_ERR, as->row, (as->column + 1)); //hoort 14
 	temp = as->token_list;
 	cr_assert(((t_token*)temp->content)->token_type == LABEL);
-	cr_assert(as->column == 13, "instead %d", as->column);
+	cr_assert(as->column == 13, "instead %zu", as->column);
 	cr_assert_str_eq(((t_token*)temp->content)->literal_str, "entree:");
 	cr_assert(((t_token*)temp->content)->column == 0);
 	temp = temp->next;
