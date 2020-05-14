@@ -1,32 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_wspace_strequ.c                                 :+:    :+:            */
+/*   ft_lst_last_elem.c                                 :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/05/12 17:10:29 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/05/12 20:31:26 by zitzak        ########   odam.nl         */
+/*   Created: 2020/05/14 09:42:21 by zitzak        #+#    #+#                 */
+/*   Updated: 2020/05/14 09:46:33 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_wspace_strequ(const char *s1, const char *s2)
+t_list		*ft_list_last_elem(t_list *head)
 {
-	size_t		index;
+	t_list		*temp;
 
-	index = 0;
-	if (!s1 || !s2)
-		return (0);
-	while (s1[index] != ' ' && s1[index] != '\f' && s1[index] != '\v' &&
-	s1[index] != '\n' && s1[index] != '\0')
-	{
-		index++;
-	}
-	if (s1[index] == '\0')
-		return (0);
-	if (ft_strncmp(s1, s2, index) == 0)
-		return (1);
-	return (0);
+	if (head == NULL)
+		return (NULL);
+	temp = head;
+	while (temp->next != NULL)
+		temp = temp->next;
+	return (temp);
 }
