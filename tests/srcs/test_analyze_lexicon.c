@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/12 10:18:45 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/05/13 20:56:40 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/05/14 09:34:08 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -822,4 +822,121 @@ Test(test_lexical_analysis, indirect_token_test)
 	cr_assert(as->column == 13);
 	cr_assert_str_eq(((t_token*)temp->content)->literal_str, "000");
 	cr_assert(((t_token*)temp->content)->column == 10);
+}
+
+Test(test_lexical_analysis, string_token_test)
+{
+	t_project	*as;
+	char 		*line;
+	t_bool		ret;
+	t_list		*temp;
+
+	as = (t_project*)ft_memalloc(sizeof(t_project));
+	as->row = 4;
+
+	as->index = 0;
+	as->column = 0;
+	line = ft_strdup("\"sdkfjsdk\"F");
+	as->temp = line;
+	ret = string_token(as, &line);
+	temp = as->token_list;
+	cr_assert(((t_token*)temp->content)->token_type == STRING);
+	cr_assert(ret == SUCCESS);
+	cr_assert(as->column == 10, "instead %d", as->column);
+	cr_assert_str_eq(((t_token*)temp->content)->literal_str, "\"sdkfjsdk\"");
+	cr_assert(((t_token*)temp->content)->column == 0);
+
+	as->index = 0;
+	as->column = 0;
+	line = ft_strdup("\"898fjsdk\"\t");
+	as->temp = line;
+	ret = string_token(as, &line);
+	temp = temp->next;
+	cr_assert(((t_token*)temp->content)->token_type == STRING);
+	cr_assert(ret == SUCCESS);
+	cr_assert(as->column == 10, "instead %d", as->column);
+	cr_assert_str_eq(((t_token*)temp->content)->literal_str, "\"898fjsdk\"");
+	cr_assert(((t_token*)temp->content)->column == 0);
+
+	as->index = 0;
+	as->column = 0;
+	line = ft_strdup("\"Dit is een n");
+	as->temp = line;
+	ret = string_token(as, &line);
+	temp = temp->next;
+	cr_assert(((t_token*)temp->content)->token_type == STRING);
+	cr_assert(ret == SUCCESS);
+	cr_assert(as->column == 12, "instead %d", as->column);
+	cr_assert_str_eq(((t_token*)temp->content)->literal_str, "\"Dit is een n");
+	cr_assert(((t_token*)temp->content)->column == 0);
+
+	// as->index = 0;
+	as->column = 0;
+	line = ft_strdup("ieuwe test\"kdjf");
+	as->temp = line;
+	ret = string_token(as, &line);
+	// temp = temp->next;
+	cr_assert(((t_token*)temp->content)->token_type == STRING);
+	cr_assert(ret == SUCCESS);
+	cr_assert(as->column == 10, "instead %d", as->column);
+	cr_assert_str_eq(((t_token*)temp->content)->literal_str, "\"Dit is een nieuwe test\"");
+	cr_assert(((t_token*)temp->content)->column == 0);
+
+	as->index = 0;
+	as->column = 0;
+	line = ft_strdup("\"Een wat lang");
+	as->temp = line;
+	ret = string_token(as, &line);
+	temp = temp->next;
+	cr_assert(((t_token*)temp->content)->token_type == STRING);
+	cr_assert(ret == SUCCESS);
+	cr_assert(as->column == 12, "instead %d", as->column);
+	cr_assert_str_eq(((t_token*)temp->content)->literal_str, "\"Een wat lang");
+	cr_assert(((t_token*)temp->content)->column == 0);
+
+	// as->index = 0;
+	as->column = 0;
+	line = ft_strdup("ere test met t");
+	as->temp = line;
+	ret = string_token(as, &line);
+	// temp = temp->next;
+	cr_assert(((t_token*)temp->content)->token_type == STRING);
+	cr_assert(ret == SUCCESS);
+	cr_assert(as->column == 13, "instead %d", as->column);
+	cr_assert_str_eq(((t_token*)temp->content)->literal_str, "\"Een wat langere test met t");
+	cr_assert(((t_token*)temp->content)->column == 0);
+
+	as->column = 0;
+	line = ft_strdup("wee keer een newline\" %f");
+	as->temp = line;
+	ret = string_token(as, &line);
+	// temp = temp->next;
+	cr_assert(((t_token*)temp->content)->token_type == STRING);
+	cr_assert(ret == SUCCESS);
+	cr_assert(as->column == 20, "instead %d", as->column);
+	cr_assert_str_eq(((t_token*)temp->content)->literal_str, "\"Een wat langere test met twee keer een newline\"");
+	cr_assert(((t_token*)temp->content)->column == 0);
+
+
+	// as->column = 10;
+	// line = ft_strdup("8729+");
+	// as->temp = line;
+	// ret = indrect_token(as, &line);
+	// temp = temp->next;
+	// cr_assert(((t_token*)temp->content)->token_type == INDIRECT);
+	// cr_assert(ret == SUCCESS);
+	// cr_assert(as->column == 14);
+	// cr_assert_str_eq(((t_token*)temp->content)->literal_str, "8729");
+	// cr_assert(((t_token*)temp->content)->column == 10);
+
+	// as->column = 10;
+	// line = ft_strdup("000jdf");
+	// as->temp = line;
+	// ret = indrect_token(as, &line);
+	// temp = temp->next;
+	// cr_assert(((t_token*)temp->content)->token_type == INDIRECT);
+	// cr_assert(ret == SUCCESS);
+	// cr_assert(as->column == 13);
+	// cr_assert_str_eq(((t_token*)temp->content)->literal_str, "000");
+	// cr_assert(((t_token*)temp->content)->column == 10);
 }
