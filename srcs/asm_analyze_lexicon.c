@@ -6,13 +6,13 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/14 18:42:00 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/15 10:18:16 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-t_redirect		look_up[LOOK_UP_LEVELS] =
+t_redirect		look_up[] =
 {
 	{WHITESPACES, skip_whitespaces},
 	{"#;", skip_comment_line},
@@ -24,6 +24,19 @@ t_redirect		look_up[LOOK_UP_LEVELS] =
 	{",", separator_token},
 	{"\"", string_token}
 };
+
+/*
+** ---------------------------------------------------------------------------**
+** The function checks if the first part of the string (until whitespaces) is
+** a valid COMMAND token. If so a link is added to the link list. If not
+** it is a lexical error.
+**
+** t_project 	*as			struct of type t_project. Holds all data for the asm
+** char			**line		points current place in the line
+**
+** return (SUCCESS)			element is added to the list as->token_list
+** return (FAIL)			lexical error is found
+*/
 
 t_bool			command_token(t_project *as, char **line)
 {
@@ -51,6 +64,18 @@ t_bool			command_token(t_project *as, char **line)
 	return (SUCCESS);
 }
 
+/*
+** ---------------------------------------------------------------------------**
+** The function checks if it's a valid REGISTER token. If so a link is added to
+** the link list. If not it is a lexical error.
+**
+** t_project 	*as			struct of type t_project. Holds all data for the asm
+** char			**line		points current place in the line
+**
+** return (SUCCESS)			element is added to the list as->token_list
+** return (FAIL)			lexical error is found
+*/
+
 t_bool			register_token(t_project *as, char **line)
 {
 	int			increment;
@@ -75,6 +100,19 @@ t_bool			register_token(t_project *as, char **line)
 	return (SUCCESS);
 }
 
+/*
+** ---------------------------------------------------------------------------**
+** The function loops through *line END_LABEL_CHARS are found. If so the string
+** is valid. If there is a non LABEL_CHARS in the string it is not valid and
+** so alexical error.
+**
+** t_project 	*as			struct of type t_project. Holds all data for the asm
+** char			**line		points current place in the line
+**
+** return (SUCCESS)			string is valid
+** return (FAIL)			lexical error is found
+*/
+
 t_bool			is_valid_label_chars(t_project *as, char **line)
 {
 	as->count = (as->flags & DEBUG_O) ? ft_printf("%s\n", __func__) : 0;
@@ -87,7 +125,31 @@ t_bool			is_valid_label_chars(t_project *as, char **line)
 	return (SUCCESS);
 }
 
-t_bool			label_instruction_token(t_project *as, char **line)
+void			instruction_token(t_project *as, char **line)
+{
+	as->count = (as->flags & DEBUG_O) ? ft_printf("%s\n", __func__) : 0;
+	as->count =
+	(as->flags & DEBUG_L) ? ft_printf("--add INSTRUCTION token\n") : 0;
+	ft_lstadd_back(&as->token_list, ft_lstnew_ptr((void*)new_token(as,
+	(as->column - (*line - as->temp)), INSTRUCTION, ft_strndup(as->temp,
+	(*line - as->temp))), sizeof(t_token)));
+}
+
+/*
+** ---------------------------------------------------------------------------**
+** label_token checks if all chars are valid_label_chars. If not and the char it
+** lands on is ':', it means it's a label. Otherwise it's a lexical error.
+** a valid COMMAND token. If so a link is added to the link list. If not
+** it is a lexical error.
+**
+** t_project 	*as			struct of type t_project. Holds all data for the asm
+** char			**line		points current place in the line
+**
+** return (SUCCESS)			element is added to the list as->token_list
+** return (FAIL)			lexical error is found
+*/
+
+t_bool			label_token(t_project *as, char **line)
 {
 	as->count = (as->flags & DEBUG_O) ? ft_printf("%s\n", __func__) : 0;
 	if (!is_valid_label_chars(as, line))
@@ -106,11 +168,12 @@ t_bool			label_instruction_token(t_project *as, char **line)
 	}
 	else
 	{
-		as->count =
-		(as->flags & DEBUG_L) ? ft_printf("--add INSTRUCTION token\n") : 0;
-		ft_lstadd_back(&as->token_list, ft_lstnew_ptr((void*)new_token(as,
-		(as->column - (*line - as->temp)), INSTRUCTION, ft_strndup(as->temp,
-		(*line - as->temp))), sizeof(t_token)));
+		instruction_token(as, line);
+		// as->count =
+		// (as->flags & DEBUG_L) ? ft_printf("--add INSTRUCTION token\n") : 0;
+		// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((void*)new_token(as,
+		// (as->column - (*line - as->temp)), INSTRUCTION, ft_strndup(as->temp,
+		// (*line - as->temp))), sizeof(t_token)));
 	}
 	return (SUCCESS);
 }
@@ -138,7 +201,7 @@ t_bool			label_chars_redirect(t_project *as, char **line)
 		index++;
 	if (index > 0 && ft_strchr(END_LABEL_CHARS, *((*line) + index)))
 		indrect_token(as, line);
-	else if (!label_instruction_token(as, line))
+	else if (!label_token(as, line))
 		return (FAIL);
 	return (SUCCESS);
 }
@@ -415,6 +478,7 @@ t_bool			analyze_lexicon(t_project *as)
 		if (!process_line(as, &temp))
 		{
 			ft_printf(LEXICAL_ERR, (as->row + 1), (as->column + 1));
+			//wis link list
 			return (FAIL);
 		}
 		endline_token(as);
