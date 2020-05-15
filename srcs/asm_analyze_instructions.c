@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/11 16:07:54 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/15 04:03:44 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/15 12:11:49 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 ** INSTRUCTION is not found, FAIL is returned.
 ** params
 **	as->current_token	the current token
-**	op	_tab			operation table
+**	op_tab				operation table
 ** return
 **	SUCCESS				in case INSTRUCTION is found
 **	FAIL				in case INSTRUCTION is not found
