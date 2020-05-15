@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/15 12:04:59 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/15 13:07:55 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 t_bool			get_argtype(t_project *as)
 {
+	as->count = (as->flags & DEBUG_O) ? ft_printf("\t\t%s\n", __func__) : 0;
 	if (!as->next_token)
 		return (FAIL);
 	if (as->next_token->token_type == REGISTER)	
@@ -31,6 +32,7 @@ t_bool			get_argtype(t_project *as)
 
 t_bool			loop_parameters(t_project *as)
 {
+	as->count = (as->flags & DEBUG_O) ? ft_printf("\t\t%s\n", __func__) : 0;
 	as->index = 0;
 	while (as->index < op_tab[as->current_token->opcode - 1].n_args)
 	{
@@ -68,15 +70,10 @@ t_bool			parameter_check(t_project *as)
 	if (as->current_token->token_type == LABEL)
 	{
 		ft_hash_table_add(as->labels, label_to_key(as->current_token->literal_str, as->current_token->token_type), (void *)as->pc);
-		as->tmp = as->trail;
-		as->tmp->next = as->tmp->next->next;
+		skip_node(as);
 	}
 	else if (as->current_token->token_type == ENDLINE)
-	{
-		as->tmp = as->trail;
-		//add del_token_node here
-		as->tmp->next = as->tmp->next->next;
-	}
+		skip_node(as);
 	else if (as->current_token->token_type == INSTRUCTION)
 	{
 		as->current_token->address = as->pc;

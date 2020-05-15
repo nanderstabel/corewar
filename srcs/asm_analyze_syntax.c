@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/15 12:06:40 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/15 16:03:16 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@
 t_bool			syntax_error(t_project *as)
 {
 	as->count = (as->flags & DEBUG_O) ? ft_printf("\t\t%s\n", __func__) : 0;
-	if (as->next_token->token_type == END)
+	if (as->next_token->token_type == END && as->header_found && \
+		as->current_token->token_type != LABEL)
 	{
 		ft_printf(UNEXPECTED_END);
 		return (FAIL);
@@ -204,5 +205,11 @@ t_bool			syntax_check(t_project *as)
 t_bool			analyze_syntax(t_project *as)
 {
 	as->count = (as->flags & DEBUG_O) ? ft_printf("%s\n", __func__) : 0;
+	as->current_token = (t_token *)as->token_list->content;
+	as->next_token = (t_token *)as->token_list->content;
+	if (as->next_token->token_type != ENDLINE && \
+		as->next_token->token_type != COMMAND_NAME && \
+		as->next_token->token_type != COMMAND_COMMENT)
+		return (syntax_error(as));
 	return (loop_token_list(as, syntax_check));
 }
