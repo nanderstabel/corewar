@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/12 10:18:45 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/05/14 17:43:42 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/05/15 13:29:19 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,12 @@ Test(test_lexical_analysis, command_token_test)
 
 	as = (t_project*)ft_memalloc(sizeof(t_project));
 
-	line = ft_strdup(".name   \t");
+	line = ft_strdup(".name   \t\n");
 	command_token(as, &line);
 	temp = as->token_list;
 	cr_assert(((t_token*)temp->content)->token_type == COMMAND_NAME);
 
-	line = ft_strdup(".comment   \t");
+	line = ft_strdup(".comment   \n\t");
 	command_token(as, &line);
 	temp = as->token_list->next;
 	cr_assert(((t_token*)temp->content)->token_type == COMMAND_COMMENT);
@@ -59,7 +59,7 @@ Test(test_lexical_analysis, direct_token_test)
 	as->row = 4;
 	as->column = 10;
 
-	line = ft_strdup("%hfh");
+	line = ft_strdup("%hfh\n");
 	as->temp = line;
 	ret = direct_token(as, &line);
 	cr_assert(ret == FAIL);
@@ -67,7 +67,7 @@ Test(test_lexical_analysis, direct_token_test)
 	// ft_printf(LEXICAL_ERR, as->row, as->column);
 	
 	as->column = 10;
-	line = ft_strdup("%+54");
+	line = ft_strdup("%+54\n");
 	as->temp = line;
 	ret = direct_token(as, &line);
 	cr_assert(ret == FAIL);
@@ -75,7 +75,7 @@ Test(test_lexical_analysis, direct_token_test)
 	// ft_printf(LEXICAL_ERR, as->row, as->column);
 
 	as->column = 10;
-	line = ft_strdup("%:43]jg\t");
+	line = ft_strdup("%:43]jg\t\n");
 	as->temp = line;
 	ret = direct_token(as, &line);
 	cr_assert(ret == FAIL);
@@ -333,7 +333,7 @@ Test(test_lexical_analysis, indirect_label_token_test)
 	cr_assert(((t_token*)temp->content)->column == 10);
 
 	as->column = 10;
-	line = ft_strdup(":8sdf ");
+	line = ft_strdup(":8sdf\n ");
 	as->temp = line;
 	ret = indirect_label_token(as, &line);
 	temp = temp->next;
@@ -379,9 +379,13 @@ Test(test_lexical_analysis, skip_comment_line_test)
 
 	as = (t_project*)ft_memalloc(sizeof(t_project));
 	
-	line = ft_strdup("#hsdjhfjdhtest");
+	line = ft_strdup("#hsdjhfjdhtest\n");
 	skip_comment_line(as, &line);
-	cr_assert_str_eq(line, "");
+	cr_assert_str_eq(line, "\n");
+
+	line = ft_strdup(";hsdjhfjdhtest\n");
+	skip_comment_line(as, &line);
+	cr_assert_str_eq(line, "\n");
 }
 
 Test(test_lexical_analysis, label_chars_redirect_test)
@@ -435,7 +439,7 @@ Test(test_lexical_analysis, label_chars_redirect_test)
 	// ft_printf(LEXICAL_ERR, as->row, (as->column + 1));
 
 	as->column = 0;
-	line = ft_strdup("43jg\t");
+	line = ft_strdup("43jg\n");
 	as->temp = line;
 	ret = label_chars_redirect(as, &line);
 	temp = as->token_list;
@@ -578,7 +582,7 @@ Test(test_lexical_analysis, label_chars_redirect_test)
 	cr_assert(((t_token*)temp->content)->column == 10);
 
 	as->column = 10;
-	line = ft_strdup("8sdf ");
+	line = ft_strdup("8sdf\n");
 	as->temp = line;
 	ret = label_chars_redirect(as, &line);
 	temp = temp->next;
@@ -841,7 +845,7 @@ Test(test_lexical_analysis, string_token_test)
 
 	as->index = 0;
 	as->column = 0;
-	line = ft_strdup("\"sdkfjsdk\"F");
+	line = ft_strdup("\"sdkfjsdk\"F\n");
 	as->temp = line;
 	ret = string_token(as, &line);
 	temp = as->token_list;
@@ -865,14 +869,14 @@ Test(test_lexical_analysis, string_token_test)
 
 	as->index = 0;
 	as->column = 0;
-	line = ft_strdup("\"Dit is een n");
+	line = ft_strdup("\"Dit is een n\n");
 	as->temp = line;
 	ret = string_token(as, &line);
 	temp = temp->next;
 	cr_assert(((t_token*)temp->content)->token_type == STRING);
 	cr_assert(ret == SUCCESS);
-	cr_assert(as->column == 12, "instead %zu", as->column);
-	cr_assert_str_eq(((t_token*)temp->content)->literal_str, "\"Dit is een n");
+	cr_assert(as->column == 13, "instead %zu", as->column);
+	cr_assert_str_eq(((t_token*)temp->content)->literal_str, "\"Dit is een n\n");
 	cr_assert(((t_token*)temp->content)->column == 0);
 
 	// as->index = 0;
@@ -884,31 +888,31 @@ Test(test_lexical_analysis, string_token_test)
 	cr_assert(((t_token*)temp->content)->token_type == STRING);
 	cr_assert(ret == SUCCESS);
 	cr_assert(as->column == 10, "instead %zu", as->column);
-	cr_assert_str_eq(((t_token*)temp->content)->literal_str, "\"Dit is een nieuwe test\"");
+	cr_assert_str_eq(((t_token*)temp->content)->literal_str, "\"Dit is een n\nieuwe test\"");
 	cr_assert(((t_token*)temp->content)->column == 0);
 
 	as->index = 0;
 	as->column = 0;
-	line = ft_strdup("\"Een wat lang");
+	line = ft_strdup("\"Een wat lang\n");
 	as->temp = line;
 	ret = string_token(as, &line);
 	temp = temp->next;
 	cr_assert(((t_token*)temp->content)->token_type == STRING);
 	cr_assert(ret == SUCCESS);
-	cr_assert(as->column == 12, "instead %zu", as->column);
-	cr_assert_str_eq(((t_token*)temp->content)->literal_str, "\"Een wat lang");
+	cr_assert(as->column == 13, "instead %zu", as->column);
+	cr_assert_str_eq(((t_token*)temp->content)->literal_str, "\"Een wat lang\n");
 	cr_assert(((t_token*)temp->content)->column == 0);
 
 	// as->index = 0;
 	as->column = 0;
-	line = ft_strdup("ere test met t");
+	line = ft_strdup("ere test met t\n");
 	as->temp = line;
 	ret = string_token(as, &line);
 	// temp = temp->next;
 	cr_assert(((t_token*)temp->content)->token_type == STRING);
 	cr_assert(ret == SUCCESS);
-	cr_assert(as->column == 13, "instead %zu", as->column);
-	cr_assert_str_eq(((t_token*)temp->content)->literal_str, "\"Een wat langere test met t");
+	cr_assert(as->column == 14, "instead %zu", as->column);
+	cr_assert_str_eq(((t_token*)temp->content)->literal_str, "\"Een wat lang\nere test met t\n");
 	cr_assert(((t_token*)temp->content)->column == 0);
 
 	as->column = 0;
@@ -919,7 +923,7 @@ Test(test_lexical_analysis, string_token_test)
 	cr_assert(((t_token*)temp->content)->token_type == STRING);
 	cr_assert(ret == SUCCESS);
 	cr_assert(as->column == 20, "instead %zu", as->column);
-	cr_assert_str_eq(((t_token*)temp->content)->literal_str, "\"Een wat langere test met twee keer een newline\"");
+	cr_assert_str_eq(((t_token*)temp->content)->literal_str, "\"Een wat lang\nere test met t\nwee keer een newline\"");
 	cr_assert(((t_token*)temp->content)->column == 0);
 
 }
@@ -1119,14 +1123,84 @@ Test(test_lexical_analysis, analyze_lexicon_test)
 	cr_assert(((t_token*)temp->content)->column == 10);
 	cr_assert(((t_token*)temp->content)->row == 4);
 	temp = temp->next;
-	cr_assert(((t_token*)temp->content)->token_type == ENDLINE, "but is %d", ((t_token*)temp->content)->token_type);
+	cr_assert(((t_token*)temp->content)->token_type == END, "but is %d", ((t_token*)temp->content)->token_type);
+	cr_assert(((t_token*)temp->content)->column == 11);
+	cr_assert(((t_token*)temp->content)->row == 4);
+	// temp = temp->next;
+	// cr_assert(((t_token*)temp->content)->token_type == END);
+	// cr_assert(((t_token*)temp->content)->column == 0);
+	// cr_assert(((t_token*)temp->content)->row == 6);
+
+}
+
+Test(test_lexical_analysis, valid_asm_1line_test)
+{
+	t_project	*as;
+	t_bool		ret;
+	t_list		*temp;
+
+
+	as = (t_project*)ft_memalloc(sizeof(t_project));
+	// as->flags |= DEBUG_O;
+	// as->flags |= DEBUG_L;
+
+	as->fd = open("./valid_asm/1_line.s", O_RDONLY);
+	ret = analyze_lexicon(as);
+	cr_assert(ret == SUCCESS);
+	temp = as->token_list;
+	cr_assert(((t_token*)temp->content)->token_type == LABEL);
+	cr_assert_str_eq(((t_token*)temp->content)->literal_str, "tirf:");
 	cr_assert(((t_token*)temp->content)->column == 0);
-	cr_assert(((t_token*)temp->content)->row == 5);
+	cr_assert(((t_token*)temp->content)->row == 0);
 	temp = temp->next;
 	cr_assert(((t_token*)temp->content)->token_type == END);
-	cr_assert(((t_token*)temp->content)->column == 0);
-	cr_assert(((t_token*)temp->content)->row == 6);
+	cr_assert(((t_token*)temp->content)->column == 5);
+	cr_assert(((t_token*)temp->content)->row == 0);
+}
 
+Test(test_lexical_analysis, valid_asm_42_test)
+{
+	t_project	*as;
+	t_bool		ret;
+
+
+	as = (t_project*)ft_memalloc(sizeof(t_project));
+	// as->flags |= DEBUG_O;
+	// as->flags |= DEBUG_L;
+
+	as->fd = open("./valid_asm/42.s", O_RDONLY);
+	ret = analyze_lexicon(as);
+	cr_assert(ret == SUCCESS);
+}
+
+Test(test_lexical_analysis, endlines__test)
+{
+	t_project	*as;
+	t_bool		ret;
+
+
+	as = (t_project*)ft_memalloc(sizeof(t_project));
+	// as->flags |= DEBUG_O;
+	// as->flags |= DEBUG_L;
+
+	as->fd = open("./valid_asm/endlines.s", O_RDONLY);
+	ret = analyze_lexicon(as);
+	cr_assert(ret == SUCCESS);
+}
+
+Test(test_lexical_analysis, newline_strings_test)
+{
+	t_project	*as;
+	t_bool		ret;
+
+
+	as = (t_project*)ft_memalloc(sizeof(t_project));
+	// as->flags |= DEBUG_O;
+	// as->flags |= DEBUG_L;
+
+	as->fd = open("./valid_asm/newline_string.s", O_RDONLY);
+	ret = analyze_lexicon(as);
+	cr_assert(ret == SUCCESS);
 }
 
 Test(test_lexical_analysis, lexical_error_small, .init=redirect_all_stdout_lexical)
