@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/12 10:18:45 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/05/15 13:29:19 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/05/15 15:05:45 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1124,8 +1124,8 @@ Test(test_lexical_analysis, analyze_lexicon_test)
 	cr_assert(((t_token*)temp->content)->row == 4);
 	temp = temp->next;
 	cr_assert(((t_token*)temp->content)->token_type == END, "but is %d", ((t_token*)temp->content)->token_type);
-	cr_assert(((t_token*)temp->content)->column == 11);
-	cr_assert(((t_token*)temp->content)->row == 4);
+	cr_assert(((t_token*)temp->content)->column == 0);
+	cr_assert(((t_token*)temp->content)->row == 5);
 	// temp = temp->next;
 	// cr_assert(((t_token*)temp->content)->token_type == END);
 	// cr_assert(((t_token*)temp->content)->column == 0);
@@ -1144,7 +1144,7 @@ Test(test_lexical_analysis, valid_asm_1line_test)
 	// as->flags |= DEBUG_O;
 	// as->flags |= DEBUG_L;
 
-	as->fd = open("./valid_asm/1_line.s", O_RDONLY);
+	as->fd = open("./invalid_asm/1_line.s", O_RDONLY);
 	ret = analyze_lexicon(as);
 	cr_assert(ret == SUCCESS);
 	temp = as->token_list;
