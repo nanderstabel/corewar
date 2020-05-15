@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/16 21:05:44 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/05/14 22:59:54 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/15 16:33:56 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -290,7 +290,7 @@ void				ft_addr_lstsrt(t_adlist **alst, \
 					int (*method)(void *, void *));
 char				*ft_itoa_base(unsigned long long value, int base);
 size_t				ft_ndigits(long long nbr);
-int					ft_strequ_till_whitespaces(const char *s1, const char *s2);
+int					ft_strequ_wspace_delim(const char *s1, const char *s2);
 int					ft_nchar(const char *str, int c);
 char				*ft_strndup(const char *src, size_t len);
 t_list				*ft_list_last_elem(t_list *head);
