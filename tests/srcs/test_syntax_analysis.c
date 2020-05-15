@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/12 17:56:32 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/15 04:12:33 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/15 16:07:30 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -393,4 +393,124 @@ Test(test_syntax_analysis, syntax_analysis_break8_test, .init=redirect_all_stdou
 	analyze_lexicon(as);	
 	ret = analyze_syntax(as);
 	cr_assert((ret == SUCCESS));
+}
+
+Test(test_syntax_analysis, syntax_analysis_1line_test, .init=redirect_all_stdout2)
+{
+	t_project	*as = (t_project *)ft_memalloc(sizeof(t_project));
+	t_bool		ret;
+
+	as->fd = open("./invalid_asm/1_line.s", O_RDONLY);
+	analyze_lexicon(as);	
+	ret = analyze_syntax(as);
+	cr_assert((ret == FAIL));
+	cr_assert_stdout_eq_str("Syntax error at token [TOKEN][001:001] LABEL \"tirf:\"\n");
+}
+
+Test(test_syntax_analysis, syntax_analysis_3lines_test, .init=redirect_all_stdout2)
+{
+	t_project	*as = (t_project *)ft_memalloc(sizeof(t_project));
+	t_bool		ret;
+
+	as->fd = open("./invalid_asm/3_lines.s", O_RDONLY);
+	analyze_lexicon(as);	
+	ret = analyze_syntax(as);
+	cr_assert((ret == FAIL));
+	cr_assert_stdout_eq_str("Syntax error at token [TOKEN][001:001] LABEL \"tirf:\"\n");
+}
+
+Test(test_syntax_analysis, syntax_analysis_err17_test, .init=redirect_all_stdout2)
+{
+	t_project	*as = (t_project *)ft_memalloc(sizeof(t_project));
+	t_bool		ret;
+
+	as->fd = open("./invalid_asm/syntax_error_17.s", O_RDONLY);
+	analyze_lexicon(as);	
+	ret = analyze_syntax(as);
+	cr_assert((ret == FAIL));
+	cr_assert_stdout_eq_str("Syntax error at token [TOKEN][001:001] INDIRECT_LABEL \":label\"\n");
+}
+
+Test(test_syntax_analysis, syntax_analysis_err18_test, .init=redirect_all_stdout2)
+{
+	t_project	*as = (t_project *)ft_memalloc(sizeof(t_project));
+	t_bool		ret;
+
+	as->fd = open("./invalid_asm/syntax_error_18.s", O_RDONLY);
+	analyze_lexicon(as);	
+	ret = analyze_syntax(as);
+	cr_assert((ret == FAIL));
+	cr_assert_stdout_eq_str("Syntax error at token [TOKEN][001:001] INSTRUCTION \"live\"\n");
+}
+
+Test(test_syntax_analysis, syntax_analysis_err19_test, .init=redirect_all_stdout2)
+{
+	t_project	*as = (t_project *)ft_memalloc(sizeof(t_project));
+	t_bool		ret;
+
+	as->fd = open("./invalid_asm/syntax_error_19.s", O_RDONLY);
+	analyze_lexicon(as);	
+	ret = analyze_syntax(as);
+	cr_assert((ret == FAIL));
+	cr_assert_stdout_eq_str("Syntax error at token [TOKEN][001:001] REGISTER \"r20\"\n");
+}
+
+Test(test_syntax_analysis, syntax_analysis_err20_test, .init=redirect_all_stdout2)
+{
+	t_project	*as = (t_project *)ft_memalloc(sizeof(t_project));
+	t_bool		ret;
+
+	as->fd = open("./invalid_asm/syntax_error_20.s", O_RDONLY);
+	analyze_lexicon(as);	
+	ret = analyze_syntax(as);
+	cr_assert((ret == FAIL));
+	cr_assert_stdout_eq_str("Syntax error at token [TOKEN][001:001] SEPARATOR \",\"\n");
+}
+
+Test(test_syntax_analysis, syntax_analysis_err21_test, .init=redirect_all_stdout2)
+{
+	t_project	*as = (t_project *)ft_memalloc(sizeof(t_project));
+	t_bool		ret;
+
+	as->fd = open("./invalid_asm/syntax_error_21.s", O_RDONLY);
+	analyze_lexicon(as);	
+	ret = analyze_syntax(as);
+	cr_assert((ret == FAIL));
+	cr_assert_stdout_eq_str("Syntax error at token [TOKEN][001:001] STRING \"\"string\"\"\n");
+}
+
+Test(test_syntax_analysis, syntax_analysis_err22_test, .init=redirect_all_stdout2)
+{
+	t_project	*as = (t_project *)ft_memalloc(sizeof(t_project));
+	t_bool		ret;
+
+	as->fd = open("./invalid_asm/syntax_error_22.s", O_RDONLY);
+	analyze_lexicon(as);	
+	ret = analyze_syntax(as);
+	cr_assert((ret == FAIL));
+	cr_assert_stdout_eq_str("Syntax error at token [TOKEN][001:001] INDIRECT \"123\"\n");
+}
+
+Test(test_syntax_analysis, syntax_analysis_err23_test, .init=redirect_all_stdout2)
+{
+	t_project	*as = (t_project *)ft_memalloc(sizeof(t_project));
+	t_bool		ret;
+
+	as->fd = open("./invalid_asm/syntax_error_23.s", O_RDONLY);
+	analyze_lexicon(as);	
+	ret = analyze_syntax(as);
+	cr_assert((ret == FAIL));
+	cr_assert_stdout_eq_str("Syntax error at token [TOKEN][002:001] INDIRECT_LABEL \":label\"\n");
+}
+
+Test(test_syntax_analysis, syntax_analysis_err24_test, .init=redirect_all_stdout2)
+{
+	t_project	*as = (t_project *)ft_memalloc(sizeof(t_project));
+	t_bool		ret;
+
+	as->fd = open("./invalid_asm/syntax_error_24.s", O_RDONLY);
+	analyze_lexicon(as);	
+	ret = analyze_syntax(as);
+	cr_assert((ret == FAIL));
+	cr_assert_stdout_eq_str("Syntax error at token [TOKEN][001:006] END \"(null)\"\n");
 }
