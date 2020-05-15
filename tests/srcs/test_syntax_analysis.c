@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/12 17:56:32 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/14 21:52:20 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/15 04:12:33 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,64 +241,156 @@ Test(test_syntax_analysis, syntax_analysis_err16_test, .init=redirect_all_stdout
 	cr_assert_stdout_eq_str("Syntax error at token [TOKEN][004:007] END \"(null)\"\n");
 }
 
+Test(test_syntax_analysis, syntax_analysis_no_label1_test, .init=redirect_all_stdout2)
+{
+	t_project	*as = (t_project *)ft_memalloc(sizeof(t_project));
+	t_bool		ret;
 
+	as->fd = open("./invalid_asm/no_label_error_01.s", O_RDONLY);
+	analyze_lexicon(as);	
+	ret = analyze_syntax(as);
+	cr_assert((ret == SUCCESS));
+}
 
+Test(test_syntax_analysis, syntax_analysis_no_label2_test, .init=redirect_all_stdout2)
+{
+	t_project	*as = (t_project *)ft_memalloc(sizeof(t_project));
+	t_bool		ret;
 
+	as->fd = open("./invalid_asm/no_label_error_02.s", O_RDONLY);
+	analyze_lexicon(as);	
+	ret = analyze_syntax(as);
+	cr_assert((ret == SUCCESS));
+}
 
+Test(test_syntax_analysis, syntax_analysis_no_label3_test, .init=redirect_all_stdout2)
+{
+	t_project	*as = (t_project *)ft_memalloc(sizeof(t_project));
+	t_bool		ret;
 
+	as->fd = open("./invalid_asm/no_label_error_03.s", O_RDONLY);
+	analyze_lexicon(as);	
+	ret = analyze_syntax(as);
+	cr_assert((ret == SUCCESS));
+}
 
+Test(test_syntax_analysis, syntax_analysis_parameter1_test, .init=redirect_all_stdout2)
+{
+	t_project	*as = (t_project *)ft_memalloc(sizeof(t_project));
+	t_bool		ret;
 
+	as->fd = open("./invalid_asm/parameter_error_01.s", O_RDONLY);
+	analyze_lexicon(as);	
+	ret = analyze_syntax(as);
+	cr_assert((ret == SUCCESS));
+}
 
+Test(test_syntax_analysis, syntax_analysis_parameter2_test, .init=redirect_all_stdout2)
+{
+	t_project	*as = (t_project *)ft_memalloc(sizeof(t_project));
+	t_bool		ret;
 
+	as->fd = open("./invalid_asm/parameter_error_02.s", O_RDONLY);
+	analyze_lexicon(as);	
+	ret = analyze_syntax(as);
+	cr_assert((ret == SUCCESS));
+}
 
+Test(test_syntax_analysis, syntax_analysis_parameter3_test, .init=redirect_all_stdout2)
+{
+	t_project	*as = (t_project *)ft_memalloc(sizeof(t_project));
+	t_bool		ret;
 
+	as->fd = open("./invalid_asm/parameter_error_03.s", O_RDONLY);
+	analyze_lexicon(as);	
+	ret = analyze_syntax(as);
+	cr_assert((ret == SUCCESS));
+}
 
+Test(test_syntax_analysis, syntax_analysis_break1_test, .init=redirect_all_stdout2)
+{
+	t_project	*as = (t_project *)ft_memalloc(sizeof(t_project));
+	t_bool		ret;
 
+	as->fd = open("./invalid_asm/syntax_break01.s", O_RDONLY);
+	analyze_lexicon(as);	
+	ret = analyze_syntax(as);
+	cr_assert((ret == SUCCESS));
+}
 
+Test(test_syntax_analysis, syntax_analysis_break2_test, .init=redirect_all_stdout2)
+{
+	t_project	*as = (t_project *)ft_memalloc(sizeof(t_project));
+	t_bool		ret;
 
+	as->fd = open("./invalid_asm/syntax_break02.s", O_RDONLY);
+	analyze_lexicon(as);	
+	ret = analyze_syntax(as);
+	cr_assert((ret == SUCCESS));
+}
 
+Test(test_syntax_analysis, syntax_analysis_break3_test, .init=redirect_all_stdout2)
+{
+	t_project	*as = (t_project *)ft_memalloc(sizeof(t_project));
+	t_bool		ret;
 
+	as->fd = open("./invalid_asm/syntax_break03.s", O_RDONLY);
+	analyze_lexicon(as);	
+	ret = analyze_syntax(as);
+	cr_assert((ret == SUCCESS));
+}
 
+Test(test_syntax_analysis, syntax_analysis_break4_test, .init=redirect_all_stdout2)
+{
+	t_project	*as = (t_project *)ft_memalloc(sizeof(t_project));
+	t_bool		ret;
 
+	as->fd = open("./invalid_asm/syntax_break04.s", O_RDONLY);
+	analyze_lexicon(as);	
+	ret = analyze_syntax(as);
+	cr_assert((ret == SUCCESS));
+}
 
+Test(test_syntax_analysis, syntax_analysis_break5_test, .init=redirect_all_stdout2)
+{
+	t_project	*as = (t_project *)ft_memalloc(sizeof(t_project));
+	t_bool		ret;
 
+	as->fd = open("./invalid_asm/syntax_break05.s", O_RDONLY);
+	analyze_lexicon(as);	
+	ret = analyze_syntax(as);
+	cr_assert((ret == SUCCESS));
+}
 
+Test(test_syntax_analysis, syntax_analysis_break6_test, .init=redirect_all_stdout2)
+{
+	t_project	*as = (t_project *)ft_memalloc(sizeof(t_project));
+	t_bool		ret;
 
+	as->fd = open("./invalid_asm/syntax_break06.s", O_RDONLY);
+	analyze_lexicon(as);	
+	ret = analyze_syntax(as);
+	cr_assert((ret == SUCCESS));
+}
 
+Test(test_syntax_analysis, syntax_analysis_break7_test, .init=redirect_all_stdout2)
+{
+	t_project	*as = (t_project *)ft_memalloc(sizeof(t_project));
+	t_bool		ret;
 
+	as->fd = open("./invalid_asm/syntax_break07.s", O_RDONLY);
+	analyze_lexicon(as);	
+	ret = analyze_syntax(as);
+	cr_assert((ret == SUCCESS));
+}
 
+Test(test_syntax_analysis, syntax_analysis_break8_test, .init=redirect_all_stdout2)
+{
+	t_project	*as = (t_project *)ft_memalloc(sizeof(t_project));
+	t_bool		ret;
 
-
-
-
-
-
-	
-	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, COMMAND_NAME, ft_strdup(".name")), 0));
-	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, STRING, ft_strdup("JimmyJoy")), 0));
-	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, ENDLINE, ft_strdup("\n")), 0));
-	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, COMMAND_COMMENT, ft_strdup(".comment")), 0));
-	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, STRING, ft_strdup("My name is Jimmy")), 0));
-	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, ENDLINE, ft_strdup("\n")), 0));
-	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, LABEL, ft_strdup("label1:")), 0));
-	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, ENDLINE, ft_strdup("\n")), 0));
-	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, INSTRUCTION, ft_strdup("live")), 0));
-	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, DIRECT, ft_strdup("%5")), 0));
-	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, ENDLINE, ft_strdup("\n")), 0));
-	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, LABEL, ft_strdup("label2:")), 0));
-	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, INSTRUCTION, ft_strdup("andv")), 0));
-	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, DIRECT, ft_strdup("%2")), 0));
-	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, SEPARATOR, ft_strdup(",")), 0));
-	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, DIRECT_LABEL, ft_strdup("%:l1")), 0));
-	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, SEPARATOR, ft_strdup(",")), 0));
-	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, REGISTER, ft_strdup("r1")), 0));
-	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, ENDLINE, ft_strdup("\n")), 0));
-	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, LABEL, ft_strdup("label3:")), 0));
-	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, INSTRUCTION, ft_strdup("sub")), 0));
-	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, REGISTER, ft_strdup("r1")), 0));
-	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, SEPARATOR, ft_strdup(",")), 0));
-	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, REGISTER, ft_strdup("r2")), 0));
-	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, SEPARATOR, ft_strdup(",")), 0));
-	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, REGISTER, ft_strdup("r3")), 0));
-	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, ENDLINE, ft_strdup("\n")), 0));
-	// ft_lstadd_back(&as->token_list, ft_lstnew_ptr((const void *)new_token(as, END, ft_strdup("")), 0));
+	as->fd = open("./invalid_asm/syntax_break08.s", O_RDONLY);
+	analyze_lexicon(as);	
+	ret = analyze_syntax(as);
+	cr_assert((ret == SUCCESS));
+}
