@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/05/15 10:18:29 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/05/15 12:23:34 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,7 @@ void				increment_line(t_project *as, char **line, size_t len);
 t_bool				is_valid_label_chars(t_project *as, char **line);
 void				skip_to_end_number(t_project *as, char **line);
 t_bool				indirect_label_token(t_project *as, char **line);
-t_bool				label_token(t_project *as, char **line);
+t_bool				label_or_instruction_token(t_project *as, char **line);
 t_bool				register_token(t_project *as, char **line);
 t_bool				label_chars_redirect(t_project *as, char **line);
 t_bool				indrect_token(t_project *as, char **line);	
@@ -153,9 +153,10 @@ t_bool				separator_token(t_project *as, char **line);
 t_bool				string_token(t_project *as, char **line);
 int					add_to_string_token(t_project *as, char **line);
 int					new_string_token(t_project *as, char **line);
-void				endline_token(t_project *as);
+void				endline_token(t_project *as, char **line);
 void				end_token(t_project *as);
 void				instruction_token(t_project *as, char **line);
+void				label_token(t_project *as, char **line);
 
 
 t_bool				syntax_check(t_project *as);
