@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/13 03:11:00 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/15 02:28:28 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 t_bool			get_argtype(t_project *as)
 {
-	if (!as)
-		return (FAIL);
 	if (!as->next_token)
 		return (FAIL);
 	if (as->next_token->token_type == REGISTER)	
@@ -29,14 +27,6 @@ t_bool			get_argtype(t_project *as)
 	else
 		return (FAIL);
 	return (SUCCESS);
-}
-
-t_bool			is_argument(char token)
-{
-	if (token == INDIRECT_LABEL || token == REGISTER || token == DIRECT_LABEL \
-		|| token == DIRECT || token == INDIRECT)
-		return (SUCCESS);
-	return (FAIL);
 }
 
 t_bool			loop_parameters(t_project *as)
@@ -64,7 +54,11 @@ t_bool			loop_parameters(t_project *as)
 		++as->index;
 	}
 	if (((t_token *)as->tmp->next->content)->token_type != ENDLINE)
+	{
+		as->tmp = as->tmp->next;
+		as->next_token = (t_token *)as->tmp->content;
 		return (FAIL);
+	}
 	return (SUCCESS);
 }
 
@@ -102,7 +96,7 @@ t_bool			parameter_check(t_project *as)
 			++as->pc;
 		if (loop_parameters(as) == FAIL)
 		{
-			ft_printf("Invalid parameter %i type %s for instruction %s\n", as->index, token_tab[as->next_token->opcode - 1].string, as->current_token->literal_str);
+			ft_printf("Invalid parameter %i type %s for instruction %s\n", as->index, token_tab[as->next_token->token_type].lower, as->current_token->literal_str);
 			return (FAIL);
 		}
 	}

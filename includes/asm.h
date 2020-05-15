@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/05/14 17:23:03 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/05/15 03:00:41 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,11 @@
 
 # define OPTIONS				"agu"
 # define SYNTAX_ERR				"Syntax error at token [TOKEN]"
+# define UNEXPECTED_END			"Syntax error - unexpected end of input (Perhaps you forgot to end with a newline ?)\n"
 # define INSTRUCTION_ERR		"Invalid instruction at token [TOKEN]"
 
 # define ERROR_FORMAT			"[%3.3u:%3.3u] %s \"%s\"\n"
+# define ENDLINE_FORMAT			"[%3.3u:%3.3u] %s\n"
 # define LEXICAL_ERR			"Lexical error at [%d:%d]\n"
 # define END_LABEL_CHARS		",%#\";\n \t\v\f\0"
 # define WHITESPACES			" \t\v\f"
@@ -76,6 +78,9 @@ typedef struct		s_project
 	int				fd;
 	int				argc;
 	char			**argv;
+	char			name_found;
+	char			comment_found;
+	char			header_found;
 	size_t			pc;
 	int				flags;
 	size_t			index;
@@ -100,6 +105,7 @@ typedef struct s_redirect
 typedef struct		s_token_tab
 {
 	char			*string;
+	char			*lower;
 	char			size;
 	t_event			translate;
 	char			next[END + 1];
@@ -150,5 +156,9 @@ int					new_string_token(t_project *as, char **line);
 void				endline_token(t_project *as);
 void				end_token(t_project *as);
 
+
+t_bool				syntax_check(t_project *as);
+t_bool				is_argument(char token);
+t_bool				skip_node(t_project *as);
 
 #endif
