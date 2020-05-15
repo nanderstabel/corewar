@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/15 12:58:37 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/05/15 15:05:11 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -461,7 +461,6 @@ void			endline_token(t_project *as, char **line)
 void			end_token(t_project *as)
 {
 	as->count = (as->flags & DEBUG_O) ? ft_printf("%s\n", __func__) : 0;
-	as->row--;
 	ft_lstadd_back(&as->token_list,
 	ft_lstnew_ptr((void*)new_token(as, as->column,
 	END, NULL), sizeof(t_token)));
@@ -490,7 +489,6 @@ t_bool			analyze_lexicon(t_project *as)
 	as->count = (as->flags & DEBUG_O) ? ft_printf("%s\n", __func__) : 0;
 	while (get_next_endline(as->fd, &line))
 	{
-		as->column = 0;
 		temp = line;
 		if (as->index)
 			string_token(as, &temp);
@@ -504,9 +502,11 @@ t_bool			analyze_lexicon(t_project *as)
 		if (*temp == '\n')
 		{
 			endline_token(as, &temp);
+			as->row++;
+			as->column = 0;
+
 		}
 		free(line);
-		as->row++;
 		as->temp = NULL;
 	}
 	end_token(as);
