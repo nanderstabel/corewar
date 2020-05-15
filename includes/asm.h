@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/05/14 21:29:14 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/15 03:00:41 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ typedef struct		s_project
 	char			**argv;
 	char			name_found;
 	char			comment_found;
+	char			header_found;
 	size_t			pc;
 	int				flags;
 	size_t			index;
@@ -104,6 +105,7 @@ typedef struct s_redirect
 typedef struct		s_token_tab
 {
 	char			*string;
+	char			*lower;
 	char			size;
 	t_event			translate;
 	char			next[END + 1];
@@ -156,5 +158,7 @@ void				end_token(t_project *as);
 
 
 t_bool				syntax_check(t_project *as);
+t_bool				is_argument(char token);
+t_bool				skip_node(t_project *as);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/13 02:54:21 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/15 04:07:43 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,20 @@ t_bool			translate_indirect(t_project *as)
 	return (SUCCESS);
 }
 
+/*
+** -------------------------------------------------------------------------- **
+** translation_check checks whether the token type of the current token has a
+** translate function stored in in the token table, if so, it calls that
+** translate function and returnes whatever it returns. If there is no
+** translate function stored, SUCCESS is returned.
+** params
+**	as->current_token	the current token
+**	token_tab			token table
+** return
+**	.translate()		in case of available translate function
+**	SUCCESS				if there is no need to translate
+*/
+
 t_bool			translation_check(t_project *as)
 {
 	as->count = (as->flags & DEBUG_O) ? ft_printf("\t%s\n", __func__) : 0;
@@ -64,6 +78,18 @@ t_bool			translation_check(t_project *as)
 		return (token_tab[as->current_token->token_type].translate(as));
 	return (SUCCESS);
 }
+
+/*
+** -------------------------------------------------------------------------- **
+** this is the main function for the translation to bytecode. It gives
+** translation_check as an argument to loop_token_list and returns whatever
+** loop_token_list returns.
+** params
+**	*as		project struct
+** return
+**	SUCCESS		in case the translation was successful
+**	FAIL		in case the translation failed
+*/
 
 t_bool			translate_to_byte(t_project *as)
 {
