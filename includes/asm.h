@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/05/15 12:05:29 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/15 13:26:19 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,7 @@ int					new_string_token(t_project *as, char **line);
 void				endline_token(t_project *as);
 void				end_token(t_project *as);
 
-
+void				*label_columns(t_hash_table *table);
 t_bool				syntax_check(t_project *as);
 t_bool				is_argument(char token);
 t_bool				skip_node(t_project *as);

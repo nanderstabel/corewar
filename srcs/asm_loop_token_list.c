@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/12 20:32:11 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/15 03:01:37 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/15 13:07:51 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 t_bool			skip_node(t_project *as)
 {
+	as->count = (as->flags & DEBUG_O) ? ft_printf("\t\t%s\n", __func__) : 0;
 	as->tmp = as->trail;
 	//add del_token_node here
 	as->tmp->next = as->tmp->next->next;
