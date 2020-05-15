@@ -3,4 +3,3 @@ tirf:
 		fork	%:tirop
 		ld		-8 , r43
 		live	%78
-
