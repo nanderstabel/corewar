@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/15 02:28:28 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/15 12:04:59 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,17 +60,6 @@ t_bool			loop_parameters(t_project *as)
 		return (FAIL);
 	}
 	return (SUCCESS);
-}
-
-char			*label_to_key(char *str, char token)
-{
-	if (token == LABEL)
-		return (ft_strndup(str, ft_nchar(str, LABEL_CHAR) - 1));
-	if (token == INDIRECT_LABEL)
-		return (ft_strsub(str, 1, ft_strlen(str) - 1));
-	if (token == DIRECT_LABEL)
-		return (ft_strsub(str, 2, ft_strlen(str) - 2));
-	return (NULL);
 }
 
 t_bool			parameter_check(t_project *as)
