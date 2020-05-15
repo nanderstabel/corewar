@@ -6,14 +6,51 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/15 13:28:08 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/15 22:47:39 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
+void			add_buffer_to_list(t_project *as)
+{
+	as->count = (as->flags & DEBUG_O) ? ft_printf("\t\t%s\n", __func__) : 0;
+	ft_lstadd_back(&as->bytecode_list, ft_lstnew((void*)as->buffer, sizeof(CHAMP_MAX_SIZE + 1)));
+	as->index = 0;
+	as->buffer = (char*)ft_memalloc(sizeof(CHAMP_MAX_SIZE + 1));
+}
 
+void			write_byte_to_buf(t_project *as, unsigned char byte)
+{
+	as->count = (as->flags & DEBUG_O) ? ft_printf("\t\t%s\n", __func__) : 0;
+	as->buffer[as->index] = byte;
+	as->index++;
+	if (as->index == CHAMP_MAX_SIZE + 1)
+		add_buffer_to_list(as);
+}
 
+void			write_str_to_buf(t_project *as, char *to_bytecode, unsigned char type)
+{
+	long long	number;
+	long long	*ptr;
+	char		*str;
+	int			index;
+
+	index = 0;
+	as->count = (as->flags & DEBUG_O) ? ft_printf("\t\t%s\n", __func__) : 0;
+	number = ft_atoi(to_bytecode);
+	ptr = (long long*)ft_memalloc(sizeof(long long));
+	*ptr = number;
+	str = ft_strnew(type);
+	ft_memcpy((void*)str, (const void*)ptr, type);
+	str = ft_memrev(str, type);
+	while (index < (int)type)
+	{
+		write_byte_to_buf(as, (unsigned char)str[index]);
+		index++;
+	}
+	//Moeten nog free()
+}
 
 t_bool			translate_indirect_label(t_project *as)
 {
@@ -25,13 +62,20 @@ t_bool			translate_indirect_label(t_project *as)
 t_bool			translate_instruction(t_project *as)
 {
 	as->count = (as->flags & DEBUG_O) ? ft_printf("\t\t%s\n", __func__) : 0;
-	
+	write_byte_to_buf(as, as->current_token->opcode);
+	if (as->current_token->encoding)
+	{
+		as->opcode_temp = as->current_token->opcode;
+		write_byte_to_buf(as, as->current_token->encoding);
+	}
 	return (SUCCESS);
 }
 
 t_bool			translate_register(t_project *as)
 {
 	as->count = (as->flags & DEBUG_O) ? ft_printf("\t\t%s\n", __func__) : 0;
+	write_str_to_buf(as, as->current_token->literal_str + 1, (unsigned char)token_tab[REGISTER].size);
+	
 	
 	return (SUCCESS);
 }
@@ -96,5 +140,9 @@ t_bool			translate_to_byte(t_project *as)
 	as->count = (as->flags & DEBUG_O) ? ft_printf("%s\n", __func__) : 0;
 	ft_hash_table_append(as->labels, label_columns);
 	ft_puttbl(as->labels);
+	as->index = 0;
+	as->buffer = (char*)ft_memalloc(sizeof(CHAMP_MAX_SIZE + 1));
+	if (!as->buffer)
+		return (FAIL);
 	return (loop_token_list(as, translation_check));
 }
