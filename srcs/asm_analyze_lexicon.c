@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/15 15:05:11 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/05/15 16:34:48 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ t_redirect		look_up[] =
 t_bool			command_token(t_project *as, char **line)
 {
 	as->count = (as->flags & DEBUG_O) ? ft_printf("%s\n", __func__) : 0;
-	if (ft_strequ_till_whitespaces(*line, ".name"))
+	if (ft_strequ_wspace_delim(*line, ".name"))
 	{
 		ft_lstadd_back(&as->token_list,
 		ft_lstnew_ptr((void*)new_token(as, as->column,
@@ -50,7 +50,7 @@ t_bool			command_token(t_project *as, char **line)
 		as->count =
 		(as->flags & DEBUG_L) ? ft_printf("--add COMMAND_NAME token\n") : 0;
 	}
-	else if (ft_strequ_till_whitespaces(*line, ".comment"))
+	else if (ft_strequ_wspace_delim(*line, ".comment"))
 	{
 		ft_lstadd_back(&as->token_list,
 		ft_lstnew_ptr((void*)new_token(as, as->column,
@@ -510,6 +510,5 @@ t_bool			analyze_lexicon(t_project *as)
 		as->temp = NULL;
 	}
 	end_token(as);
-	as->count = (as->flags & DEBUG_L) ? ft_printf("--add END token\n") : 0;
 	return (SUCCESS);
 }

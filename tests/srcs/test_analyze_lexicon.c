@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/12 10:18:45 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/05/15 15:05:45 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/05/15 16:35:01 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1315,4 +1315,19 @@ Test(test_lexical_analysis, lexical_error_07, .init=redirect_all_stdout_lexical)
 	as->fd = open("./invalid_asm/lexical_error_07.s", O_RDONLY);
 	analyze_lexicon(as);
 	cr_assert_stdout_eq_str("Lexical error at [73:15]\n");
+}
+
+Test(test_lexical_analysis, valid_lexical_file)
+{
+	t_project	*as;
+	t_bool		ret;
+
+
+	as = (t_project*)ft_memalloc(sizeof(t_project));
+	// as->flags |= DEBUG_O;
+	// as->flags |= DEBUG_L;
+
+	as->fd = open("./invalid_asm/syntax_error_24.s", O_RDONLY);
+	ret = analyze_lexicon(as);
+	cr_assert(ret == SUCCESS);
 }
