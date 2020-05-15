@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/15 03:47:31 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/15 12:06:40 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ t_bool			command_syntax_check(t_project *as)
 ** header is complete, header_found is set to SUCCESS and SUCCESS is returned.
 ** IF the header is not found AND next token type is not LABEL and not
 ** INSTRUCTION, then FAIL is returned.
+** params
 **	as->current_token	the current token
 **	as->next_token		the next token
 **	as->name_found		determines if name is found
@@ -124,6 +125,7 @@ t_bool			find_header(t_project *as)
 ** if the next token type is an argument type, a SEPARATOR or a STRING. If this
 ** is so, the token_list is cut and FAIL is returned. If current token type is
 ** not ENDLINE, SUCCESS is returned.
+** params
 **	as->current_token	the current token
 **	as->next_token		the next token
 **	as->header_found	determines if header is found
@@ -159,6 +161,7 @@ t_bool			syntax_break_check(t_project *as)
 ** If current token type is SEPARATOR, the node is skipped since this token type
 ** is not needed anymore after the syntax analysis. If all goed well, SUCCESS is
 ** returned
+** params
 **	as->current_token	the current token
 **	as->next_token		the next token
 **	token_tab			table with valid sequences

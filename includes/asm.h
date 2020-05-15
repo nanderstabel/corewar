@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/05/15 03:00:41 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/15 12:05:29 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,5 +160,6 @@ void				end_token(t_project *as);
 t_bool				syntax_check(t_project *as);
 t_bool				is_argument(char token);
 t_bool				skip_node(t_project *as);
+char				*label_to_key(char *str, char token);
 
 #endif
