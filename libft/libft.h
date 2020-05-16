@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/16 21:05:44 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/05/15 16:33:56 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/05/15 20:45:49 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -295,5 +295,7 @@ int					ft_nchar(const char *str, int c);
 char				*ft_strndup(const char *src, size_t len);
 t_list				*ft_list_last_elem(t_list *head);
 int					get_next_endline(const int fd, char **line);
+char				*ft_strrev(char *str);
+void				*ft_memrev(void *src, size_t len);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/15 16:34:48 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/05/15 22:31:12 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_bool			command_token(t_project *as, char **line)
 	{
 		ft_lstadd_back(&as->token_list,
 		ft_lstnew_ptr((void*)new_token(as, as->column,
-		COMMAND_NAME, ".name"), sizeof(t_token)));
+		COMMAND_NAME, ft_strdup(".name")), sizeof(t_token)));
 		increment_line(as, line, 5);
 		as->count =
 		(as->flags & DEBUG_L) ? ft_printf("--add COMMAND_NAME token\n") : 0;
@@ -54,7 +54,7 @@ t_bool			command_token(t_project *as, char **line)
 	{
 		ft_lstadd_back(&as->token_list,
 		ft_lstnew_ptr((void*)new_token(as, as->column,
-		COMMAND_COMMENT, ".comment"), sizeof(t_token)));
+		COMMAND_COMMENT, ft_strdup(".comment")), sizeof(t_token)));
 		increment_line(as, line, 8);
 		as->count =
 		(as->flags & DEBUG_L) ? ft_printf("--add COMMAND_COMMENT token\n") : 0;
