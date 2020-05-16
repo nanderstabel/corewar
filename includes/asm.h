@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/05/15 22:39:40 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/05/16 13:08:43 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ typedef struct		s_project
 	size_t			pc;
 	int				flags;
 	size_t			index;
+	char			*string;
 	t_arg_type		octal;
 	char			*temp;
 	char			*buffer;
@@ -110,6 +111,7 @@ typedef struct		s_token_tab
 	char			*string;
 	char			*lower;
 	char			size;
+	unsigned char	code;
 	t_event			translate;
 	char			next[END + 1];
 }					t_token_tab;
@@ -126,6 +128,7 @@ t_bool				analyze_instructions(t_project *as);
 t_bool				create_output_file(t_project *as);
 t_bool				translate_to_byte(t_project *as);
 t_bool				write_translation(t_project *as);
+t_bool				free_project(t_project *as);
 t_bool				lexical_analysis(t_machine *as);
 t_bool				print_usage_message(t_project *as);
 t_bool				skip_whitespaces(t_project *as, char **line);
@@ -164,8 +167,11 @@ void				label_token(t_project *as, char **line);
 void				*label_columns(t_hash_table *table);
 t_bool				syntax_check(t_project *as);
 t_bool				is_argument(char token);
-t_bool				skip_node(t_project *as);
 char				*label_to_key(char *str, char token);
+t_bool				parameter_check(t_project *as);
+t_bool				del_token_node(t_project *as);
+t_bool				del_token_list(t_project *as);
+t_bool				get_argtype(t_project *as);
 
 void				write_str_to_buf(t_project *as, char *to_bytecode, unsigned char type);
 void				write_byte_to_buf(t_project *as, unsigned char byte);
