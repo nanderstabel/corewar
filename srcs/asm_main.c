@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:02:07 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/15 22:41:58 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/16 12:31:23 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ static t_event	g_events[] =
 static void			initialize_project(t_project **as)
 {
 	*as = (t_project *)ft_memalloc(sizeof(t_project));
-	(*as)->buffer = (char *)ft_memalloc(sizeof(char) * CHAMP_MAX_SIZE);
 }
 
 int					main(int argc, char **argv)
