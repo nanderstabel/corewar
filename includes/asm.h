@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/05/15 20:45:14 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/16 12:29:13 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ typedef struct		s_project
 	char			name_found;
 	char			comment_found;
 	char			header_found;
+	char			opcode_temp;
 	size_t			pc;
 	int				flags;
 	size_t			index;
@@ -93,6 +94,7 @@ typedef struct		s_project
 	t_list			*token_list;
 	t_list			*tmp;
 	t_list			*trail;
+	t_list			*bytecode_list;
 	t_token			*current_token;
 	t_token			*next_token;
 }					t_project;
@@ -169,5 +171,9 @@ t_bool				parameter_check(t_project *as);
 t_bool				del_token_node(t_project *as);
 t_bool				del_token_list(t_project *as);
 t_bool				get_argtype(t_project *as);
+
+void				write_str_to_buf(t_project *as, char *to_bytecode, unsigned char type);
+void				write_byte_to_buf(t_project *as, unsigned char byte);
+void				add_buffer_to_list(t_project *as);
 
 #endif
