@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/16 17:58:23 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/05/16 23:08:32 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,9 @@ t_bool			translate_to_byte(t_project *as)
 {
 	as->count = (as->flags & DEBUG_O) ? ft_printf("%s\n", __func__) : 0;
 	as->index = 0;
-	as->buffer = (char*)ft_memalloc(sizeof(CHAMP_MAX_SIZE + 1));
+	as->buffer = (char*)ft_memalloc(CHAMP_MAX_SIZE + 1);
+	ft_hash_table_append(as->labels, label_columns);//append column with addresses to the hashtable
+	ft_puttbl(as->labels);//prints the table (output may look weird)
 	if (!as->buffer)
 		return (FAIL);
 	return (loop_token_list(as, translation_check));
