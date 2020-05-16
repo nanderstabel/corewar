@@ -5,20 +5,8 @@
 /*                                                     +:+                    */
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/05/15 13:14:27 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/15 13:48:13 by nstabel       ########   odam.nl         */
-/*                                                                            */
-/* ************************************************************************** */
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        ::::::::            */
-/*   vertex_columns.c                                   :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2020/04/15 17:27:12 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/04/15 17:33:06 by nstabel       ########   odam.nl         */
+/*   Created: 2020/05/15 22:42:43 by nstabel       #+#    #+#                 */
+/*   Updated: 2020/05/15 22:44:27 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +23,10 @@ static void			add_body_content(t_hash_table *table)
 		if (table->elem[i])
 		{
 			elem = table->elem[i];
-			ft_lstadd(&elem->misc, ft_lstnew(ft_itoa((long long)elem->content), ft_ndigits((long long)elem->content)));
-			ft_addr_lstapp(&elem->body_content, ft_addr_lstnew(elem->misc->content));
+			ft_lstadd(&elem->misc, ft_lstnew(ft_itoa((long long)elem->content),\
+			ft_ndigits((long long)elem->content)));
+			ft_addr_lstapp(&elem->body_content, \
+			ft_addr_lstnew(elem->misc->content));
 		}
 		++i;
 	}

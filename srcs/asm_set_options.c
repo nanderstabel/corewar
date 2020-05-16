@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/12 14:34:44 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/15 22:41:19 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ t_bool				print_usage_message(t_project *as)
 {
 	as->count = (as->flags & DEBUG_O) ? ft_printf("\t%s\n", __func__) : 0;
 	ft_printf("Usage: ./asm [-%s] <sourcefile.s>\n", OPTIONS);
-	ft_printf("\t-a : Instead of creating a .cor file, outputs a stripped and annotated version of the code to the standard output\n");
+	ft_printf("\t-a : Instead of creating a .cor file, outputs a stripped and\
+		annotated version of the code to the standard output\n");
 	ft_printf(\
 	"\t-g : Debug mode: shows executed functions in chronological order\n");
 	ft_printf("\t-u : Shows usage message\n");
@@ -107,7 +108,7 @@ static t_event	g_events[] =
 	[PRINT_USAGE_MESSAGE] = print_usage_message
 };
 
-t_bool			set_options(t_project *as)
+t_bool				set_options(t_project *as)
 {
 	t_machine	*machine;
 
@@ -115,5 +116,5 @@ t_bool			set_options(t_project *as)
 	if (install_machine(&machine, UNINSTALL))
 		run_machine(machine, as, g_transitions, g_events);
 	uninstall_machine(&machine);
-	return (SUCCESS);	
+	return (SUCCESS);
 }
