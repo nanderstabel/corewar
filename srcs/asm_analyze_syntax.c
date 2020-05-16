@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/15 16:03:16 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/15 19:23:18 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,7 +186,7 @@ t_bool			syntax_check(t_project *as)
 		return (syntax_error(as));
 	}
 	if (as->current_token->token_type == SEPARATOR)
-		skip_node(as);
+		del_token_node(as);
 	return (SUCCESS);
 }
 
