@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/12 20:32:11 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/15 22:33:32 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/16 13:04:41 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ t_bool			del_token_list(t_project *as)
 		as->trail = as->tmp;
 		as->tmp = as->tmp->next;
 	}
+	free(as->tmp);
 	return (SUCCESS);
 }
 

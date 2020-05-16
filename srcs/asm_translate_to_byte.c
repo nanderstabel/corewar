@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/16 12:28:38 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/16 13:03:35 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 void			add_buffer_to_list(t_project *as)
 {
 	as->count = (as->flags & DEBUG_O) ? ft_printf("\t\t%s\n", __func__) : 0;
-	ft_lstadd_back(&as->bytecode_list, ft_lstnew((void*)as->buffer, sizeof(CHAMP_MAX_SIZE + 1)));
+	ft_lstadd_back(&as->bytecode_list, ft_lstnew((void*)as->buffer, CHAMP_MAX_SIZE + 1)); //ft_lstadd_back(&as->bytecode_list, ft_lstnew((void*)as->buffer, sizeof(CHAMP_MAX_SIZE + 1)));  <-- deleted sizeof()
 	as->index = 0;
-	as->buffer = (char*)ft_memalloc(sizeof(CHAMP_MAX_SIZE + 1));
+	as->buffer = (char*)ft_memalloc(CHAMP_MAX_SIZE + 1); //(char*)ft_memalloc(sizeof(CHAMP_MAX_SIZE + 1)); <-- deleted sizeof()
 }
 
 void			write_byte_to_buf(t_project *as, unsigned char byte)
@@ -62,6 +62,7 @@ t_bool			translate_indirect_label(t_project *as)
 t_bool			translate_instruction(t_project *as)
 {
 	as->count = (as->flags & DEBUG_O) ? ft_printf("\t\t%s\n", __func__) : 0;
+	return (SUCCESS);
 	write_byte_to_buf(as, as->current_token->opcode);
 	if (as->current_token->encoding)
 	{
@@ -74,6 +75,7 @@ t_bool			translate_instruction(t_project *as)
 t_bool			translate_register(t_project *as)
 {
 	as->count = (as->flags & DEBUG_O) ? ft_printf("\t\t%s\n", __func__) : 0;
+	return (SUCCESS);
 	write_str_to_buf(as, as->current_token->literal_str + 1, (unsigned char)token_tab[REGISTER].size);
 	
 	

@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/05/16 12:29:13 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/16 13:08:43 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ typedef struct		s_project
 	size_t			pc;
 	int				flags;
 	size_t			index;
+	char			*string;
 	t_arg_type		octal;
 	char			*temp;
 	char			*buffer;
