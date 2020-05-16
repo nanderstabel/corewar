@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/15 13:28:08 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/15 20:36:55 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ t_bool			translation_check(t_project *as)
 t_bool			translate_to_byte(t_project *as)
 {
 	as->count = (as->flags & DEBUG_O) ? ft_printf("%s\n", __func__) : 0;
-	ft_hash_table_append(as->labels, label_columns);
-	ft_puttbl(as->labels);
+	// ft_hash_table_append(as->labels, label_columns);
+	// ft_puttbl(as->labels);
 	return (loop_token_list(as, translation_check));
 }
