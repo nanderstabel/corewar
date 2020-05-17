@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/17 20:05:59 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/05/17 22:43:29 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,14 @@ t_bool			translate_instruction(t_project *as)
 	as->count = (as->flags & DEBUG_O) ? ft_printf("\t\t%s\n", __func__) : 0;
 	return (SUCCESS);
 	as->opcode_temp = 0;
+	as->pc = 0;
 	write_byte_to_buf(as, as->current_token->opcode);
 	if (as->current_token->encoding)
 	{
 		as->opcode_temp = as->current_token->opcode;
 		write_byte_to_buf(as, as->current_token->encoding);
 	}
+	as->pc = as->current_token->address;
 	return (SUCCESS);
 }
 
@@ -79,8 +81,6 @@ t_bool			translate_register(t_project *as)
 	return (SUCCESS);
 	write_str_to_buf(as, as->current_token->literal_str + 1,
 	(unsigned char)token_tab[REGISTER].size);
-	
-	
 	return (SUCCESS);
 }
 

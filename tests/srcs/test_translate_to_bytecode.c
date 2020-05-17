@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/15 21:48:03 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/05/17 20:03:08 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/05/17 22:37:37 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,20 +46,20 @@
 // 	temp = as->token_list;
 
 
-// /*----------------------------------------------------------------------------*/
-// /*------------------------------- Test register to write -----------------------*/
-// 	(void)type;
-// 	while (i < 5)
-// 	{
-// 		NEXT_LIST
-// 		i++;
-// 	}	
-// 	// ft_printf("literal %s\n", TOKEN->literal_str);
-// 	file = open("./objs/test.cor", O_CREAT | O_RDWR, 00700);
-// 	// ft_printf("size %d\nstring %s\n", token_tab[REGISTER].size, TOKEN->literal_str + 1);
-// 	write_str_to_buf(as, TOKEN->literal_str + 1, (unsigned char)token_tab[REGISTER].size);
-// 	i = write(file, as->buffer, as->index);
-// 	// ft_printf("fd = %d - sz = %d\n", file, i);
+// // /*----------------------------------------------------------------------------*/
+// // /*------------------------------- Test register to write -----------------------*/
+// // 	(void)type;
+// // 	while (i < 5)
+// // 	{
+// // 		NEXT_LIST
+// // 		i++;
+// // 	}	
+// // 	// ft_printf("literal %s\n", TOKEN->literal_str);
+// // 	file = open("./objs/test.cor", O_CREAT | O_RDWR, 00700);
+// // 	// ft_printf("size %d\nstring %s\n", token_tab[REGISTER].size, TOKEN->literal_str + 1);
+// // 	write_str_to_buf(as, TOKEN->literal_str + 1, (unsigned char)token_tab[REGISTER].size);
+// // 	i = write(file, as->buffer, as->index);
+// // 	// ft_printf("fd = %d - sz = %d\n", file, i);
 
 // /*----------------------------------------------------------------------------*/
 // /* ------------------------------- Test direct to write -----------------------*/
@@ -89,6 +89,7 @@ Test(test_translate_to_bytecode, zork_test)
 	int			i;
 	char		type;
 	t_elem		*hash;
+	char		*number;
 
 	i = 0;
 	as = (t_project*)ft_memalloc(sizeof(t_project));
@@ -117,23 +118,22 @@ Test(test_translate_to_bytecode, zork_test)
 		i++;
 	}
 	as->opcode_temp = TOKEN->opcode;
+	as->pc = TOKEN->address;
 	NEXT_LIST
 	NEXT_LIST
-
 	if (as->labels == NULL)
 		ft_printf("hash table NULL\n");
 	hash = ((t_elem*)(as->labels[0].elem));
 	hash = ft_hash_table_get(as->labels, label_to_key(TOKEN->literal_str, TOKEN->token_type));
 	if (hash == NULL)
 		ft_printf("return hash.get NULL\n");
-	ft_printf("literal [%s] - type [%d]\n", TOKEN->literal_str, TOKEN->token_type);
-	ft_printf("string [%s]\n", label_to_key(TOKEN->literal_str, TOKEN->token_type));
-	ft_printf("pc [%zu]\n", (size_t)hash->content);
+
+	number = ft_itoa((long long)hash->content);
+	ft_printf("literal [%s] - type [%d]\n current instruction pc [%zu] - PC in hash [%zu]\n", TOKEN->literal_str, TOKEN->token_type, as->pc, (size_t)hash->content);
 	file = open("./objs/test.cor", O_CREAT | O_RDWR, 00700);;
-	// ft_printf("size %d\nstring %s\n", token_tab[REGISTER].size, TOKEN->literal_str + 1);
-	write_str_to_buf(as, TOKEN->literal_str + 1, (unsigned char)token_tab[REGISTER].size);
+	write_str_to_buf(as, number, (unsigned char)token_tab[DIRECT_LABEL].size);
 	i = write(file, as->buffer, as->index);
-	// ft_printf("fd = %d - sz = %d\n", file, i);
+	ft_printf("fd = %d - written to file in bytes = %d\n", file, i);
 
 
 
