@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/17 22:30:25 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/05/18 12:40:47 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,7 +184,7 @@ t_bool			label_or_instruction_token(t_project *as, char **line)
 	as->count = (as->flags & DEBUG_O) ? ft_printf("%s\n", __func__) : 0;
 	if (!is_valid_label_chars(as, line))
 	{
-		if (**line == ':')
+		if (**line == LABEL_CHAR)
 			label_token(as, line);
 		else
 			return (FAIL);
@@ -461,8 +461,6 @@ t_bool			process_line(t_project *as, char **line)
 	index = 0;
 	while (**line != '\n' && **line != '\0')
 	{
-		// if (**line == '\0')
-		// 	return (SUCCESS);
 		if (ft_strchr(look_up[index].chars, **line))
 		{
 			as->temp = *line;
@@ -473,7 +471,6 @@ t_bool			process_line(t_project *as, char **line)
 		index++;
 		if (index == (LOOK_UP_LEVELS))
 			return (FAIL);
-		// ft_printf("char in process line [%c]\n", **line);
 	}
 	return (SUCCESS);
 }
@@ -525,10 +522,8 @@ t_bool			analyze_lexicon(t_project *as)
 		if (!process_line(as, &temp))
 		{
 			ft_printf(LEXICAL_ERR, (as->row + 1), (as->column + 1));
-			//wis link list
 			return (FAIL);
 		}
-		// ft_printf("char line after provess line [%c]\n", *temp);
 		if (*temp == '\n')
 		{
 			endline_token(as, &temp);
