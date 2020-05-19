@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/05/16 13:08:43 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/19 22:10:39 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include "libft.h"
 # include "op.h"
 
-# define OPTIONS				"agu"
+# define OPTIONS				"agul"
 # define SYNTAX_ERR				"Syntax error at token [TOKEN]"
 # define UNEXPECTED_END			"Syntax error - unexpected end of input (Perhaps you forgot to end with a newline ?)\n"
 # define INSTRUCTION_ERR		"Invalid instruction at token [TOKEN]"
@@ -173,8 +173,8 @@ t_bool				del_token_node(t_project *as);
 t_bool				del_token_list(t_project *as);
 t_bool				get_argtype(t_project *as);
 
-void				write_str_to_buf(t_project *as, char *to_bytecode, unsigned char type);
-void				write_byte_to_buf(t_project *as, unsigned char byte);
+void				write_str_to_buf(t_project *as, char *to_bytecode, char type);
+void				write_byte_to_buf(t_project *as, char byte);
 void				add_buffer_to_list(t_project *as);
 
 #endif
