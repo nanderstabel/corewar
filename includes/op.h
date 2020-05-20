@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   op.h                                               :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: zaz <marvin@42.fr>                         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2013/11/06 14:21:46 by zaz              ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   op.h                                               :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: zaz <marvin@42.fr>                           +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2013/10/04 11:33:27 by zaz           #+#    #+#                 */
+/*   Updated: 2020/05/20 11:34:36 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,3 +74,17 @@ typedef struct        header_s
   unsigned int        prog_size;
   char                comment[COMMENT_LENGTH + 1];
 }                    header_t;
+
+typedef struct		s_op
+{
+	char			*operation;
+	size_t			n_args;
+	t_arg_type		args[3];
+	char			opcode;
+	short			cycles_to_wait;
+	char			*description;
+	char			encoded;
+	char			label;
+}					t_op;
+
+extern t_op			op_tab[17];

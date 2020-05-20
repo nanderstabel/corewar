@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/05/20 11:05:10 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/05/20 11:34:47 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,14 @@
 
 typedef struct		s_byte
 {
-	unsigned char	byte_1	: 8;
-	unsigned char	byte_2	: 8;
+	unsigned char	byte	: 8;
 	struct s_byte	*next;
 	struct s_byte	*prev;
 }					t_byte;
 
 typedef struct		s_cursor
 {
-	unsigned int	PC;
+	t_byte			*PC;
 	unsigned int	CTW;
 	unsigned int	decay;
 	int				*reg[REG_NUMBER];
@@ -49,6 +48,11 @@ typedef struct		s_vm
 	int				options;
 	unsigned 		dump:
 }					t_vm;
+
+typedef struct		op_fct
+{
+	int				(*f)(t_byte *pos, );
+};
 
 void				some_vm_function(char *s);
 
