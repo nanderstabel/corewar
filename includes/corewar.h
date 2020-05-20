@@ -6,11 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-<<<<<<< Updated upstream
-/*   Updated: 2020/05/20 11:34:47 by mmarcell      ########   odam.nl         */
-=======
-/*   Updated: 2020/05/20 11:34:47 by mmarcell      ########   odam.nl         */
->>>>>>> Stashed changes
+/*   Updated: 2020/05/20 11:40:22 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
