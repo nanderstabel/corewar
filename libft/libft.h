@@ -136,6 +136,7 @@ char				**ft_strsplit(const char *s, char c);
 char				*ft_strstr(const char *hay, const char *needle);
 char				*ft_strsub(const char *s, unsigned int start, size_t len);
 char				*ft_strtrim(const char *s);
+char				*ft_strrev(char *s);
 int					ft_tolower(int c);
 int					ft_toupper(int c);
 long long int		ft_absolute(long long int nbr);
