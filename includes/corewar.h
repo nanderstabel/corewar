@@ -13,8 +13,8 @@
 #ifndef COREWAR_H
 # define COREWAR_H
 
-#include "libft.h"
-#include "op.h"
+# include "libft.h"
+# include "op.h"
 
 typedef struct		s_byte
 {
@@ -30,7 +30,7 @@ typedef struct		s_cursor
 	unsigned int	decay;
 	int				*reg[REG_NUMBER];
 	unsigned int	carry;
-	char            *color;
+	int				color;
 }					t_cursor;
 
 typedef struct		s_vm
@@ -49,11 +49,29 @@ typedef struct		s_vm
 	unsigned 		dump:
 }					t_vm;
 
-typedef struct		op_fct
+typedef struct		s_op_fct
 {
-	int				(*f)(t_byte *pos, );
-};
+	int				(*f)(t_cursor *cursor);
+	t_op			*op_info;
+}					t_op_fct;
 
-void				some_vm_function(char *s);
+extern t_op_fct		op_fct_tab[17];
+
+int			op_live(t_cursor *cursor);
+int			op_ld(t_cursor *cursor);
+int			op_st(t_cursor *cursor);
+int			op_add(t_cursor *cursor);
+int			op_sub(t_cursor *cursor);
+int			op_and(t_cursor *cursor);
+int			op_or(t_cursor *cursor);
+int			op_xor(t_cursor *cursor);
+int			op_zjmp(t_cursor *cursor);
+int			op_ldi(t_cursor *cursor);
+int			op_sti(t_cursor *cursor);
+int			op_fork(t_cursor *cursor);
+int			op_lld(t_cursor *cursor);
+int			op_lldi(t_cursor *cursor);
+int			op_lfork(t_cursor *cursor);
+int			op_aff(t_cursor *cursor);
 
 #endif
