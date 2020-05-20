@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/05/06 16:37:12 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/05/20 11:05:10 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,42 @@
 # define COREWAR_H
 
 #include "libft.h"
+#include "op.h"
 
+typedef struct		s_byte
+{
+	unsigned char	byte_1	: 8;
+	unsigned char	byte_2	: 8;
+	struct s_byte	*next;
+	struct s_byte	*prev;
+}					t_byte;
 
-void	some_vm_function(char *s);
+typedef struct		s_cursor
+{
+	unsigned int	PC;
+	unsigned int	CTW;
+	unsigned int	decay;
+	int				*reg[REG_NUMBER];
+	unsigned int	carry;
+	char            *color;
+}					t_cursor;
 
+typedef struct		s_vm
+{
+	unsigned int	champ_count;
+	int				last_live;
+	unsigned int	cycle_count; 
+	unsigned int	total_cycle_count;
+	unsigned int	CTD;
+	unsigned int	check_count;
+	unsigned int	live_count;
+	header_t    	*champions;
+	t_cursor    	*cursor;
+	t_byte			*first_byte;
+	int				options;
+	unsigned 		dump:
+}					t_vm;
+
+void				some_vm_function(char *s);
 
 #endif
