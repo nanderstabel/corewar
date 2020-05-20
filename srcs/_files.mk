@@ -10,6 +10,6 @@
 #                                                                              #
 # **************************************************************************** #
 
-VM_FILES := some_vm_function.c
+VM_FILES :=
 
 ASM_FILES := some_asm_function.c

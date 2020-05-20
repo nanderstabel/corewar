@@ -16,6 +16,14 @@
 # include "libft.h"
 # include "op.h"
 
+//TODO create error enum so exit_with_message can print the right message given
+//its first param. 
+//	0 -> usage
+//	1 -> no message (because error message has been printed already)
+
+# define ERROR		0
+# define SUCCESS	1
+
 typedef struct		s_byte
 {
 	unsigned char	byte	: 8;
@@ -46,7 +54,7 @@ typedef struct		s_vm
 	t_cursor    	*cursor;
 	t_byte			*first_byte;
 	int				options;
-	unsigned 		dump:
+	unsigned 		dump;
 }					t_vm;
 
 typedef struct		s_op_fct
@@ -74,4 +82,6 @@ int			op_lldi(t_cursor *cursor);
 int			op_lfork(t_cursor *cursor);
 int			op_aff(t_cursor *cursor);
 
+int			exit_with_message(t_vm *vm, int message_code, int fd, int ret);
+int			input_validation(t_vm *vm);
 #endif
