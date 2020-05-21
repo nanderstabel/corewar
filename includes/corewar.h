@@ -19,21 +19,23 @@
 //TODO create error enum so exit_with_message can print the right message given
 //its first param. 
 //	0 -> usage
-//	1 -> no message (because error message has been printed already)
+//	1 -> invalid option - general
+//	2 -> invalid option - player no > MAX_PLAYERS
+//	3 -> invalid option - player no already exists
 
-# define ERROR		0
-# define SUCCESS	1
+# define OPTIONS	"dnv"
 
-typedef struct		s_byte
-{
-	unsigned char	byte	: 8;
-	struct s_byte	*next;
-	struct s_byte	*prev;
-}					t_byte;
+// I think it might be a better solution to have the arena in a simple char* and have a wrapper function that calculates the indices with the offset and a boolian variable for enabling or disabling the l... (lfork, lld, lldi) operations
+// typedef struct		s_byte
+// {
+// 	unsigned char	byte;
+// 	struct s_byte	*next;
+// 	struct s_byte	*prev;
+// }					t_byte;
 
 typedef struct		s_cursor
 {
-	t_byte			*PC;
+	char			*PC;
 	unsigned int	CTW;
 	unsigned int	decay;
 	int				*reg[REG_NUMBER];
@@ -50,11 +52,11 @@ typedef struct		s_vm
 	unsigned int	CTD;
 	unsigned int	check_count;
 	unsigned int	live_count;
-	header_t    	*champions;
-	t_cursor    	*cursor;
-	t_byte			*first_byte;
-	int				options;
-	unsigned 		dump;
+	header_t		*champions;
+	t_cursor		*cursor;
+	char			*arena;
+	unsigned int	visualizer;
+	int				dump;
 }					t_vm;
 
 typedef struct		s_op_fct
@@ -82,6 +84,14 @@ int			op_lldi(t_cursor *cursor);
 int			op_lfork(t_cursor *cursor);
 int			op_aff(t_cursor *cursor);
 
-int			exit_with_message(t_vm *vm, int message_code, int fd, int ret);
-int			input_validation(t_vm *vm);
+int			print_message(int message_code, int fd, int ret);
+int			free_vm(t_vm *vm, int ret);
+int			input_validation(t_vm *vm, char **argv, int argc);
+
+// int			is_option(char *str);
+// int			save_option(char **argv, int argc);
+
+int			is_champion(char **argv, int *champ_len);
+int			save_champion(t_vm *vm, char *file, int champ_len, int champ_no);
+
 #endif

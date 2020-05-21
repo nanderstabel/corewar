@@ -33,9 +33,9 @@ int main(int argc, char **argv)
 
 	ft_bzero(&vm, sizeof(t_vm));
 	if (argc == 1)
-		return(exit_with_message(NULL, 0, 1, 0));
-	if (input_validation(&vm) == ERROR)
-		return (exit_with_message(&vm, 1, 2, 1));
-	ft_cor_read(argv[1]);
-	return (0);
+		return(print_message(0, stdout, SUCCESS));
+	if (input_validation(&vm, argv, argc) == ERROR)
+		return (free_vm(&vm, ERROR));
+	ft_putendl("input is valid");
+	return (free_vm(&vm, SUCCESS));
 }
