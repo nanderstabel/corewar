@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/16 23:03:03 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/18 15:26:36 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ t_bool			adjust_encoding_byte(t_project *as)
 	as->current_token->encoding = (as->current_token->encoding << 2);
 	return (SUCCESS);
 }
+
 
 t_bool			count_parameters(t_project *as)
 {
