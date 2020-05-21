@@ -16,12 +16,18 @@
 # include <stdarg.h>
 # include <stdio.h>
 
-# define TRUE 1
-# define FALSE 0
-# define BUFF_SIZE 512
-# define FD_MAX 4864
-# define CONV_CHAR_START 'B'
-# define CONV_CHAR_END 121
+# define TRUE				1
+# define FALSE				0
+# define SUCCESS			TRUE
+# define ERROR				FALSE
+
+# define INT_MAX			2147483647
+# define INT_MIN			-2147483648
+
+# define BUFF_SIZE			512
+# define FD_MAX				4864
+# define CONV_CHAR_START	'B'
+# define CONV_CHAR_END		121
 
 typedef struct		s_list
 {
