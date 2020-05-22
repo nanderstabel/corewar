@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/22 15:58:05 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/05/22 18:06:32 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 void			add_buffer_to_list(t_project *as)
 {
 	as->count = (as->flags & DEBUG_O) ? ft_printf("\t\t%s\n", __func__) : 0;
-	ft_lstadd_back(&as->bytecode_list, ft_lstnew((void*)as->buffer,
-	CHAMP_MAX_SIZE + 1));
+	ft_lstadd_back(&as->bytecode_list, ft_lstnew_ptr((void*)as->buffer,
+	CHAMP_MAX_SIZE));
 	as->index = 0;
-	as->buffer = (char*)ft_memalloc(CHAMP_MAX_SIZE + 1);
+	as->buffer = (char*)ft_memalloc(CHAMP_MAX_SIZE);
 }
 
 void			write_byte_to_buf(t_project *as, char byte)
@@ -26,7 +26,7 @@ void			write_byte_to_buf(t_project *as, char byte)
 	as->count = (as->flags & DEBUG_O) ? ft_printf("\t\t%s\n", __func__) : 0;
 	as->buffer[as->index] = byte;
 	as->index++;
-	if (as->index == CHAMP_MAX_SIZE + 1)
+	if (as->index == CHAMP_MAX_SIZE)
 		add_buffer_to_list(as);
 }
 
@@ -134,6 +134,9 @@ t_bool			translation_check(t_project *as)
 	as->count = (as->flags & DEBUG_O) ? ft_printf("\t%s\n", __func__) : 0;
 	if (token_tab[as->current_token->token_type].translate)
 		return (token_tab[as->current_token->token_type].translate(as));
+	ft_lstadd_back(&as->bytecode_list, ft_lstnew_ptr((void*)as->buffer,
+	as->index));
+	as->index = 0;
 	return (SUCCESS);
 }
 
@@ -153,7 +156,7 @@ t_bool			translate_to_byte(t_project *as)
 {
 	as->count = (as->flags & DEBUG_O) ? ft_printf("%s\n", __func__) : 0;
 	as->index = 0;
-	as->buffer = (char*)ft_memalloc(CHAMP_MAX_SIZE + 1);
+	as->buffer = (char*)ft_memalloc(CHAMP_MAX_SIZE);
 	// ft_hash_table_append(as->labels, label_columns);//append column withaddresses to the hashtable
 	// ft_puttbl(as->labels);//prints the table (output may look weird)
 	if (!as->buffer)
