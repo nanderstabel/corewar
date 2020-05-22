@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/15 22:41:19 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/18 12:20:54 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ enum
 t_bool				read_argument(t_project *as)
 {
 	as->count = (as->flags & DEBUG_O) ? ft_printf("\t%s\n", __func__) : 0;
-	if (as->flags & DEBUG_O)
-		ft_printf("\t%s\n", __func__);
 	if (as->argc > 1)
 	{
 		--as->argc;
@@ -40,8 +38,6 @@ t_bool				read_argument(t_project *as)
 t_bool				find_dash(t_project *as)
 {
 	as->count = (as->flags & DEBUG_O) ? ft_printf("\t%s\n", __func__) : 0;
-	if (as->flags & DEBUG_O)
-		ft_printf("\t%s\n", __func__);
 	if (**as->argv == '-')
 	{
 		++(*as->argv);
@@ -53,14 +49,14 @@ t_bool				find_dash(t_project *as)
 t_bool				find_option(t_project *as)
 {
 	as->count = (as->flags & DEBUG_O) ? ft_printf("\t%s\n", __func__) : 0;
-	if (as->flags & DEBUG_O)
-		ft_printf("\t%s\n", __func__);
 	if (ft_strchr(OPTIONS, **as->argv) && **as->argv)
 	{
 		if (**as->argv == 'u')
 			return (FAIL);
 		if (**as->argv == 'g')
 			as->flags |= DEBUG_O;
+		if (**as->argv == 'l')
+			as->flags |= DEBUG_L;
 		++(*as->argv);
 		return (SUCCESS);
 	}
@@ -70,8 +66,6 @@ t_bool				find_option(t_project *as)
 t_bool				validate_argument(t_project *as)
 {
 	as->count = (as->flags & DEBUG_O) ? ft_printf("\t%s\n", __func__) : 0;
-	if (as->flags & DEBUG_O)
-		ft_printf("\t%s\n", __func__);
 	if (**as->argv == 0 && *(*as->argv - 1) != '-')
 		return (SUCCESS);
 	return (FAIL);
