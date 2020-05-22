@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/19 22:10:21 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/05/22 15:58:05 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,10 @@
 void			add_buffer_to_list(t_project *as)
 {
 	as->count = (as->flags & DEBUG_O) ? ft_printf("\t\t%s\n", __func__) : 0;
-	ft_lstadd_back(&as->bytecode_list, ft_lstnew((void*)as->buffer, CHAMP_MAX_SIZE + 1)); //ft_lstadd_back(&as->bytecode_list, ft_lstnew((void*)as->buffer, sizeof(CHAMP_MAX_SIZE + 1)));  <-- deleted sizeof()
+	ft_lstadd_back(&as->bytecode_list, ft_lstnew((void*)as->buffer,
+	CHAMP_MAX_SIZE + 1));
 	as->index = 0;
-	as->buffer = (char*)ft_memalloc(CHAMP_MAX_SIZE + 1); //(char*)ft_memalloc(sizeof(CHAMP_MAX_SIZE + 1)); <-- deleted sizeof()
+	as->buffer = (char*)ft_memalloc(CHAMP_MAX_SIZE + 1);
 }
 
 void			write_byte_to_buf(t_project *as, char byte)
@@ -46,31 +47,34 @@ void			write_str_to_buf(t_project *as, char *to_bytecode, char type)
 	str = ft_memrev(str, type);
 	while (index < type)
 	{
-		// ft_printf("index %d - string = %s byte = %c\n", index, to_bytecode, (unsigned char)str[index]);
 		write_byte_to_buf(as, str[index]);
 		index++;
 	}
-	//Moeten nog free()
+	free(str);
+	free(ptr);
 }
 
-t_bool			translate_indirect_label(t_project *as)
+t_bool			translate_label(t_project *as)
 {
-	t_elem	*hash_element;
-	char	*number;
-	int		sum;
-	
+	t_elem		*hash_element;
+	char		*string;
+	int			sum;
+
 	as->count = (as->flags & DEBUG_O) ? ft_printf("\t\t%s\n", __func__) : 0;
-	hash_element = ft_hash_table_get(as->labels,label_to_key(
-	as->current_token->literal_str, as->current_token->token_type));
+	string = label_to_key(as->current_token->literal_str,
+	as->current_token->token_type);
+	hash_element = ft_hash_table_get(as->labels, string);
+	free(string);
 	if (!hash_element)
 		return (FAIL);
 	if (as->pc > (size_t)hash_element->content)
 		sum = ((long long)hash_element->content - (long long)as->pc);
 	else
 		sum = (long long)as->pc + (long long)hash_element->content;
-	number = ft_itoa(sum);
-	write_str_to_buf(as, number,
-	(unsigned char)token_tab[INDIRECT_LABEL].size);
+	string = ft_itoa(sum);
+	write_str_to_buf(as, string,
+	(unsigned char)token_tab[as->current_token->token_type].size);
+	free(string);
 	return (SUCCESS);
 }
 
@@ -89,69 +93,33 @@ t_bool			translate_instruction(t_project *as)
 	return (SUCCESS);
 }
 
-t_bool			translate_register(t_project *as)
+t_bool			translate_argument(t_project *as)
 {
-	as->count = (as->flags & DEBUG_O) ? ft_printf("\t\t%s\n", __func__) : 0;
-	// ft_printf("lit str %s - size %d\n",  as->current_token->literal_str + 1, (unsigned char)token_tab[REGISTER].size);
-	write_str_to_buf(as, as->current_token->literal_str + 1,
-	token_tab[REGISTER].size);
-	return (SUCCESS);
-}
+	int		offset;
+	char	size;
 
-t_bool			translate_direct_label(t_project *as)
-{
-	t_elem	*hash_element;
-	char	*number;
-	int		sum;
-	
+	offset = 0;
 	as->count = (as->flags & DEBUG_O) ? ft_printf("\t\t%s\n", __func__) : 0;
-	hash_element = ft_hash_table_get(as->labels,label_to_key(
-	as->current_token->literal_str, as->current_token->token_type));
-	if (!hash_element)
-		return (FAIL);
-	if (as->pc > (size_t)hash_element->content)
-		sum = ((long long)hash_element->content - (long long)as->pc);
+	if (as->current_token->token_type == REGISTER ||
+	as->current_token->token_type == DIRECT)
+		offset = 1;
+	if (as->current_token->token_type == DIRECT)
+	{
+		if (op_tab[as->opcode_temp - 1].label)
+			size = 2;
+		else
+			size = 4;
+	}
 	else
-		sum = (long long)as->pc + (long long)hash_element->content;
-	number = ft_itoa(sum);
-	write_str_to_buf(as, number,
-	token_tab[DIRECT_LABEL].size);
+		size = token_tab[as->current_token->token_type].size;
+	write_str_to_buf(as, as->current_token->literal_str + offset, size);
 	return (SUCCESS);
 }
-
-t_bool			translate_direct(t_project *as)
-{
-	char		type;
-	
-	as->count = (as->flags & DEBUG_O) ? ft_printf("\t\t%s\n", __func__) : 0;
-	if (op_tab[as->opcode_temp - 1].label)
-		type = 2;
-	else
-		type = 4;
-	write_str_to_buf(as, as->current_token->literal_str + 1, type);	
-	return (SUCCESS);
-}
-
-t_bool			translate_indirect(t_project *as)
-{
-	as->count = (as->flags & DEBUG_O) ? ft_printf("\t\t%s\n", __func__) : 0;
-	write_str_to_buf(as, as->current_token->literal_str,
-	token_tab[INDIRECT].size);
-	return (SUCCESS);
-}
-
 /*
 ** -------------------------------------------------------------------------- **
 ** translation_check checks whether the token type of the current token has a
 ** translate function stored in in the token table, if so, it calls that
-** translate function and returnes whatever it returnvoid			add_buffer_to_list(t_project *as)
-{
-	as->count = (as->flags & DEBUG_O) ? ft_printf("\t\t%s\n", __func__) : 0;
-	ft_lstadd_back(&as->bytecode_list, ft_lstnew((void*)as->buffer, CHAMP_MAX_SIZE + 1)); //ft_lstadd_back(&as->bytecode_list, ft_lstnew((void*)as->buffer, sizeof(CHAMP_MAX_SIZE + 1)));  <-- deleted sizeof()
-	as->index = 0;
-	as->buffer = (char*)ft_memalloc(CHAMP_MAX_SIZE + 1); //(char*)ft_memalloc(sizeof(CHAMP_MAX_SIZE + 1)); <-- deleted sizeof()
-}
-s. If there is no
+** translate function and returnes whatever it return If there is no
 ** translate function stored, SUCCESS is returned.
 ** params
 **	as->current_token	the current token
@@ -186,7 +154,7 @@ t_bool			translate_to_byte(t_project *as)
 	as->count = (as->flags & DEBUG_O) ? ft_printf("%s\n", __func__) : 0;
 	as->index = 0;
 	as->buffer = (char*)ft_memalloc(CHAMP_MAX_SIZE + 1);
-	// ft_hash_table_append(as->labels, label_columns);//append column with addresses to the hashtable
+	// ft_hash_table_append(as->labels, label_columns);//append column withaddresses to the hashtable
 	// ft_puttbl(as->labels);//prints the table (output may look weird)
 	if (!as->buffer)
 		return (FAIL);

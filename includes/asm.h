@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/05/19 22:10:39 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/05/22 15:56:16 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,12 +141,9 @@ t_token				*new_token(t_project *as, size_t y_axis, \
 					short type, char *str);
 t_bool				loop_token_list(t_project *as, \
 					t_bool (*check)(t_project *as));
-t_bool				translate_indirect_label(t_project *as);
+t_bool				translate_argument(t_project *as);
 t_bool				translate_instruction(t_project *as);
-t_bool				translate_register(t_project *as);
-t_bool				translate_direct_label(t_project *as);
-t_bool				translate_direct(t_project *as);
-t_bool				translate_indirect(t_project *as);
+t_bool				translate_label(t_project *as);
 void				increment_line(t_project *as, char **line, size_t len);
 t_bool				is_valid_label_chars(t_project *as, char **line);
 void				skip_to_end_number(t_project *as, char **line);
