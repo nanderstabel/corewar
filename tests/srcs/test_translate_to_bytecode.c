@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/15 21:48:03 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/05/22 15:53:42 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/05/22 15:59:58 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -341,44 +341,44 @@
 // 	system("rm ./objs/test.cor");
 // }
 
-Test(test_translate_to_bytecode, cookbook_batman_test)
-{
-	t_project 	*as;
-	int			file;
-	int			i;
+// Test(test_translate_to_bytecode, cookbook_batman_test)
+// {
+// 	t_project 	*as;
+// 	int			file;
+// 	int			i;
 
-	i = 0;
-	as = (t_project*)ft_memalloc(sizeof(t_project));
-	// as->flags |= DEBUG_O;
-	as->fd = open("./valid_asm/cookbook_batman.s", O_RDONLY);
-	if (as->fd == -1)
-		ft_printf("error fd\n");
-	if (!analyze_lexicon(as))
-		ft_printf("error lex\n");
-	if (!analyze_syntax(as))
-		ft_printf("error syn\n");
-	if (!analyze_instructions(as))
-		ft_printf("error ins\n");
-	if (!analyze_parameters(as))
-		ft_printf("error para\n");
-	if (!translate_to_byte(as))
-		ft_printf("error byte\n");
+// 	i = 0;
+// 	as = (t_project*)ft_memalloc(sizeof(t_project));
+// 	// as->flags |= DEBUG_O;
+// 	as->fd = open("./valid_asm/cookbook_batman.s", O_RDONLY);
+// 	if (as->fd == -1)
+// 		ft_printf("error fd\n");
+// 	if (!analyze_lexicon(as))
+// 		ft_printf("error lex\n");
+// 	if (!analyze_syntax(as))
+// 		ft_printf("error syn\n");
+// 	if (!analyze_instructions(as))
+// 		ft_printf("error ins\n");
+// 	if (!analyze_parameters(as))
+// 		ft_printf("error para\n");
+// 	if (!translate_to_byte(as))
+// 		ft_printf("error byte\n");
 
-	file = open("./objs/test.cor", O_CREAT | O_RDWR, 00700);
-	while ((size_t)i < as->index)
-	{
-		write(file, as->buffer, 1);
-		as->buffer++;
-		i++;
-	}
+// 	file = open("./objs/test.cor", O_CREAT | O_RDWR, 00700);
+// 	while ((size_t)i < as->index)
+// 	{
+// 		write(file, as->buffer, 1);
+// 		as->buffer++;
+// 		i++;
+// 	}
 	
-	// write(file, as->buffer, as->index);
-	// ft_printf("bytes writen = %d\nindex = %d\n", i, as->index);
+// 	// write(file, as->buffer, as->index);
+// 	// ft_printf("bytes writen = %d\nindex = %d\n", i, as->index);
 
-	// system("hexdump ./objs/test.cor");
-	system("xxd ./objs/test.cor");
+// 	// system("hexdump ./objs/test.cor");
+// 	system("xxd ./objs/test.cor");
 
-	ft_printf("expected:\n         0b68 0100 0700 0101 0000 0000 0290 0000 0000 0209 ffed\n");
-	// cr_assert_stdout_eq_str("00000000: 11111111 11110000                                      ..\n");
-	system("rm ./objs/test.cor");
-}
+// 	ft_printf("expected:\n         0b68 0100 0700 0101 0000 0000 0290 0000 0000 0209 ffed\n");
+// 	// cr_assert_stdout_eq_str("00000000: 11111111 11110000                                      ..\n");
+// 	system("rm ./objs/test.cor");
+// }
