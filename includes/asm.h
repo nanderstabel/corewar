@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/05/16 13:08:43 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/22 15:56:16 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include "libft.h"
 # include "op.h"
 
-# define OPTIONS				"agu"
+# define OPTIONS				"agul"
 # define SYNTAX_ERR				"Syntax error at token [TOKEN]"
 # define UNEXPECTED_END			"Syntax error - unexpected end of input (Perhaps you forgot to end with a newline ?)\n"
 # define INSTRUCTION_ERR		"Invalid instruction at token [TOKEN]"
@@ -141,12 +141,9 @@ t_token				*new_token(t_project *as, size_t y_axis, \
 					short type, char *str);
 t_bool				loop_token_list(t_project *as, \
 					t_bool (*check)(t_project *as));
-t_bool				translate_indirect_label(t_project *as);
+t_bool				translate_argument(t_project *as);
 t_bool				translate_instruction(t_project *as);
-t_bool				translate_register(t_project *as);
-t_bool				translate_direct_label(t_project *as);
-t_bool				translate_direct(t_project *as);
-t_bool				translate_indirect(t_project *as);
+t_bool				translate_label(t_project *as);
 void				increment_line(t_project *as, char **line, size_t len);
 t_bool				is_valid_label_chars(t_project *as, char **line);
 void				skip_to_end_number(t_project *as, char **line);
@@ -173,8 +170,8 @@ t_bool				del_token_node(t_project *as);
 t_bool				del_token_list(t_project *as);
 t_bool				get_argtype(t_project *as);
 
-void				write_str_to_buf(t_project *as, char *to_bytecode, unsigned char type);
-void				write_byte_to_buf(t_project *as, unsigned char byte);
+void				write_str_to_buf(t_project *as, char *to_bytecode, char type);
+void				write_byte_to_buf(t_project *as, char byte);
 void				add_buffer_to_list(t_project *as);
 
 #endif
