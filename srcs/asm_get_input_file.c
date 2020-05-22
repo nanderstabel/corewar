@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/12 09:38:23 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/05/22 17:44:26 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ t_bool			get_input_file(t_project *as)
 
 	as->count = (as->flags & DEBUG_O) ? ft_printf("%s\n", __func__) : 0;
 	len = ft_strlen(*as->argv);
-	if ((len < 3) | ((*as->argv)[len - 1] != 's' &&
-	(*as->argv)[len - 2] != '.'))
+	if ((len < 3) || (*as->argv)[len - 1] != 's' ||
+	(*as->argv)[len - 2] != '.')
 	{
 		print_usage_message(as);
 		return (FAIL);
