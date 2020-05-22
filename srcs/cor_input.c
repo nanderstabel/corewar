@@ -19,7 +19,7 @@ static int	is_option(char *str)
 	if (ft_strchr(str, '.') || ft_strequ(str, "-dumb") == SUCCESS)
 		return (SUCCESS);
 	if (str[0] != '-' || str[0] == '\0')
-		return (ERROR);
+		return (print_message(0, stderr, ERROR));
 	if (str[1] == '\0')
 		return (print_message(1, stderr, ERROR));
 	if (ft_strchr(OPTIONS, 'n') != NULL && ft_strchr(OPTIONS, 'd') != NULL)
@@ -69,7 +69,6 @@ int			input_validation(t_vm *vm, char **argv, int argc)
 	int		champ_len;
 
 	idx = 1;
-	vm->dump = -1;
 	while (idx < argc)
 	{
 		offset = 0;
