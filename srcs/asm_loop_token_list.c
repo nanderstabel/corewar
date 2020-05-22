@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/12 20:32:11 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/16 13:04:41 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/21 15:19:12 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ t_bool			del_token_list(t_project *as)
 		as->trail = as->tmp;
 		as->tmp = as->tmp->next;
 	}
-	free(as->tmp);
 	return (SUCCESS);
 }
 
@@ -56,13 +55,16 @@ t_bool			loop_token_list(t_project *as, t_bool (*check)(t_project *as))
 		as->next_token = (t_token *)as->tmp->next->content;
 		if (check(as) == FAIL)
 		{
+			ft_putendl("here1");
 			if (!as->tmp->next)
 				return (SUCCESS);
+			ft_putendl("here2");
 			return (FAIL);
 		}
 		as->trail = as->tmp;
-		if (as->tmp->next)
-			as->tmp = as->tmp->next;
+		if (as->tmp)
+			if (as->tmp->next)
+				as->tmp = as->tmp->next;
 	}
 	return (SUCCESS);
 }
