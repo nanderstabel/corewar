@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/12 16:40:21 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/15 22:39:51 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/22 15:52:58 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,24 @@
 
 t_token_tab		token_tab[END + 1] =
 {
-	{"INDIRECT_LABEL", "indirect", IND_SIZE, IND_CODE, translate_indirect_label,
+	{"INDIRECT_LABEL", "indirect", IND_SIZE, IND_CODE, translate_label,
 		{0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0}},
 	{"LABEL", NULL, 0, 0, NULL, {0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0}},
 	{"INSTRUCTION", NULL, 1, 0, translate_instruction,
 		{1, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 1, 0}},
-	{"REGISTER", "register", 1, REG_CODE, translate_register,
+	{"REGISTER", "register", 1, REG_CODE, translate_argument,
 		{0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0}},
 	{"SEPARATOR", NULL, 0, 0, NULL, {1, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 1, 0}},
-	{"DIRECT_LABEL", "direct", IND_SIZE, DIR_CODE, translate_direct_label,
+	{"DIRECT_LABEL", "direct", IND_SIZE, DIR_CODE, translate_label,
 		{0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0}},
-	{"DIRECT", "direct", DIR_SIZE, DIR_CODE, translate_direct,
+	{"DIRECT", "direct", DIR_SIZE, DIR_CODE, translate_argument,
 		{0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0}},
 	{"COMMAND_NAME", NULL, 0, 0, NULL, {0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0}},
 	{"COMMAND_COMMENT", NULL, 0, 0, NULL,
 		{0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0}},
 	{"STRING", NULL, 0, 0, NULL, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0}},
 	{"ENDLINE", NULL, 0, 0, NULL, {0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1}},
-	{"INDIRECT", "indirect", IND_SIZE, IND_CODE, translate_indirect,
+	{"INDIRECT", "indirect", IND_SIZE, IND_CODE, translate_argument,
 		{0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0}},
 	{"END", NULL, 0, 0, NULL, {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}}
 };
