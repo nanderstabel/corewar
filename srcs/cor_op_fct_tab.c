@@ -12,7 +12,7 @@
 
 #include "corewar.h"
 
-t_op_fct    op_fct_tab[18] = 
+t_op_fct	g_op_fct_tab[18] =
 {
 	{0, 0},
 	{(*op_live), &(op_tab[0])},
