@@ -6,11 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-<<<<<<< HEAD
-/*   Updated: 2020/05/21 14:49:49 by nstabel       ########   odam.nl         */
-=======
-/*   Updated: 2020/05/22 15:58:05 by zitzak        ########   odam.nl         */
->>>>>>> asm
+/*   Updated: 2020/05/22 16:46:15 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +15,7 @@
 void			add_buffer_to_list(t_project *as)
 {
 	as->count = (as->flags & DEBUG_O) ? ft_printf("\t\t%s\n", __func__) : 0;
-	ft_lstadd_back(&as->bytecode_list, ft_lstnew((void*)as->buffer,
+	ft_lstadd_back(&as->bytecode_list, ft_lstnew_ptr((void*)as->buffer,
 	CHAMP_MAX_SIZE + 1));
 	as->index = 0;
 	as->buffer = (char*)ft_memalloc(CHAMP_MAX_SIZE + 1);
@@ -158,12 +154,6 @@ t_bool			translate_to_byte(t_project *as)
 	as->count = (as->flags & DEBUG_O) ? ft_printf("%s\n", __func__) : 0;
 	as->index = 0;
 	as->buffer = (char*)ft_memalloc(CHAMP_MAX_SIZE + 1);
-<<<<<<< HEAD
-	// ft_hash_table_append(as->labels, label_columns);//append column with addresses to the hashtable
-=======
-	// ft_hash_table_append(as->labels, label_columns);//append column withaddresses to the hashtable
->>>>>>> asm
-	// ft_puttbl(as->labels);//prints the table (output may look weird)
 	if (!as->buffer)
 		return (FAIL);
 	return (loop_token_list(as, translation_check));
