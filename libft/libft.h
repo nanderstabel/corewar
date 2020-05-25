@@ -21,8 +21,8 @@
 # define SUCCESS			TRUE
 # define ERROR				FALSE
 
-# define INT_MAX			2147483647
-# define INT_MIN			-2147483648
+# define FT_INT_MAX			2147483647
+# define FT_INT_MIN			-2147483648
 
 # define BUFF_SIZE			512
 # define FD_MAX				4864
