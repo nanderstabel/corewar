@@ -6,7 +6,7 @@
 /*   By: lhageman <lhageman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/20 14:16:44 by lhageman      #+#    #+#                 */
-/*   Updated: 2020/05/20 16:33:15 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/05/25 20:06:12 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@
 # define COLOR_PLAYER_THREE ANSI_OCEAN_GREEN
 # define COLOR_PLAYER_FOUR ANSI_WHEAT
 
-void	ft_attr_p1(int set);
-void	ft_attr_p2(int set);
-void	ft_attr_p3(int set);
-void	ft_attr_p4(int set);
+void	ft_attr_p1(int set, WINDOW *arena);
+void	ft_attr_p2(int set, WINDOW *arena);
+void	ft_attr_p3(int set, WINDOW *arena);
+void	ft_attr_p4(int set, WINDOW *arena);
 
 #endif

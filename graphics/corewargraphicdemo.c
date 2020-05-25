@@ -6,7 +6,7 @@
 /*   By: lhageman <lhageman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/17 12:20:07 by lhageman      #+#    #+#                 */
-/*   Updated: 2020/05/25 19:35:39 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/05/25 20:06:38 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,57 +27,6 @@ void	ft_set_pairs()
 	init_pair(7, ANSI_WHEAT, COLOR_BLACK);		//assign a new pair of fg and bg color to an init pair
 	init_pair(8, COLOR_BLACK, ANSI_WHEAT);
 	init_pair(9, ANSI_GREY, COLOR_BLACK);
-}
-
-void	ft_test_print(void)
-{
-	while (1)
-	{
-		refresh();									//keeps updating your window
-		usleep(DELAY);
-		ft_attr_p1(1);
-		mvaddstr(1, 3, "11 11 11 11");				//output string on certain x and y
-		ft_attr_p1(2);
-		mvaddstr(1, 18, "11 11 11 11");
-		ft_attr_p1(3);
-		mvaddstr(1, 33, "11");
-		mvaddstr(1, 36, "11");
-		mvaddstr(1, 39, "11");
-		mvaddstr(1, 42, "11");
-		ft_attr_p2(1);
-		mvaddstr(3, 3, "11 11 11 11");
-		ft_attr_p2(2);
-		mvaddstr(3, 18, "11 11 11 11");
-		ft_attr_p2(3);
-		mvaddstr(3, 33, "11");
-		mvaddstr(3, 36, "11");
-		mvaddstr(3, 39, "11");
-		mvaddstr(3, 42, "11");
-		ft_attr_p3(1);
-		mvaddstr(5, 3, "11 11 11 11");
-		ft_attr_p3(2);
-		mvaddstr(5, 18, "11 11 11 11");
-		ft_attr_p3(3);
-		mvaddstr(5, 33, "11");
-		mvaddstr(5, 36, "11");
-		mvaddstr(5, 39, "11");
-		mvaddstr(5, 42, "11");
-		ft_attr_p4(1);
-		mvaddstr(7, 3, "11 11 11 11");
-		ft_attr_p4(2);
-		mvaddstr(7, 18, "11 11 11 11");
-		ft_attr_p4(3);
-		mvaddstr(7, 33, "11");
-		mvaddstr(7, 36, "11");
-		mvaddstr(7, 39, "11");
-		mvaddstr(7, 42, "11");
-		sleep(3);
-		refresh();
-		sleep(3);
-		attron(COLOR_PAIR(9));
-		mvaddstr(0, 0, "This is a demo for Corewar!\n00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00\n00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00\n00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00\n00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00\n00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00\n00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00\n00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00\n00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00\n");
-		sleep(2);
-	}
 }
 
 void draw_borders(WINDOW *screen) 
@@ -126,6 +75,37 @@ int	ft_print_data(WINDOW *data, t_vm *vm)
 	return (0);
 }
 
+int	ft_set_arena(WINDOW *arena)
+{
+	int		parent_x;
+	int		parent_y;
+	int		data_size;
+	int		i;
+	int		x;
+	int		y;
+
+	werase(arena);
+	getmaxyx(stdscr, parent_y, parent_x);
+	data_size = 5;
+	x = 3;
+	y = 3;
+	i = 0;
+	wattron(arena, COLOR_PAIR(9));
+	while (i < MEM_SIZE && y < parent_y - data_size - 3)
+	{
+		while (x < parent_x - 3)
+		{
+			mvwprintw(arena, y, x, "0");
+			x += 1;
+			i += 1;
+		}
+		x = 3;
+		y += 1;
+	}
+	wrefresh(arena);
+	return (0);
+}
+
 int	ft_initiate_arena(t_vm *vm)
 {
 	int		parent_x;
@@ -146,6 +126,7 @@ int	ft_initiate_arena(t_vm *vm)
 	wrefresh(data);
 	sleep(2);
 	ft_print_data(data, vm);
+	ft_set_arena(arena);
 	sleep(10);
 	ft_close_windows(arena, data);
 	return (0);
@@ -156,10 +137,7 @@ int	main(void)
 	initscr();									//initialize the window
 	noecho();									//don't echo any keypresses
 	curs_set(FALSE);							//dont display a cursor
-	ft_set_pairs();
-	// attron(COLOR_PAIR(9));
-	// mvaddstr(0, 0, "This is a demo for Corewar!\n00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00\n00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00\n00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00\n00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00\n00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00\n00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00\n00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00\n00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00\n");
-	// ft_test_print();
+	ft_set_pairs();								//set color pairs
 	t_vm vm;
 	vm.cycle_count = 0;
 	vm.CTD = CYCLE_TO_DIE;
