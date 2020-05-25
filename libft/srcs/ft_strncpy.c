@@ -19,7 +19,7 @@ char	*ft_strncpy(char *dst, const char *src, size_t len)
 	i = 0;
 	while (i < len && src[i])
 	{
-		dst[i] = src[i];
+		dst[i] = (unsigned char)(src[i]);
 		i++;
 	}
 	while (i < len)

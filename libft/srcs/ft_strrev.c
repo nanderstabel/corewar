@@ -23,7 +23,7 @@ char	*ft_strrev(char *str)
 	j = 0;
 	while (i != 0)
 	{
-		str[j] = tmp[i];
+		str[j] = (unsigned char)(tmp[i]);
 		j += 1;
 		i -= 1;
 	}
