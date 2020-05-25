@@ -6,7 +6,7 @@
 /*   By: lhageman <lhageman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/17 12:20:07 by lhageman      #+#    #+#                 */
-/*   Updated: 2020/05/25 20:06:38 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/05/25 20:17:25 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,19 +87,21 @@ int	ft_set_arena(WINDOW *arena)
 	werase(arena);
 	getmaxyx(stdscr, parent_y, parent_x);
 	data_size = 5;
-	x = 3;
+	x = 1;
 	y = 3;
 	i = 0;
 	wattron(arena, COLOR_PAIR(9));
 	while (i < MEM_SIZE && y < parent_y - data_size - 3)
 	{
-		while (x < parent_x - 3)
+		while (x < parent_x - 1)
 		{
 			mvwprintw(arena, y, x, "0");
 			x += 1;
+			if (x % 3 == 0)
+				x += 1;
 			i += 1;
 		}
-		x = 3;
+		x = 1;
 		y += 1;
 	}
 	wrefresh(arena);
