@@ -12,23 +12,23 @@
 
 #include "corewar.h"
 
-static int	is_option(char *str)
+static int	is_option_or_file(char *str)
 {
-	int		i;
+	unsigned int	i;
 
 	if (ft_strchr(str, '.') || ft_strequ(str, "-dumb") == SUCCESS)
 		return (SUCCESS);
 	if (str[0] != '-' || str[0] == '\0')
-		return (print_message(0, stderr, ERROR));
+		return (print_message(0, NULL, STDERR, ERROR));
 	if (str[1] == '\0')
-		return (print_message(1, stderr, ERROR));
+		return (print_message(1, ft_strdup(str), STDERR, ERROR));
 	if (ft_strchr(OPTIONS, 'n') != NULL && ft_strchr(OPTIONS, 'd') != NULL)
-		return (print_message(1, stderr, ERROR));
+		return (print_message(1, ft_strdup(str), STDERR, ERROR));
 	i = 1;
 	while (str[i] != '\0')
 	{
 		if (ft_strchr(OPTIONS, str[i]) == NULL)
-			return (print_message(1, stderr, ERROR));
+			return (print_message(1, ft_strdup(str), STDERR, ERROR));
 		++i;
 	}
 	return (SUCCESS);
@@ -37,36 +37,37 @@ static int	is_option(char *str)
 static int	save_option(t_vm *vm, char **argv, int idx, int argc)
 {
 	long int	tmp;
-	int			champ_len;
+	int			champ_size;
 
 	if (ft_strchr(argv[idx], '.') != NULL)
 		return (1);
 	if (ft_strchr(argv[idx], 'v') != NULL)
-		vm->visualizer == TRUE;
+		vm->visualizer = TRUE;
 	if ((ft_strchr(argv[idx], 'd') != NULL || ft_strchr(argv[idx], 'n') != NULL)
 		&& (idx + 2 < argc) && ft_isint(argv[idx + 1]) == TRUE)
 	{
 		tmp = ft_atoi(argv[idx + 1]);
-		if (tmp < 0 || INT_MAX < tmp)
-			return (print_message(1, stderr, ERROR));
+		if (tmp < 0 || FT_INT_MAX < tmp)
+			return (print_message(1, ft_strdup(argv[idx]), STDERR, ERROR));
 		if (ft_strchr(argv[idx], 'd') != NULL)
 		{
 			vm->dump = tmp;
 			return (1);
 		}
-		champ_len = 0;
-		if (is_champion(argv[idx + 2], &champ_len) == TRUE && \
-			save_champion(vm, argv[idx + 2], champ_len, tmp) == TRUE)
+		champ_size = 0;
+		if (is_champion(ft_strdup(argv[idx + 2]), &champ_size) == TRUE /* && \
+			save_champion(vm, ft_strdup(argv[idx + 2]), champ_size, tmp) == \
+			TRUE */)
 			return (2);
 	}
-	return (print_message(1, stderr, ERROR));
+	return (print_message(1, ft_strdup(argv[idx]), STDERR, ERROR));
 }
 
 int			input_validation(t_vm *vm, char **argv, int argc)
 {
-	int		idx;
-	int		offset;
-	int		champ_len;
+	int				idx;
+	unsigned int	offset;
+	int				champ_size;
 
 	idx = 1;
 	while (idx < argc)
@@ -82,9 +83,9 @@ int			input_validation(t_vm *vm, char **argv, int argc)
 	idx = 1;
 	while (idx < argc)
 	{
-		champ_len = 0;
-		if (is_champion(argv[idx], &champ_len) == FALSE || \
-			save_champion(vm, argv[idx], champ_len, 0) == ERROR)
+		champ_size = 0;
+		if (is_champion(ft_strdup(argv[idx]), &champ_size) == FALSE/*  || \
+			save_champion(vm, ft_strdup(argv[idx]), champ_size, 0) == ERROR */)
 			return (ERROR);
 		++idx;
 	}

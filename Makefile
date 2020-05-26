@@ -12,11 +12,11 @@
 
 include srcs/_files.mk
 
-VM_NAME := corewar
+COR_NAME := corewar
 
 ASM_NAME := asm
 
-VM_OBJS := $(VM_FILES:%.c=objs/%.o) objs/cor_main.o
+COR_OBJS := $(COR_FILES:%.c=objs/%.o) objs/cor_main.o
 
 ASM_OBJS := $(ASM_FILES:%.c=objs/%.o) objs/asm_main.o
 
@@ -34,9 +34,9 @@ MINUS := $$(tput setaf 1)-$$(tput sgr0)
 
 MAX_PARALLEL = 6
 
-all: $(VM_NAME) $(ASM_NAME)
+all: $(COR_NAME) # $(ASM_NAME)
 
-$(VM_NAME): $(LIBFT) $(VM_OBJS)
+$(COR_NAME): $(LIBFT) $(COR_OBJS)
 	@$(CC) $(CFLAGS) -o $@ $^ $(LIBFT)
 	@echo " $(PLUS) $@"
 
@@ -67,7 +67,7 @@ fclean: clean lfclean
 	@rm -fv $(LIBFT) | sed "s/^/ $(MINUS) /"
 
 lfclean: lclean
-	@rm -fv $(VM_NAME) $(ASM_NAME) | sed "s/^/ $(MINUS) /"
+	@rm -fv $(COR_NAME) $(ASM_NAME) | sed "s/^/ $(MINUS) /"
 
 re:
 	$(MAKE) fclean
