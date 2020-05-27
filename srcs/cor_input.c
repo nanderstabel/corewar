@@ -55,9 +55,9 @@ static int	save_option(t_vm *vm, char **argv, int idx, int argc)
 			return (1);
 		}
 		champ_size = 0;
-		if (is_champion(ft_strdup(argv[idx + 2]), &champ_size) == TRUE /* && \
+		if (is_champion(ft_strdup(argv[idx + 2]), &champ_size) == TRUE && \
 			save_champion(vm, ft_strdup(argv[idx + 2]), champ_size, tmp) == \
-			TRUE */)
+			TRUE)
 			return (2);
 	}
 	return (print_message(1, ft_strdup(argv[idx]), STDERR, ERROR));
@@ -84,8 +84,8 @@ int			input_validation(t_vm *vm, char **argv, int argc)
 	while (idx < argc)
 	{
 		champ_size = 0;
-		if (is_champion(ft_strdup(argv[idx]), &champ_size) == FALSE/*  || \
-			save_champion(vm, ft_strdup(argv[idx]), champ_size, 0) == ERROR */)
+		if (is_champion(ft_strdup(argv[idx]), &champ_size) == FALSE || \
+			save_champion(vm, ft_strdup(argv[idx]), champ_size, 0) == ERROR)
 			return (ERROR);
 		++idx;
 	}
