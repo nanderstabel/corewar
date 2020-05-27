@@ -80,8 +80,7 @@ static int	check_for_cor_extension(char *file_name)
 
 int			is_champion(char *file_name, int *champ_size)
 {
-	char			buf[16 + CHAMP_MAX_SIZE + PROG_NAME_LENGTH + \
-	COMMENT_LENGTH + 2];
+	char			buf[16 + CHAMP_MAX_SIZE + NAME_LEN + COM_LEN + 2];
 	unsigned int	champ_file_min_size;
 	unsigned int	bytes_read;
 	unsigned int	magic;
@@ -103,6 +102,6 @@ int			is_champion(char *file_name, int *champ_size)
 		return (print_message(9, file_name, STDERR, ERROR));
 	magic = convert_to_int(buf);
 	if (magic != COREWAR_EXEC_MAGIC)
-		return(print_message(3, file_name, STDERR, ERROR));
+		return (print_message(3, file_name, STDERR, ERROR));
 	return (SUCCESS);
 }
