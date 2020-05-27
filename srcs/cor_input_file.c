@@ -23,7 +23,7 @@ int			read_champion(char *buf, char *file_name, \
 	fd = open(file_name, O_RDONLY);
 	if (fd == -1 || read(fd, buf, 0) == -1)
 		return (print_message(5, file_name, STDERR, ERROR));
-	bytes_read = read(fd, buf, champ_file_size + 1);
+	bytes_read = read(fd, buf, champ_file_size + 2);
 	if (bytes_read > champ_file_size)
 		return (print_message(6, file_name, STDERR, ERROR));
 	if (bytes_read < champ_file_size - CHAMP_MAX_SIZE)
@@ -55,10 +55,10 @@ int			convert_to_int(char *start)
 	int		integer;
 
 	integer = 0;
-	((char*)&integer)[0] = start[3];
-	((char*)&integer)[1] = start[2];
-	((char*)&integer)[2] = start[1];
-	((char*)&integer)[3] = start[0];
+	((char*)&integer)[0] = (unsigned char)start[3];
+	((char*)&integer)[1] = (unsigned char)start[2];
+	((char*)&integer)[2] = (unsigned char)start[1];
+	((char*)&integer)[3] = (unsigned char)start[0];
 	return (integer);
 }
 
@@ -80,7 +80,7 @@ static int	check_for_cor_extension(char *file_name)
 
 int			is_champion(char *file_name, int *champ_size)
 {
-	char			buf[16 + CHAMP_MAX_SIZE + NAME_LEN + COM_LEN + 2];
+	char			buf[16 + CHAMP_MAX_SIZE + NAME_LEN + COM_LEN + 3];
 	unsigned int	champ_file_min_size;
 	unsigned int	bytes_read;
 	unsigned int	magic;
@@ -88,19 +88,18 @@ int			is_champion(char *file_name, int *champ_size)
 	champ_file_min_size = 16 + PROG_NAME_LENGTH + COMMENT_LENGTH;
 	if (check_for_cor_extension(file_name) == ERROR)
 		return (print_message(4, file_name, STDERR, ERROR));
-	ft_bzero(buf, champ_file_min_size + CHAMP_MAX_SIZE + 2);
+	ft_bzero(buf, champ_file_min_size + CHAMP_MAX_SIZE + 3);
 	bytes_read = read_champion(buf, file_name, champ_file_min_size + \
 		CHAMP_MAX_SIZE);
 	if (bytes_read == ERROR)
 		return (ERROR);
 	if (check_for_null_bytes(buf) == ERROR)
 		return (print_message(8, file_name, STDERR, ERROR));
-	*champ_size = convert_to_int(\
-		&(buf[champ_file_min_size - COMMENT_LENGTH - 1]));
+	*champ_size = convert_to_int(buf + 8 + PROG_NAME_LENGTH);
+	magic = convert_to_int(buf);
 	if (*champ_size < -1 || CHAMP_MAX_SIZE < *champ_size || \
 		bytes_read - champ_file_min_size != (unsigned int)*champ_size)
 		return (print_message(9, file_name, STDERR, ERROR));
-	magic = convert_to_int(buf);
 	if (magic != COREWAR_EXEC_MAGIC)
 		return (print_message(3, file_name, STDERR, ERROR));
 	return (SUCCESS);
