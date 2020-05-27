@@ -22,12 +22,12 @@ int			read_champion(char *buf, char *file_name, \
 
 	fd = open(file_name, O_RDONLY);
 	if (fd == -1 || read(fd, buf, 0) == -1)
-		return (print_message(5, file_name, STDERR, ERROR));
-	bytes_read = read(fd, buf, champ_file_size + 2);
+		return (print_message(FILE_NOT_EXIST, file_name, STDERR, ERROR));
+	bytes_read = read(fd, buf, champ_file_size + 1);
 	if (bytes_read > champ_file_size)
-		return (print_message(6, file_name, STDERR, ERROR));
+		return (print_message(FILE_TOO_BIG, file_name, STDERR, ERROR));
 	if (bytes_read < champ_file_size - CHAMP_MAX_SIZE)
-		return (print_message(7, file_name, STDERR, ERROR));
+		return (print_message(FILE_TOO_SMALL, file_name, STDERR, ERROR));
 	close(fd);
 	return (bytes_read);
 }
@@ -87,20 +87,20 @@ int			is_champion(char *file_name, int *champ_size)
 
 	champ_file_min_size = 16 + PROG_NAME_LENGTH + COMMENT_LENGTH;
 	if (check_for_cor_extension(file_name) == ERROR)
-		return (print_message(4, file_name, STDERR, ERROR));
+		return (print_message(FILE_MIS_COR, file_name, STDERR, ERROR));
 	ft_bzero(buf, champ_file_min_size + CHAMP_MAX_SIZE + 3);
 	bytes_read = read_champion(buf, file_name, champ_file_min_size + \
 		CHAMP_MAX_SIZE);
 	if (bytes_read == ERROR)
 		return (ERROR);
 	if (check_for_null_bytes(buf) == ERROR)
-		return (print_message(8, file_name, STDERR, ERROR));
+		return (print_message(FILE_INV_FORMAT, file_name, STDERR, ERROR));
 	*champ_size = convert_to_int(buf + 8 + PROG_NAME_LENGTH);
 	magic = convert_to_int(buf);
 	if (*champ_size < -1 || CHAMP_MAX_SIZE < *champ_size || \
 		bytes_read - champ_file_min_size != (unsigned int)*champ_size)
-		return (print_message(9, file_name, STDERR, ERROR));
+		return (print_message(FILE_CHAMP_TOO_BIG, file_name, STDERR, ERROR));
 	if (magic != COREWAR_EXEC_MAGIC)
-		return (print_message(3, file_name, STDERR, ERROR));
+		return (print_message(FILE_INV_MAGIC, file_name, STDERR, ERROR));
 	return (SUCCESS);
 }

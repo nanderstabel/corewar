@@ -15,6 +15,7 @@
 
 # include "libft.h"
 # include "op.h"
+# include "cor_errors.h"
 
 # define OPTIONS				"dnv"
 
@@ -82,7 +83,7 @@ int					op_lldi(t_cursor *cursor);
 int					op_lfork(t_cursor *cursor);
 int					op_aff(t_cursor *cursor);
 
-int					print_message(int message_code, char *info, int fd, \
+int					print_message(char *message, char *info, int fd, \
 					int ret);
 int					free_vm(t_vm *vm, int ret);
 int					input_validation(t_vm *vm, char **argv, int argc);

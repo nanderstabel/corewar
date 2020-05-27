@@ -34,7 +34,7 @@ int		main(int argc, char **argv)
 	ft_bzero(&vm, sizeof(t_vm));
 	vm.dump = -1;
 	if (argc == 1)
-		return (print_message(0, NULL, STDOUT, SUCCESS));
+		return (print_message(USAGE, NULL, STDOUT, SUCCESS));
 	if (input_validation(&vm, argv, argc) == ERROR)
 		return (free_vm(&vm, ERROR));
 	ft_putendl("input is valid");

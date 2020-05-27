@@ -28,15 +28,14 @@
 // 	errors[9] = CHAMP_TOO_BIG;
 // }
 
-int		print_message(int message_code, char *info, int fd, int ret)
+int		print_message(char *message, char *info, int fd, int ret)
 {
 	// char	*errors[10];
 
 	// errors_init(errors);
 	if (info != NULL)
-		ft_dprintf(fd, "in %s:\n", info);
-	ft_dprintf(fd, "print message/error no %d here.\n", message_code);
-	ft_strdel(&info);
+		ft_dprintf(fd, "%s:\n", info);
+	ft_dprintf(fd, "%s", message);
 	return (ret);
 }
 

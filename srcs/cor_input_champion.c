@@ -58,11 +58,12 @@ int			save_champion(t_vm *vm, char *file, int champ_len,
 	char			buf[16 + champ_len + PROG_NAME_LENGTH + COMMENT_LENGTH + 1];
 
 	if (check_for_champ_no(vm, &champ_no) == ERROR)
-		return (print_message(2, file, STDERR, ERROR));
+		return (print_message(INV_OPT_N, file, STDERR, ERROR));
+	ft_printf("here ok\n");
 	read_champion(buf, file, 16 + champ_len + PROG_NAME_LENGTH + \
 		COMMENT_LENGTH);
 	if (check_trailing_zeros(buf) == ERROR)
-		return (print_message(8, file, STDERR, ERROR));
+		return (print_message(FILE_MIS_TRAIL_ZER, file, STDERR, ERROR));
 	vm->champions[champ_no] = (t_header*)ft_memalloc(sizeof(t_header));
 	vm->champions[champ_no]->magic = COREWAR_EXEC_MAGIC;
 	vm->champions[champ_no]->prog_size = champ_len;
