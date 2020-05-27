@@ -6,7 +6,7 @@
 /*   By: lhageman <lhageman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/20 14:16:44 by lhageman      #+#    #+#                 */
-/*   Updated: 2020/05/25 20:06:12 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/05/27 10:36:13 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # include <ncurses.h>
 # include <unistd.h>
+# include "../includes/corewar.h"
+# include "../includes/op.h"
 
 # define ANSI_WHEAT 229
 # define ANSI_ETON_BLUE 71
@@ -31,5 +33,13 @@ void	ft_attr_p1(int set, WINDOW *arena);
 void	ft_attr_p2(int set, WINDOW *arena);
 void	ft_attr_p3(int set, WINDOW *arena);
 void	ft_attr_p4(int set, WINDOW *arena);
+
+typedef struct	s_graphics
+{
+	WINDOW		*arena;
+	WINDOW		*data;
+	int			x;
+	int			y;
+}				t_graphics;
 
 #endif
