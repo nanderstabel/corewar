@@ -10,13 +10,17 @@
 #                                                                              #
 # **************************************************************************** #
 
-include ../srcs/_files
-include ./srcs/_test_files
+include ../srcs/_files.mk
+include ./srcs/_test_files.mk
 
-NAME := 
+COR_TEST_NAME := cor_test
+ASM_TEST_NAME := asm_test
 
-OBJS := $(FILES:%.c=../objs/%.o)
-TESTS_OBJS := $(TEST_FILES:%.c=objs/%.o)
+COR_OBJS := $(COR_FILES:%.c=../objs/%.o)
+ASM_OBJS := $(ASM_FILES:%.c=../objs/%.o)
+COR_TEST_OBJS := $(COR_TEST_FILES:%.c=objs/%.o)
+ASM_TEST_OBJS := $(ASM_TEST_FILES:%.c=objs/%.o)
+TEST_OBJS := COR_TEST_OBJS ASM_TEST_OBJS
 
 CFLAGS := -Wall -Wextra -Werror
 
@@ -30,9 +34,13 @@ HDRS := $(INCLUDES_PATH)/
 PLUS := $$(tput setaf 2)+$$(tput sgr0)
 MINUS := $$(tput setaf 1)-$$(tput sgr0)
 
-all: test
+all: cor_test # asm_test
 
-test: $(OBJS) $(TESTS_OBJS)
+cor_test: $(COR_OBJS) $(COR_TEST_OBJS)
+	@$(CC) -o $@ $^ -lcriterion $(LIBFT)
+	@echo " ${PLUS} $@"
+
+asm_test: $(ASM_OBJS) $(ASM_TEST_OBJS)
 	@$(CC) -o $@ $^ -lcriterion $(LIBFT)
 	@echo " ${PLUS} $@"
 
@@ -44,7 +52,7 @@ objs:
 	@mkdir -p $@
 
 clean:
-	@rm -fv $(TESTS_OBJS) | sed "s/^/ $(MINUS) /"
+	@rm -fv $(TEST_OBJS) | sed "s/^/ $(MINUS) /"
 
 fclean: clean
 	@rm -fv test | sed "s/^/ $(MINUS) /"

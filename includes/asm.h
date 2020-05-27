@@ -16,7 +16,5 @@
 #include "libft.h"
 
 
-void	some_asm_function(char *s);
-
 
 #endif

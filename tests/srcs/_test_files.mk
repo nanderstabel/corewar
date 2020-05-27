@@ -1,7 +1,7 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         ::::::::             #
-#    _test_files                                        :+:    :+:             #
+#    _test_files.mk                                     :+:    :+:             #
 #                                                      +:+                     #
 #    By: mmarcell <mmarcell@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
@@ -10,4 +10,4 @@
 #                                                                              #
 # **************************************************************************** #
 
-TEST_FILES := test_some_function.c
+COR_TEST_FILES := cor_test_input_champion.c

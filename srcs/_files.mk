@@ -10,6 +10,10 @@
 #                                                                              #
 # **************************************************************************** #
 
-VM_FILES := cor_input.c
+COR_FILES := \
+	cor_input.c \
+	cor_input_file.c \
+	cor_input_champion.c \
+	cor_exit.c
 
-ASM_FILES := some_asm_function.c
+ASM_FILES :=

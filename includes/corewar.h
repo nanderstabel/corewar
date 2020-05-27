@@ -16,14 +16,11 @@
 # include "libft.h"
 # include "op.h"
 
-//TODO create error enum so exit_with_message can print the right message given
-//its first param. 
-//	0 -> usage
-//	1 -> invalid option - general
-//	2 -> invalid option - player no > MAX_PLAYERS
-//	3 -> invalid option - player no already exists
+# define OPTIONS				"dnv"
 
-# define OPTIONS	"dnv"
+# define STDIN					0
+# define STDOUT					1
+# define STDERR					2
 
 // I think it might be a better solution to have the arena in a simple char* and have a wrapper function that calculates the indices with the offset and a boolian variable for enabling or disabling the l... (lfork, lld, lldi) operations
 // typedef struct		s_byte
@@ -35,11 +32,12 @@
 
 typedef struct		s_cursor
 {
-	char			*PC;
-	unsigned int	CTW;
+	char			*pc;
+	unsigned int	ctw;
 	unsigned int	decay;
 	int				*reg[REG_NUMBER];
 	unsigned int	carry;
+	int				back_to_normal;
 	int				color;
 }					t_cursor;
 
@@ -47,12 +45,12 @@ typedef struct		s_vm
 {
 	unsigned int	champ_count;
 	int				last_live;
-	unsigned int	cycle_count; 
+	unsigned int	cycle_count;
 	unsigned int	total_cycle_count;
-	unsigned int	CTD;
+	unsigned int	ctd;
 	unsigned int	check_count;
 	unsigned int	live_count;
-	header_t		*champions;
+	t_header		**champions;
 	t_cursor		*cursor;
 	char			*arena;
 	unsigned int	visualizer;
@@ -65,33 +63,36 @@ typedef struct		s_op_fct
 	t_op			*op_info;
 }					t_op_fct;
 
-extern t_op_fct		op_fct_tab[17];
+extern t_op_fct		g_op_fct_tab[17];
 
-int			op_live(t_cursor *cursor);
-int			op_ld(t_cursor *cursor);
-int			op_st(t_cursor *cursor);
-int			op_add(t_cursor *cursor);
-int			op_sub(t_cursor *cursor);
-int			op_and(t_cursor *cursor);
-int			op_or(t_cursor *cursor);
-int			op_xor(t_cursor *cursor);
-int			op_zjmp(t_cursor *cursor);
-int			op_ldi(t_cursor *cursor);
-int			op_sti(t_cursor *cursor);
-int			op_fork(t_cursor *cursor);
-int			op_lld(t_cursor *cursor);
-int			op_lldi(t_cursor *cursor);
-int			op_lfork(t_cursor *cursor);
-int			op_aff(t_cursor *cursor);
+int					op_live(t_cursor *cursor);
+int					op_ld(t_cursor *cursor);
+int					op_st(t_cursor *cursor);
+int					op_add(t_cursor *cursor);
+int					op_sub(t_cursor *cursor);
+int					op_and(t_cursor *cursor);
+int					op_or(t_cursor *cursor);
+int					op_xor(t_cursor *cursor);
+int					op_zjmp(t_cursor *cursor);
+int					op_ldi(t_cursor *cursor);
+int					op_sti(t_cursor *cursor);
+int					op_fork(t_cursor *cursor);
+int					op_lld(t_cursor *cursor);
+int					op_lldi(t_cursor *cursor);
+int					op_lfork(t_cursor *cursor);
+int					op_aff(t_cursor *cursor);
 
-int			print_message(int message_code, int fd, int ret);
-int			free_vm(t_vm *vm, int ret);
-int			input_validation(t_vm *vm, char **argv, int argc);
+int					print_message(int message_code, char *info, int fd, \
+					int ret);
+int					free_vm(t_vm *vm, int ret);
+int					input_validation(t_vm *vm, char **argv, int argc);
 
-// int			is_option(char *str);
-// int			save_option(char **argv, int argc);
+int					is_champion(char *file, int *champ_len);
+int					convert_to_int(char *start);
+int					read_champion(char *buf, char *file_name, \
+					unsigned int champ_file_size);
 
-int			is_champion(char **argv, int *champ_len);
-int			save_champion(t_vm *vm, char *file, int champ_len, int champ_no);
+int					save_champion(t_vm *vm, char *file, int champ_len, \
+					unsigned int champ_no);
 
 #endif
