@@ -11,9 +11,7 @@
 /* ************************************************************************** */
 
 #include "corewar.h"
-#include "libft.h"
-#include "cor_errors.h"
-
+#include <stdlib.h>
 // static int	errors_init(char **errors)
 // {
 // 	errors[0] = USAGE;
@@ -43,7 +41,7 @@ static void	free_champions(t_header ***champions)
 {
 	int		idx;
 
-	idx == 1;
+	idx = 1;
 	while (idx <= MAX_PLAYERS)
 	{
 		if ((*champions)[idx] != NULL)
