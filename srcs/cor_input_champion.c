@@ -15,7 +15,7 @@
 static int	check_for_champ_no(t_vm *vm, unsigned int *champ_no)
 {
 	if (*champ_no > MAX_PLAYERS)
-		return (ERROR);
+		return (print_message(INV_OPT_N, NULL, STDERR, ERROR));
 	if (vm->champions == NULL)
 		vm->champions = (t_header**)ft_memalloc(sizeof(t_header*) * \
 			MAX_PLAYERS + 1);
@@ -27,7 +27,7 @@ static int	check_for_champ_no(t_vm *vm, unsigned int *champ_no)
 	while (*champ_no <= MAX_PLAYERS && vm->champions[*champ_no] != NULL)
 		*champ_no += 1;
 	if (*champ_no > MAX_PLAYERS)
-		return (ERROR);
+		return (print_message(TOO_MANY_CHAMPS, NULL, STDERR, ERROR));
 	return (SUCCESS);
 }
 
@@ -58,7 +58,7 @@ int			save_champion(t_vm *vm, char *file, int champ_len,
 	char			buf[16 + champ_len + PROG_NAME_LENGTH + COMMENT_LENGTH + 1];
 
 	if (check_for_champ_no(vm, &champ_no) == ERROR)
-		return (print_message(INV_OPT_N, file, STDERR, ERROR));
+		return (ERROR);
 	read_champion(buf, file, 16 + champ_len + PROG_NAME_LENGTH + \
 		COMMENT_LENGTH);
 	if (check_trailing_zeros(buf) == ERROR)

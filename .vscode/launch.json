@@ -9,7 +9,7 @@
 			"request": "launch",
 			"name": "Debug",
 			"program": "${workspaceFolder}/corewar",
-			"args": "tests/testfiles/bigzork.cor",
+			"args": "-n 2 tests/testfiles/valid/bigzork.cor tests/testfiles/valid/bigzork.cor",
 			"cwd": "${workspaceFolder}"
 		}
 	]

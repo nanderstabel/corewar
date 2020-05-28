@@ -79,6 +79,7 @@ lre:
 	$(MAKE) all
 
 test: $(LIBFT) $(OBJS) $(HDRS)
+	@$(MAKE) all
 	@make -C tests
 
 FORCE:

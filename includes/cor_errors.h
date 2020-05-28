@@ -37,6 +37,7 @@
 # define FILE_INV_FORMAT	"file invalid format\n"
 # define FILE_MIS_TRAIL_ZER	"file no trailing zeros after name or comment\n"
 # define FILE_CHAMP_TOO_BIG	"exec code too big\n"
+# define TOO_MANY_CHAMPS	"amount of players > MAX_PLAYERS\n"
 
 // enum	e_errors
 // {

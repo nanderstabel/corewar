@@ -96,4 +96,6 @@ int					read_champion(char *buf, char *file_name, \
 int					save_champion(t_vm *vm, char *file, int champ_len, \
 					unsigned int champ_no);
 
+unsigned int		wrapper(unsigned int current_idx, int offset, \
+					unsigned int flag);
 #endif

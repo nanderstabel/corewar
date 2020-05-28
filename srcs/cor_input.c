@@ -16,13 +16,11 @@ static int	is_option_or_file(char *str)
 {
 	unsigned int	i;
 
-	if (ft_strchr(str, '.') || ft_strequ(str, "-dumb") == SUCCESS)
+	if (ft_strchr(str, '.') || ft_strequ(str, "-dump") == SUCCESS)
 		return (SUCCESS);
 	if (str[0] != '-' || str[0] == '\0')
 		return (print_message(USAGE, NULL, STDERR, ERROR));
 	if (str[1] == '\0')
-		return (print_message(INV_OPT, str, STDERR, ERROR));
-	if (ft_strchr(OPTIONS, 'n') != NULL && ft_strchr(OPTIONS, 'd') != NULL)
 		return (print_message(INV_OPT, str, STDERR, ERROR));
 	i = 1;
 	while (str[i] != '\0')
@@ -41,7 +39,7 @@ static int	save_option(t_vm *vm, char **argv, int idx, int argc)
 
 	if (ft_strchr(argv[idx], '.') != NULL)
 		return (1);
-	if (ft_strchr(argv[idx], 'v') != NULL)
+	if (ft_strchr(argv[idx], 'n') != NULL)
 		vm->visualizer = TRUE;
 	if ((ft_strchr(argv[idx], 'd') != NULL || ft_strchr(argv[idx], 'n') != NULL)
 		&& (idx + 2 < argc) && ft_isint(argv[idx + 1]) == TRUE)

@@ -10,4 +10,4 @@
 #                                                                              #
 # **************************************************************************** #
 
-COR_TEST_FILES := cor_test_input.c
+COR_TEST_FILES := test_cor_input.c test_cor_input_file.c

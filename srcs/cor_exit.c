@@ -12,25 +12,9 @@
 
 #include "corewar.h"
 #include <stdlib.h>
-// static int	errors_init(char **errors)
-// {
-// 	errors[0] = USAGE;
-// 	errors[1] = INV_OPT;
-// 	errors[2] = INV_OPT_N_NO_TOO_BIG;
-// 	errors[3] = INV_OPT_N_CHAMP_EXISTS;
-// 	errors[4] = INT_FILE_NAME;
-// 	errors[5] = FILE_NOT_EXIST;
-// 	errors[6] = FILE_TOO_BIG;
-// 	errors[7] = FILE_TOO_SMALL;
-// 	errors[8] = FILE_INCORRECT_FORMAT;
-// 	errors[9] = CHAMP_TOO_BIG;
-// }
 
 int		print_message(char *message, char *info, int fd, int ret)
 {
-	// char	*errors[10];
-
-	// errors_init(errors);
 	if (info != NULL)
 		ft_dprintf(fd, "%s:\n", info);
 	ft_dprintf(fd, "%s", message);
