@@ -39,12 +39,30 @@ int		print_message(char *message, char *info, int fd, int ret)
 	return (ret);
 }
 
+static void	free_champions(t_header ***champions)
+{
+	int		idx;
+
+	idx == 1;
+	while (idx <= MAX_PLAYERS)
+	{
+		if ((*champions)[idx] != NULL)
+		{
+			ft_bzero((*champions)[idx], sizeof(t_header));
+			free((*champions)[idx]);
+			(*champions)[idx] = NULL;
+		}
+		++idx;
+	}
+	*champions = NULL;
+}
+
 int		free_vm(t_vm *vm, int ret)
 {
 	if (vm->arena)
 		ft_strdel(&(vm->arena));
-	// if (vm->champions)
-	// 	free_champions(&(vm->champions));
+	if (vm->champions)
+		free_champions(&(vm->champions));
 	// if (vm->cursor)
 	// 	free_cursors(&(vm->cursor));
 	return (ret);
