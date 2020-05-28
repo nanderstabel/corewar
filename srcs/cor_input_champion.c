@@ -59,7 +59,6 @@ int			save_champion(t_vm *vm, char *file, int champ_len,
 
 	if (check_for_champ_no(vm, &champ_no) == ERROR)
 		return (print_message(INV_OPT_N, file, STDERR, ERROR));
-	ft_printf("here ok\n");
 	read_champion(buf, file, 16 + champ_len + PROG_NAME_LENGTH + \
 		COMMENT_LENGTH);
 	if (check_trailing_zeros(buf) == ERROR)

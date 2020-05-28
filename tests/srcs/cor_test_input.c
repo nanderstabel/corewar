@@ -10,20 +10,106 @@ void	redirect_all_stdout(void)
 	cr_redirect_stderr();
 }
 
-Test(input_validation, valid_one/* , .init=redirect_all_stdout */)
+Test(input_validation, valid_four, .init=redirect_all_stdout)
+{
+	int		expected_return = SUCCESS;
+	int		given_argc = 5;
+	char	**given_argv = (char**)ft_memalloc(sizeof(char*) * given_argc);
+
+	given_argv[0] = ft_strdup("corewar");
+	given_argv[1] = ft_strdup("tests/testfiles/valid/zork.cor");
+	given_argv[2] = ft_strdup("tests/testfiles/valid/zork.cor");
+	given_argv[3] = ft_strdup("tests/testfiles/valid/zork.cor");
+	given_argv[4] = ft_strdup("tests/testfiles/valid/zork.cor");
+
+	t_vm	vm;
+	ft_bzero(&vm, sizeof(t_vm));
+	vm.dump = -1;
+	int		real_return = input_validation(&vm, given_argv, given_argc);
+	cr_assert_eq(real_return, expected_return, "with four valid champions given, input validation returned %d when the expected return is %d", expected_return, real_return);
+
+// uncomment the following for checking the output for invalid input:
+
+	// char	*expected_output = USAGE;
+	// int		expected_output_fd = STDOUT;
+
+	// if (expected_output_fd == STDOUT)
+	// 	cr_assert_stdout_eq_str(expected_output, "");
+	// if (expected_output_fd == STDERR)
+	// 	cr_assert_stderr_eq_str(expected_output, "");
+}
+
+Test(input_validation, valid_three, .init=redirect_all_stdout)
+{
+	int		expected_return = SUCCESS;
+	int		given_argc = 4;
+	char	**given_argv = (char**)ft_memalloc(sizeof(char*) * given_argc);
+
+	given_argv[0] = ft_strdup("corewar");
+	given_argv[1] = ft_strdup("tests/testfiles/valid/turtle.cor");
+	given_argv[2] = ft_strdup("tests/testfiles/valid/fluttershy.cor");
+	given_argv[3] = ft_strdup("tests/testfiles/valid/zork.cor");
+
+	t_vm	vm;
+	ft_bzero(&vm, sizeof(t_vm));
+	vm.dump = -1;
+	int		real_return = input_validation(&vm, given_argv, given_argc);
+	cr_assert_eq(real_return, expected_return, "with three valid champions given, input validation returned %d when the expected return is %d", expected_return, real_return);
+
+// uncomment the following for checking the output for invalid input:
+
+	// char	*expected_output = USAGE;
+	// int		expected_output_fd = STDOUT;
+
+	// if (expected_output_fd == STDOUT)
+	// 	cr_assert_stdout_eq_str(expected_output, "");
+	// if (expected_output_fd == STDERR)
+	// 	cr_assert_stderr_eq_str(expected_output, "");
+}
+
+Test(input_validation, valid_two, .init=redirect_all_stdout)
+{
+	int		expected_return = SUCCESS;
+	int		given_argc = 3;
+	char	**given_argv = (char**)ft_memalloc(sizeof(char*) * given_argc);
+
+	given_argv[0] = ft_strdup("corewar");
+	given_argv[1] = ft_strdup("tests/testfiles/valid/bee_gees.cor");
+	given_argv[2] = ft_strdup("tests/testfiles/valid/helltrain.cor");
+
+	t_vm	vm;
+	ft_bzero(&vm, sizeof(t_vm));
+	vm.dump = -1;
+	int		real_return = input_validation(&vm, given_argv, given_argc);
+	cr_assert_eq(real_return, expected_return, "with two valid champions given, input validation returned %d when the expected return is %d", expected_return, real_return);
+
+// uncomment the following for checking the output for invalid input:
+
+	// char	*expected_output = USAGE;
+	// int		expected_output_fd = STDOUT;
+
+	// if (expected_output_fd == STDOUT)
+	// 	cr_assert_stdout_eq_str(expected_output, "");
+	// if (expected_output_fd == STDERR)
+	// 	cr_assert_stderr_eq_str(expected_output, "");
+}
+
+Test(input_validation, valid_one, .init=redirect_all_stdout)
 {
 	int		expected_return = SUCCESS;
 	int		given_argc = 2;
 	char	**given_argv = (char**)ft_memalloc(sizeof(char*) * given_argc);
 
 	given_argv[0] = ft_strdup("corewar");
-	given_argv[1] = ft_strdup("tests/testfiles/fluttershy.cor");
+	given_argv[1] = ft_strdup("tests/testfiles/valid/bigzork.cor");
 
 	t_vm	vm;
+	ft_bzero(&vm, sizeof(t_vm));
+	vm.dump = -1;
 	int		real_return = input_validation(&vm, given_argv, given_argc);
-	cr_assert_eq(real_return, expected_return, "with one valid argument given, input validation returned %d when the expected return is %d", expected_return, real_return);
+	cr_assert_eq(real_return, expected_return, "with one valid champion given, input validation returned %d when the expected return is %d", expected_return, real_return);
 
-	// uncomment for checking the output for invalid input:
+// uncomment the following for checking the output for invalid input:
 
 	// char	*expected_output = USAGE;
 	// int		expected_output_fd = STDOUT;
@@ -46,7 +132,7 @@ Test(input_validation, no_args, .init=redirect_all_stdout)
 	int		real_return = input_validation(&vm, given_argv, given_argc);
 	cr_assert_eq(real_return, expected_return, "with no arguments given, input validation returned %d when the expected return is %d", expected_return, real_return);
 
-	// uncomment for checking the output for invalid input:
+// uncomment and edit the following for checking the output for invalid input:
 
 	// char	*expected_output = USAGE;
 	// int		expected_output_fd = STDOUT;

@@ -9,7 +9,7 @@
 			"request": "launch",
 			"name": "Debug",
 			"program": "${workspaceFolder}/corewar",
-			"args": "../corewar_test/champs/examples/bee_gees.cor",
+			"args": "tests/testfiles/bigzork.cor",
 			"cwd": "${workspaceFolder}"
 		}
 	]
