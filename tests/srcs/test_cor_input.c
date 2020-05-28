@@ -106,6 +106,17 @@ Test(input_validation, valid_three_players)
 	vm.dump = -1;
 	int		real_return = input_validation(&vm, given_argv, given_argc);
 	cr_assert_eq(real_return, expected_return, "with three valid champions given, input validation returned %d when the expected return is %d", expected_return, real_return);
+	cr_expect_str_eq(vm.champions[1]->prog_name, "turtle", "first champion should be turtle but is %s\n", vm.champions[1]->prog_name);
+	cr_expect_str_eq(vm.champions[2]->prog_name, "fluttershy", "second champion should be fluttershy but is %s\n", vm.champions[2]->prog_name);
+	cr_expect_str_eq(vm.champions[3]->prog_name, "zork", "third champion should be zork but is %s\n", vm.champions[3]->prog_name);
+
+	cr_expect_str_eq(vm.champions[1]->comment, "TURTLE FFS U LAMA", "comment of turtle should be | TURTLE FFS U LAMA | but is | %s | \n", vm.champions[1]->comment);
+	cr_expect_str_eq(vm.champions[2]->comment, "oh, my, what a scary project", "comment of fluttershy should be | oh, my, what a scary project | but is | %s | \n", vm.champions[2]->comment);
+	cr_expect_str_eq(vm.champions[3]->comment, "I'M ALIIIIVE", "comment of zork should be | I’M ALIIIIVE | but is | %s | \n", vm.champions[3]->comment);
+
+	cr_expect_eq(vm.champions[1]->prog_size, 394, "turtle should be 394 bytes heavy, not %d", vm.champions[1]->prog_size);
+	cr_expect_eq(vm.champions[2]->prog_size, 490, "fluttershy should be 490 bytes heavy, not %d", vm.champions[2]->prog_size);
+	cr_expect_eq(vm.champions[3]->prog_size, 23, "zork should be 23 bytes heavy, not %d", vm.champions[3]->prog_size);
 }
 
 Test(input_validation, valid_two_players)
@@ -139,6 +150,9 @@ Test(input_validation, valid_one_players)
 	vm.dump = -1;
 	int		real_return = input_validation(&vm, given_argv, given_argc);
 	cr_assert_eq(real_return, expected_return, "with one valid champion given, input validation returned %d when the expected return is %d", expected_return, real_return);
+	cr_expect_str_eq(vm.champions[1]->prog_name, "bigzork", "first champion should be bigzork but is %s\n", vm.champions[1]->prog_name);
+	cr_expect_str_eq(vm.champions[1]->comment, "I know i cant win", "comment of bigzork should be | I know i cant win | but is | %s | \n", vm.champions[1]->comment);
+	cr_expect_eq(vm.champions[1]->prog_size, 430, "bigzork should be 430 bytes heavy, not %d", vm.champions[1]->prog_size);
 }
 
 Test(input_validation, no_args, .init=redirect_all_stdout)
