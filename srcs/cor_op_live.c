@@ -14,18 +14,16 @@
 
 int		op_live(t_vm *vm, t_cursor *cursor)
 {
-	unsigned int	arg_position;
-	int				player_number;
+	int				arg;
 
-	arg_position = new_idx(cursor->pc, 1, FALSE);
-	if (0 < player_number && player_number <= MAX_PLAYERS && \
-		vm->champions[player_number != NULL])
+	arg = convert_to_int(vm->arena[new_idx(cursor->pc, 1, FALSE)], 4);
+	if (0 < -arg && -arg <= MAX_PLAYERS && \
+		vm->champions[-arg] != NULL)
 	{
-		vm->last_live = convert_to_int(arg_position, 4);
-		player_number = -(vm->last_live);
+		vm->last_live = arg;
 		ft_printf("A process shows that player %d (%s) is alive\n", \
-			player_number, vm->champions[player_number]->prog_name);
+			-arg, vm->champions[-arg]->prog_name);
 	}
-	//call visualizer
+	//call visualizer ?
 	return (5);
 }
