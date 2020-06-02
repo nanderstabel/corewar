@@ -9,6 +9,17 @@ void	redirect_all_stdout(void)
 	cr_redirect_stderr();
 }
 
+//TODO
+// invalid tests:
+//	NULL bytes at incorrect location
+//	compromised magic number
+//	exec code size too high
+//	file too big
+//	file too small
+
+// valid tests:
+//	file multiple repositories up
+
 ///////////////////////////////////////////////////////////////////////////////
 //	INVALID		INVALID		INVALID		INVALID		INVALID		INVALID		 //
 ///////////////////////////////////////////////////////////////////////////////

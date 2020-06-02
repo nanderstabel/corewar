@@ -14,6 +14,7 @@ COR_FILES := \
 	cor_input.c \
 	cor_input_check_file.c \
 	cor_input_add_champion.c \
-	cor_exit.c
+	cor_exit.c \
+	cor_vm_helpers.c
 
 ASM_FILES :=
