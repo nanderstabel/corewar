@@ -33,7 +33,7 @@
 
 typedef struct		s_cursor
 {
-	char			*pc;
+	int				pc;
 	unsigned int	ctw;
 	unsigned int	decay;
 	int				*reg[REG_NUMBER];
@@ -66,22 +66,22 @@ typedef struct		s_op_fct
 
 extern t_op_fct		g_op_fct_tab[17];
 
-int					op_live(t_cursor *cursor);
-int					op_ld(t_cursor *cursor);
-int					op_st(t_cursor *cursor);
-int					op_add(t_cursor *cursor);
-int					op_sub(t_cursor *cursor);
-int					op_and(t_cursor *cursor);
-int					op_or(t_cursor *cursor);
-int					op_xor(t_cursor *cursor);
-int					op_zjmp(t_cursor *cursor);
-int					op_ldi(t_cursor *cursor);
-int					op_sti(t_cursor *cursor);
-int					op_fork(t_cursor *cursor);
-int					op_lld(t_cursor *cursor);
-int					op_lldi(t_cursor *cursor);
-int					op_lfork(t_cursor *cursor);
-int					op_aff(t_cursor *cursor);
+int					op_live(t_vm *vm, t_cursor *cursor);
+int					op_ld(t_vm *vm, t_cursor *cursor);
+int					op_st(t_vm *vm, t_cursor *cursor);
+int					op_add(t_vm *vm, t_cursor *cursor);
+int					op_sub(t_vm *vm, t_cursor *cursor);
+int					op_and(t_vm *vm, t_cursor *cursor);
+int					op_or(t_vm *vm, t_cursor *cursor);
+int					op_xor(t_vm *vm, t_cursor *cursor);
+int					op_zjmp(t_vm *vm, t_cursor *cursor);
+int					op_ldi(t_vm *vm, t_cursor *cursor);
+int					op_sti(t_vm *vm, t_cursor *cursor);
+int					op_fork(t_vm *vm, t_cursor *cursor);
+int					op_lld(t_vm *vm, t_cursor *cursor);
+int					op_lldi(t_vm *vm, t_cursor *cursor);
+int					op_lfork(t_vm *vm, t_cursor *cursor);
+int					op_aff(t_vm *vm, t_cursor *cursor);
 
 int					print_message(char *message, char *info, int fd, \
 					int ret);
@@ -89,7 +89,7 @@ int					free_vm(t_vm *vm, int ret);
 int					input_validation(t_vm *vm, char **argv, int argc);
 
 int					is_champion(char *file, int *champ_len);
-int					convert_to_int(char *start);
+int					convert_to_int(char *start, int len);
 int					read_champion(char *buf, char *file_name, \
 					unsigned int champ_file_size);
 
