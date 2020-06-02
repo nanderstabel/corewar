@@ -2,6 +2,17 @@
 #include <criterion/assert.h>
 #include "corewar.h"
 
+Test(new_idx, neg_6)
+{
+	unsigned int	current_idx = 2;
+	int				offset = -12291;
+	unsigned int	l_flag = TRUE;
+	unsigned int	expected_new = 4095;
+
+	unsigned int	calculated_idx = new_idx(current_idx, offset, l_flag);
+	cr_assert_eq(calculated_idx, expected_new, "current_idx = %d, offset = %d, l_flag = %d\nnew_idx = %d is incorrect\n", current_idx, offset, l_flag, calculated_idx);
+}
+
 Test(new_idx, neg_5)
 {
 	unsigned int	current_idx = 2;
@@ -132,4 +143,50 @@ Test(new_idx, pos_1)
 
 	unsigned int	calculated_idx = new_idx(current_idx, offset, l_flag);
 	cr_assert_eq(calculated_idx, expected_new, "current_idx = %d, offset = %d, l_flag = %d\nnew_idx = %d is incorrect\n", current_idx, offset, l_flag, calculated_idx);
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+//	CONVERSION	CONVERSION	CONVERSION	CONVERSION	CONVERSION	CONVERSION	 //
+///////////////////////////////////////////////////////////////////////////////
+
+
+Test(convert_to_int, 4_valid_zero)
+{
+	char	buf[10];
+	int		return_int;
+	int		expected_int;
+
+	ft_bzero(buf, 10);
+	expected_int = 0;
+	return_int = convert_to_int(buf, 4);
+	cr_assert_eq(return_int, expected_int, "expected value = %d doesn't match return value = %d", expected_int, return_int);
+}
+
+Test(convert_to_int, 4_valid_one)
+{
+	char	buf[10];
+	int		return_int;
+	int		expected_int;
+
+	ft_bzero(buf, 10);
+	expected_int = 1;
+	buf[6] = 1;
+	return_int = convert_to_int(buf + 3, 4);
+	cr_assert_eq(return_int, expected_int, "expected value = %d doesn't match return value = %d", expected_int, return_int);
+}
+
+Test(convert_to_int, 4_valid_magic)
+{
+	char	buf[10];
+	int		return_int;
+	int		expected_int;
+
+	ft_bzero(buf, 10);
+	expected_int = 15369203;
+	buf[6] = 0xf3;
+	buf[5] = 0x83;
+	buf[4] = 0xea;
+	return_int = convert_to_int(buf + 3, 4);
+	cr_assert_eq(return_int, expected_int, "expected value = %d doesn't match return value = %d", expected_int, return_int);
 }
