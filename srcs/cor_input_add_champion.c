@@ -69,5 +69,6 @@ int			save_champion(t_vm *vm, char *file, int champ_len,
 	ft_strncpy(vm->champions[champ_no]->prog_name, buf + 4, ft_strlen(buf + 4));
 	ft_strncpy(vm->champions[champ_no]->comment, buf + 12 + PROG_NAME_LENGTH, \
 		ft_strlen(buf + 12 + PROG_NAME_LENGTH));
+	vm->champ_count++;
 	return (SUCCESS);
 }
