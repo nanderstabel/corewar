@@ -12,6 +12,22 @@
 
 #include "corewar.h"
 
+static int	last_check(t_vm *vm)
+{
+	int		idx;
+
+	idx = 1;
+	if (vm->champ_count > MAX_PLAYERS)
+		return (ERROR);
+	while (idx <= vm->champ_count)
+	{
+		if (vm->champions[idx] == NULL)
+			return (ERROR);
+		++idx;
+	}
+	return (SUCCESS);
+}
+
 static int	is_option_or_file(char *str)
 {
 	unsigned int	i;
@@ -87,5 +103,5 @@ int			input_validation(t_vm *vm, char **argv, int argc)
 			return (ERROR);
 		++idx;
 	}
-	return (SUCCESS);
+	return (last_check(vm));
 }
