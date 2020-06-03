@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_graphics.h                                      :+:    :+:            */
+/*   vis.h                                              :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lhageman <lhageman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/20 14:16:44 by lhageman      #+#    #+#                 */
-/*   Updated: 2020/05/27 10:36:13 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/06/03 16:38:30 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_GRAPHICS_H
-# define FT_GRAPHICS_H
+#ifndef VIS_H
+# define VIS_H
 
 # include <ncurses.h>
 # include <unistd.h>
@@ -23,16 +23,12 @@
 # define ANSI_OCEAN_GREEN 25
 # define ANSI_COPPER 130
 # define ANSI_GREY 8
+# define ANSI_PINK 216
 # define DELAY 30000
 # define COLOR_PLAYER_ONE ANSI_COPPER
 # define COLOR_PLAYER_TWO ANSI_ETON_BLUE
 # define COLOR_PLAYER_THREE ANSI_OCEAN_GREEN
 # define COLOR_PLAYER_FOUR ANSI_WHEAT
-
-void	ft_attr_p1(int set, WINDOW *arena);
-void	ft_attr_p2(int set, WINDOW *arena);
-void	ft_attr_p3(int set, WINDOW *arena);
-void	ft_attr_p4(int set, WINDOW *arena);
 
 typedef struct	s_graphics
 {
@@ -40,6 +36,17 @@ typedef struct	s_graphics
 	WINDOW		*data;
 	int			x;
 	int			y;
+	int			arenax;
+	int			datax;
 }				t_graphics;
+
+void	ft_attr_p1(int set, WINDOW *arena);
+void	ft_attr_p2(int set, WINDOW *arena);
+void	ft_attr_p3(int set, WINDOW *arena);
+void	ft_attr_p4(int set, WINDOW *arena);
+
+void	ft_set_pairs(void);
+int		ft_initiate_arena(t_graphics *graphics, t_vm *vm);
+int		ft_close_windows(t_graphics *graphics);
 
 #endif

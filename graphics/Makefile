@@ -1,9 +1,9 @@
 # Makefile
 LDFLAGS=-lncurses
-SRC = ft_attr_players.c corewargraphicdemo.c
-OBJ = ft_attr_players.o corewargraphicdemo.o
+SRC = vis_arena.c vis_attr_players.c corewargraphicdemo.c
+OBJ = vis_arena.o vis_attr_players.o corewargraphicdemo.o
 LIBFT = ../libft/libft.a
-HEADERS = graphics.h
+HEADERS = vis.h
 all: graphic
 graphic: $(LIBFT) $(OBJ)
 	gcc -Wall -Werror -Wextra $(LDFLAGS) -o $@ $^ $(LIBFT)
@@ -13,7 +13,8 @@ graphic: $(LIBFT) $(OBJ)
 fclean:
 	rm -rf $(OBJ)
 	rm -rf corewargraphicdemo.o
-	rm -rf ft_attr_players.o
+	rm -rf vis_attr_players.o
+	rm -rf vis_arena.o
 	rm -rf graphic
 
 re:

@@ -1,16 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_attr_players.c                                  :+:    :+:            */
+/*   vis_attr_players.c                                 :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lhageman <lhageman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/20 16:24:05 by lhageman      #+#    #+#                 */
-/*   Updated: 2020/05/25 20:05:01 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/06/03 16:32:39 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_graphics.h"
+#include "vis.h"
+
+void	ft_set_pairs(void)
+{
+	start_color();
+	init_pair(1, ANSI_COPPER, COLOR_BLACK);
+	init_pair(2, COLOR_BLACK, ANSI_COPPER);
+	init_pair(3, ANSI_ETON_BLUE, COLOR_BLACK);
+	init_pair(4, COLOR_BLACK, ANSI_ETON_BLUE);
+	init_pair(5, ANSI_OCEAN_GREEN, COLOR_BLACK);
+	init_pair(6, COLOR_BLACK, ANSI_OCEAN_GREEN);
+	init_pair(7, ANSI_WHEAT, COLOR_BLACK);
+	init_pair(8, COLOR_BLACK, ANSI_WHEAT);
+	init_pair(9, ANSI_GREY, COLOR_BLACK);
+	init_pair(10, ANSI_PINK, ANSI_PINK);
+}
 
 void	ft_attr_p1(int set, WINDOW *arena)
 {
