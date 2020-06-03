@@ -56,7 +56,6 @@ int			save_champion(t_vm *vm, char *file, int champ_len,
 			unsigned int champ_no)
 {
 	char			buf[16 + champ_len + PROG_NAME_LENGTH + COMMENT_LENGTH + 1];
-	int				idx;
 
 	if (check_for_champ_no(vm, &champ_no) == ERROR)
 		return (ERROR);
@@ -70,13 +69,5 @@ int			save_champion(t_vm *vm, char *file, int champ_len,
 	ft_strncpy(vm->champions[champ_no]->prog_name, buf + 4, ft_strlen(buf + 4));
 	ft_strncpy(vm->champions[champ_no]->comment, buf + 12 + PROG_NAME_LENGTH, \
 		ft_strlen(buf + 12 + PROG_NAME_LENGTH));
-	idx == 1;
-	while (idx <= MAX_PLAYERS)
-	{
-		if (vm->champions[idx] == NULL && idx < MAX_PLAYERS && \
-			vm->champions[idx + 1] != NULL)
-			return (ERROR);
-		++idx
-	}
 	return (SUCCESS);
 }
