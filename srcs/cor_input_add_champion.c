@@ -73,6 +73,6 @@ int			save_champion(t_vm *vm, char *file, int champ_len,
 	ft_strcpy(vm->champ[champ_no]->exec_code, buf + 16 + PROG_NAME_LENGTH \
 		+ COMMENT_LENGTH);
 	vm->champ_count++;
-	ft_strcpy(ft_strchr(file, '.'), "\0\0\0\0");
+	ft_strcpy(ft_strstr(file, ".cor"), "\0\0\0\0");
 	return (SUCCESS);
 }

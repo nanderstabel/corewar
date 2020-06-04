@@ -58,7 +58,7 @@ int			is_champion(char *file_name, int *champ_size)
 	unsigned int	magic;
 
 	champ_file_min_size = 16 + PROG_NAME_LENGTH + COMMENT_LENGTH;
-	if (ft_strchr(file_name, '.') == NULL)
+	if (ft_strstr(file_name, ".cor") == NULL)
 		return (ERROR);
 	ft_bzero(buf, champ_file_min_size + CHAMP_MAX_SIZE + 3);
 	bytes_read = read_champion(buf, file_name, champ_file_min_size + \

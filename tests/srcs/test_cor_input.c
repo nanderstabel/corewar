@@ -35,8 +35,8 @@ Test(input_validation, invalid_n_option_two_players, .init=redirect_all_stdout)
 	char	**given_argv = (char**)ft_memalloc(sizeof(char*) * given_argc);
 
 	given_argv[0] = ft_strdup("corewar");
-	given_argv[1] = "-n";
-	given_argv[2] = "4";
+	given_argv[1] = ft_strdup("-n");
+	given_argv[2] = ft_strdup("4");
 	given_argv[3] = ft_strdup("tests/testfiles/valid/fluttershy.cor");
 	given_argv[4] = ft_strdup("tests/testfiles/valid/helltrain.cor");
 
@@ -61,17 +61,17 @@ Test(input_validation, invalid_n_option_four_players_1, .init=redirect_all_stdou
 	char	**given_argv = (char**)ft_memalloc(sizeof(char*) * given_argc);
 
 	given_argv[0] = ft_strdup("corewar");
-	given_argv[1] = "-n";
-	given_argv[2] = "4";
+	given_argv[1] = ft_strdup("-n");
+	given_argv[2] = ft_strdup("4");
 	given_argv[3] = ft_strdup("tests/testfiles/valid/fluttershy.cor");
-	given_argv[4] = "-n";
-	given_argv[5] = "5";
+	given_argv[4] = ft_strdup("-n");
+	given_argv[5] = ft_strdup("5");
 	given_argv[6] = ft_strdup("tests/testfiles/valid/helltrain.cor");
 	given_argv[7] = ft_strdup("-n");
 	given_argv[8] = ft_strdup("2");
 	given_argv[9] = ft_strdup("tests/testfiles/valid/bigzork.cor");
-	given_argv[10] = "-n";
-	given_argv[11] = "3";
+	given_argv[10] = ft_strdup("-n");
+	given_argv[11] = ft_strdup("3");
 	given_argv[12] = ft_strdup("tests/testfiles/valid/bee_gees.cor");
 
 	t_vm	vm;
@@ -120,6 +120,106 @@ Test(input_validation, invalid_five_players, .init=redirect_all_stdout)
 //		VALID		VALID		VALID		VALID		VALID		VALID	 //
 ///////////////////////////////////////////////////////////////////////////////
 
+Test(input_validation, valid_d_and_n_option_four_players)
+{
+	int		expected_return = SUCCESS;
+	int		given_argc = 15;
+	char	**given_argv = (char**)ft_memalloc(sizeof(char*) * given_argc);
+	int		dump = 4;
+
+	given_argv[0] = ft_strdup("corewar");
+	given_argv[1] = ft_strdup("-dump");
+	given_argv[2] = ft_itoa(dump);
+	given_argv[3] = ft_strdup("-n");
+	given_argv[4] = ft_strdup("4");
+	given_argv[5] = ft_strdup("tests/testfiles/valid/fluttershy.cor");
+	given_argv[6] = ft_strdup("-n");
+	given_argv[7] = ft_strdup("1");
+	given_argv[8] = ft_strdup("tests/testfiles/valid/helltrain.cor");
+	given_argv[9] = ft_strdup("-n");
+	given_argv[10] = ft_strdup("2");
+	given_argv[11] = ft_strdup("tests/testfiles/valid/bigzork.cor");
+	given_argv[12] = ft_strdup("-n");
+	given_argv[13] = ft_strdup("3");
+	given_argv[14] = ft_strdup("tests/testfiles/valid/bee_gees.cor");
+
+	char	*player_1 = "helltrain";
+	char	*player_2 = "bigzork";
+	char	*player_3 = "stayin' alive";
+	char	*player_4 = "fluttershy";
+
+	t_vm	vm;
+	ft_bzero(&vm, sizeof(t_vm));
+	vm.dump = -1;
+	int		real_return = input_validation(&vm, given_argv, given_argc);
+	cr_assert_eq(real_return, expected_return, "error when validation input", expected_return, real_return);
+	cr_expect_eq(vm.dump, dump, "dump expected: %d, dump saved: %d", dump, vm.dump);
+	cr_expect_str_eq(vm.champ[1]->header.prog_name, player_1, "player_1 expected: %s, player_1 saved: %s", player_1, vm.champ[1]->header.prog_name);
+	cr_expect_str_eq(vm.champ[2]->header.prog_name, player_2, "player_2 expected: %s, player_2 saved: %s", player_2, vm.champ[2]->header.prog_name);
+	cr_expect_str_eq(vm.champ[3]->header.prog_name, player_3, "player_3 expected: %s, player_3 saved: %s", player_3, vm.champ[3]->header.prog_name);
+	cr_expect_str_eq(vm.champ[4]->header.prog_name, player_4, "player_4 expected: %s, player_4 saved: %s", player_4, vm.champ[4]->header.prog_name);
+	free_vm(&vm, SUCCESS);
+}
+
+Test(input_validation, valid_d_option_four_players_1)
+{
+	int		expected_return = SUCCESS;
+	int		given_argc = 7;
+	char	**given_argv = (char**)ft_memalloc(sizeof(char*) * given_argc);
+	int		dump = 4;
+
+	given_argv[0] = ft_strdup("corewar");
+	given_argv[1] = ft_strdup("-d");
+	given_argv[2] = ft_itoa(dump);
+	given_argv[3] = ft_strdup("tests/testfiles/valid/fluttershy.cor");
+	given_argv[4] = ft_strdup("tests/testfiles/valid/helltrain.cor");
+	given_argv[5] = ft_strdup("tests/testfiles/valid/bigzork.cor");
+	given_argv[6] = ft_strdup("tests/testfiles/valid/bee_gees.cor");
+
+	char	*player_1 = "fluttershy";
+	char	*player_2 = "helltrain";
+	char	*player_3 = "bigzork";
+	char	*player_4 = "stayin' alive";
+
+	t_vm	vm;
+	ft_bzero(&vm, sizeof(t_vm));
+	vm.dump = -1;
+	int		real_return = input_validation(&vm, given_argv, given_argc);
+	cr_assert_eq(real_return, expected_return, "error when validation input", expected_return, real_return);
+	cr_expect_eq(vm.dump, dump, "dump expected: %d, dump saved: %d", dump, vm.dump);
+	cr_expect_str_eq(vm.champ[1]->header.prog_name, player_1, "player_1 expected: %s, player_1 saved: %s", player_1, vm.champ[1]->header.prog_name);
+	cr_expect_str_eq(vm.champ[2]->header.prog_name, player_2, "player_2 expected: %s, player_2 saved: %s", player_2, vm.champ[2]->header.prog_name);
+	cr_expect_str_eq(vm.champ[3]->header.prog_name, player_3, "player_3 expected: %s, player_3 saved: %s", player_3, vm.champ[3]->header.prog_name);
+	cr_expect_str_eq(vm.champ[4]->header.prog_name, player_4, "player_4 expected: %s, player_4 saved: %s", player_4, vm.champ[4]->header.prog_name);
+	free_vm(&vm, SUCCESS);
+}
+
+Test(input_validation, valid_d_option_two_players)
+{
+	int		expected_return = SUCCESS;
+	int		given_argc = 5;
+	char	**given_argv = (char**)ft_memalloc(sizeof(char*) * given_argc);
+	int		dump = 4;
+
+	given_argv[0] = ft_strdup("corewar");
+	given_argv[1] = ft_strdup("-d");
+	given_argv[2] = ft_itoa(dump);
+	given_argv[3] = ft_strdup("tests/testfiles/valid/zork.cor");
+	given_argv[4] = ft_strdup("tests/testfiles/valid/bigzork.cor");
+
+	char	*player_1 = "zork";
+	char	*player_2 = "bigzork";
+
+	t_vm	vm;
+	ft_bzero(&vm, sizeof(t_vm));
+	vm.dump = -1;
+	int		real_return = input_validation(&vm, given_argv, given_argc);
+	cr_assert_eq(real_return, expected_return, "error when validation input", expected_return, real_return);
+	cr_expect_eq(vm.dump, dump, "dump expected: %d, dump saved: %d", dump, vm.dump);
+	cr_expect_str_eq(vm.champ[1]->header.prog_name, player_1, "player_1 expected: %s, player_1 saved: %s", player_1, vm.champ[1]->header.prog_name);
+	cr_expect_str_eq(vm.champ[2]->header.prog_name, player_2, "player_2 expected: %s, player_2 saved: %s", player_2, vm.champ[2]->header.prog_name);
+	free_vm(&vm, SUCCESS);
+}
 
 Test(input_validation, valid_n_option_four_players_2)
 {
@@ -128,17 +228,17 @@ Test(input_validation, valid_n_option_four_players_2)
 	char	**given_argv = (char**)ft_memalloc(sizeof(char*) * given_argc);
 
 	given_argv[0] = ft_strdup("corewar");
-	given_argv[1] = "-n";
-	given_argv[2] = "4";
+	given_argv[1] = ft_strdup("-n");
+	given_argv[2] = ft_strdup("4");
 	given_argv[3] = ft_strdup("tests/testfiles/valid/fluttershy.cor");
-	given_argv[4] = "-n";
-	given_argv[5] = "1";
+	given_argv[4] = ft_strdup("-n");
+	given_argv[5] = ft_strdup("1");
 	given_argv[6] = ft_strdup("tests/testfiles/valid/helltrain.cor");
 	given_argv[7] = ft_strdup("-n");
 	given_argv[8] = ft_strdup("2");
 	given_argv[9] = ft_strdup("tests/testfiles/valid/bigzork.cor");
-	given_argv[10] = "-n";
-	given_argv[11] = "3";
+	given_argv[10] = ft_strdup("-n");
+	given_argv[11] = ft_strdup("3");
 	given_argv[12] = ft_strdup("tests/testfiles/valid/bee_gees.cor");
 
 	char	*player_1 = "helltrain";

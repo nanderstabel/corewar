@@ -28,29 +28,13 @@ static int	last_check(t_vm *vm)
 	return (SUCCESS);
 }
 
-static int	check_for_cor_extension(char *str)
-{
-	int		count;
-
-	count = 0;
-	if (str[0] == '.' && str[0] != '\0' && str[1] == '/')
-		count += 2;
-	while (str[count] == '.' && str[count] != '\0' && \
-		str[count + 1] == '.' && str[count + 1] != '\0' && \
-		str[count + 2] == '/')
-		count += 3;
-	if (ft_strequ(ft_strchr(str + count, '.'), ".cor") == ERROR)
-		return (ERROR);
-	return (SUCCESS);
-}
-
 static int	is_option_or_file(char *str)
 {
 	unsigned int	i;
 
 	if (ft_strequ(str, "-dump") == SUCCESS)
 		return (SUCCESS);
-	if (str[0] != '-' && check_for_cor_extension(str) == SUCCESS)
+	if (str[0] != '-' && ft_strstr(str, ".cor"))
 		return (SUCCESS);
 	if (str[0] != '-' || str[0] == '\0')
 		return (print_message(USAGE, NULL, STDERR, ERROR));
@@ -71,7 +55,7 @@ static int	save_option(t_vm *vm, char **argv, int idx, int argc)
 	long int	tmp;
 	int			champ_size;
 
-	if (ft_strchr(argv[idx], '.') != NULL)
+	if (ft_strstr(argv[idx], ".cor") != NULL)
 		return (1);
 	if (ft_strchr(argv[idx], 'v') != NULL)
 		vm->visualizer = TRUE;
@@ -89,8 +73,7 @@ static int	save_option(t_vm *vm, char **argv, int idx, int argc)
 		champ_size = 0;
 		if (ft_strchr(argv[idx], 'n') != NULL && tmp <= MAX_PLAYERS && \
 			is_champion(argv[idx + 2], &champ_size) == TRUE && \
-			save_champion(vm, argv[idx + 2], champ_size, tmp) == \
-			TRUE)
+			save_champion(vm, argv[idx + 2], champ_size, tmp) == TRUE)
 			return (3);
 	}
 	return (print_message(INV_OPT, argv[idx], STDERR, ERROR));
