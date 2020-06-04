@@ -37,6 +37,6 @@ int		main(int argc, char **argv)
 		return (print_message(USAGE, NULL, STDOUT, SUCCESS));
 	if (input_validation(&vm, argv, argc) == ERROR)
 		return (free_vm(&vm, ERROR));
-	ft_putendl("input is valid");
+	vm_start(&vm);
 	return (free_vm(&vm, SUCCESS));
 }

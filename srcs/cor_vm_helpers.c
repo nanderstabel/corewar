@@ -27,6 +27,22 @@ unsigned int	new_idx(unsigned int current_idx, int offset,
 	return (new_idx);
 }
 
+void		kill_cursor(t_vm *vm, t_cursor *cursor)
+{
+	t_cursor	*walk;
+
+	if (vm->cursors == cursor)
+		vm->cursors = cursor->next;
+	walk = vm->cursors;
+	while (walk != NULL)
+	{
+		if (walk->next == cursor)
+			walk->next = cursor->next;
+		walk = walk->next;
+	}
+	return (cursor_del(cursor));
+}
+
 int			convert_to_int(char *start, int len)
 {
 	int		integer;

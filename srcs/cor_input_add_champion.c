@@ -16,15 +16,15 @@ static int	check_for_champ_no(t_vm *vm, unsigned int *champ_no)
 {
 	if (*champ_no > MAX_PLAYERS)
 		return (print_message(INV_OPT_N, NULL, STDERR, ERROR));
-	if (vm->champions == NULL)
-		vm->champions = (t_header**)ft_memalloc(sizeof(t_header*) * \
+	if (vm->champ == NULL)
+		vm->champ = (t_champ**)ft_memalloc(sizeof(t_champ*) * \
 			MAX_PLAYERS + 1);
-	if (vm->champions == NULL)
+	if (vm->champ == NULL)
 		return (ERROR);
-	if (*champ_no > 0 && vm->champions[*champ_no] == NULL)
+	if (*champ_no > 0 && vm->champ[*champ_no] == NULL)
 		return (SUCCESS);
 	*champ_no = 1;
-	while (*champ_no <= MAX_PLAYERS && vm->champions[*champ_no] != NULL)
+	while (*champ_no <= MAX_PLAYERS && vm->champ[*champ_no] != NULL)
 		*champ_no += 1;
 	if (*champ_no > MAX_PLAYERS)
 		return (print_message(TOO_MANY_CHAMPS, NULL, STDERR, ERROR));
@@ -63,12 +63,16 @@ int			save_champion(t_vm *vm, char *file, int champ_len,
 		COMMENT_LENGTH);
 	if (check_trailing_zeros(buf) == ERROR)
 		return (print_message(FILE_MIS_TRAIL_ZER, file, STDERR, ERROR));
-	vm->champions[champ_no] = (t_header*)ft_memalloc(sizeof(t_header));
-	vm->champions[champ_no]->magic = COREWAR_EXEC_MAGIC;
-	vm->champions[champ_no]->prog_size = champ_len;
-	ft_strncpy(vm->champions[champ_no]->prog_name, buf + 4, ft_strlen(buf + 4));
-	ft_strncpy(vm->champions[champ_no]->comment, buf + 12 + PROG_NAME_LENGTH, \
-		ft_strlen(buf + 12 + PROG_NAME_LENGTH));
+	vm->champ[champ_no] = (t_champ*)ft_memalloc(sizeof(t_champ));
+	if (vm->champ[champ_no] == NULL)
+		return (ERROR);
+	vm->champ[champ_no]->header.magic = COREWAR_EXEC_MAGIC;
+	vm->champ[champ_no]->header.prog_size = champ_len;
+	ft_strcpy(vm->champ[champ_no]->header.prog_name, buf + 4);
+	ft_strcpy(vm->champ[champ_no]->header.comment, buf + 12 + PROG_NAME_LENGTH);
+	ft_strcpy(vm->champ[champ_no]->exec_code, buf + 16 + PROG_NAME_LENGTH \
+		+ COMMENT_LENGTH);
 	vm->champ_count++;
+	ft_strcpy(ft_strchr(file, '.'), "\0\0\0\0");
 	return (SUCCESS);
 }

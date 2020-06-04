@@ -50,22 +50,6 @@ static int	check_for_null_bytes(char *buf)
 	return (SUCCESS);
 }
 
-static int	check_for_cor_extension(char *file_name)
-{
-	int		count;
-
-	count = 0;
-	if (file_name[0] == '.' && file_name[0] != '\0' && file_name[1] == '/')
-		count += 2;
-	while (file_name[count] == '.' && file_name[count] != '\0' && \
-		file_name[count + 1] == '.' && file_name[count + 1] != '\0' && \
-		file_name[count + 2] == '/')
-		count += 3;
-	if (ft_strequ(ft_strchr(file_name + count, '.'), ".cor") == ERROR)
-		return (ERROR);
-	return (SUCCESS);
-}
-
 int			is_champion(char *file_name, int *champ_size)
 {
 	char			buf[16 + CHAMP_MAX_SIZE + NAME_LEN + COM_LEN + 3];
@@ -74,8 +58,8 @@ int			is_champion(char *file_name, int *champ_size)
 	unsigned int	magic;
 
 	champ_file_min_size = 16 + PROG_NAME_LENGTH + COMMENT_LENGTH;
-	if (check_for_cor_extension(file_name) == ERROR)
-		return (print_message(FILE_MIS_COR, file_name, STDERR, ERROR));
+	if (ft_strchr(file_name, '.') == NULL)
+		return (ERROR);
 	ft_bzero(buf, champ_file_min_size + CHAMP_MAX_SIZE + 3);
 	bytes_read = read_champion(buf, file_name, champ_file_min_size + \
 		CHAMP_MAX_SIZE);

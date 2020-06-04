@@ -27,7 +27,7 @@
 //	9 -> champion program size too big
 
 # define USAGE				"usage of corewar\n"
-# define INV_OPT			"invalid options given\n"
+# define INV_OPT			"invalid option\n"
 # define INV_OPT_N			"-n option invalid\n"
 # define FILE_INV_MAGIC		"invalid magic\n"
 # define FILE_MIS_COR		"invalid file (missing .cor extension)\n"

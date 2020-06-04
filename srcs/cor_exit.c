@@ -13,7 +13,7 @@
 #include "corewar.h"
 #include <stdlib.h>
 
-int		print_message(char *message, char *info, int fd, int ret)
+int			print_message(char *message, char *info, int fd, int ret)
 {
 	if (info != NULL)
 		ft_dprintf(fd, "%s:\n", info);
@@ -21,7 +21,7 @@ int		print_message(char *message, char *info, int fd, int ret)
 	return (ret);
 }
 
-static void	free_champions(t_header ***champions)
+static void	free_champions(t_champ ***champions)
 {
 	int		idx;
 
@@ -30,7 +30,7 @@ static void	free_champions(t_header ***champions)
 	{
 		if ((*champions)[idx] != NULL)
 		{
-			ft_bzero((*champions)[idx], sizeof(t_header));
+			ft_bzero((*champions)[idx], sizeof(t_champ));
 			free((*champions)[idx]);
 			(*champions)[idx] = NULL;
 		}
@@ -39,13 +39,24 @@ static void	free_champions(t_header ***champions)
 	*champions = NULL;
 }
 
-int		free_vm(t_vm *vm, int ret)
+void		cursor_del(t_cursor *cursor_to_del)
 {
-	if (vm->arena)
-		ft_strdel(&(vm->arena));
-	if (vm->champions)
-		free_champions(&(vm->champions));
-	// if (vm->cursor)
-	// 	free_cursors(&(vm->cursor));
+	ft_bzero(cursor_to_del, sizeof(t_cursor));
+	free(cursor_to_del);
+}
+
+int			free_vm(t_vm *vm, int ret)
+{
+	t_cursor	*cursor_to_del;
+
+	if (vm->champ)
+		free_champions(&(vm->champ));
+	while (vm->cursors)
+	{
+		cursor_to_del = vm->cursors;
+		vm->cursors = cursor_to_del->next;
+		cursor_del(cursor_to_del);
+	}
+	ft_bzero(vm, sizeof(t_vm));
 	return (ret);
 }

@@ -19,10 +19,72 @@ void	redirect_all_stdout(void)
 
 // valid tests:
 //	file multiple repositories up
+//	champ exec code in arena
 
 ///////////////////////////////////////////////////////////////////////////////
 //	INVALID		INVALID		INVALID		INVALID		INVALID		INVALID		 //
 ///////////////////////////////////////////////////////////////////////////////
+
+
+Test(input_validation, invalid_n_option_two_players, .init=redirect_all_stdout)
+{
+	int		expected_return = ERROR;
+	int		expected_output_fd = STDERR;
+	char	*expected_output = "-n:\ninvalid option\n";
+	int		given_argc = 5;
+	char	**given_argv = (char**)ft_memalloc(sizeof(char*) * given_argc);
+
+	given_argv[0] = ft_strdup("corewar");
+	given_argv[1] = "-n";
+	given_argv[2] = "4";
+	given_argv[3] = ft_strdup("tests/testfiles/valid/fluttershy.cor");
+	given_argv[4] = ft_strdup("tests/testfiles/valid/helltrain.cor");
+
+	t_vm	vm;
+	ft_bzero(&vm, sizeof(t_vm));
+	vm.dump = -1;
+	int		real_return = input_validation(&vm, given_argv, given_argc);
+	cr_assert_eq(real_return, expected_return, "'-n 4' with only two players should return ERROR", expected_return, real_return);
+	if (expected_output_fd == STDOUT)
+		cr_assert_stdout_eq_str(expected_output, "");
+	if (expected_output_fd == STDERR)
+		cr_assert_stderr_eq_str(expected_output, "");
+	free_vm(&vm, SUCCESS);
+}
+
+Test(input_validation, invalid_n_option_four_players_1, .init=redirect_all_stdout)
+{
+	int		expected_return = ERROR;
+	int		expected_output_fd = STDERR;
+	char	*expected_output = "-n:\ninvalid option\n";
+	int		given_argc = 13;
+	char	**given_argv = (char**)ft_memalloc(sizeof(char*) * given_argc);
+
+	given_argv[0] = ft_strdup("corewar");
+	given_argv[1] = "-n";
+	given_argv[2] = "4";
+	given_argv[3] = ft_strdup("tests/testfiles/valid/fluttershy.cor");
+	given_argv[4] = "-n";
+	given_argv[5] = "5";
+	given_argv[6] = ft_strdup("tests/testfiles/valid/helltrain.cor");
+	given_argv[7] = ft_strdup("-n");
+	given_argv[8] = ft_strdup("2");
+	given_argv[9] = ft_strdup("tests/testfiles/valid/bigzork.cor");
+	given_argv[10] = "-n";
+	given_argv[11] = "3";
+	given_argv[12] = ft_strdup("tests/testfiles/valid/bee_gees.cor");
+
+	t_vm	vm;
+	ft_bzero(&vm, sizeof(t_vm));
+	vm.dump = -1;
+	int		real_return = input_validation(&vm, given_argv, given_argc);
+	cr_assert_eq(real_return, expected_return, "'-n 5' should return ERROR", expected_return, real_return);
+	if (expected_output_fd == STDOUT)
+		cr_assert_stdout_eq_str(expected_output, "");
+	if (expected_output_fd == STDERR)
+		cr_assert_stderr_eq_str(expected_output, "");
+	free_vm(&vm, SUCCESS);
+}
 
 Test(input_validation, invalid_five_players, .init=redirect_all_stdout)
 {
@@ -50,6 +112,7 @@ Test(input_validation, invalid_five_players, .init=redirect_all_stdout)
 		cr_assert_stdout_eq_str(expected_output, "");
 	if (expected_output_fd == STDERR)
 		cr_assert_stderr_eq_str(expected_output, "");
+		free_vm(&vm, SUCCESS);
 }
 
 
@@ -58,29 +121,154 @@ Test(input_validation, invalid_five_players, .init=redirect_all_stdout)
 ///////////////////////////////////////////////////////////////////////////////
 
 
-// Test(input_validation, valid_n_option_two_players)
-// {
-// 	int		expected_return = SUCCESS;
-// 	int		given_argc = 5;
-// 	char	**given_argv = (char**)ft_memalloc(sizeof(char*) * given_argc);
+Test(input_validation, valid_n_option_four_players_2)
+{
+	int		expected_return = SUCCESS;
+	int		given_argc = 13;
+	char	**given_argv = (char**)ft_memalloc(sizeof(char*) * given_argc);
 
-// 	given_argv[0] = ft_strdup("corewar");
-// 	given_argv[1] = ft_strdup("-n");
-// 	given_argv[2] = ft_strdup("2");
-// 	given_argv[3] = ft_strdup("tests/testfiles/valid/zork.cor");
-// 	given_argv[4] = ft_strdup("tests/testfiles/valid/bigzork.cor");
+	given_argv[0] = ft_strdup("corewar");
+	given_argv[1] = "-n";
+	given_argv[2] = "4";
+	given_argv[3] = ft_strdup("tests/testfiles/valid/fluttershy.cor");
+	given_argv[4] = "-n";
+	given_argv[5] = "1";
+	given_argv[6] = ft_strdup("tests/testfiles/valid/helltrain.cor");
+	given_argv[7] = ft_strdup("-n");
+	given_argv[8] = ft_strdup("2");
+	given_argv[9] = ft_strdup("tests/testfiles/valid/bigzork.cor");
+	given_argv[10] = "-n";
+	given_argv[11] = "3";
+	given_argv[12] = ft_strdup("tests/testfiles/valid/bee_gees.cor");
 
-// 	char	*player_1 = "bigzork";
-// 	char	*player_2 = "zork";
+	char	*player_1 = "helltrain";
+	char	*player_2 = "bigzork";
+	char	*player_3 = "stayin' alive";
+	char	*player_4 = "fluttershy";
 
-// 	t_vm	vm;
-// 	ft_bzero(&vm, sizeof(t_vm));
-// 	vm.dump = -1;
-// 	int		real_return = input_validation(&vm, given_argv, given_argc);
-// 	cr_assert_eq(real_return, expected_return, "error when validation input", expected_return, real_return);
-// 	cr_expect_str_eq(vm.champions[1]->prog_name, player_1, "player_1 expected: %s, player_1 saved: %s", player_1, vm.champions[1]);
-// 	cr_expect_str_eq(vm.champions[2]->prog_name, player_2, "player_2 expected: %s, player_2 saved: %s", player_2, vm.champions[2]);
-// }
+	t_vm	vm;
+	ft_bzero(&vm, sizeof(t_vm));
+	vm.dump = -1;
+	int		real_return = input_validation(&vm, given_argv, given_argc);
+	cr_assert_eq(real_return, expected_return, "error when validation input", expected_return, real_return);
+	cr_expect_str_eq(vm.champ[1]->header.prog_name, player_1, "player_1 expected: %s, player_1 saved: %s", player_1, vm.champ[1]->header.prog_name);
+	cr_expect_str_eq(vm.champ[2]->header.prog_name, player_2, "player_2 expected: %s, player_2 saved: %s", player_2, vm.champ[2]->header.prog_name);
+	cr_expect_str_eq(vm.champ[3]->header.prog_name, player_3, "player_3 expected: %s, player_3 saved: %s", player_3, vm.champ[3]->header.prog_name);
+	cr_expect_str_eq(vm.champ[4]->header.prog_name, player_4, "player_4 expected: %s, player_4 saved: %s", player_4, vm.champ[4]->header.prog_name);
+	free_vm(&vm, SUCCESS);
+}
+
+Test(input_validation, valid_n_option_four_players_1)
+{
+	int		expected_return = SUCCESS;
+	int		given_argc = 7;
+	char	**given_argv = (char**)ft_memalloc(sizeof(char*) * given_argc);
+
+	given_argv[0] = ft_strdup("corewar");
+	given_argv[1] = ft_strdup("tests/testfiles/valid/turtle.cor");
+	given_argv[2] = ft_strdup("tests/testfiles/valid/zork.cor");
+	given_argv[3] = ft_strdup("-n");
+	given_argv[4] = ft_strdup("2");
+	given_argv[5] = ft_strdup("tests/testfiles/valid/bigzork.cor");
+	given_argv[6] = ft_strdup("tests/testfiles/valid/bee_gees.cor");
+
+	char	*player_1 = "turtle";
+	char	*player_2 = "bigzork";
+	char	*player_3 = "zork";
+	char	*player_4 = "stayin' alive";
+
+	t_vm	vm;
+	ft_bzero(&vm, sizeof(t_vm));
+	vm.dump = -1;
+	int		real_return = input_validation(&vm, given_argv, given_argc);
+	cr_assert_eq(real_return, expected_return, "error when validation input", expected_return, real_return);
+	cr_expect_str_eq(vm.champ[1]->header.prog_name, player_1, "player_1 expected: %s, player_1 saved: %s", player_1, vm.champ[1]->header.prog_name);
+	cr_expect_str_eq(vm.champ[2]->header.prog_name, player_2, "player_2 expected: %s, player_2 saved: %s", player_2, vm.champ[2]->header.prog_name);
+	cr_expect_str_eq(vm.champ[3]->header.prog_name, player_3, "player_3 expected: %s, player_3 saved: %s", player_3, vm.champ[3]->header.prog_name);
+	cr_expect_str_eq(vm.champ[4]->header.prog_name, player_4, "player_4 expected: %s, player_4 saved: %s", player_4, vm.champ[4]->header.prog_name);
+	free_vm(&vm, SUCCESS);
+}
+
+Test(input_validation, valid_n_option_three_players_2)
+{
+	int		expected_return = SUCCESS;
+	int		given_argc = 6;
+	char	**given_argv = (char**)ft_memalloc(sizeof(char*) * given_argc);
+
+	given_argv[0] = ft_strdup("corewar");
+	given_argv[1] = ft_strdup("tests/testfiles/valid/turtle.cor");
+	given_argv[2] = ft_strdup("tests/testfiles/valid/zork.cor");
+	given_argv[3] = ft_strdup("-n");
+	given_argv[4] = ft_strdup("3");
+	given_argv[5] = ft_strdup("tests/testfiles/valid/bigzork.cor");
+
+	char	*player_1 = "turtle";
+	char	*player_2 = "zork";
+	char	*player_3 = "bigzork";
+
+	t_vm	vm;
+	ft_bzero(&vm, sizeof(t_vm));
+	vm.dump = -1;
+	int		real_return = input_validation(&vm, given_argv, given_argc);
+	cr_assert_eq(real_return, expected_return, "error when validation input", expected_return, real_return);
+	cr_expect_str_eq(vm.champ[1]->header.prog_name, player_1, "player_1 expected: %s, player_1 saved: %s", player_1, vm.champ[1]->header.prog_name);
+	cr_expect_str_eq(vm.champ[2]->header.prog_name, player_2, "player_2 expected: %s, player_2 saved: %s", player_2, vm.champ[2]->header.prog_name);
+	cr_expect_str_eq(vm.champ[3]->header.prog_name, player_3, "player_3 expected: %s, player_3 saved: %s", player_3, vm.champ[3]->header.prog_name);
+	free_vm(&vm, SUCCESS);
+}
+
+Test(input_validation, valid_n_option_three_players_1)
+{
+	int		expected_return = SUCCESS;
+	int		given_argc = 6;
+	char	**given_argv = (char**)ft_memalloc(sizeof(char*) * given_argc);
+
+	given_argv[0] = ft_strdup("corewar");
+	given_argv[1] = ft_strdup("tests/testfiles/valid/turtle.cor");
+	given_argv[2] = ft_strdup("-n");
+	given_argv[3] = ft_strdup("1");
+	given_argv[4] = ft_strdup("tests/testfiles/valid/zork.cor");
+	given_argv[5] = ft_strdup("tests/testfiles/valid/bigzork.cor");
+
+	char	*player_1 = "zork";
+	char	*player_2 = "turtle";
+	char	*player_3 = "bigzork";
+
+	t_vm	vm;
+	ft_bzero(&vm, sizeof(t_vm));
+	vm.dump = -1;
+	int		real_return = input_validation(&vm, given_argv, given_argc);
+	cr_assert_eq(real_return, expected_return, "error when validation input", expected_return, real_return);
+	cr_expect_str_eq(vm.champ[1]->header.prog_name, player_1, "player_1 expected: %s, player_1 saved: %s", player_1, vm.champ[1]->header.prog_name);
+	cr_expect_str_eq(vm.champ[2]->header.prog_name, player_2, "player_2 expected: %s, player_2 saved: %s", player_2, vm.champ[2]->header.prog_name);
+	cr_expect_str_eq(vm.champ[3]->header.prog_name, player_3, "player_3 expected: %s, player_3 saved: %s", player_3, vm.champ[3]->header.prog_name);
+	free_vm(&vm, SUCCESS);
+}
+
+Test(input_validation, valid_n_option_two_players)
+{
+	int		expected_return = SUCCESS;
+	int		given_argc = 5;
+	char	**given_argv = (char**)ft_memalloc(sizeof(char*) * given_argc);
+
+	given_argv[0] = ft_strdup("corewar");
+	given_argv[1] = ft_strdup("-n");
+	given_argv[2] = ft_strdup("2");
+	given_argv[3] = ft_strdup("tests/testfiles/valid/zork.cor");
+	given_argv[4] = ft_strdup("tests/testfiles/valid/bigzork.cor");
+
+	char	*player_1 = "bigzork";
+	char	*player_2 = "zork";
+
+	t_vm	vm;
+	ft_bzero(&vm, sizeof(t_vm));
+	vm.dump = -1;
+	int		real_return = input_validation(&vm, given_argv, given_argc);
+	cr_assert_eq(real_return, expected_return, "error when validation input", expected_return, real_return);
+	cr_expect_str_eq(vm.champ[1]->header.prog_name, player_1, "player_1 expected: %s, player_1 saved: %s", player_1, vm.champ[1]->header.prog_name);
+	cr_expect_str_eq(vm.champ[2]->header.prog_name, player_2, "player_2 expected: %s, player_2 saved: %s", player_2, vm.champ[2]->header.prog_name);
+	free_vm(&vm, SUCCESS);
+}
 
 Test(input_validation, valid_four_players)
 {
@@ -99,6 +287,7 @@ Test(input_validation, valid_four_players)
 	vm.dump = -1;
 	int		real_return = input_validation(&vm, given_argv, given_argc);
 	cr_assert_eq(real_return, expected_return, "with four valid champions given, input validation returned %d when the expected return is %d", expected_return, real_return);
+	free_vm(&vm, SUCCESS);
 }
 
 Test(input_validation, valid_three_players)
@@ -117,17 +306,18 @@ Test(input_validation, valid_three_players)
 	vm.dump = -1;
 	int		real_return = input_validation(&vm, given_argv, given_argc);
 	cr_assert_eq(real_return, expected_return, "with three valid champions given, input validation returned %d when the expected return is %d", expected_return, real_return);
-	cr_expect_str_eq(vm.champions[1]->prog_name, "turtle", "first champion should be turtle but is %s\n", vm.champions[1]->prog_name);
-	cr_expect_str_eq(vm.champions[2]->prog_name, "fluttershy", "second champion should be fluttershy but is %s\n", vm.champions[2]->prog_name);
-	cr_expect_str_eq(vm.champions[3]->prog_name, "zork", "third champion should be zork but is %s\n", vm.champions[3]->prog_name);
+	cr_expect_str_eq(vm.champ[1]->header.prog_name, "turtle", "first champion should be turtle but is %s\n", vm.champ[1]->header.prog_name);
+	cr_expect_str_eq(vm.champ[2]->header.prog_name, "fluttershy", "second champion should be fluttershy but is %s\n", vm.champ[2]->header.prog_name);
+	cr_expect_str_eq(vm.champ[3]->header.prog_name, "zork", "third champion should be zork but is %s\n", vm.champ[3]->header.prog_name);
 
-	cr_expect_str_eq(vm.champions[1]->comment, "TURTLE FFS U LAMA", "comment of turtle should be | TURTLE FFS U LAMA | but is | %s | \n", vm.champions[1]->comment);
-	cr_expect_str_eq(vm.champions[2]->comment, "oh, my, what a scary project", "comment of fluttershy should be | oh, my, what a scary project | but is | %s | \n", vm.champions[2]->comment);
-	cr_expect_str_eq(vm.champions[3]->comment, "I'M ALIIIIVE", "comment of zork should be | I’M ALIIIIVE | but is | %s | \n", vm.champions[3]->comment);
+	cr_expect_str_eq(vm.champ[1]->header.comment, "TURTLE FFS U LAMA", "comment of turtle should be | TURTLE FFS U LAMA | but is | %s | \n", vm.champ[1]->header.comment);
+	cr_expect_str_eq(vm.champ[2]->header.comment, "oh, my, what a scary project", "comment of fluttershy should be | oh, my, what a scary project | but is | %s | \n", vm.champ[2]->header.comment);
+	cr_expect_str_eq(vm.champ[3]->header.comment, "I'M ALIIIIVE", "comment of zork should be | I’M ALIIIIVE | but is | %s | \n", vm.champ[3]->header.comment);
 
-	cr_expect_eq(vm.champions[1]->prog_size, 394, "turtle should be 394 bytes heavy, not %d", vm.champions[1]->prog_size);
-	cr_expect_eq(vm.champions[2]->prog_size, 490, "fluttershy should be 490 bytes heavy, not %d", vm.champions[2]->prog_size);
-	cr_expect_eq(vm.champions[3]->prog_size, 23, "zork should be 23 bytes heavy, not %d", vm.champions[3]->prog_size);
+	cr_expect_eq(vm.champ[1]->header.prog_size, 394, "turtle should be 394 bytes heavy, not %d", vm.champ[1]->header.prog_size);
+	cr_expect_eq(vm.champ[2]->header.prog_size, 490, "fluttershy should be 490 bytes heavy, not %d", vm.champ[2]->header.prog_size);
+	cr_expect_eq(vm.champ[3]->header.prog_size, 23, "zork should be 23 bytes heavy, not %d", vm.champ[3]->header.prog_size);
+	free_vm(&vm, SUCCESS);
 }
 
 Test(input_validation, valid_two_players)
@@ -145,6 +335,7 @@ Test(input_validation, valid_two_players)
 	vm.dump = -1;
 	int		real_return = input_validation(&vm, given_argv, given_argc);
 	cr_assert_eq(real_return, expected_return, "with two valid champions given, input validation returned %d when the expected return is %d", expected_return, real_return);
+	free_vm(&vm, SUCCESS);
 }
 
 Test(input_validation, valid_one_players)
@@ -161,9 +352,10 @@ Test(input_validation, valid_one_players)
 	vm.dump = -1;
 	int		real_return = input_validation(&vm, given_argv, given_argc);
 	cr_assert_eq(real_return, expected_return, "with one valid champion given, input validation returned %d when the expected return is %d", expected_return, real_return);
-	cr_expect_str_eq(vm.champions[1]->prog_name, "bigzork", "first champion should be bigzork but is %s\n", vm.champions[1]->prog_name);
-	cr_expect_str_eq(vm.champions[1]->comment, "I know i cant win", "comment of bigzork should be | I know i cant win | but is | %s | \n", vm.champions[1]->comment);
-	cr_expect_eq(vm.champions[1]->prog_size, 430, "bigzork should be 430 bytes heavy, not %d", vm.champions[1]->prog_size);
+	cr_expect_str_eq(vm.champ[1]->header.prog_name, "bigzork", "first champion should be bigzork but is %s\n", vm.champ[1]->header.prog_name);
+	cr_expect_str_eq(vm.champ[1]->header.comment, "I know i cant win", "comment of bigzork should be | I know i cant win | but is | %s | \n", vm.champ[1]->header.comment);
+	cr_expect_eq(vm.champ[1]->header.prog_size, 430, "bigzork should be 430 bytes heavy, not %d", vm.champ[1]->header.prog_size);
+	free_vm(&vm, SUCCESS);
 }
 
 Test(input_validation, no_args, .init=redirect_all_stdout)
@@ -177,4 +369,5 @@ Test(input_validation, no_args, .init=redirect_all_stdout)
 	t_vm	vm;
 	int		real_return = input_validation(&vm, given_argv, given_argc);
 	cr_assert_eq(real_return, expected_return, "with no arguments given, input validation returned %d when the expected return is %d", expected_return, real_return);
+	free_vm(&vm, SUCCESS);
 }

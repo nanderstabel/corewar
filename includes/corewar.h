@@ -23,24 +23,24 @@
 # define STDOUT					1
 # define STDERR					2
 
-// I think it might be a better solution to have the arena in a simple char* and have a wrapper function that calculates the indices with the offset and a boolian variable for enabling or disabling the l... (lfork, lld, lldi) operations
-// typedef struct		s_byte
-// {
-// 	unsigned char	byte;
-// 	struct s_byte	*next;
-// 	struct s_byte	*prev;
-// }					t_byte;
-
 typedef struct		s_cursor
 {
 	int				pc;
 	unsigned int	ctw;
 	unsigned int	decay;
-	int				*reg[REG_NUMBER];
+	int				reg[REG_NUMBER];
 	unsigned int	carry;
-	int				back_to_normal;
 	int				color;
+	struct s_cursor	*next;
 }					t_cursor;
+
+typedef struct		s_champ
+{
+	int			id;
+	int			color;
+	char		exec_code[CHAMP_MAX_SIZE];
+	t_header	header;
+}					t_champ;
 
 typedef struct		s_vm
 {
@@ -51,11 +51,11 @@ typedef struct		s_vm
 	unsigned int	ctd;
 	unsigned int	check_count;
 	unsigned int	live_count;
-	t_header		**champions;
-	t_cursor		*cursor;
-	char			*arena;
 	unsigned int	visualizer;
 	int				dump;
+	t_champ			**champ;
+	t_cursor		*cursors;
+	char			arena[MEM_SIZE];
 }					t_vm;
 
 typedef struct		s_op_fct
@@ -86,16 +86,20 @@ int					op_aff(t_vm *vm, t_cursor *cursor);
 int					print_message(char *message, char *info, int fd, \
 					int ret);
 int					free_vm(t_vm *vm, int ret);
+void				cursor_del(t_cursor *cursor);
+
 int					input_validation(t_vm *vm, char **argv, int argc);
 
 int					is_champion(char *file, int *champ_len);
-int					convert_to_int(char *start, int len);
 int					read_champion(char *buf, char *file_name, \
 					unsigned int champ_file_size);
 
 int					save_champion(t_vm *vm, char *file, int champ_len, \
 					unsigned int champ_no);
 
+int					convert_to_int(char *start, int len);
 unsigned int		new_idx(unsigned int current_idx, int offset, \
 					unsigned int flag);
+
+int					vm_start(t_vm *vm);
 #endif

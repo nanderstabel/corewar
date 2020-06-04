@@ -24,6 +24,6 @@ int		op_live(t_vm *vm, t_cursor *cursor)
 		ft_printf("A process shows that player %d (%s) is alive\n", \
 			-arg, vm->champions[-arg]->prog_name);
 	}
-	//call visualizer ?
+	//call visualizer
 	return (5);
 }
