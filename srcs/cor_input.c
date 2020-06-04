@@ -38,7 +38,8 @@ static int	is_option_or_file(char *str)
 		return (SUCCESS);
 	if (str[0] != '-' || str[0] == '\0')
 		return (print_message(USAGE, NULL, STDERR, ERROR));
-	if (str[1] == '\0')
+	if (str[1] == '\0' || \
+		(ft_strchr(str, 'n') != NULL && ft_strchr(str, 'd') != NULL))
 		return (print_message(INV_OPT, str, STDERR, ERROR));
 	i = 1;
 	while (str[i] != '\0')
@@ -59,8 +60,8 @@ static int	save_option(t_vm *vm, char **argv, int idx, int argc)
 		return (1);
 	if (ft_strchr(argv[idx], 'v') != NULL)
 		vm->visualizer = TRUE;
-	if ((ft_strchr(argv[idx], 'd') != NULL || ft_strchr(argv[idx], 'n') != NULL)
-		&& (idx + 2 < argc) && ft_isint(argv[idx + 1]) == TRUE)
+	if ((ft_strchr(argv[idx], 'd') != NULL || (ft_strchr(argv[idx], 'n') != NULL
+		&& (idx + 2 < argc))) && ft_isint(argv[idx + 1]) == TRUE)
 	{
 		tmp = ft_atoi(argv[idx + 1]);
 		if (tmp < 0 || FT_INT_MAX < tmp)
