@@ -6,52 +6,42 @@
 /*   By: lhageman <lhageman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/03 16:31:49 by lhageman      #+#    #+#                 */
-/*   Updated: 2020/06/03 17:33:03 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/06/04 09:59:17 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vis.h"
 
-void	draw_borders(t_graphics *graphics)
+void	vis_borders(WINDOW *window, int y, int x)
 {
 	int i;
 
 	i = 0;
-	wattron(graphics->data, COLOR_PAIR(10));
-	wattron(graphics->arena, COLOR_PAIR(10));
-	while (i < graphics->arenax)
+	wattron(window, COLOR_PAIR(10));
+	while (i < x)
 	{
-		mvwprintw(graphics->arena, 0, i, "*");
-		mvwprintw(graphics->arena, graphics->y - 1, i, "*");
+		mvwprintw(window, 0, i, "*");
+		mvwprintw(window, y - 1, i, "*");
 		i += 1;
 	}
 	i = 0;
-	while (i < graphics->y)
+	while (i < y)
 	{
-		mvwprintw(graphics->arena, i, 0, "*");
-		mvwprintw(graphics->arena, i, graphics->arenax - 1, "*");
+		mvwprintw(window, i, 0, "*");
+		mvwprintw(window, i, x - 1, "*");
 		i += 1;
 	}
-	i = 0;
-	while (i < graphics->datax)
-	{
-		mvwprintw(graphics->data, 0, i, "*");
-		mvwprintw(graphics->data, graphics->y - 1, i, "*");
-		i += 1;
-	}
-	i = 0;
-	while (i < graphics->y)
-	{
-		mvwprintw(graphics->data, i, graphics->datax - 1, "*");
-		i += 1;
-	}
-	wrefresh(graphics->data);
-	wrefresh(graphics->arena);
-	wattroff(graphics->data, COLOR_PAIR(10));
-	wattroff(graphics->arena, COLOR_PAIR(10));
+	wrefresh(window);
+	wattroff(window, COLOR_PAIR(10));
 }
 
-int	ft_print_data(t_graphics *graphics, t_vm *vm)
+void	draw_borders(t_graphics *graphics)
+{
+	vis_borders(graphics->arena, graphics->y, graphics->arenax);
+	vis_borders(graphics->data, graphics->y, graphics->datax);
+}
+
+int		ft_print_data(t_graphics *graphics, t_vm *vm)
 {
 	char *str;
 
@@ -67,24 +57,21 @@ int	ft_print_data(t_graphics *graphics, t_vm *vm)
 	return (0);
 }
 
-int 	draw_arena(t_graphics *graphics, char *arena)
+int		draw_arena(t_graphics *graphics, char *arena)
 {
-	int i;
-	int x;
-	int y;
+	int		i;
+	int		x;
+	int		y;
+	char	c[2];
+
 	i = 0;
-	x = 3;
 	y = 2;
-	char c[2];
 	wattron(graphics->arena, COLOR_PAIR(9));
-	wclear(graphics->arena);
-	draw_borders(graphics);
-	while (i < MEM_SIZE)
+	while (i < MEM_SIZE && y < graphics->y - 2)
 	{
+		x = 3;
 		while (x < graphics->arenax - 3 && i < MEM_SIZE)
 		{
-			// if (i != 0 && i % 128 == 0)
-			// 	break ;
 			c[0] = arena[i];
 			c[1] = '\0';
 			mvwprintw(graphics->arena, y, x, c);
@@ -93,46 +80,55 @@ int 	draw_arena(t_graphics *graphics, char *arena)
 				x += 1;
 			i += 1;
 		}
-		x = 3;
 		y += 1;
 	}
-	mvwprintw(graphics->data, 7, 3, ft_itoa(i));
-	wrefresh(graphics->data);
 	wrefresh(graphics->arena);
 	return (0);
 }
 
-// int		ft_set_arena(t_graphics *graphics)
-// {
-// 	int		i;
-// 	int		x;
-// 	int		y;
-
-// 	x = 2;
-// 	y = 2;
-// 	i = 0;
-// 	wattron(graphics->arena, COLOR_PAIR(9));
-// 	while (i < MEM_SIZE && y < graphics->y)
-// 	{
-// 		while (x < graphics->arenax - 2)
-// 		{
-// 			mvwprintw(graphics->arena, y, x, "0");
-// 			x += 1;
-// 			if (x % 3 == 0)
-// 				x += 1;
-// 			i += 1;
-// 		}
-// 		x = 2;
-// 		y += 1;
-// 	}
-// 	wrefresh(graphics->arena);
-// 	return (0);
-// }
-
-int	ft_initiate_arena(t_graphics *graphics, t_vm *vm)
+void	vis_print_players(t_graphics *graphics)
 {
-	int		data_size;
-	char	*arena;
+	wattron(graphics->arena, COLOR_PAIR(2));
+	mvwprintw(graphics->arena, 4, 3, "ab");
+	mvwprintw(graphics->arena, 4, 6, "cd");
+	mvwprintw(graphics->arena, 4, 9, "ef");
+	mvwprintw(graphics->arena, 4, 12, "gh");
+	mvwprintw(graphics->arena, 4, 15, "ij");
+	mvwprintw(graphics->arena, 4, 18, "kl");
+	wattroff(graphics->arena, COLOR_PAIR(2));
+	wattron(graphics->arena, COLOR_PAIR(4));
+	mvwprintw(graphics->arena, 6, 3, "ab");
+	mvwprintw(graphics->arena, 6, 6, "cd");
+	mvwprintw(graphics->arena, 6, 9, "ef");
+	mvwprintw(graphics->arena, 6, 12, "gh");
+	mvwprintw(graphics->arena, 6, 15, "ij");
+	mvwprintw(graphics->arena, 6, 18, "kl");
+	wattroff(graphics->arena, COLOR_PAIR(4));
+	wattron(graphics->arena, COLOR_PAIR(6));
+	mvwprintw(graphics->arena, 8, 3, "ab");
+	mvwprintw(graphics->arena, 8, 6, "cd");
+	mvwprintw(graphics->arena, 8, 9, "ef");
+	mvwprintw(graphics->arena, 8, 12, "gh");
+	mvwprintw(graphics->arena, 8, 15, "ij");
+	mvwprintw(graphics->arena, 8, 18, "kl");
+	wattroff(graphics->arena, COLOR_PAIR(6));
+	wattron(graphics->arena, COLOR_PAIR(8));
+	mvwprintw(graphics->arena, 10, 3, "ab");
+	mvwprintw(graphics->arena, 10, 6, "cd");
+	mvwprintw(graphics->arena, 10, 9, "ef");
+	mvwprintw(graphics->arena, 10, 12, "gh");
+	mvwprintw(graphics->arena, 10, 15, "ij");
+	mvwprintw(graphics->arena, 10, 18, "kl");
+	wattroff(graphics->arena, COLOR_PAIR(8));
+	wrefresh(graphics->arena);
+}
+
+int		ft_initiate_arena(t_graphics *graphics, t_vm *vm)
+{
+	int			data_size;
+	char		*arena;
+	t_cursor	*cursor;
+	int			i;
 
 	data_size = 5;
 	graphics->x = 192 + 57 + 6;
@@ -142,17 +138,20 @@ int	ft_initiate_arena(t_graphics *graphics, t_vm *vm)
 	graphics->arena = newwin(graphics->y, graphics->arenax, 0, 0);
 	graphics->data = newwin(graphics->y, graphics->datax, 0, graphics->arenax);
 	draw_borders(graphics);
-	draw_borders(graphics);
 	ft_print_data(graphics, vm);
 	arena = ft_memalloc(MEM_SIZE);
-	for(int i = 0; i < MEM_SIZE; i++)
+	i = 0;
+	while (i < MEM_SIZE)
 	{
 		arena[i] = '0';
+		i += 1;
 	}
-	// arena = "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000";
-	// ft_set_arena(graphics);
 	draw_arena(graphics, arena);
-	sleep(10);
+	sleep(2);
+	vis_print_players(graphics);
+	cursor = NULL;
+	vis_print_cursor(graphics, cursor, 3);
+	sleep(20);
 	ft_close_windows(graphics);
 	return (0);
 }

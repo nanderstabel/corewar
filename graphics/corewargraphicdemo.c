@@ -6,13 +6,13 @@
 /*   By: lhageman <lhageman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/17 12:20:07 by lhageman      #+#    #+#                 */
-/*   Updated: 2020/06/03 16:37:02 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/06/04 08:36:42 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vis.h"
 
-int	ft_close_windows(t_graphics *graphics)
+int		ft_close_windows(t_graphics *graphics)
 {
 	delwin(graphics->arena);
 	delwin(graphics->data);

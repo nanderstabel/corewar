@@ -1,7 +1,7 @@
 # Makefile
 LDFLAGS=-lncurses
-SRC = vis_arena.c vis_attr_players.c corewargraphicdemo.c
-OBJ = vis_arena.o vis_attr_players.o corewargraphicdemo.o
+SRC = vis_arena.c vis_attr_players.c vis_cursor.c corewargraphicdemo.c
+OBJ = vis_arena.o vis_attr_players.o vis_cursor.o corewargraphicdemo.o
 LIBFT = ../libft/libft.a
 HEADERS = vis.h
 all: graphic
