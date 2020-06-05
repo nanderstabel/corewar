@@ -12,18 +12,25 @@
 
 #include "corewar.h"
 
-int		op_live(t_vm *vm, t_cursor *cursor)
+//TODO: double check whether an invalid arument for live (when the id doesn't match a player) does.
+
+void	op_live(t_vm *vm, t_cursor *cursor)
 {
 	int				arg;
 
 	arg = convert_to_int(vm->arena[new_idx(cursor->pc, 1, FALSE)], 4);
 	if (0 < -arg && -arg <= MAX_PLAYERS && \
-		vm->champions[-arg] != NULL)
+		vm->champ[-arg] != NULL)
 	{
 		vm->last_live = arg;
+		++(vm->live_count);
+		cursor->decay = 0;
 		ft_printf("A process shows that player %d (%s) is alive\n", \
-			-arg, vm->champions[-arg]->prog_name);
+			-arg, vm->champ[-arg]->header.prog_name);
+		//call visualizer
+		cursor->pc = new_idx(cursor->pc, 5, FALSE);
+		return ;
 	}
-	//call visualizer
-	return (5);
+	cursor->pc = new_idx(cursor->pc, 1, FALSE);
+	return ;
 }

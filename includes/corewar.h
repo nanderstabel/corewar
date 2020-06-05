@@ -26,6 +26,7 @@
 typedef struct		s_cursor
 {
 	int				pc;
+	int				op_code;
 	unsigned int	ctw;
 	unsigned int	decay;
 	int				reg[REG_NUMBER];
@@ -66,7 +67,7 @@ typedef struct		s_op_fct
 
 extern t_op_fct		g_op_fct_tab[17];
 
-int					op_live(t_vm *vm, t_cursor *cursor);
+void				op_live(t_vm *vm, t_cursor *cursor);
 int					op_ld(t_vm *vm, t_cursor *cursor);
 int					op_st(t_vm *vm, t_cursor *cursor);
 int					op_add(t_vm *vm, t_cursor *cursor);
