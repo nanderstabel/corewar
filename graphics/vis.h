@@ -6,7 +6,7 @@
 /*   By: lhageman <lhageman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/20 14:16:44 by lhageman      #+#    #+#                 */
-/*   Updated: 2020/06/04 09:58:31 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/06/05 10:41:33 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,33 @@
 # define ANSI_GREY 8
 # define ANSI_PINK 109
 # define DELAY 30000
-# define COLOR_PLAYER_ONE ANSI_COPPER
-# define COLOR_PLAYER_TWO ANSI_ETON_BLUE
-# define COLOR_PLAYER_THREE ANSI_OCEAN_GREEN
-# define COLOR_PLAYER_FOUR ANSI_WHEAT
+# define COLOR_PLAYER_ONE 0
+# define COLOR_PLAYER_TWO 1
+# define COLOR_PLAYER_THREE 2
+# define COLOR_PLAYER_FOUR 3
+# define VIS_X 255
+# define VIS_Y 37
+# define ARENA_X 198
+# define DATA_X 57
 
 typedef struct	s_graphics
 {
 	WINDOW		*arena;
 	WINDOW		*data;
-	int			x;
-	int			y;
-	int			arenax;
-	int			datax;
 }				t_graphics;
+
+typedef void	(*t_attr_func)(int, WINDOW *);
+typedef struct	s_vis
+{
+	t_graphics	*graphics;
+	t_attr_func attr[4];
+	char		*arena;
+	int			index;
+	int			bytes;
+	int			player;
+	int			bold;
+	int			inverse;
+}				t_vis;
 
 void			ft_attr_p1(int set, WINDOW *arena);
 void			ft_attr_p2(int set, WINDOW *arena);
@@ -46,10 +59,10 @@ void			ft_attr_p3(int set, WINDOW *arena);
 void			ft_attr_p4(int set, WINDOW *arena);
 
 void			ft_set_pairs(void);
-int				ft_initiate_arena(t_graphics *graphics, t_vm *vm);
+int				ft_initiate_arena(t_vis *vis, t_vm *vm);
 int				ft_close_windows(t_graphics *graphics);
 
-void			vis_print_cursor(t_graphics *graphics,\
-				t_cursor *cursor, int pos);
+void			vis_print_cursor(t_vis *vis);
+void			vis_attr_array(t_attr_func *attr);
 
 #endif
