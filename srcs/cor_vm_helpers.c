@@ -49,11 +49,12 @@ int			convert_to_int(char *start, int len)
 
 	integer = 0;
 	if (len == 4)
-	{
 		((char*)&integer)[0] = (unsigned char)start[3];
+	if (len >= 3)
 		((char*)&integer)[1] = (unsigned char)start[2];
-	}
-	((char*)&integer)[2] = (unsigned char)start[1];
-	((char*)&integer)[3] = (unsigned char)start[0];
+	if (len >= 2)
+		((char*)&integer)[2] = (unsigned char)start[1];
+	if (len >= 1)
+		((char*)&integer)[3] = (unsigned char)start[0];
 	return (integer);
 }
