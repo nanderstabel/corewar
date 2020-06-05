@@ -151,6 +151,22 @@ Test(new_idx, pos_1)
 ///////////////////////////////////////////////////////////////////////////////
 
 
+Test(convert_to_int, 4_valid_neg)
+{
+	char	buf[10];
+	int		return_int;
+	int		expected_int;
+
+	ft_bzero(buf, 10);
+	expected_int = -253066253;
+	buf[6] = 0xf3;
+	buf[5] = 0x83;
+	buf[4] = 0xea;
+	buf[3] = 0xf0;
+	return_int = convert_to_int(buf + 3, 4);
+	cr_assert_eq(return_int, expected_int, "expected value = %d doesn't match return value = %d", expected_int, return_int);
+}
+
 Test(convert_to_int, 4_valid_zero)
 {
 	char	buf[10];
@@ -171,8 +187,8 @@ Test(convert_to_int, 4_valid_one)
 
 	ft_bzero(buf, 10);
 	expected_int = 1;
-	buf[6] = 1;
-	return_int = convert_to_int(buf + 3, 4);
+	buf[3] = 1;
+	return_int = convert_to_int(buf, 4);
 	cr_assert_eq(return_int, expected_int, "expected value = %d doesn't match return value = %d", expected_int, return_int);
 }
 
@@ -188,5 +204,123 @@ Test(convert_to_int, 4_valid_magic)
 	buf[5] = 0x83;
 	buf[4] = 0xea;
 	return_int = convert_to_int(buf + 3, 4);
+	cr_assert_eq(return_int, expected_int, "expected value = %d doesn't match return value = %d", expected_int, return_int);
+}
+
+
+Test(convert_to_int, 3_valid_zero)
+{
+	char	buf[10];
+	int		return_int;
+	int		expected_int;
+
+	ft_bzero(buf, 10);
+	expected_int = 0;
+	return_int = convert_to_int(buf, 3);
+	cr_assert_eq(return_int, expected_int, "expected value = %d doesn't match return value = %d", expected_int, return_int);
+}
+
+Test(convert_to_int, 3_valid_one)
+{
+	char	buf[10];
+	int		return_int;
+	int		expected_int;
+
+	ft_bzero(buf, 10);
+	expected_int = 1;
+	buf[2] = 1;
+	return_int = convert_to_int(buf, 3);
+	cr_assert_eq(return_int, expected_int, "expected value = %d doesn't match return value = %d", expected_int, return_int);
+}
+
+Test(convert_to_int, 3_valid_magic)
+{
+	char	buf[10];
+	int		return_int;
+	int		expected_int;
+
+	ft_bzero(buf, 10);
+	expected_int = 15369203;
+	buf[5] = 0xf3;
+	buf[4] = 0x83;
+	buf[3] = 0xea;
+	return_int = convert_to_int(buf + 3, 3);
+	cr_assert_eq(return_int, expected_int, "expected value = %d doesn't match return value = %d", expected_int, return_int);
+}
+
+Test(convert_to_int, 2_valid_zero)
+{
+	char	buf[10];
+	int		return_int;
+	int		expected_int;
+
+	ft_bzero(buf, 10);
+	expected_int = 0;
+	return_int = convert_to_int(buf, 2);
+	cr_assert_eq(return_int, expected_int, "expected value = %d doesn't match return value = %d", expected_int, return_int);
+}
+
+Test(convert_to_int, 2_valid_one)
+{
+	char	buf[10];
+	int		return_int;
+	int		expected_int;
+
+	ft_bzero(buf, 10);
+	expected_int = 1;
+	buf[4] = 1;
+	return_int = convert_to_int(buf + 3, 2);
+	cr_assert_eq(return_int, expected_int, "expected value = %d doesn't match return value = %d", expected_int, return_int);
+}
+
+Test(convert_to_int, 2_valid_magic)
+{
+	char	buf[10];
+	int		return_int;
+	int		expected_int;
+
+	ft_bzero(buf, 10);
+	expected_int = 33779;
+	buf[4] = 0xf3;
+	buf[3] = 0x83;
+	return_int = convert_to_int(buf + 3, 2);
+	cr_assert_eq(return_int, expected_int, "expected value = %d doesn't match return value = %d", expected_int, return_int);
+}
+
+Test(convert_to_int, 1_valid_zero)
+{
+	char	buf[10];
+	int		return_int;
+	int		expected_int;
+
+	ft_bzero(buf, 10);
+	expected_int = 0;
+	return_int = convert_to_int(buf, 1);
+	cr_assert_eq(return_int, expected_int, "expected value = %d doesn't match return value = %d", expected_int, return_int);
+}
+
+Test(convert_to_int, 1_valid_one)
+{
+	char	buf[10];
+	int		return_int;
+	int		expected_int;
+
+	ft_bzero(buf, 10);
+	expected_int = 1;
+	buf[6] = 1;
+	return_int = convert_to_int(buf + 6, 1);
+	cr_assert_eq(return_int, expected_int, "expected value = %d doesn't match return value = %d", expected_int, return_int);
+}
+
+Test(convert_to_int, 1_valid_magic)
+{
+	char	buf[10];
+	int		return_int;
+	int		expected_int;
+
+	ft_bzero(buf, 10);
+	expected_int = 131;
+	buf[5] = 0x83;
+	return_int = convert_to_int(buf + 5, 1);
 	cr_assert_eq(return_int, expected_int, "expected value = %d doesn't match return value = %d", expected_int, return_int);
 }
