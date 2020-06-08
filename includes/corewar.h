@@ -25,8 +25,8 @@
 
 typedef struct		s_cursor
 {
-	int				pc;
-	int				op_code;
+	unsigned int	pc;
+	unsigned int	op_code;
 	unsigned int	ctw;
 	unsigned int	decay;
 	int				reg[REG_NUMBER];
@@ -59,30 +59,24 @@ typedef struct		s_vm
 	char			arena[MEM_SIZE];
 }					t_vm;
 
-typedef struct		s_op_fct
-{
-	int				(*f)(t_cursor *cursor);
-	t_op			*op_info;
-}					t_op_fct;
-
-extern t_op_fct		g_op_fct_tab[17];
+typedef void		(*t_op_table[17])(t_vm *vm, t_cursor *cursor);
 
 void				op_live(t_vm *vm, t_cursor *cursor);
-int					op_ld(t_vm *vm, t_cursor *cursor);
-int					op_st(t_vm *vm, t_cursor *cursor);
-int					op_add(t_vm *vm, t_cursor *cursor);
-int					op_sub(t_vm *vm, t_cursor *cursor);
-int					op_and(t_vm *vm, t_cursor *cursor);
-int					op_or(t_vm *vm, t_cursor *cursor);
-int					op_xor(t_vm *vm, t_cursor *cursor);
-int					op_zjmp(t_vm *vm, t_cursor *cursor);
-int					op_ldi(t_vm *vm, t_cursor *cursor);
-int					op_sti(t_vm *vm, t_cursor *cursor);
-int					op_fork(t_vm *vm, t_cursor *cursor);
-int					op_lld(t_vm *vm, t_cursor *cursor);
-int					op_lldi(t_vm *vm, t_cursor *cursor);
-int					op_lfork(t_vm *vm, t_cursor *cursor);
-int					op_aff(t_vm *vm, t_cursor *cursor);
+void				op_ld(t_vm *vm, t_cursor *cursor);
+void				op_st(t_vm *vm, t_cursor *cursor);
+void				op_add(t_vm *vm, t_cursor *cursor);
+void				op_sub(t_vm *vm, t_cursor *cursor);
+void				op_and(t_vm *vm, t_cursor *cursor);
+void				op_or(t_vm *vm, t_cursor *cursor);
+void				op_xor(t_vm *vm, t_cursor *cursor);
+void				op_zjmp(t_vm *vm, t_cursor *cursor);
+void				op_ldi(t_vm *vm, t_cursor *cursor);
+void				op_sti(t_vm *vm, t_cursor *cursor);
+void				op_fork(t_vm *vm, t_cursor *cursor);
+void				op_lld(t_vm *vm, t_cursor *cursor);
+void				op_lldi(t_vm *vm, t_cursor *cursor);
+void				op_lfork(t_vm *vm, t_cursor *cursor);
+void				op_aff(t_vm *vm, t_cursor *cursor);
 
 int					print_message(char *message, char *info, int fd, \
 					int ret);
@@ -98,9 +92,11 @@ int					read_champion(char *buf, char *file_name, \
 int					save_champion(t_vm *vm, char *file, int champ_len, \
 					unsigned int champ_no);
 
-int					convert_to_int(char *start, int len);
+int					convert_to_int(char *start, unsigned int len);
 unsigned int		new_idx(unsigned int current_idx, int offset, \
 					unsigned int flag);
 
 int					vm_start(t_vm *vm);
+
+void				game_loop(t_vm *vm, t_op_table operations);
 #endif

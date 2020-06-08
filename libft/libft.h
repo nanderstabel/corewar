@@ -198,10 +198,10 @@ void				launch_int8(va_list ap, t_buffer *buf, t_flags *flags);
 void				launch_int16(va_list ap, t_buffer *buf, t_flags *flags);
 void				launch_int2(va_list ap, t_buffer *buf, t_flags *flags);
 void				launch_n(va_list ap, t_buffer *buf, t_flags *flags);
-void				handler_sc(char *s, t_buffer *buf, t_flags *flags,
-					char is_char);
 void				launch_c(va_list ap, t_buffer *buf, t_flags *flags);
 void				launch_s(va_list ap, t_buffer *buf, t_flags *flags);
+void				handler_sc(char *s, t_buffer *buf, t_flags *flags,
+					char is_char);
 void				handle_char(char c, t_buffer *buf, t_flags *flags);
 
 #endif

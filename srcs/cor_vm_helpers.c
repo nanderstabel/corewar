@@ -44,7 +44,7 @@ void		kill_cursor(t_vm *vm, t_cursor *cursor)
 	return (cursor_del(cursor));
 }
 
-int			convert_to_int(char *start, int len)
+int			convert_to_int(char *start, unsigned int len)
 {
 	int		integer;
 

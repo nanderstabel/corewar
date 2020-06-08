@@ -16,6 +16,7 @@ void	redirect_all_stdout(void)
 //	exec code size too high
 //	file too big
 //	file too small
+//	no trailing zeros after name or comment
 
 // valid tests:
 //	file multiple repositories up

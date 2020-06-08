@@ -164,6 +164,7 @@ Test(convert_to_int, 4_valid_neg)
 	buf[4] = 0xea;
 	buf[3] = 0xf0;
 	return_int = convert_to_int(buf + 3, 4);
+
 	cr_assert_eq(return_int, expected_int, "expected value = %d doesn't match return value = %d", expected_int, return_int);
 }
 
