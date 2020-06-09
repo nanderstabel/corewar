@@ -48,7 +48,7 @@ Test(input_validation, invalid_d_and_n, .init=redirect_all_stdout)
 	ft_bzero(&vm, sizeof(t_vm));
 	vm.dump = -1;
 	int		real_return = input_validation(&vm, given_argv, given_argc);
-	cr_assert_eq(real_return, expected_return, "error when validation input", expected_return, real_return);
+	cr_assert_eq(real_return, expected_return, "error when validation input");
 	if (expected_output_fd == STDOUT)
 		cr_assert_stdout_eq_str(expected_output, "");
 	if (expected_output_fd == STDERR)
@@ -77,7 +77,7 @@ Test(input_validation, invalid_d_option_too_big, .init=redirect_all_stdout)
 	ft_bzero(&vm, sizeof(t_vm));
 	vm.dump = -1;
 	int		real_return = input_validation(&vm, given_argv, given_argc);
-	cr_assert_eq(real_return, expected_return, "error when validation input", expected_return, real_return);
+	cr_assert_eq(real_return, expected_return, "error when validation input");
 	if (expected_output_fd == STDOUT)
 		cr_assert_stdout_eq_str(expected_output, "");
 	if (expected_output_fd == STDERR)
@@ -106,7 +106,7 @@ Test(input_validation, invalid_d_option_neg, .init=redirect_all_stdout)
 	ft_bzero(&vm, sizeof(t_vm));
 	vm.dump = -1;
 	int		real_return = input_validation(&vm, given_argv, given_argc);
-	cr_assert_eq(real_return, expected_return, "error when validation input", expected_return, real_return);
+	cr_assert_eq(real_return, expected_return, "error when validation input");
 	if (expected_output_fd == STDOUT)
 		cr_assert_stdout_eq_str(expected_output, "");
 	if (expected_output_fd == STDERR)
@@ -132,7 +132,7 @@ Test(input_validation, invalid_n_option_two_players, .init=redirect_all_stdout)
 	ft_bzero(&vm, sizeof(t_vm));
 	vm.dump = -1;
 	int		real_return = input_validation(&vm, given_argv, given_argc);
-	cr_assert_eq(real_return, expected_return, "'-n 4' with only two players should return ERROR", expected_return, real_return);
+	cr_assert_eq(real_return, expected_return, "'-n 4' with only two players should return ERROR");
 	if (expected_output_fd == STDOUT)
 		cr_assert_stdout_eq_str(expected_output, "");
 	if (expected_output_fd == STDERR)
@@ -166,7 +166,7 @@ Test(input_validation, invalid_n_option_four_players_1, .init=redirect_all_stdou
 	ft_bzero(&vm, sizeof(t_vm));
 	vm.dump = -1;
 	int		real_return = input_validation(&vm, given_argv, given_argc);
-	cr_assert_eq(real_return, expected_return, "'-n 5' should return ERROR", expected_return, real_return);
+	cr_assert_eq(real_return, expected_return, "'-n 5' should return ERROR");
 	if (expected_output_fd == STDOUT)
 		cr_assert_stdout_eq_str(expected_output, "");
 	if (expected_output_fd == STDERR)
@@ -240,7 +240,7 @@ Test(input_validation, valid_d_and_n_option_four_players)
 	ft_bzero(&vm, sizeof(t_vm));
 	vm.dump = -1;
 	int		real_return = input_validation(&vm, given_argv, given_argc);
-	cr_assert_eq(real_return, expected_return, "error when validation input", expected_return, real_return);
+	cr_assert_eq(real_return, expected_return, "error when validation input");
 	cr_expect_eq(vm.dump, dump, "dump expected: %d, dump saved: %d", dump, vm.dump);
 	cr_expect_str_eq(vm.champ[1]->header.prog_name, player_1, "player_1 expected: %s, player_1 saved: %s", player_1, vm.champ[1]->header.prog_name);
 	cr_expect_str_eq(vm.champ[2]->header.prog_name, player_2, "player_2 expected: %s, player_2 saved: %s", player_2, vm.champ[2]->header.prog_name);
@@ -273,7 +273,7 @@ Test(input_validation, valid_d_option_four_players_3)
 	ft_bzero(&vm, sizeof(t_vm));
 	vm.dump = -1;
 	int		real_return = input_validation(&vm, given_argv, given_argc);
-	cr_assert_eq(real_return, expected_return, "error when validation input", expected_return, real_return);
+	cr_assert_eq(real_return, expected_return, "error when validation input");
 	cr_expect_eq(vm.dump, dump, "dump expected: %d, dump saved: %d", dump, vm.dump);
 	cr_expect_str_eq(vm.champ[1]->header.prog_name, player_1, "player_1 expected: %s, player_1 saved: %s", player_1, vm.champ[1]->header.prog_name);
 	cr_expect_str_eq(vm.champ[2]->header.prog_name, player_2, "player_2 expected: %s, player_2 saved: %s", player_2, vm.champ[2]->header.prog_name);
@@ -306,7 +306,7 @@ Test(input_validation, valid_d_option_four_players_2)
 	ft_bzero(&vm, sizeof(t_vm));
 	vm.dump = -1;
 	int		real_return = input_validation(&vm, given_argv, given_argc);
-	cr_assert_eq(real_return, expected_return, "error when validation input", expected_return, real_return);
+	cr_assert_eq(real_return, expected_return, "error when validation input");
 	cr_expect_eq(vm.dump, dump, "dump expected: %d, dump saved: %d", dump, vm.dump);
 	cr_expect_str_eq(vm.champ[1]->header.prog_name, player_1, "player_1 expected: %s, player_1 saved: %s", player_1, vm.champ[1]->header.prog_name);
 	cr_expect_str_eq(vm.champ[2]->header.prog_name, player_2, "player_2 expected: %s, player_2 saved: %s", player_2, vm.champ[2]->header.prog_name);
@@ -339,7 +339,7 @@ Test(input_validation, valid_d_option_four_players_1)
 	ft_bzero(&vm, sizeof(t_vm));
 	vm.dump = -1;
 	int		real_return = input_validation(&vm, given_argv, given_argc);
-	cr_assert_eq(real_return, expected_return, "error when validation input", expected_return, real_return);
+	cr_assert_eq(real_return, expected_return, "error when validation input");
 	cr_expect_eq(vm.dump, dump, "dump expected: %d, dump saved: %d", dump, vm.dump);
 	cr_expect_str_eq(vm.champ[1]->header.prog_name, player_1, "player_1 expected: %s, player_1 saved: %s", player_1, vm.champ[1]->header.prog_name);
 	cr_expect_str_eq(vm.champ[2]->header.prog_name, player_2, "player_2 expected: %s, player_2 saved: %s", player_2, vm.champ[2]->header.prog_name);
@@ -368,7 +368,7 @@ Test(input_validation, valid_d_option_two_players)
 	ft_bzero(&vm, sizeof(t_vm));
 	vm.dump = -1;
 	int		real_return = input_validation(&vm, given_argv, given_argc);
-	cr_assert_eq(real_return, expected_return, "error when validation input", expected_return, real_return);
+	cr_assert_eq(real_return, expected_return, "error when validation input");
 	cr_expect_eq(vm.dump, dump, "dump expected: %d, dump saved: %d", dump, vm.dump);
 	cr_expect_str_eq(vm.champ[1]->header.prog_name, player_1, "player_1 expected: %s, player_1 saved: %s", player_1, vm.champ[1]->header.prog_name);
 	cr_expect_str_eq(vm.champ[2]->header.prog_name, player_2, "player_2 expected: %s, player_2 saved: %s", player_2, vm.champ[2]->header.prog_name);
@@ -404,7 +404,7 @@ Test(input_validation, valid_n_option_four_players_2)
 	ft_bzero(&vm, sizeof(t_vm));
 	vm.dump = -1;
 	int		real_return = input_validation(&vm, given_argv, given_argc);
-	cr_assert_eq(real_return, expected_return, "error when validation input", expected_return, real_return);
+	cr_assert_eq(real_return, expected_return, "error when validation input");
 	cr_expect_str_eq(vm.champ[1]->header.prog_name, player_1, "player_1 expected: %s, player_1 saved: %s", player_1, vm.champ[1]->header.prog_name);
 	cr_expect_str_eq(vm.champ[2]->header.prog_name, player_2, "player_2 expected: %s, player_2 saved: %s", player_2, vm.champ[2]->header.prog_name);
 	cr_expect_str_eq(vm.champ[3]->header.prog_name, player_3, "player_3 expected: %s, player_3 saved: %s", player_3, vm.champ[3]->header.prog_name);
@@ -435,7 +435,7 @@ Test(input_validation, valid_n_option_four_players_1)
 	ft_bzero(&vm, sizeof(t_vm));
 	vm.dump = -1;
 	int		real_return = input_validation(&vm, given_argv, given_argc);
-	cr_assert_eq(real_return, expected_return, "error when validation input", expected_return, real_return);
+	cr_assert_eq(real_return, expected_return, "error when validation input");
 	cr_expect_str_eq(vm.champ[1]->header.prog_name, player_1, "player_1 expected: %s, player_1 saved: %s", player_1, vm.champ[1]->header.prog_name);
 	cr_expect_str_eq(vm.champ[2]->header.prog_name, player_2, "player_2 expected: %s, player_2 saved: %s", player_2, vm.champ[2]->header.prog_name);
 	cr_expect_str_eq(vm.champ[3]->header.prog_name, player_3, "player_3 expected: %s, player_3 saved: %s", player_3, vm.champ[3]->header.prog_name);
@@ -464,7 +464,7 @@ Test(input_validation, valid_n_option_three_players_2)
 	ft_bzero(&vm, sizeof(t_vm));
 	vm.dump = -1;
 	int		real_return = input_validation(&vm, given_argv, given_argc);
-	cr_assert_eq(real_return, expected_return, "error when validation input", expected_return, real_return);
+	cr_assert_eq(real_return, expected_return, "error when validation input");
 	cr_expect_str_eq(vm.champ[1]->header.prog_name, player_1, "player_1 expected: %s, player_1 saved: %s", player_1, vm.champ[1]->header.prog_name);
 	cr_expect_str_eq(vm.champ[2]->header.prog_name, player_2, "player_2 expected: %s, player_2 saved: %s", player_2, vm.champ[2]->header.prog_name);
 	cr_expect_str_eq(vm.champ[3]->header.prog_name, player_3, "player_3 expected: %s, player_3 saved: %s", player_3, vm.champ[3]->header.prog_name);
@@ -492,7 +492,7 @@ Test(input_validation, valid_n_option_three_players_1)
 	ft_bzero(&vm, sizeof(t_vm));
 	vm.dump = -1;
 	int		real_return = input_validation(&vm, given_argv, given_argc);
-	cr_assert_eq(real_return, expected_return, "error when validation input", expected_return, real_return);
+	cr_assert_eq(real_return, expected_return, "error when validation input");
 	cr_expect_str_eq(vm.champ[1]->header.prog_name, player_1, "player_1 expected: %s, player_1 saved: %s", player_1, vm.champ[1]->header.prog_name);
 	cr_expect_str_eq(vm.champ[2]->header.prog_name, player_2, "player_2 expected: %s, player_2 saved: %s", player_2, vm.champ[2]->header.prog_name);
 	cr_expect_str_eq(vm.champ[3]->header.prog_name, player_3, "player_3 expected: %s, player_3 saved: %s", player_3, vm.champ[3]->header.prog_name);
@@ -518,7 +518,7 @@ Test(input_validation, valid_n_option_two_players)
 	ft_bzero(&vm, sizeof(t_vm));
 	vm.dump = -1;
 	int		real_return = input_validation(&vm, given_argv, given_argc);
-	cr_assert_eq(real_return, expected_return, "error when validation input", expected_return, real_return);
+	cr_assert_eq(real_return, expected_return, "error when validation input");
 	cr_expect_str_eq(vm.champ[1]->header.prog_name, player_1, "player_1 expected: %s, player_1 saved: %s", player_1, vm.champ[1]->header.prog_name);
 	cr_expect_str_eq(vm.champ[2]->header.prog_name, player_2, "player_2 expected: %s, player_2 saved: %s", player_2, vm.champ[2]->header.prog_name);
 	free_vm(&vm, SUCCESS);
