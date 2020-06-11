@@ -6,13 +6,13 @@
 /*   By: lhageman <lhageman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/20 16:24:05 by lhageman      #+#    #+#                 */
-/*   Updated: 2020/06/03 16:32:39 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/06/11 09:50:15 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vis.h"
 
-void	ft_set_pairs(void)
+void	vis_set_pairs(void)
 {
 	start_color();
 	init_pair(1, ANSI_COPPER, COLOR_BLACK);
@@ -27,7 +27,7 @@ void	ft_set_pairs(void)
 	init_pair(10, ANSI_PINK, ANSI_PINK);
 }
 
-void	ft_attr_p1(int set, WINDOW *arena)
+void	vis_attr_p1(int set, WINDOW *arena)
 {
 	if (set == 1 || set == 2)
 	{
@@ -44,7 +44,7 @@ void	ft_attr_p1(int set, WINDOW *arena)
 	}
 }
 
-void	ft_attr_p2(int set, WINDOW *arena)
+void	vis_attr_p2(int set, WINDOW *arena)
 {
 	if (set == 1 || set == 2)
 	{
@@ -61,7 +61,7 @@ void	ft_attr_p2(int set, WINDOW *arena)
 	}
 }
 
-void	ft_attr_p3(int set, WINDOW *arena)
+void	vis_attr_p3(int set, WINDOW *arena)
 {
 	if (set == 1 || set == 2)
 	{
@@ -78,7 +78,7 @@ void	ft_attr_p3(int set, WINDOW *arena)
 	}
 }
 
-void	ft_attr_p4(int set, WINDOW *arena)
+void	vis_attr_p4(int set, WINDOW *arena)
 {
 	if (set == 1 || set == 2)
 	{

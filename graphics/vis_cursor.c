@@ -6,11 +6,19 @@
 /*   By: lhageman <lhageman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 09:43:31 by lhageman      #+#    #+#                 */
-/*   Updated: 2020/06/05 10:40:36 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/06/11 09:50:43 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vis.h"
+
+void	vis_attr_array(t_attr_func *attr)
+{
+	attr[0] = vis_attr_p1;
+	attr[1] = vis_attr_p2;
+	attr[2] = vis_attr_p3;
+	attr[3] = vis_attr_p4;
+}
 
 void	vis_calc_pos(int pos, int *x, int *y)
 {
@@ -34,14 +42,6 @@ void	vis_calc_pos(int pos, int *x, int *y)
 	}
 }
 
-void	vis_attr_array(t_attr_func *attr)
-{
-	attr[0] = ft_attr_p1;
-	attr[1] = ft_attr_p2;
-	attr[2] = ft_attr_p3;
-	attr[3] = ft_attr_p4;
-}
-
 int		vis_calc_att(int bold, int inverse)
 {
 	if (bold == 1 && inverse == 0)
@@ -54,11 +54,12 @@ int		vis_calc_att(int bold, int inverse)
 
 void	vis_print(t_vis *vis, int x, int y)
 {
-	int		i;
-	char	c[2];
+	unsigned int	i;
+	char			c[2];
 
 	i = 0;
-	vis->attr[vis->player](vis_calc_att(vis->bold, vis->inverse), vis->graphics->arena);
+	vis->attr[vis->player](vis_calc_att(vis->bold, vis->inverse),\
+	vis->graphics->arena);
 	while (i < vis->bytes && y < VIS_Y - 2)
 	{
 		while (x < ARENA_X - 3 && i < vis->bytes)

@@ -1,21 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   corewargraphicdemo.c                               :+:    :+:            */
+/*   vis.c                                              :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: lhageman <lhageman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/05/17 12:20:07 by lhageman      #+#    #+#                 */
-/*   Updated: 2020/06/05 11:26:39 by lhageman      ########   odam.nl         */
+/*   Created: 2020/06/11 09:53:39 by lhageman      #+#    #+#                 */
+/*   Updated: 2020/06/11 09:53:42 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vis.h"
 
-int		ft_close_windows(t_graphics *graphics)
+int		vis_close_windows(t_vis *vis)
 {
-	delwin(graphics->data);
-	delwin(graphics->arena);
+	delwin(vis->graphics->data);
+	delwin(vis->graphics->arena);
+	endwin();
 	return (0);
 }
 
@@ -27,6 +28,7 @@ void	vis_set_graphics(t_graphics *graphics)
 
 void	vis_set(t_vis *vis)
 {
+	vis->graphics = ft_memalloc(sizeof(t_graphics));
 	vis_set_graphics(vis->graphics);
 	vis_attr_array(vis->attr);
 	vis->arena = NULL;
@@ -39,27 +41,27 @@ void	vis_set(t_vis *vis)
 
 void	vis_initiate(void)
 {
-	initscr();									//initialize the window
-	noecho();									//don't echo any keypresses
-	curs_set(FALSE);							//dont display a cursor
-	ft_set_pairs();								//set color pairs
+	initscr();
+	noecho();
+	curs_set(FALSE);
+	vis_set_pairs();
+}
+
+void	vis_create(t_vis *vis, t_vm *vm)
+{
+	vis_initiate();
+	vis_set(vis);
+	vis_initiate_arena(vis, vm);
 }
 
 int		main(void)
 {
-	t_vis	vis;
-	t_vm	vm;
+	t_vis	*vis;
+	t_vm	*vm;
 
-	vis_initiate();
-	vis_set(&vis);
-	vm.cycle_count = 0;
-	vm.ctd = CYCLE_TO_DIE;
-	ft_initiate_arena(&vis, &vm);
-	mvwprintw(vis.graphics->data, 8, 4, "ending window");
-	wrefresh(vis.graphics->data);
-	sleep(2);
-	ft_close_windows(vis.graphics);
-	sleep(2);
-	endwin();
+	vis = ft_memalloc(sizeof(t_vis));
+	vm = ft_memalloc(sizeof(t_vm));
+	vis_create(vis, vm);
+	vis_close_windows(vis);
 	return (0);
 }

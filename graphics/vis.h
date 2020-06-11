@@ -6,7 +6,7 @@
 /*   By: lhageman <lhageman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/20 14:16:44 by lhageman      #+#    #+#                 */
-/*   Updated: 2020/06/05 10:41:33 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/06/11 09:48:54 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,35 +34,37 @@
 # define ARENA_X 198
 # define DATA_X 57
 
-typedef struct	s_graphics
+typedef struct		s_graphics
 {
-	WINDOW		*arena;
-	WINDOW		*data;
-}				t_graphics;
+	WINDOW			*arena;
+	WINDOW			*data;
+}					t_graphics;
 
-typedef void	(*t_attr_func)(int, WINDOW *);
-typedef struct	s_vis
+typedef void		(*t_attr_func)(int, WINDOW *);
+typedef struct		s_vis
 {
-	t_graphics	*graphics;
-	t_attr_func attr[4];
-	char		*arena;
-	int			index;
-	int			bytes;
-	int			player;
-	int			bold;
-	int			inverse;
-}				t_vis;
+	t_graphics		*graphics;
+	t_attr_func		attr[4];
+	char			*arena;
+	unsigned int	index;
+	unsigned int	bytes;
+	unsigned int	player;
+	unsigned int	bold;
+	unsigned int	inverse;
+}					t_vis;
 
-void			ft_attr_p1(int set, WINDOW *arena);
-void			ft_attr_p2(int set, WINDOW *arena);
-void			ft_attr_p3(int set, WINDOW *arena);
-void			ft_attr_p4(int set, WINDOW *arena);
+void				vis_attr_p1(int set, WINDOW *arena);
+void				vis_attr_p2(int set, WINDOW *arena);
+void				vis_attr_p3(int set, WINDOW *arena);
+void				vis_attr_p4(int set, WINDOW *arena);
 
-void			ft_set_pairs(void);
-int				ft_initiate_arena(t_vis *vis, t_vm *vm);
-int				ft_close_windows(t_graphics *graphics);
+void				vis_create(t_vis *vis, t_vm *vm);
+void				vis_set_pairs(void);
+int					vis_initiate_arena(t_vis *vis, t_vm *vm);
+int					vis_close_windows(t_vis *vis);
 
-void			vis_print_cursor(t_vis *vis);
-void			vis_attr_array(t_attr_func *attr);
+void				vis_print_cursor(t_vis *vis);
+int					vis_print_data(t_vis *vis, t_vm *vm);
+void				vis_attr_array(t_attr_func *attr);
 
 #endif
