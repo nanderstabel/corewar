@@ -19,7 +19,8 @@ void	redirect_all_stdout(void)
 //	no trailing zeros after name or comment
 
 // valid tests:
-//	file multiple repositories up
+//	-v flag
+//	champion file located multiple repositories up
 //	champ exec code in arena
 //	add to existing tests: check for correct exec code
 
