@@ -13,8 +13,6 @@
 #ifndef COR_ERRORS_H
 # define COR_ERRORS_H
 
-#include "corewar.h"
-
 //TODO create error enum so exit_with_message can print the right message given
 //its first param. 
 //	0 -> usage
@@ -28,16 +26,18 @@
 //	8 -> champion file incorrect format
 //	9 -> champion program size too big
 
-# define USAGE		"usage of corewar"
-# define INV_OPT	"invalid options given"
-# define INV_OPT_N
-# define INV_MAGIC
-# define INV_FILE_NAME
-# define FILE_NOT_EXIST
-# define FILE_TOO_BIG
-# define FILE_TOO_SMALL
-# define FILE_INCORRECT_FORMAT
-# define CHAMP_TOO_BIG
+# define USAGE				"usage of corewar\n"
+# define INV_OPT			"invalid option\n"
+# define INV_OPT_N			"-n option invalid\n"
+# define FILE_INV_MAGIC		"invalid magic\n"
+# define FILE_MIS_COR		"invalid file (missing .cor extension)\n"
+# define FILE_NOT_EXIST		"file does not exist\n"
+# define FILE_TOO_BIG		"file too big\n"
+# define FILE_TOO_SMALL		"file too small\n"
+# define FILE_INV_FORMAT	"file invalid format\n"
+# define FILE_MIS_TRAIL_ZER	"file no trailing zeros after name or comment\n"
+# define FILE_CHAMP_TOO_BIG	"exec code too big\n"
+# define TOO_MANY_CHAMPS	"amount of players > MAX_PLAYERS\n"
 
 // enum	e_errors
 // {

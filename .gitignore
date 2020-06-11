@@ -37,13 +37,15 @@
 *.hex
 corewar
 asm
-tests/test
+tests/cor_test
+tests/asm_test
 
 # Debug files
 *.dSYM/
 *.su
 *.idb
 *.pdb
+.vscode/*
 
 # Kernel Module Compile Results
 *.mod*

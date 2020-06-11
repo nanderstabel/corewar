@@ -11,42 +11,52 @@
 /* ************************************************************************** */
 
 #include "corewar.h"
-#include "libft.h"
-#include "cor_errors.h"
+#include <stdlib.h>
 
-// static int	errors_init(char **errors)
-// {
-// 	errors[0] = USAGE;
-// 	errors[1] = INV_OPT;
-// 	errors[2] = INV_OPT_N_NO_TOO_BIG;
-// 	errors[3] = INV_OPT_N_CHAMP_EXISTS;
-// 	errors[4] = INT_FILE_NAME;
-// 	errors[5] = FILE_NOT_EXIST;
-// 	errors[6] = FILE_TOO_BIG;
-// 	errors[7] = FILE_TOO_SMALL;
-// 	errors[8] = FILE_INCORRECT_FORMAT;
-// 	errors[9] = CHAMP_TOO_BIG;
-// }
-
-int		print_message(int message_code, char *info, int fd, int ret)
+int			print_message(char *message, char *info, int fd, int ret)
 {
-	// char	*errors[10];
-
-	// errors_init(errors);
 	if (info != NULL)
-		ft_dprintf(fd, "in %s:\n", info);
-	ft_dprintf(fd, "print message/error no %d here.\n", message_code);
-	ft_strdel(&info);
+		ft_dprintf(fd, "%s:\n", info);
+	ft_dprintf(fd, "%s", message);
 	return (ret);
 }
 
-int		free_vm(t_vm *vm, int ret)
+static void	free_champions(t_champ ***champions)
 {
-	if (vm->arena)
-		ft_strdel(&(vm->arena));
-	// if (vm->champions)
-	// 	free_champions(&(vm->champions));
-	// if (vm->cursor)
-	// 	free_cursors(&(vm->cursor));
+	int		idx;
+
+	idx = 1;
+	while (idx <= MAX_PLAYERS)
+	{
+		if ((*champions)[idx] != NULL)
+		{
+			ft_bzero((*champions)[idx], sizeof(t_champ));
+			free((*champions)[idx]);
+			(*champions)[idx] = NULL;
+		}
+		++idx;
+	}
+	*champions = NULL;
+}
+
+void		cursor_del(t_cursor *cursor_to_del)
+{
+	ft_bzero(cursor_to_del, sizeof(t_cursor));
+	free(cursor_to_del);
+}
+
+int			free_vm(t_vm *vm, int ret)
+{
+	t_cursor	*cursor_to_del;
+
+	if (vm->champ)
+		free_champions(&(vm->champ));
+	while (vm->cursors)
+	{
+		cursor_to_del = vm->cursors;
+		vm->cursors = cursor_to_del->next;
+		cursor_del(cursor_to_del);
+	}
+	ft_bzero(vm, sizeof(t_vm));
 	return (ret);
 }

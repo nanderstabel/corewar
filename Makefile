@@ -27,7 +27,8 @@ LIBFT := $(LIBFT_PATH)/libft.a
 
 INCLUDES_PATH := includes
 INCLUDES := -I $(INCLUDES_PATH) -I $(LIBFT_PATH)
-HDRS := $(INCLUDES_PATH)/corewar.h $(INCLUDES_PATH)/asm.h $(INCLUDES_PATH)/op.h
+HDRS := $(INCLUDES_PATH)/corewar.h $(INCLUDES_PATH)/asm.h $(INCLUDES_PATH)/op.h \
+	$(INCLUDES_PATH)/cor_errors.h
 
 PLUS := $$(tput setaf 2)+$$(tput sgr0)
 MINUS := $$(tput setaf 1)-$$(tput sgr0)
@@ -78,6 +79,7 @@ lre:
 	$(MAKE) all
 
 test: $(LIBFT) $(OBJS) $(HDRS)
+	@$(MAKE) all
 	@make -C tests
 
 FORCE:

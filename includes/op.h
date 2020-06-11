@@ -25,17 +25,16 @@
 # define REG_SIZE			4
 # define DIR_SIZE			REG_SIZE
 
-
 # define REG_CODE			1
 # define DIR_CODE			2
 # define IND_CODE			3
 
-
 # define MAX_ARGS_NUMBER	4
 # define MAX_PLAYERS		4
-# define MEM_SIZE			4*1024
-# define IDX_MOD			(MEM_SIZE / 8)
-# define CHAMP_MAX_SIZE		(MEM_SIZE / 6)
+# define MEM_SIZE			4096
+# define IDX_MOD			512
+# define CHAMP_MAX_SIZE		MEM_SIZE / 6
+//TODO check if 4096 / 6 = 682 or 4096 / 6 = 683
 
 # define COMMENT_CHAR		'#'
 # define LABEL_CHAR			':'
@@ -70,16 +69,17 @@ typedef char		t_arg_type;
 */
 
 # define PROG_NAME_LENGTH		128
+# define NAME_LEN				PROG_NAME_LENGTH
 # define COMMENT_LENGTH			2048
+# define COM_LEN				COMMENT_LENGTH
 # define COREWAR_EXEC_MAGIC		0xea83f3
-# define CHAMP_FILE_MIN_SIZE	
 
 typedef struct		s_header
 {
-  unsigned int		magic;
-  char				prog_name[PROG_NAME_LENGTH + 1];
-  unsigned int		prog_size;
-  char				comment[COMMENT_LENGTH + 1];
+	unsigned int		magic;
+	char				prog_name[PROG_NAME_LENGTH + 1];
+	unsigned int		prog_size;
+	char				comment[COMMENT_LENGTH + 1];
 }					t_header;
 
 typedef struct		s_op
@@ -94,6 +94,6 @@ typedef struct		s_op
 	char			label;
 }					t_op;
 
-extern t_op			op_tab[17];
+extern t_op			g_op_tab[17];
 
 #endif
