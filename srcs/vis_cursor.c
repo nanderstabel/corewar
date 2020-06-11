@@ -6,7 +6,7 @@
 /*   By: lhageman <lhageman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 09:43:31 by lhageman      #+#    #+#                 */
-/*   Updated: 2020/06/11 09:50:43 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/06/11 10:46:42 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,8 @@ void	vis_print_cursor(t_vis *vis)
 
 	x = 0;
 	y = 0;
+	if (vis == NULL)
+		return ;
 	if (vis->index < 0 || vis->index >= MEM_SIZE)
 		return ;
 	vis_calc_pos(vis->index, &x, &y);

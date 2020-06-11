@@ -6,7 +6,7 @@
 /*   By: lhageman <lhageman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/03 16:31:49 by lhageman      #+#    #+#                 */
-/*   Updated: 2020/06/11 09:52:01 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/06/11 10:57:44 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,20 +70,20 @@ int		vis_draw_arena(t_graphics *graphics, char *arena)
 	return (0);
 }
 
-int		vis_initiate_arena(t_vis *vis, t_vm *vm)
+int		vis_initiate_arena(t_vm *vm)
 {
 	char		arena[MEM_SIZE];
 	int			i;
 
-	vis_draw_borders(vis->graphics);
-	vis_print_data(vis, vm);
+	vis_draw_borders(vm->vis->graphics);
+	vis_print_data(vm);
 	i = 0;
 	while (i < MEM_SIZE)
 	{
 		arena[i] = '0';
 		i += 1;
 	}
-	vis_draw_arena(vis->graphics, arena);
-	vis_print_cursor(vis);
+	vis_draw_arena(vm->vis->graphics, arena);
+	vis_print_cursor(vm->vis);
 	return (0);
 }

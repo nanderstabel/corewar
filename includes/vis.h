@@ -6,7 +6,7 @@
 /*   By: lhageman <lhageman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/20 14:16:44 by lhageman      #+#    #+#                 */
-/*   Updated: 2020/06/11 09:48:54 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/06/11 10:55:16 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 # include <ncurses.h>
 # include <unistd.h>
-# include "../includes/corewar.h"
-# include "../includes/op.h"
+# include "corewar.h"
+# include "op.h"
 
 # define ANSI_WHEAT 229
 # define ANSI_ETON_BLUE 71
@@ -52,19 +52,20 @@ typedef struct		s_vis
 	unsigned int	bold;
 	unsigned int	inverse;
 }					t_vis;
+typedef struct s_vm	t_vm;
 
 void				vis_attr_p1(int set, WINDOW *arena);
 void				vis_attr_p2(int set, WINDOW *arena);
 void				vis_attr_p3(int set, WINDOW *arena);
 void				vis_attr_p4(int set, WINDOW *arena);
 
-void				vis_create(t_vis *vis, t_vm *vm);
+void				vis_create(t_vm *vm);
 void				vis_set_pairs(void);
-int					vis_initiate_arena(t_vis *vis, t_vm *vm);
+int					vis_initiate_arena(t_vm *vm);
 int					vis_close_windows(t_vis *vis);
 
 void				vis_print_cursor(t_vis *vis);
-int					vis_print_data(t_vis *vis, t_vm *vm);
+int					vis_print_data(t_vm *vm);
 void				vis_attr_array(t_attr_func *attr);
 
 #endif

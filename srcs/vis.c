@@ -6,7 +6,7 @@
 /*   By: lhageman <lhageman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/11 09:53:39 by lhageman      #+#    #+#                 */
-/*   Updated: 2020/06/11 09:53:42 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/06/11 10:47:21 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,21 +47,9 @@ void	vis_initiate(void)
 	vis_set_pairs();
 }
 
-void	vis_create(t_vis *vis, t_vm *vm)
+void	vis_create(t_vm *vm)
 {
 	vis_initiate();
-	vis_set(vis);
-	vis_initiate_arena(vis, vm);
-}
-
-int		main(void)
-{
-	t_vis	*vis;
-	t_vm	*vm;
-
-	vis = ft_memalloc(sizeof(t_vis));
-	vm = ft_memalloc(sizeof(t_vm));
-	vis_create(vis, vm);
-	vis_close_windows(vis);
-	return (0);
+	vis_set(vm->vis);
+	vis_initiate_arena(vm);
 }
