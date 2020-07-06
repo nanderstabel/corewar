@@ -52,7 +52,7 @@ objs:
 	@mkdir -p $@
 
 clean:
-	@rm -fv $(TEST_OBJS) | sed "s/^/ $(MINUS) /"
+	@rm -rfv objs | sed "s/^/ $(MINUS) /"
 
 fclean: clean
 	@rm -fv test | sed "s/^/ $(MINUS) /"

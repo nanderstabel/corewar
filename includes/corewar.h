@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/05/20 11:30:59 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/07/06 11:51:35 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "libft.h"
 # include "op.h"
+# include "cor_errors.h"
 
 # define OPTIONS				"dnv"
 
@@ -22,24 +23,25 @@
 # define STDOUT					1
 # define STDERR					2
 
-// I think it might be a better solution to have the arena in a simple char* and have a wrapper function that calculates the indices with the offset and a boolian variable for enabling or disabling the l... (lfork, lld, lldi) operations
-// typedef struct		s_byte
-// {
-// 	unsigned char	byte;
-// 	struct s_byte	*next;
-// 	struct s_byte	*prev;
-// }					t_byte;
-
 typedef struct		s_cursor
 {
-	char			*pc;
+	unsigned int	pc;
+	unsigned int	op_code;
 	unsigned int	ctw;
 	unsigned int	decay;
-	int				*reg[REG_NUMBER];
+	int				reg[REG_NUMBER];
 	unsigned int	carry;
-	int				back_to_normal;
 	int				color;
+	struct s_cursor	*next;
 }					t_cursor;
+
+typedef struct		s_champ
+{
+	int			id;
+	int			color;
+	char		exec_code[CHAMP_MAX_SIZE];
+	t_header	header;
+}					t_champ;
 
 typedef struct		s_vm
 {
@@ -50,49 +52,51 @@ typedef struct		s_vm
 	unsigned int	ctd;
 	unsigned int	check_count;
 	unsigned int	live_count;
-	t_header		**champions;
-	t_cursor		*cursor;
-	char			*arena;
 	unsigned int	visualizer;
 	int				dump;
+	t_champ			**champ;
+	t_cursor		*cursors;
+	char			arena[MEM_SIZE];
 }					t_vm;
 
-typedef struct		s_op_fct
-{
-	int				(*f)(t_cursor *cursor);
-	t_op			*op_info;
-}					t_op_fct;
+typedef void		(*t_op_table[17])(t_vm *vm, t_cursor *cursor);
 
-extern t_op_fct		g_op_fct_tab[17];
+void				op_live(t_vm *vm, t_cursor *cursor);
+void				op_ld(t_vm *vm, t_cursor *cursor);
+void				op_st(t_vm *vm, t_cursor *cursor);
+void				op_add(t_vm *vm, t_cursor *cursor);
+void				op_sub(t_vm *vm, t_cursor *cursor);
+void				op_and(t_vm *vm, t_cursor *cursor);
+void				op_or(t_vm *vm, t_cursor *cursor);
+void				op_xor(t_vm *vm, t_cursor *cursor);
+void				op_zjmp(t_vm *vm, t_cursor *cursor);
+void				op_ldi(t_vm *vm, t_cursor *cursor);
+void				op_sti(t_vm *vm, t_cursor *cursor);
+void				op_fork(t_vm *vm, t_cursor *cursor);
+void				op_lld(t_vm *vm, t_cursor *cursor);
+void				op_lldi(t_vm *vm, t_cursor *cursor);
+void				op_lfork(t_vm *vm, t_cursor *cursor);
+void				op_aff(t_vm *vm, t_cursor *cursor);
 
-int					op_live(t_cursor *cursor);
-int					op_ld(t_cursor *cursor);
-int					op_st(t_cursor *cursor);
-int					op_add(t_cursor *cursor);
-int					op_sub(t_cursor *cursor);
-int					op_and(t_cursor *cursor);
-int					op_or(t_cursor *cursor);
-int					op_xor(t_cursor *cursor);
-int					op_zjmp(t_cursor *cursor);
-int					op_ldi(t_cursor *cursor);
-int					op_sti(t_cursor *cursor);
-int					op_fork(t_cursor *cursor);
-int					op_lld(t_cursor *cursor);
-int					op_lldi(t_cursor *cursor);
-int					op_lfork(t_cursor *cursor);
-int					op_aff(t_cursor *cursor);
-
-int					print_message(int message_code, char *info, int fd, \
+int					print_message(char *message, char *info, int fd, \
 					int ret);
 int					free_vm(t_vm *vm, int ret);
+void				cursor_del(t_cursor *cursor);
+
 int					input_validation(t_vm *vm, char **argv, int argc);
 
 int					is_champion(char *file, int *champ_len);
-int					convert_to_int(char *start);
 int					read_champion(char *buf, char *file_name, \
 					unsigned int champ_file_size);
 
 int					save_champion(t_vm *vm, char *file, int champ_len, \
 					unsigned int champ_no);
 
+int					convert_to_int(char *start, unsigned int len);
+unsigned int		new_idx(unsigned int current_idx, int offset, \
+					unsigned int flag);
+
+int					vm_start(t_vm *vm);
+
+void				game_loop(t_vm *vm, t_op_table operations);
 #endif
