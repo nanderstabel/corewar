@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/21 15:25:04 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/06 17:12:37 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ t_bool			parameter_check(t_project *as)
 			++as->pc;
 		if (loop_parameters(as) == FAIL)
 		{
-			ft_printf("Invalid parameter %i type %s for instruction %s\n", \
+			ft_dprintf(2, "Invalid parameter %i type %s for instruction %s\n", \
 				as->index, token_tab[as->next_token->token_type].lower, \
 				as->current_token->literal_str);
 			return (FAIL);
@@ -116,12 +116,7 @@ t_bool			parameter_check(t_project *as)
 
 t_bool			analyze_parameters(t_project *as)
 {
-	as->count = (as->flags & DEBUG_O) ? ft_printf("%s\n", __func__) : 0;
-	// while (as->token_list)
-	// {
-	// 	ft_printf("token: %s, %i\n", token_tab[((t_token *)as->token_list->content)->token_type].string, ((t_token *)as->token_list->content)->token_type);
-	// 	as->token_list = as->token_list->next;
-	// }
+	as->count = (as->flags & DEBUG_O) ? ft_printf("%s\n", __func__) : 0; 
 	as->labels = ft_malloc_hash_table((as->n_labels * 2) + 1, "labels", FORMAT_LEFT);
 	return (loop_token_list(as, parameter_check));
 }
