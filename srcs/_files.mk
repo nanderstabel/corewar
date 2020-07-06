@@ -6,7 +6,7 @@
 #    By: mmarcell <mmarcell@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/02/28 18:56:22 by mmarcell      #+#    #+#                  #
-#    Updated: 2020/07/06 16:29:15 by lhageman      ########   odam.nl          #
+#    Updated: 2020/07/06 18:14:17 by lhageman      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,8 @@ COR_FILES := \
 	cor_exit.c \
 	cor_vm_helpers.c \
 	cor_vm_start.c \
+	cor_vm_game.c \
+	cor_vm_check.c \
 	cor_op_add.c \
 	cor_op_aff.c \
 	cor_op_and.c \

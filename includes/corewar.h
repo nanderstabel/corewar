@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/07/06 17:23:09 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/07/06 18:16:12 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,4 +103,6 @@ void				put_exec_code(unsigned char *code, unsigned int size);
 int					vm_start(t_vm *vm);
 
 void				game_loop(t_vm *vm, t_op_table operations);
+
+void				check_cursors(t_vm *vm);
 #endif
