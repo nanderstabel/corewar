@@ -6,7 +6,7 @@
 /*   By: lhageman <lhageman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 09:43:31 by lhageman      #+#    #+#                 */
-/*   Updated: 2020/07/06 12:08:22 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/07/06 12:53:12 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ void	vis_print(t_vis *vis, int x, int y)
 	char			c[2];
 
 	i = 0;
-	vis->attr[vis->player](vis_calc_att(vis->bold, vis->inverse),\
+/* 	vis->attr[vis->player](vis_calc_att(vis->bold, vis->inverse),\
 	vis->graphics->arena);
-	while (i < vis->bytes && y < VIS_Y - 2)
+ */	while (i < vis->bytes && y < VIS_Y - 2)
 	{
 		while (x < ARENA_X - 3 && i < vis->bytes)
 		{

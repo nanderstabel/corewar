@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/07/06 12:06:56 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/07/06 12:51:59 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,13 @@ typedef struct		s_cursor
 	unsigned int	decay;
 	int				reg[REG_NUMBER];
 	unsigned int	carry;
-	int				color;
+	int				player;
 	struct s_cursor	*next;
 }					t_cursor;
 
 typedef struct		s_champ
 {
 	int			id;
-	int			color;
 	char		exec_code[CHAMP_MAX_SIZE];
 	t_header	header;
 }					t_champ;
@@ -56,10 +55,10 @@ typedef struct		s_vm
 	unsigned int	live_count;
 	unsigned int	visualizer;
 	int				dump;
+	t_vis			*vis;
 	t_champ			**champ;
 	t_cursor		*cursors;
-	char			arena[MEM_SIZE];
-	t_vis			*vis;
+	unsigned char	arena[MEM_SIZE];
 }					t_vm;
 
 typedef void		(*t_op_table[17])(t_vm *vm, t_cursor *cursor);

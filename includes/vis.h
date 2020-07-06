@@ -6,7 +6,7 @@
 /*   By: lhageman <lhageman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/20 14:16:44 by lhageman      #+#    #+#                 */
-/*   Updated: 2020/06/11 10:55:16 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/07/06 12:47:23 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int					vis_initiate_arena(t_vm *vm);
 int					vis_close_windows(t_vis *vis);
 
 void				vis_print_cursor(t_vis *vis);
+int					vis_calc_att(int bold, int inverse);
 int					vis_print_data(t_vm *vm);
 void				vis_attr_array(t_attr_func *attr);
 

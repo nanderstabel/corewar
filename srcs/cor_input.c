@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/21 10:38:30 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/05/21 10:38:30 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/07/06 12:23:10 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,10 @@ static int	save_option(t_vm *vm, char **argv, int idx, int argc)
 	if (ft_strstr(argv[idx], ".cor") != NULL)
 		return (1);
 	if (ft_strchr(argv[idx], 'v') != NULL)
+	{
 		vm->visualizer = TRUE;
+		return (1);
+	}
 	if ((ft_strchr(argv[idx], 'd') != NULL || (ft_strchr(argv[idx], 'n') != NULL
 		&& (idx + 2 < argc))) && ft_isint(argv[idx + 1]) == TRUE)
 	{

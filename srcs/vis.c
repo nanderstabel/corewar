@@ -6,7 +6,7 @@
 /*   By: lhageman <lhageman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/11 09:53:39 by lhageman      #+#    #+#                 */
-/*   Updated: 2020/06/11 10:47:21 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/07/06 12:11:00 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int		vis_close_windows(t_vis *vis)
 {
+	if (vis == NULL)
+		return (0);
 	delwin(vis->graphics->data);
 	delwin(vis->graphics->arena);
 	endwin();

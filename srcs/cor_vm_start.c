@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/03 11:22:16 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/06/11 11:01:35 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/07/06 12:57:28 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,15 @@ static int	cursors_init(t_vm *vm)
 		new_cursor->reg[0] = -idx;
 		new_cursor->next = vm->cursors;
 		vm->cursors = new_cursor;
-		new_cursor->color = idx - 1;
-		// call visualizer with champ color and prog_size
+		new_cursor->player = idx - 1;
+		if (vm->vis)
+		{
+			vm->vis->attr[vm->vis->player](vis_calc_att(vm->vis->bold, \
+			vm->vis->inverse), vm->vis->graphics->arena);
+			vm->vis->index = new_cursor->pc;
+			vm->vis->bytes = vm->champ[idx]->header.prog_size;
+			vis_print_cursor(vm->vis);
+		}
 		++idx;
 	}
 	return (SUCCESS);
@@ -66,8 +73,6 @@ int			vm_start(t_vm *vm)
 	set_op_table(&operations);
 	vm->last_live = vm->champ[vm->champ_count]->id;
 	vm->ctd = CYCLE_TO_DIE;
-	if (cursors_init(vm) == ERROR)
-		return (ERROR);
 	if (vm->visualizer == TRUE)
 	{
 		vm->vis = ft_memalloc(sizeof(t_vis));
@@ -75,6 +80,8 @@ int			vm_start(t_vm *vm)
 			return (ERROR);
 		vis_create(vm);
 	}
+	if (cursors_init(vm) == ERROR)
+		return (ERROR);
 	// while (vm->cursors != NULL || vm->dump > vm->total_cycle_count)
 	// 	game_loop(vm, operations);
 	return (SUCCESS);
