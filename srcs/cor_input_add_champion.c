@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/26 11:58:03 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/05/26 11:58:03 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/07/06 15:10:25 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,13 @@ static int	check_for_champ_no(t_vm *vm, unsigned int *champ_no)
 	return (SUCCESS);
 }
 
-static int	check_trailing_zeros(char *buf)
+static int	check_trailing_zeros(unsigned char *buf)
 {
 	int		position_1;
 	int		position_2;
 
-	position_1 = ft_strlen(buf + 4) + 4;
-	position_2 = ft_strlen(buf + 12 + PROG_NAME_LENGTH) + 12 + PROG_NAME_LENGTH;
+	position_1 = ft_strlen((char*)buf + 4) + 4;
+	position_2 = ft_strlen((char*)buf + 12 + PROG_NAME_LENGTH) + 12 + PROG_NAME_LENGTH;
 	while (position_1 - 4 < PROG_NAME_LENGTH || \
 		position_2 - 12 - PROG_NAME_LENGTH < COMMENT_LENGTH)
 	{
@@ -55,7 +55,7 @@ static int	check_trailing_zeros(char *buf)
 int			save_champion(t_vm *vm, char *file, int champ_len,
 			unsigned int champ_no)
 {
-	char			buf[16 + champ_len + PROG_NAME_LENGTH + COMMENT_LENGTH + 1];
+	unsigned char	buf[16 + champ_len + PROG_NAME_LENGTH + COMMENT_LENGTH + 1];
 
 	if (check_for_champ_no(vm, &champ_no) == ERROR)
 		return (ERROR);
@@ -68,9 +68,9 @@ int			save_champion(t_vm *vm, char *file, int champ_len,
 		return (ERROR);
 	vm->champ[champ_no]->header.magic = COREWAR_EXEC_MAGIC;
 	vm->champ[champ_no]->header.prog_size = champ_len;
-	ft_strcpy(vm->champ[champ_no]->header.prog_name, buf + 4);
-	ft_strcpy(vm->champ[champ_no]->header.comment, buf + 12 + PROG_NAME_LENGTH);
-	ft_strcpy(vm->champ[champ_no]->exec_code, buf + 16 + PROG_NAME_LENGTH \
+	ft_strcpy(vm->champ[champ_no]->header.prog_name, (char*)buf + 4);
+	ft_strcpy(vm->champ[champ_no]->header.comment, (char*)buf + 12 + PROG_NAME_LENGTH);
+	ft_strcpy(vm->champ[champ_no]->exec_code, (char*)buf + 16 + PROG_NAME_LENGTH \
 		+ COMMENT_LENGTH);
 	vm->champ_count++;
 	ft_strcpy(ft_strstr(file, ".cor"), "\0\0\0\0");

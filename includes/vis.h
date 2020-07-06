@@ -6,7 +6,7 @@
 /*   By: lhageman <lhageman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/20 14:16:44 by lhageman      #+#    #+#                 */
-/*   Updated: 2020/07/06 12:47:23 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/07/06 15:11:28 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ typedef struct		s_vis
 {
 	t_graphics		*graphics;
 	t_attr_func		attr[4];
-	char			*arena;
+	unsigned char	*arena;
 	unsigned int	index;
 	unsigned int	bytes;
 	unsigned int	player;

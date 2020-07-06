@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/22 16:46:37 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/05/22 16:46:37 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/07/06 15:07:46 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-int			read_champion(char *buf, char *file_name, \
+int			read_champion(unsigned char *buf, char *file_name, \
 			unsigned int champ_file_size)
 {
 	int				fd;
@@ -32,7 +32,7 @@ int			read_champion(char *buf, char *file_name, \
 	return (bytes_read);
 }
 
-static int	check_for_null_bytes(char *buf)
+static int	check_for_null_bytes(unsigned char *buf)
 {
 	unsigned int	count;
 	unsigned int	position_1;
@@ -52,7 +52,7 @@ static int	check_for_null_bytes(char *buf)
 
 int			is_champion(char *file_name, int *champ_size)
 {
-	char			buf[16 + CHAMP_MAX_SIZE + NAME_LEN + COM_LEN + 3];
+	unsigned char	buf[16 + CHAMP_MAX_SIZE + NAME_LEN + COM_LEN + 3];
 	unsigned int	champ_file_min_size;
 	unsigned int	bytes_read;
 	unsigned int	magic;

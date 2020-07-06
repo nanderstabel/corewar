@@ -6,7 +6,7 @@
 /*   By: lhageman <lhageman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/03 16:31:49 by lhageman      #+#    #+#                 */
-/*   Updated: 2020/07/06 13:02:30 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/07/06 15:11:27 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	vis_draw_borders(t_graphics *graphics)
 	vis_borders(graphics->data, VIS_Y, DATA_X);
 }
 
-int		vis_draw_arena(t_graphics *graphics, char *arena)
+int		vis_draw_arena(t_graphics *graphics, unsigned char *arena)
 {
 	int		i;
 	int		x;

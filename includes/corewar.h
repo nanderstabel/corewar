@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/07/06 12:51:59 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/07/06 15:06:48 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,13 +88,13 @@ void				cursor_del(t_cursor *cursor);
 int					input_validation(t_vm *vm, char **argv, int argc);
 
 int					is_champion(char *file, int *champ_len);
-int					read_champion(char *buf, char *file_name, \
+int					read_champion(unsigned char *buf, char *file_name, \
 					unsigned int champ_file_size);
 
 int					save_champion(t_vm *vm, char *file, int champ_len, \
 					unsigned int champ_no);
 
-int					convert_to_int(char *start, unsigned int len);
+int					convert_to_int(unsigned char *start, unsigned int len);
 unsigned int		new_idx(unsigned int current_idx, int offset, \
 					unsigned int flag);
 

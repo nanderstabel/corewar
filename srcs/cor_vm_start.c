@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/03 11:22:16 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/06 12:57:28 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/07/06 15:03:51 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,8 @@ static int	cursors_init(t_vm *vm)
 		if (new_cursor == NULL)
 			return (ERROR);
 		new_cursor->pc = (MEM_SIZE / vm->champ_count) * (idx - 1);
-		ft_strcpy(&(vm->arena[new_cursor->pc]), vm->champ[idx]->exec_code);
+		ft_memcpy(&(vm->arena[new_cursor->pc]), vm->champ[idx]->exec_code, \
+			vm->champ[idx]->header.prog_size);
 		new_cursor->reg[0] = -idx;
 		new_cursor->next = vm->cursors;
 		vm->cursors = new_cursor;
