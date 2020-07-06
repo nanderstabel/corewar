@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/26 11:58:03 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/06 15:10:25 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/07/06 17:24:52 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ int			save_champion(t_vm *vm, char *file, int champ_len,
 	vm->champ[champ_no]->header.prog_size = champ_len;
 	ft_strcpy(vm->champ[champ_no]->header.prog_name, (char*)buf + 4);
 	ft_strcpy(vm->champ[champ_no]->header.comment, (char*)buf + 12 + PROG_NAME_LENGTH);
-	ft_strcpy(vm->champ[champ_no]->exec_code, (char*)buf + 16 + PROG_NAME_LENGTH \
-		+ COMMENT_LENGTH);
+	ft_memcpy(vm->champ[champ_no]->exec_code, buf + 16 + PROG_NAME_LENGTH \
+		+ COMMENT_LENGTH, champ_len);
 	vm->champ_count++;
 	ft_strcpy(ft_strstr(file, ".cor"), "\0\0\0\0");
 	return (SUCCESS);

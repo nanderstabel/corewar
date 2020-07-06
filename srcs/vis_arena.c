@@ -6,7 +6,7 @@
 /*   By: lhageman <lhageman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/03 16:31:49 by lhageman      #+#    #+#                 */
-/*   Updated: 2020/07/06 15:11:27 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/07/06 17:41:30 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,11 @@ void	vis_draw_borders(t_graphics *graphics)
 	vis_borders(graphics->data, VIS_Y, DATA_X);
 }
 
-int		vis_draw_arena(t_graphics *graphics, unsigned char *arena)
+int		vis_draw_arena(t_graphics *graphics)
 {
 	int		i;
 	int		x;
 	int		y;
-	char	c[2];
 
 	i = 0;
 	y = 2;
@@ -56,12 +55,10 @@ int		vis_draw_arena(t_graphics *graphics, unsigned char *arena)
 		x = 3;
 		while (x < ARENA_X - 3 && i < MEM_SIZE)
 		{
-			c[0] = arena[i];
-			c[1] = '\0';
-			mvwprintw(graphics->arena, y, x, c);
+			mvwprintw(graphics->arena, y, x, "0");
 			x += 1;
-			if ((i + 1) % 2 == 0)
-				x += 1;
+			mvwprintw(graphics->arena, y, x, "0");
+			x += 2;
 			i += 1;
 		}
 		y += 1;
@@ -84,7 +81,7 @@ int		vis_initiate_arena(t_vm *vm)
 	// 	arena[i] = '0';
 	// 	i += 1;
 	// }
-	vis_draw_arena(vm->vis->graphics, vm->arena);
+	vis_draw_arena(vm->vis->graphics);
 	vis_print_cursor(vm->vis);
 	return (0);
 }

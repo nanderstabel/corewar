@@ -6,7 +6,7 @@
 /*   By: lhageman <lhageman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 09:43:31 by lhageman      #+#    #+#                 */
-/*   Updated: 2020/07/06 12:53:12 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/07/06 17:47:59 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,7 @@ void	vis_calc_pos(int pos, int *x, int *y)
 		*x = 3;
 		while (*x < ARENA_X - 3 && i < pos)
 		{
-			*x += 1;
-			if ((i + 1) % 2 == 0)
-				*x += 1;
+			*x += 3;
 			i += 1;
 		}
 		if (i != pos)
@@ -55,7 +53,7 @@ int		vis_calc_att(int bold, int inverse)
 void	vis_print(t_vis *vis, int x, int y)
 {
 	unsigned int	i;
-	char			c[2];
+	char			*c;
 
 	i = 0;
 /* 	vis->attr[vis->player](vis_calc_att(vis->bold, vis->inverse),\
@@ -64,12 +62,10 @@ void	vis_print(t_vis *vis, int x, int y)
 	{
 		while (x < ARENA_X - 3 && i < vis->bytes)
 		{
-			c[0] = vis->arena[vis->index];
-			c[1] = '\0';
+			c = vis_itoa(vis->arena[vis->index + i]);
 			mvwprintw(vis->graphics->arena, y, x, c);
-			x += 1;
-			if ((vis->index + 1) % 2 == 0)
-				x += 1;
+			ft_strdel(&c);
+			x += 3;
 			vis->index += 1;
 			i += 1;
 		}

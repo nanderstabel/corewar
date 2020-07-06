@@ -6,11 +6,29 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/03 11:22:16 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/06 15:03:51 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/07/06 17:40:01 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+
+static void	print_cursors(t_vm *vm)
+{
+	t_cursor	*current;
+	int			idx;
+
+	current = vm->cursors;
+	idx = vm->champ_count;
+	while (current && idx > 0)
+	{
+		vm->vis->attr[current->player](vis_calc_att(0, 0), vm->vis->graphics->arena);
+		vm->vis->index = current->pc;
+		vm->vis->bytes = vm->champ[idx]->header.prog_size;
+		vis_print_cursor(vm->vis);
+		current = current->next;
+		--idx;
+	}
+}
 
 static int	cursors_init(t_vm *vm)
 {
@@ -34,14 +52,8 @@ static int	cursors_init(t_vm *vm)
 		new_cursor->next = vm->cursors;
 		vm->cursors = new_cursor;
 		new_cursor->player = idx - 1;
-		if (vm->vis)
-		{
-			vm->vis->attr[vm->vis->player](vis_calc_att(vm->vis->bold, \
-			vm->vis->inverse), vm->vis->graphics->arena);
-			vm->vis->index = new_cursor->pc;
-			vm->vis->bytes = vm->champ[idx]->header.prog_size;
-			vis_print_cursor(vm->vis);
-		}
+		ft_printf("with exec_code:\n");
+		// put_exec_code(vm->champ[idx]->exec_code, vm->champ[idx]->header.prog_size);
 		++idx;
 	}
 	return (SUCCESS);
@@ -74,15 +86,18 @@ int			vm_start(t_vm *vm)
 	set_op_table(&operations);
 	vm->last_live = vm->champ[vm->champ_count]->id;
 	vm->ctd = CYCLE_TO_DIE;
+	if (cursors_init(vm) == ERROR)
+		return (ERROR);
 	if (vm->visualizer == TRUE)
 	{
 		vm->vis = ft_memalloc(sizeof(t_vis));
 		if (vm->vis == NULL)
 			return (ERROR);
 		vis_create(vm);
+		print_cursors(vm);
 	}
-	if (cursors_init(vm) == ERROR)
-		return (ERROR);
+	if (vm->dump == 0)
+		put_arena(vm->arena);
 	// while (vm->cursors != NULL || vm->dump > vm->total_cycle_count)
 	// 	game_loop(vm, operations);
 	return (SUCCESS);

@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/07/06 15:06:48 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/07/06 17:23:09 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ typedef struct		s_cursor
 
 typedef struct		s_champ
 {
-	int			id;
-	char		exec_code[CHAMP_MAX_SIZE];
-	t_header	header;
+	int				id;
+	unsigned char	exec_code[CHAMP_MAX_SIZE];
+	t_header		header;
 }					t_champ;
 typedef struct		s_vis	t_vis;
 
@@ -97,6 +97,8 @@ int					save_champion(t_vm *vm, char *file, int champ_len, \
 int					convert_to_int(unsigned char *start, unsigned int len);
 unsigned int		new_idx(unsigned int current_idx, int offset, \
 					unsigned int flag);
+void				put_arena(unsigned char *arena);
+void				put_exec_code(unsigned char *code, unsigned int size);
 
 int					vm_start(t_vm *vm);
 

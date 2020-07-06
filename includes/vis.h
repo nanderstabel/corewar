@@ -6,7 +6,7 @@
 /*   By: lhageman <lhageman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/20 14:16:44 by lhageman      #+#    #+#                 */
-/*   Updated: 2020/07/06 15:11:34 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/07/06 16:17:31 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # define COLOR_PLAYER_THREE 2
 # define COLOR_PLAYER_FOUR 3
 # define VIS_X 255
-# define VIS_Y 37
+# define VIS_Y 74
 # define ARENA_X 198
 # define DATA_X 57
 
@@ -69,4 +69,5 @@ int					vis_calc_att(int bold, int inverse);
 int					vis_print_data(t_vm *vm);
 void				vis_attr_array(t_attr_func *attr);
 
+char				*vis_itoa(unsigned char nbr);
 #endif
