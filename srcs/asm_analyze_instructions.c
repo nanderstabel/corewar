@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/11 16:07:54 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/15 12:11:49 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/06 17:02:59 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ t_bool			find_instruction(t_project *as)
 
 t_bool			instruction_error(t_project *as)
 {
-	ft_printf(INSTRUCTION_ERR);
-	ft_printf(ERROR_FORMAT, as->current_token->row + 1, \
+	ft_dprintf(2, INSTRUCTION_ERR);
+	ft_dprintf(2, ERROR_FORMAT, as->current_token->row + 1, \
 		as->current_token->column + 1, \
 		token_tab[as->current_token->token_type].string, \
 		as->current_token->literal_str);
