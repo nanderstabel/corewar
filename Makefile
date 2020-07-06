@@ -6,7 +6,7 @@
 #    By: mmarcell <mmarcell@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/01/07 18:47:20 by mmarcell      #+#    #+#                  #
-#    Updated: 2020/05/06 16:34:18 by zitzak        ########   odam.nl          #
+#    Updated: 2020/06/11 11:00:45 by mmarcell      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ COR_OBJS := $(COR_FILES:%.c=objs/%.o) objs/cor_main.o
 ASM_OBJS := $(ASM_FILES:%.c=objs/%.o) objs/asm_main.o
 
 CFLAGS := -Wall -Wextra -Werror -g
+LDFLAGS = -lncurses
 
 LIBFT_PATH := libft
 LIBFT := $(LIBFT_PATH)/libft.a
@@ -28,7 +29,7 @@ LIBFT := $(LIBFT_PATH)/libft.a
 INCLUDES_PATH := includes
 INCLUDES := -I $(INCLUDES_PATH) -I $(LIBFT_PATH)
 HDRS := $(INCLUDES_PATH)/corewar.h $(INCLUDES_PATH)/asm.h $(INCLUDES_PATH)/op.h \
-	$(INCLUDES_PATH)/cor_errors.h
+	$(INCLUDES_PATH)/vis.h $(INCLUDES_PATH)/cor_errors.h
 
 PLUS := $$(tput setaf 2)+$$(tput sgr0)
 MINUS := $$(tput setaf 1)-$$(tput sgr0)
@@ -38,7 +39,7 @@ MAX_PARALLEL = 6
 all: $(COR_NAME) # $(ASM_NAME)
 
 $(COR_NAME): $(LIBFT) $(COR_OBJS)
-	@$(CC) $(CFLAGS) -o $@ $^ $(LIBFT)
+	@$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^ $(LIBFT)
 	@echo " $(PLUS) $@"
 
 $(ASM_NAME): $(LIBFT) $(ASM_OBJS)

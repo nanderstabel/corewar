@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/07/06 11:51:35 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/07/06 12:06:56 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "libft.h"
 # include "op.h"
 # include "cor_errors.h"
+# include "vis.h"
 
 # define OPTIONS				"dnv"
 
@@ -42,6 +43,7 @@ typedef struct		s_champ
 	char		exec_code[CHAMP_MAX_SIZE];
 	t_header	header;
 }					t_champ;
+typedef struct		s_vis	t_vis;
 
 typedef struct		s_vm
 {
@@ -57,6 +59,7 @@ typedef struct		s_vm
 	t_champ			**champ;
 	t_cursor		*cursors;
 	char			arena[MEM_SIZE];
+	t_vis			*vis;
 }					t_vm;
 
 typedef void		(*t_op_table[17])(t_vm *vm, t_cursor *cursor);

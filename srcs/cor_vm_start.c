@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/03 11:22:16 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/06 11:51:24 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/06/11 11:01:35 by mmarcell      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,13 @@ int			vm_start(t_vm *vm)
 	vm->ctd = CYCLE_TO_DIE;
 	if (cursors_init(vm) == ERROR)
 		return (ERROR);
-	//TODO init visualizer
+	if (vm->visualizer == TRUE)
+	{
+		vm->vis = ft_memalloc(sizeof(t_vis));
+		if (vm->vis == NULL)
+			return (ERROR);
+		vis_create(vm);
+	}
 	// while (vm->cursors != NULL || vm->dump > vm->total_cycle_count)
 	// 	game_loop(vm, operations);
 	return (SUCCESS);
