@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/18 12:40:47 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/07/07 09:54:23 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -289,7 +289,7 @@ int				new_string_token(t_project *as, char **line)
 	if (!str_temp)
 	{
 		ft_lstadd_back(&as->token_list, ft_lstnew_ptr((void*)new_token(as,
-		(as->column - (*line - as->temp)), STRING, ft_strdup(as->temp)),
+		(as->column - (*line - as->temp)), STRING, ft_strdup(as->temp + 1)),
 		sizeof(t_token)));
 		as->count =
 		(as->flags & DEBUG_L) ? ft_printf("--add STRING token\n") : 0;
@@ -298,8 +298,8 @@ int				new_string_token(t_project *as, char **line)
 	else
 	{
 		ft_lstadd_back(&as->token_list, ft_lstnew_ptr((void*)new_token(as,
-		(as->column - (*line - as->temp)), STRING, ft_strndup(as->temp,
-		len + 1)), sizeof(t_token)));
+		(as->column - (*line - as->temp)), STRING, ft_strndup(as->temp + 1,
+		len - 1)), sizeof(t_token)));
 		as->count =
 		(as->flags & DEBUG_L) ? ft_printf("--add STRING token\n") : 0;
 		return (len);
