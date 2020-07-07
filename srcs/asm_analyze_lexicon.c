@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/07/07 09:54:23 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/07 10:28:56 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -266,7 +266,7 @@ int				add_to_string_token(t_project *as, char **line)
 		((t_token*)l_temp->content)->literal_str = ft_strjoin(old_str, *line);
 	else
 	{
-		temp = ft_strndup(as->temp, len + 1);
+		temp = ft_strndup(as->temp, len);
 		((t_token*)l_temp->content)->literal_str = ft_strjoin(old_str, temp);
 		free(temp);
 	}
@@ -521,7 +521,7 @@ t_bool			analyze_lexicon(t_project *as)
 			string_token(as, &temp);
 		if (!process_line(as, &temp))
 		{
-			ft_printf(LEXICAL_ERR, (as->row + 1), (as->column + 1));
+			ft_dprintf(2, LEXICAL_ERR, (as->row + 1), (as->column + 1));
 			return (FAIL);
 		}
 		if (*temp == '\n')
