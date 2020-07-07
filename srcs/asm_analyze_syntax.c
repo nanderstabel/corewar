@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/07/07 11:35:35 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/07 16:51:53 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,10 +149,21 @@ t_bool			syntax_break_check(t_project *as)
 	if (as->current_token->token_type == ENDLINE)
 		if (is_argument(as->next_token->token_type) || \
 			as->next_token->token_type == SEPARATOR || \
-			as->next_token->token_type == STRING)
+			as->next_token->token_type == STRING || \
+			as->next_token->token_type == COMMAND_NAME || \
+			as->next_token->token_type == COMMAND_COMMENT)
 		{
+			as->tmp = as->tmp->next;
+			as->trail = as->trail->next;
 			del_token_list(as);
 			end_token(as);
+			// while (as->token_list)
+			// {
+			// 	as->current_token = (t_token *)as->token_list->content;
+			// 	ft_printf("token = %i, string: %s\n", as->current_token->token_type, as->current_token->literal_str);
+			// 	as->token_list = as->token_list->next;
+			// }
+			// exit(0);
 			as->tmp = as->trail->next;
 			return (FAIL);
 		}
@@ -192,6 +203,8 @@ t_bool			syntax_check(t_project *as)
 			return (FAIL);
 		return (syntax_error(as));
 	}
+	else
+		syntax_break_check(as);
 	if (as->current_token->token_type == SEPARATOR)
 		del_token_node(as);
 	return (SUCCESS);
