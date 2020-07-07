@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/15 19:23:18 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/06 16:55:53 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,16 @@ t_bool			syntax_error(t_project *as)
 	if (as->next_token->token_type == END && as->header_found && \
 		as->current_token->token_type != LABEL)
 	{
-		ft_printf(UNEXPECTED_END);
+		ft_dprintf(2, UNEXPECTED_END);
 		return (FAIL);
 	}
-	ft_printf(SYNTAX_ERR);
+	ft_dprintf(2, SYNTAX_ERR);
 	if (as->next_token->token_type == ENDLINE)
-		ft_printf(ENDLINE_FORMAT, as->next_token->row + 1, \
+		ft_dprintf(2, ENDLINE_FORMAT, as->next_token->row + 1, \
 		as->next_token->column + 1, \
 		token_tab[as->next_token->token_type].string);
 	else
-		ft_printf(ERROR_FORMAT, as->next_token->row + 1, \
+		ft_dprintf(2, ERROR_FORMAT, as->next_token->row + 1, \
 		as->next_token->column + 1, \
 		token_tab[as->next_token->token_type].string, \
 		as->next_token->literal_str);
@@ -146,7 +146,9 @@ t_bool			syntax_break_check(t_project *as)
 			as->next_token->token_type == SEPARATOR || \
 			as->next_token->token_type == STRING)
 		{
-			as->tmp->next = NULL;//del list from this point
+			del_token_list(as);
+			end_token(as);
+			as->tmp = as->trail->next;
 			return (FAIL);
 		}
 	return (SUCCESS);
