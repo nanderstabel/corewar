@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:02:07 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/16 12:31:23 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/22 17:23:17 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ static t_state	g_transitions[][2] =
 	[TOKENIZE_INPUT] = {FREE_PROJECT, ANALYZE_SYNTAX},
 	[ANALYZE_SYNTAX] = {FREE_PROJECT, ANALYZE_INSTRUCTIONS},
 	[ANALYZE_INSTRUCTIONS] = {FREE_PROJECT, ANALYZE_PARAMETERS},
-	[ANALYZE_PARAMETERS] = {FREE_PROJECT, CREATE_OUTPUT_FILE},
-	[CREATE_OUTPUT_FILE] = {FREE_PROJECT, TRANSLATE_TO_BYTE},
-	[TRANSLATE_TO_BYTE] = {FREE_PROJECT, WRITE_TRANSLATION},
+	[ANALYZE_PARAMETERS] = {FREE_PROJECT, TRANSLATE_TO_BYTE},
+	[TRANSLATE_TO_BYTE] = {FREE_PROJECT, CREATE_OUTPUT_FILE},
+	[CREATE_OUTPUT_FILE] = {FREE_PROJECT, WRITE_TRANSLATION},
 	[WRITE_TRANSLATION] = {FREE_PROJECT, FREE_PROJECT},
 	[FREE_PROJECT] = {UNINSTALL, UNINSTALL}
 };
@@ -54,8 +54,8 @@ static t_event	g_events[] =
 	[ANALYZE_SYNTAX] = analyze_syntax,
 	[ANALYZE_INSTRUCTIONS] = analyze_instructions,
 	[ANALYZE_PARAMETERS] = analyze_parameters,
-	[CREATE_OUTPUT_FILE] = create_output_file,
 	[TRANSLATE_TO_BYTE] = translate_to_byte,
+	[CREATE_OUTPUT_FILE] = create_output_file,
 	[WRITE_TRANSLATION] = write_translation,
 	[FREE_PROJECT] = free_project
 };

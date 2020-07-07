@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/15 20:44:21 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/16 13:13:54 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/05/22 16:57:58 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ t_bool			free_project(t_project *as)
 	as->tmp = as->token_list->next;
 	as->trail = as->token_list;
 	del_token_list(as);
-	free(((t_token *)as->token_list->content)->literal_str);
+	if ((t_token *)as->token_list->content)
+		free(((t_token *)as->token_list->content)->literal_str);
 	free(as->token_list->content);
 	free(as->token_list);
 	free(as);
