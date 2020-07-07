@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/05/22 15:56:16 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/07/07 11:34:38 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # define INSTRUCTION_ERR		"Invalid instruction at token [TOKEN]"
 
 # define ERROR_FORMAT			"[%3.3u:%3.3u] %s \"%s\"\n"
+# define STRING_FORMAT			"[%3.3u:%3.3u] %s \"\"%s\"\"\n"
 # define ENDLINE_FORMAT			"[%3.3u:%3.3u] %s\n"
 # define LEXICAL_ERR			"Lexical error at [%d:%d]\n"
 # define END_LABEL_CHARS		",%#\";\n \t\v\f\0"

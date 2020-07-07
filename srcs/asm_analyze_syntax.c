@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/07/06 16:55:53 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/07 11:35:35 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,11 @@ t_bool			syntax_error(t_project *as)
 		ft_dprintf(2, ENDLINE_FORMAT, as->next_token->row + 1, \
 		as->next_token->column + 1, \
 		token_tab[as->next_token->token_type].string);
+	else if (as->next_token->token_type == STRING)
+		ft_dprintf(2, STRING_FORMAT, as->next_token->row + 1, \
+		as->next_token->column + 1, \
+		token_tab[as->next_token->token_type].string, \
+		as->next_token->literal_str);
 	else
 		ft_dprintf(2, ERROR_FORMAT, as->next_token->row + 1, \
 		as->next_token->column + 1, \
