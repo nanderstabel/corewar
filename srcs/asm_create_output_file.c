@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/07/06 16:45:47 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/06 22:39:29 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ t_bool			open_file(t_project *as)
 t_bool			create_output_file(t_project *as)
 {
 	as->count = (as->flags & DEBUG_O) ? ft_printf("%s\n", __func__) : 0;
+	ft_lstadd_back(&as->bytecode_list, ft_lstnew_ptr((void*)as->buffer,
+	as->index));
 	get_filename(as);
 	open_file(as);
 	return (SUCCESS);	
