@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/07/07 15:20:17 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/07/07 17:23:20 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,9 @@ t_bool			write_name(t_project *as, int type, size_t max_size)
 	size_t			len;
 	int			*ptr;
 	char		*str;
+	// long long				test;
+
+	// test = 0;
 
 	ptr	= (int*)ft_memalloc(sizeof(int));
 	*ptr = 0;
@@ -76,7 +79,7 @@ t_bool			write_name(t_project *as, int type, size_t max_size)
 			while (len < max_size)
 			{
 				// ft_printf("tst\n");
-				write(as->fd, str, 1);
+				write(as->fd, "\0", 1);
 				len++;
 			}
 			return (SUCCESS);
