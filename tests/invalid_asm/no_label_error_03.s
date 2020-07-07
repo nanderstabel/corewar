@@ -5,21 +5,21 @@
 begin:	ld %0,r6
 jump:	zjmp %:deb
 
-pare:	st r0,:begin
-	st r0,:begin
-	st r0,:begin
-	st r0,:begin
-	st r0,:begin
-	st r0,:begin
-	st r0,:begin
+pare:	st r1,:begin
+	st r1,:begin
+	st r1,:begin
+	st r1,:begin
+	st r1,:begin
+	st r1,:begin
+	st r1,:begin
 	live %1
-	st r0,:begin
-	st r0,:begin
-	st r0,:begin
-	st r0,:begin
-	st r0,:begin
-	st r0,:begin
-	st r0,:begin
+	st r1,:begin
+	st r1,:begin
+	st r1,:begin
+	st r1,:begin
+	st r1,:begin
+	st r1,:begin
+	st r1,:begin
 	zjmp %:pare
 
 	st r4,-481
@@ -37,12 +37,12 @@ st5:	st r1,:live1
 st6:	st r1,:live2
 st7:	st r1,:live3
 st8:	st r1,:live4
-	ld %001090000,  r0
-	st r0,:jump
-	ld %0,r0
-	st r0,:begin
-	st r0,:begin
-	st r0,:begin
+	ld %001090000,  r1
+	st r1,:jump
+	ld %0,r1
+	st r1,:begin
+	st r1,:begin
+	st r1,:begin
 
 hop:	live %1
 	fork %:decal2
@@ -51,7 +51,7 @@ hop:	live %1
 	zjmp %:decal
 
 toto1:	zjmp %:toto	
-pare1:	ld %0,r0
+pare1:	ld %0,r1
 	zjmp %:pare	
 decal2: live %1
 	fork %:suite
@@ -107,27 +107,27 @@ just4:	live %3
 	live %3
 just5:	fork %:middle
 suitb:	live %3
-	st r0,:st1
+	st r1,:st1
 	live %3
-	st r0,:st1
+	st r1,:st1
 	live %3
-	st r0,:st1
+	st r1,:st1
 live1:	live %3
-	st r0,:st1
+	st r1,:st1
 live2:	live %3
-	st r0,:st1
+	st r1,:st1
 lastlive1: live %1
 	ld %0,r6
 lastlive2: live %1
 	zjmp %:suitb
 middle:	live %3
-	st r0,:st2
+	st r1,:st2
 	live %3
-	st r0,:st2
+	st r1,:st2
 	live %3
-	st r0,:st2
+	st r1,:st2
 live3:	live %3
-	st r0,:st2
+	st r1,:st2
 live4:	live %4
 lastlive3: live %1
 	ld %0,r6
@@ -178,7 +178,7 @@ catch:
 	live %5
 	live %5
 	live %5
-	ld %0,r0
+	ld %0,r1
 	zjmp %:catch
 	
 fuite:	live %1
