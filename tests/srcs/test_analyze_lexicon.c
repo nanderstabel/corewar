@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/12 10:18:45 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/05/15 16:35:01 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/07/07 10:32:14 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -852,7 +852,7 @@ Test(test_lexical_analysis, string_token_test)
 	cr_assert(((t_token*)temp->content)->token_type == STRING);
 	cr_assert(ret == SUCCESS);
 	cr_assert(as->column == 10, "instead %zu", as->column);
-	cr_assert_str_eq(((t_token*)temp->content)->literal_str, "\"sdkfjsdk\"");
+	cr_assert_str_eq(((t_token*)temp->content)->literal_str, "sdkfjsdk");
 	cr_assert(((t_token*)temp->content)->column == 0);
 
 	as->index = 0;
@@ -864,7 +864,7 @@ Test(test_lexical_analysis, string_token_test)
 	cr_assert(((t_token*)temp->content)->token_type == STRING);
 	cr_assert(ret == SUCCESS);
 	cr_assert(as->column == 10, "instead %zu", as->column);
-	cr_assert_str_eq(((t_token*)temp->content)->literal_str, "\"898fjsdk\"");
+	cr_assert_str_eq(((t_token*)temp->content)->literal_str, "898fjsdk");
 	cr_assert(((t_token*)temp->content)->column == 0);
 
 	as->index = 0;
@@ -876,7 +876,7 @@ Test(test_lexical_analysis, string_token_test)
 	cr_assert(((t_token*)temp->content)->token_type == STRING);
 	cr_assert(ret == SUCCESS);
 	cr_assert(as->column == 13, "instead %zu", as->column);
-	cr_assert_str_eq(((t_token*)temp->content)->literal_str, "\"Dit is een n\n");
+	cr_assert_str_eq(((t_token*)temp->content)->literal_str, "Dit is een n\n");
 	cr_assert(((t_token*)temp->content)->column == 0);
 
 	// as->index = 0;
@@ -884,11 +884,12 @@ Test(test_lexical_analysis, string_token_test)
 	line = ft_strdup("ieuwe test\"kdjf");
 	as->temp = line;
 	ret = string_token(as, &line);
+
 	// temp = temp->next;
 	cr_assert(((t_token*)temp->content)->token_type == STRING);
 	cr_assert(ret == SUCCESS);
 	cr_assert(as->column == 10, "instead %zu", as->column);
-	cr_assert_str_eq(((t_token*)temp->content)->literal_str, "\"Dit is een n\nieuwe test\"");
+	cr_assert_str_eq(((t_token*)temp->content)->literal_str, "Dit is een n\nieuwe test");
 	cr_assert(((t_token*)temp->content)->column == 0);
 
 	as->index = 0;
@@ -900,7 +901,7 @@ Test(test_lexical_analysis, string_token_test)
 	cr_assert(((t_token*)temp->content)->token_type == STRING);
 	cr_assert(ret == SUCCESS);
 	cr_assert(as->column == 13, "instead %zu", as->column);
-	cr_assert_str_eq(((t_token*)temp->content)->literal_str, "\"Een wat lang\n");
+	cr_assert_str_eq(((t_token*)temp->content)->literal_str, "Een wat lang\n");
 	cr_assert(((t_token*)temp->content)->column == 0);
 
 	// as->index = 0;
@@ -912,7 +913,7 @@ Test(test_lexical_analysis, string_token_test)
 	cr_assert(((t_token*)temp->content)->token_type == STRING);
 	cr_assert(ret == SUCCESS);
 	cr_assert(as->column == 14, "instead %zu", as->column);
-	cr_assert_str_eq(((t_token*)temp->content)->literal_str, "\"Een wat lang\nere test met t\n");
+	cr_assert_str_eq(((t_token*)temp->content)->literal_str, "Een wat lang\nere test met t\n");
 	cr_assert(((t_token*)temp->content)->column == 0);
 
 	as->column = 0;
@@ -923,7 +924,7 @@ Test(test_lexical_analysis, string_token_test)
 	cr_assert(((t_token*)temp->content)->token_type == STRING);
 	cr_assert(ret == SUCCESS);
 	cr_assert(as->column == 20, "instead %zu", as->column);
-	cr_assert_str_eq(((t_token*)temp->content)->literal_str, "\"Een wat lang\nere test met t\nwee keer een newline\"");
+	cr_assert_str_eq(((t_token*)temp->content)->literal_str, "Een wat lang\nere test met t\nwee keer een newline");
 	cr_assert(((t_token*)temp->content)->column == 0);
 
 }
@@ -1214,7 +1215,7 @@ Test(test_lexical_analysis, lexical_error_small, .init=redirect_all_stdout_lexic
 
 	as->fd = open("./invalid_asm/lexical_error_small.s", O_RDONLY);
 	analyze_lexicon(as);
-	cr_assert_stdout_eq_str("Lexical error at [2:11]\n");
+	cr_assert_stderr_eq_str("Lexical error at [2:11]\n");
 
 }
 
@@ -1229,7 +1230,7 @@ Test(test_lexical_analysis, lexical_error_01, .init=redirect_all_stdout_lexical)
 
 	as->fd = open("./invalid_asm/lexical_error_01.s", O_RDONLY);
 	analyze_lexicon(as);
-	cr_assert_stdout_eq_str("Lexical error at [3:1]\n");
+	cr_assert_stderr_eq_str("Lexical error at [3:1]\n");
 
 }
 
@@ -1244,7 +1245,7 @@ Test(test_lexical_analysis, lexical_error_02, .init=redirect_all_stdout_lexical)
 
 	as->fd = open("./invalid_asm/lexical_error_02.s", O_RDONLY);
 	analyze_lexicon(as);
-	cr_assert_stdout_eq_str("Lexical error at [10:15]\n");
+	cr_assert_stderr_eq_str("Lexical error at [10:15]\n");
 }
 
 Test(test_lexical_analysis, lexical_error_03, .init=redirect_all_stdout_lexical)
@@ -1258,7 +1259,7 @@ Test(test_lexical_analysis, lexical_error_03, .init=redirect_all_stdout_lexical)
 
 	as->fd = open("./invalid_asm/lexical_error_03.s", O_RDONLY);
 	analyze_lexicon(as);
-	cr_assert_stdout_eq_str("Lexical error at [5:12]\n");
+	cr_assert_stderr_eq_str("Lexical error at [5:12]\n");
 }
 
 Test(test_lexical_analysis, lexical_error_04, .init=redirect_all_stdout_lexical)
@@ -1272,7 +1273,7 @@ Test(test_lexical_analysis, lexical_error_04, .init=redirect_all_stdout_lexical)
 
 	as->fd = open("./invalid_asm/lexical_error_04.s", O_RDONLY);
 	analyze_lexicon(as);
-	cr_assert_stdout_eq_str("Lexical error at [3:12]\n");
+	cr_assert_stderr_eq_str("Lexical error at [3:12]\n");
 }
 
 Test(test_lexical_analysis, lexical_error_05, .init=redirect_all_stdout_lexical)
@@ -1286,7 +1287,7 @@ Test(test_lexical_analysis, lexical_error_05, .init=redirect_all_stdout_lexical)
 
 	as->fd = open("./invalid_asm/lexical_error_05.s", O_RDONLY);
 	analyze_lexicon(as);
-	cr_assert_stdout_eq_str("Lexical error at [31:23]\n");
+	cr_assert_stderr_eq_str("Lexical error at [31:23]\n");
 }
 
 Test(test_lexical_analysis, lexical_error_06, .init=redirect_all_stdout_lexical)
@@ -1300,7 +1301,7 @@ Test(test_lexical_analysis, lexical_error_06, .init=redirect_all_stdout_lexical)
 
 	as->fd = open("./invalid_asm/lexical_error_06.s", O_RDONLY);
 	analyze_lexicon(as);
-	cr_assert_stdout_eq_str("Lexical error at [73:10]\n");
+	cr_assert_stderr_eq_str("Lexical error at [73:10]\n");
 }
 
 Test(test_lexical_analysis, lexical_error_07, .init=redirect_all_stdout_lexical)
@@ -1314,7 +1315,7 @@ Test(test_lexical_analysis, lexical_error_07, .init=redirect_all_stdout_lexical)
 
 	as->fd = open("./invalid_asm/lexical_error_07.s", O_RDONLY);
 	analyze_lexicon(as);
-	cr_assert_stdout_eq_str("Lexical error at [73:15]\n");
+	cr_assert_stderr_eq_str("Lexical error at [73:15]\n");
 }
 
 Test(test_lexical_analysis, valid_lexical_file)
