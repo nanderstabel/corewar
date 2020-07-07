@@ -6,11 +6,9 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/07/07 11:34:38 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/07 16:16:29 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
-
-
 
 #ifndef ASM_H
 # define ASM_H
@@ -22,6 +20,7 @@
 # define SYNTAX_ERR				"Syntax error at token [TOKEN]"
 # define UNEXPECTED_END			"Syntax error - unexpected end of input (Perhaps you forgot to end with a newline ?)\n"
 # define INSTRUCTION_ERR		"Invalid instruction at token [TOKEN]"
+# define LABEL_ERR				"No such label %s while attempting to dereference token [TOKEN]"
 
 # define ERROR_FORMAT			"[%3.3u:%3.3u] %s \"%s\"\n"
 # define STRING_FORMAT			"[%3.3u:%3.3u] %s \"\"%s\"\"\n"
