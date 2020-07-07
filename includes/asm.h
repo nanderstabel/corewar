@@ -10,8 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
-
 #ifndef ASM_H
 # define ASM_H
 
@@ -22,8 +20,10 @@
 # define SYNTAX_ERR				"Syntax error at token [TOKEN]"
 # define UNEXPECTED_END			"Syntax error - unexpected end of input (Perhaps you forgot to end with a newline ?)\n"
 # define INSTRUCTION_ERR		"Invalid instruction at token [TOKEN]"
+# define LABEL_ERR				"No such label %s while attempting to dereference token [TOKEN]"
 
 # define ERROR_FORMAT			"[%3.3u:%3.3u] %s \"%s\"\n"
+# define STRING_FORMAT			"[%3.3u:%3.3u] %s \"\"%s\"\"\n"
 # define ENDLINE_FORMAT			"[%3.3u:%3.3u] %s\n"
 # define LEXICAL_ERR			"Lexical error at [%d:%d]\n"
 # define END_LABEL_CHARS		",%#\";\n \t\v\f\0"

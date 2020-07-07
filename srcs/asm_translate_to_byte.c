@@ -54,27 +54,37 @@ void			write_str_to_buf(t_project *as, char *to_bytecode, char type)
 	free(ptr);
 }
 
+t_bool			label_error(t_project *as)
+{
+	as->count = (as->flags & DEBUG_O) ? ft_printf("\t\t%s\n", __func__) : 0;
+	ft_dprintf(2, LABEL_ERR, as->string);
+	ft_dprintf(2, ERROR_FORMAT, as->current_token->row + 1, \
+	as->current_token->column + 1, \
+	token_tab[as->current_token->token_type].string, \
+	as->current_token->literal_str);
+	return (FAIL);
+}
+
 t_bool			translate_label(t_project *as)
 {
 	t_elem		*hash_element;
-	char		*string;
 	int			sum;
 
 	as->count = (as->flags & DEBUG_O) ? ft_printf("\t\t%s\n", __func__) : 0;
-	string = label_to_key(as->current_token->literal_str,
+	as->string = label_to_key(as->current_token->literal_str,
 	as->current_token->token_type);
-	hash_element = ft_hash_table_get(as->labels, string);
-	free(string);
+	hash_element = ft_hash_table_get(as->labels, as->string);
 	if (!hash_element)
-		return (FAIL);
-	if (as->temp_addres > (size_t)hash_element->content)
-		sum = ((long long)hash_element->content - (long long)as->temp_addres);
+		return (label_error(as));
+	free(as->string);
+	if (as->pc > (size_t)hash_element->content)
+		sum = ((long long)hash_element->content - (long long)as->pc);
 	else
-		sum = (long long)as->temp_addres + (long long)hash_element->content;
-	string = ft_itoa(sum);
-	write_str_to_buf(as, string,
+		sum = (long long)as->pc + (long long)hash_element->content;
+	as->string = ft_itoa(sum);
+	write_str_to_buf(as, as->string,
 	(unsigned char)token_tab[as->current_token->token_type].size);
-	free(string);
+	free(as->string);
 	return (SUCCESS);
 }
 
