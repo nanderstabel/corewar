@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/07/07 17:23:20 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/07/07 19:51:08 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ t_bool			write_name(t_project *as, int type, size_t max_size)
 				return (FAIL);
 			}
 			write(as->fd, as->current_token->literal_str, len);
-			ft_printf("len = %i -- max_size = %i\n", len, max_size);
+			// ft_printf("len = %i -- max_size = %i\n", len, max_size);
 			while (len < max_size)
 			{
 				// ft_printf("tst\n");
@@ -100,7 +100,7 @@ t_bool			write_translation(t_project *as)
 	write_number(as, 0);
 
 	// write(as->fd, (void*)fill_bytes, 4);
-	ft_printf("pc = %u\n", as->pc);
+	// ft_printf("pc = %u\n", as->pc);
 	write_number(as, (int)as->pc);
 	write_name(as, COMMAND_COMMENT, COMMENT_LENGTH);
 	write_number(as, 0);
