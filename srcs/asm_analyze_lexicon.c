@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/07/08 11:57:45 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/07/08 16:47:05 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -333,8 +333,14 @@ t_bool				new_string_token(t_project *as, char **line)
 	increment_line(as, line, 1);
 	str_temp = ft_strchr(*line, (int)'"');
 	len = str_temp - as->temp;
-	// ft_printf("str_temp %s -- len %i\n", str_temp, len);
-	if (!str_temp)
+	
+	if (len == 1)
+	{
+		ft_lstadd_back(&as->token_list, ft_lstnew_ptr((void*)new_token(as,
+		(as->column - (*line - as->temp)), STRING, ft_strnew(0)), sizeof(t_token)));
+		increment_line(as, line, 1);
+	}
+	else if (!str_temp)
 	{
 		if (!newline_string_token(as, line))
 			return (FAIL);
