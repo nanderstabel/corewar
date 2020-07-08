@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/07/07 15:16:23 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/07/07 19:47:34 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,7 @@ t_bool			translate_label(t_project *as)
 	if (!hash_element)
 		return (label_error(as));
 	free(as->string);
-	if (as->pc > (size_t)hash_element->content)
-		sum = ((long long)hash_element->content - (long long)as->pc);
-	else
-		sum = (long long)as->pc + (long long)hash_element->content;
+	sum = ((long long)hash_element->content - (long long)as->temp_addres);
 	as->string = ft_itoa(sum);
 	write_str_to_buf(as, as->string,
 	(unsigned char)token_tab[as->current_token->token_type].size);
@@ -91,12 +88,11 @@ t_bool			translate_label(t_project *as)
 t_bool			translate_instruction(t_project *as)
 {
 	as->count = (as->flags & DEBUG_O) ? ft_printf("\t\t%s\n", __func__) : 0;
-	as->opcode_temp = 0;
+	as->opcode_temp = as->current_token->opcode;
 	as->temp_addres = 0;
 	write_byte_to_buf(as, as->current_token->opcode);
 	if (as->current_token->encoding)
 	{
-		as->opcode_temp = as->current_token->opcode;
 		write_byte_to_buf(as, as->current_token->encoding);
 	}
 	as->temp_addres = as->current_token->address;
@@ -167,9 +163,6 @@ t_bool			translate_to_byte(t_project *as)
 	as->count = (as->flags & DEBUG_O) ? ft_printf("%s\n", __func__) : 0;
 	as->index = 0;
 	as->buffer = (char*)ft_memalloc(CHAMP_MAX_SIZE);
-	ft_printf("pc counter in bytecode = %i\n", as->pc);
-	// ft_hash_table_append(as->labels, label_columns);//append column withaddresses to the hashtable
-	// ft_puttbl(as->labels);//prints the table (output may look weird)
 	if (!as->buffer)
 		return (FAIL);
 	return (loop_token_list(as, translation_check));
