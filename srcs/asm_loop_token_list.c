@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/12 20:32:11 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/22 16:49:17 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/08 14:15:24 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@ t_bool			del_token_node(t_project *as)
 	t_token		*tmp_token;
 
 	as->count = (as->flags & DEBUG_O) ? ft_printf("\t\t%s\n", __func__) : 0;
+	if (as->tmp == as->token_list)
+	{
+		as->token_list = as->token_list->next;
+		return (SUCCESS);
+	}
 	tmp_list = as->tmp;
 	as->tmp = as->trail;
 	as->tmp->next = as->tmp->next->next;
