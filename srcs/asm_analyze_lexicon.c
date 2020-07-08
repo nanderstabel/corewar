@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/07/08 10:14:07 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/07/08 11:57:45 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,8 +123,11 @@ t_bool			register_token(t_project *as, char **line)
 t_bool			is_valid_label_chars(t_project *as, char **line)
 {
 	as->count = (as->flags & DEBUG_O) ? ft_printf("%s\n", __func__) : 0;
+		// ft_printf("char before = %c\n", **line);
 	while (!ft_strchr(END_LABEL_CHARS, **line) && (**line))
 	{
+		// ft_printf("char in loop = %c\n", **line);
+		// ft_putendl("here");
 		if (!ft_strchr(LABEL_CHARS, **line))
 			return (FAIL);
 		increment_line(as, line, 1);
@@ -468,7 +471,9 @@ void			skip_to_end_number(t_project *as, char **line)
 t_bool			direct_token(t_project *as, char **line)
 {
 	as->count = (as->flags & DEBUG_O) ? ft_printf("%s\n", __func__) : 0;
-	increment_line(as, line, 1);
+	if (ft_strchr(END_LABEL_CHARS, *(*line + 1)))
+		return (FAIL);
+	increment_line(as, line, 1); 
 	if (**line == ':')
 	{
 		increment_line(as, line, 1);
@@ -497,6 +502,7 @@ t_bool			skip_comment_line(t_project *as, char **line)
 	as->count = (as->flags & DEBUG_O) ? ft_printf("%s\n", __func__) : 0;
 	while (**line != '\n')
 		increment_line(as, line, 1);
+	// as->row++;
 	return (SUCCESS);
 }
 

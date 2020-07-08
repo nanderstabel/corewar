@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/12 10:18:45 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/07/08 10:21:16 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/07/08 11:19:54 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1032,107 +1032,6 @@ Test(test_lexical_analysis, process_line_test)
 	cr_assert(temp == NULL);
 }
 
-Test(test_lexical_analysis, analyze_lexicon_test)
-{
-	t_project	*as;
-	t_bool		ret;
-	t_list		*temp;
-	// char 		*line;
-
-	as = (t_project*)ft_memalloc(sizeof(t_project));
-	// as->flags |= DEBUG_O;
-	// as->flags |= DEBUG_L;
-
-
-	as->fd = open("./valid_asm/3_lines.s", O_RDONLY);
-	as->index = 0;
-	ret = analyze_lexicon(as);
-	cr_assert(ret == SUCCESS);
-	temp = as->token_list;
-	cr_assert(((t_token*)temp->content)->token_type == LABEL);
-	cr_assert_str_eq(((t_token*)temp->content)->literal_str, "tirf:");
-	cr_assert(((t_token*)temp->content)->column == 0);
-	cr_assert(((t_token*)temp->content)->row == 0);
-	temp = temp->next;
-	cr_assert(((t_token*)temp->content)->token_type == ENDLINE);
-	cr_assert(((t_token*)temp->content)->column == 5);
-	cr_assert(((t_token*)temp->content)->row == 0);
-	temp = temp->next;
-	cr_assert(((t_token*)temp->content)->token_type == INSTRUCTION);
-	cr_assert_str_eq(((t_token*)temp->content)->literal_str, "live");
-	cr_assert(((t_token*)temp->content)->column == 2);
-	cr_assert(((t_token*)temp->content)->row == 1);
-	temp = temp->next;
-	cr_assert(((t_token*)temp->content)->token_type == DIRECT);
-	cr_assert_str_eq(((t_token*)temp->content)->literal_str, "%42");
-	cr_assert(((t_token*)temp->content)->column == 7);
-	cr_assert(((t_token*)temp->content)->row == 1);
-	temp = temp->next;
-	cr_assert(((t_token*)temp->content)->token_type == ENDLINE);
-	cr_assert(((t_token*)temp->content)->column == 10);
-	cr_assert(((t_token*)temp->content)->row == 1);
-	temp = temp->next;
-	cr_assert(((t_token*)temp->content)->token_type == INSTRUCTION);
-	cr_assert_str_eq(((t_token*)temp->content)->literal_str, "fork");
-	cr_assert(((t_token*)temp->content)->column == 2);
-	cr_assert(((t_token*)temp->content)->row == 2);
-	temp = temp->next;
-	cr_assert(((t_token*)temp->content)->token_type == DIRECT_LABEL);
-	cr_assert_str_eq(((t_token*)temp->content)->literal_str, "%:tirop");
-	cr_assert(((t_token*)temp->content)->column == 7);
-	cr_assert(((t_token*)temp->content)->row == 2);
-	temp = temp->next;
-	cr_assert(((t_token*)temp->content)->token_type == ENDLINE);
-	cr_assert(((t_token*)temp->content)->column == 14);
-	cr_assert(((t_token*)temp->content)->row == 2);
-	temp = temp->next;
-	cr_assert(((t_token*)temp->content)->token_type == INSTRUCTION);
-	cr_assert_str_eq(((t_token*)temp->content)->literal_str, "ld");
-	cr_assert(((t_token*)temp->content)->column == 2);
-	cr_assert(((t_token*)temp->content)->row == 3);
-	temp = temp->next;
-	cr_assert(((t_token*)temp->content)->token_type == INDIRECT);
-	cr_assert_str_eq(((t_token*)temp->content)->literal_str, "-8");
-	cr_assert(((t_token*)temp->content)->column == 6);
-	cr_assert(((t_token*)temp->content)->row == 3);
-	temp = temp->next;
-	cr_assert(((t_token*)temp->content)->token_type == SEPARATOR);
-	cr_assert_str_eq(((t_token*)temp->content)->literal_str, ",");
-	cr_assert(((t_token*)temp->content)->column == 9);
-	cr_assert(((t_token*)temp->content)->row == 3);
-	temp = temp->next;
-	cr_assert(((t_token*)temp->content)->token_type == REGISTER);
-	cr_assert_str_eq(((t_token*)temp->content)->literal_str, "r43");
-	cr_assert(((t_token*)temp->content)->column == 11);
-	cr_assert(((t_token*)temp->content)->row == 3);
-	temp = temp->next;
-	cr_assert(((t_token*)temp->content)->token_type == ENDLINE);
-	cr_assert(((t_token*)temp->content)->column == 14);
-	cr_assert(((t_token*)temp->content)->row == 3);
-	temp = temp->next;
-	cr_assert(((t_token*)temp->content)->token_type == INSTRUCTION);
-	cr_assert_str_eq(((t_token*)temp->content)->literal_str, "live");
-	cr_assert(((t_token*)temp->content)->column == 2);
-	cr_assert(((t_token*)temp->content)->row == 4);
-	temp = temp->next;
-	cr_assert(((t_token*)temp->content)->token_type == DIRECT);
-	cr_assert_str_eq(((t_token*)temp->content)->literal_str, "%78");
-	cr_assert(((t_token*)temp->content)->column == 7);
-	cr_assert(((t_token*)temp->content)->row == 4);
-	temp = temp->next;
-	cr_assert(((t_token*)temp->content)->token_type == ENDLINE);
-	cr_assert(((t_token*)temp->content)->column == 10);
-	cr_assert(((t_token*)temp->content)->row == 4);
-	temp = temp->next;
-	cr_assert(((t_token*)temp->content)->token_type == END, "but is %d", ((t_token*)temp->content)->token_type);
-	cr_assert(((t_token*)temp->content)->column == 0);
-	cr_assert(((t_token*)temp->content)->row == 5);
-	// temp = temp->next;
-	// cr_assert(((t_token*)temp->content)->token_type == END);
-	// cr_assert(((t_token*)temp->content)->column == 0);
-	// cr_assert(((t_token*)temp->content)->row == 6);
-
-}
 
 Test(test_lexical_analysis, valid_asm_1line_test)
 {
@@ -1174,20 +1073,6 @@ Test(test_lexical_analysis, valid_asm_42_test)
 	cr_assert(ret == SUCCESS);
 }
 
-Test(test_lexical_analysis, endlines__test)
-{
-	t_project	*as;
-	t_bool		ret;
-
-
-	as = (t_project*)ft_memalloc(sizeof(t_project));
-	// as->flags |= DEBUG_O;
-	// as->flags |= DEBUG_L;
-
-	as->fd = open("./valid_asm/endlines.s", O_RDONLY);
-	ret = analyze_lexicon(as);
-	cr_assert(ret == SUCCESS);
-}
 
 Test(test_lexical_analysis, newline_strings_test)
 {
