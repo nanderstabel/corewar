@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/07/06 17:12:37 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/08 14:25:47 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ t_bool			parameter_check(t_project *as)
 
 t_bool			analyze_parameters(t_project *as)
 {
-	as->count = (as->flags & DEBUG_O) ? ft_printf("%s\n", __func__) : 0; 
+	as->count = (as->flags & DEBUG_O) ? ft_printf("%s\n", __func__) : 0;
 	as->labels = ft_malloc_hash_table((as->n_labels * 2) + 1, "labels", FORMAT_LEFT);
 	return (loop_token_list(as, parameter_check));
 }
