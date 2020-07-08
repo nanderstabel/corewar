@@ -6,7 +6,7 @@
 #    By: mmarcell <mmarcell@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/01/08 13:03:52 by mmarcell      #+#    #+#                  #
-#    Updated: 2020/05/12 18:44:00 by zitzak        ########   odam.nl          #
+#    Updated: 2020/07/08 11:59:50 by zitzak        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ HDRS := $(INCLUDES_PATH)/
 PLUS := $$(tput setaf 2)+$$(tput sgr0)
 MINUS := $$(tput setaf 1)-$$(tput sgr0)
 
-all: test
+all: fclean test
 
 test: $(OBJS) $(TESTS_OBJS)
 	@$(CC) -o $@ $^ -lcriterion $(LIBFT)
