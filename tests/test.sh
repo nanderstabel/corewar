@@ -1,5 +1,6 @@
 #!/bin/bash 
 rm valid_asm/*.cor
+rm valid_asm/.*.cor
 for file in $@; do
 	echo $file
 	./vm-champ-linux/asm $file
