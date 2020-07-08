@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/07/07 15:00:24 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/07/08 10:40:51 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,9 +154,7 @@ t_bool				register_token(t_project *as, char **line);
 t_bool				label_chars_redirect(t_project *as, char **line);
 t_bool				indrect_token(t_project *as, char **line);	
 t_bool				separator_token(t_project *as, char **line);
-t_bool				string_token(t_project *as, char **line);
-int					add_to_string_token(t_project *as, char **line);
-int					new_string_token(t_project *as, char **line);
+t_bool				new_string_token(t_project *as, char **line);
 void				endline_token(t_project *as, char **line);
 void				end_token(t_project *as);
 void				instruction_token(t_project *as, char **line);
