@@ -7,5 +7,5 @@ for file in $@; do
 	mv "${file}.cor" "${file}_2.cor"
 	../asm "${file}.s"
 	sleep 1
-	diff "${file}.cor" "${file}_2.cor"
+	diff <(xxd "${file}.cor") <(xxd "${file}_2.cor")
 done

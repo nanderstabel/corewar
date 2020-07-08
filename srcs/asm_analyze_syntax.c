@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/07/07 16:51:53 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/07 20:05:46 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,6 +225,13 @@ t_bool			syntax_check(t_project *as)
 t_bool			analyze_syntax(t_project *as)
 {
 	as->count = (as->flags & DEBUG_O) ? ft_printf("%s\n", __func__) : 0;
+			while (as->token_list)
+			{
+				as->current_token = (t_token *)as->token_list->content;
+				ft_printf("token = %i, string: %s\n", as->current_token->token_type, as->current_token->literal_str);
+				as->token_list = as->token_list->next;
+			}
+			exit(0);
 	as->current_token = (t_token *)as->token_list->content;
 	as->next_token = (t_token *)as->token_list->content;
 	if (as->next_token->token_type != ENDLINE && \
