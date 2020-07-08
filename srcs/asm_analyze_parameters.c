@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/07/08 14:25:47 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/08 15:09:44 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,8 @@ t_bool			parameter_check(t_project *as)
 	{
 		as->string = label_to_key(as->current_token->literal_str, \
 			as->current_token->token_type);
-		ft_hash_table_add(as->labels, as->string, (void *)as->pc);
+		if (!ft_hash_table_get(as->labels, as->string))
+			ft_hash_table_add(as->labels, as->string, (void *)as->pc);
 		del_token_node(as);
 	}
 	else if (as->current_token->token_type == ENDLINE)
