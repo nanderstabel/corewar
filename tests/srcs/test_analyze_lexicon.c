@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/12 10:18:45 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/07/07 10:32:14 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/07/08 10:21:16 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -847,7 +847,7 @@ Test(test_lexical_analysis, string_token_test)
 	as->column = 0;
 	line = ft_strdup("\"sdkfjsdk\"F\n");
 	as->temp = line;
-	ret = string_token(as, &line);
+	ret = new_string_token(as, &line);
 	temp = as->token_list;
 	cr_assert(((t_token*)temp->content)->token_type == STRING);
 	cr_assert(ret == SUCCESS);
@@ -859,7 +859,7 @@ Test(test_lexical_analysis, string_token_test)
 	as->column = 0;
 	line = ft_strdup("\"898fjsdk\"\t");
 	as->temp = line;
-	ret = string_token(as, &line);
+	ret = new_string_token(as, &line);
 	temp = temp->next;
 	cr_assert(((t_token*)temp->content)->token_type == STRING);
 	cr_assert(ret == SUCCESS);
@@ -867,65 +867,65 @@ Test(test_lexical_analysis, string_token_test)
 	cr_assert_str_eq(((t_token*)temp->content)->literal_str, "898fjsdk");
 	cr_assert(((t_token*)temp->content)->column == 0);
 
-	as->index = 0;
-	as->column = 0;
-	line = ft_strdup("\"Dit is een n\n");
-	as->temp = line;
-	ret = string_token(as, &line);
-	temp = temp->next;
-	cr_assert(((t_token*)temp->content)->token_type == STRING);
-	cr_assert(ret == SUCCESS);
-	cr_assert(as->column == 13, "instead %zu", as->column);
-	cr_assert_str_eq(((t_token*)temp->content)->literal_str, "Dit is een n\n");
-	cr_assert(((t_token*)temp->content)->column == 0);
-
 	// as->index = 0;
-	as->column = 0;
-	line = ft_strdup("ieuwe test\"kdjf");
-	as->temp = line;
-	ret = string_token(as, &line);
-
+	// as->column = 0;
+	// line = ft_strdup("\"Dit is een n\n");
+	// as->temp = line;
+	// ret = new_string_token(as, &line);
 	// temp = temp->next;
-	cr_assert(((t_token*)temp->content)->token_type == STRING);
-	cr_assert(ret == SUCCESS);
-	cr_assert(as->column == 10, "instead %zu", as->column);
-	cr_assert_str_eq(((t_token*)temp->content)->literal_str, "Dit is een n\nieuwe test");
-	cr_assert(((t_token*)temp->content)->column == 0);
+	// cr_assert(((t_token*)temp->content)->token_type == STRING);
+	// cr_assert(ret == SUCCESS);
+	// cr_assert(as->column == 13, "instead %zu", as->column);
+	// cr_assert_str_eq(((t_token*)temp->content)->literal_str, "Dit is een n\n");
+	// cr_assert(((t_token*)temp->content)->column == 0);
 
-	as->index = 0;
-	as->column = 0;
-	line = ft_strdup("\"Een wat lang\n");
-	as->temp = line;
-	ret = string_token(as, &line);
-	temp = temp->next;
-	cr_assert(((t_token*)temp->content)->token_type == STRING);
-	cr_assert(ret == SUCCESS);
-	cr_assert(as->column == 13, "instead %zu", as->column);
-	cr_assert_str_eq(((t_token*)temp->content)->literal_str, "Een wat lang\n");
-	cr_assert(((t_token*)temp->content)->column == 0);
+// 	// as->index = 0;
+// 	as->column = 0;
+// 	line = ft_strdup("ieuwe test\"kdjf");
+// 	as->temp = line;
+// 	ret = new_string_token(as, &line);
 
-	// as->index = 0;
-	as->column = 0;
-	line = ft_strdup("ere test met t\n");
-	as->temp = line;
-	ret = string_token(as, &line);
-	// temp = temp->next;
-	cr_assert(((t_token*)temp->content)->token_type == STRING);
-	cr_assert(ret == SUCCESS);
-	cr_assert(as->column == 14, "instead %zu", as->column);
-	cr_assert_str_eq(((t_token*)temp->content)->literal_str, "Een wat lang\nere test met t\n");
-	cr_assert(((t_token*)temp->content)->column == 0);
+// 	// temp = temp->next;
+// 	cr_assert(((t_token*)temp->content)->token_type == STRING);
+// 	cr_assert(ret == SUCCESS);
+// 	cr_assert(as->column == 10, "instead %zu", as->column);
+// 	cr_assert_str_eq(((t_token*)temp->content)->literal_str, "Dit is een n\nieuwe test");
+// 	cr_assert(((t_token*)temp->content)->column == 0);
 
-	as->column = 0;
-	line = ft_strdup("wee keer een newline\" %f");
-	as->temp = line;
-	ret = string_token(as, &line);
-	// temp = temp->next;
-	cr_assert(((t_token*)temp->content)->token_type == STRING);
-	cr_assert(ret == SUCCESS);
-	cr_assert(as->column == 20, "instead %zu", as->column);
-	cr_assert_str_eq(((t_token*)temp->content)->literal_str, "Een wat lang\nere test met t\nwee keer een newline");
-	cr_assert(((t_token*)temp->content)->column == 0);
+// 	as->index = 0;
+// 	as->column = 0;
+// 	line = ft_strdup("\"Een wat lang\n");
+// 	as->temp = line;
+// 	ret = new_string_token(as, &line);
+// 	temp = temp->next;
+// 	cr_assert(((t_token*)temp->content)->token_type == STRING);
+// 	cr_assert(ret == SUCCESS);
+// 	cr_assert(as->column == 13, "instead %zu", as->column);
+// 	cr_assert_str_eq(((t_token*)temp->content)->literal_str, "Een wat lang\n");
+// 	cr_assert(((t_token*)temp->content)->column == 0);
+
+// 	// as->index = 0;
+// 	as->column = 0;
+// 	line = ft_strdup("ere test met t\n");
+// 	as->temp = line;
+// 	ret = new_string_token(as, &line);
+// 	// temp = temp->next;
+// 	cr_assert(((t_token*)temp->content)->token_type == STRING);
+// 	cr_assert(ret == SUCCESS);
+// 	cr_assert(as->column == 14, "instead %zu", as->column);
+// 	cr_assert_str_eq(((t_token*)temp->content)->literal_str, "Een wat lang\nere test met t\n");
+// 	cr_assert(((t_token*)temp->content)->column == 0);
+
+// 	as->column = 0;
+// 	line = ft_strdup("wee keer een newline\" %f");
+// 	as->temp = line;
+// 	ret = new_string_token(as, &line);
+// 	// temp = temp->next;
+// 	cr_assert(((t_token*)temp->content)->token_type == STRING);
+// 	cr_assert(ret == SUCCESS);
+// 	cr_assert(as->column == 20, "instead %zu", as->column);
+// 	cr_assert_str_eq(((t_token*)temp->content)->literal_str, "Een wat lang\nere test met t\nwee keer een newline");
+// 	cr_assert(((t_token*)temp->content)->column == 0);
 
 }
 
