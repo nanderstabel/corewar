@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/04 16:42:23 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/05/06 21:10:13 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/09 19:38:24 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,3 @@ char			*ft_itoa_base(unsigned long long value, int base)
 	}
 	return (s);
 }
-
