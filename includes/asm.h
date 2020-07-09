@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/07/09 17:42:09 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/07/09 18:29:34 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,34 @@ enum
 	USAGE_O = (1 << 1),
 	DEBUG_L = (1 << 2)
 }	e_flags;
+
+enum
+{
+	INITIALIZE_OPT,
+	READ_ARGUMENT_OPT,
+	FIND_DASH_OPT,
+	FIND_OPTION_OPT,
+	VALIDATE_ARGUMENT_OPT,
+	PRINT_USAGE_MESSAGE_OPT,
+	UNINSTALL_OPT
+}	e_state_opt;
+
+enum
+{
+	INITIALIZE,
+	SET_OPTIONS,
+	GET_INPUT_FILE,
+	ANALYZE_LEXICON,
+	TOKENIZE_INPUT,
+	ANALYZE_SYNTAX,
+	ANALYZE_PARAMETERS,
+	ANALYZE_INSTRUCTIONS,
+	CREATE_OUTPUT_FILE,
+	TRANSLATE_TO_BYTE,
+	WRITE_TRANSLATION,
+	FREE_PROJECT,
+	UNINSTALL
+}	e_state;
 
 enum
 {
