@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/07/06 22:39:29 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/09 18:08:54 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_bool			get_filename(t_project *as)
 	as->string[as->index - 1] = 'c';
 	as->string[as->index] = 'o';
 	as->string[as->index + 1] = 'r';
-	ft_putendl(as->string);
+	ft_printf("Writing output program to %s\n", as->string);
 	return (SUCCESS);
 }
 
@@ -54,5 +54,5 @@ t_bool			create_output_file(t_project *as)
 	as->index));
 	get_filename(as);
 	open_file(as);
-	return (SUCCESS);	
+	return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/07/09 18:44:49 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/09 20:01:02 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ t_bool			label_error(t_project *as)
 	ft_dprintf(2, LABEL_ERR, as->string);
 	ft_dprintf(2, ERROR_FORMAT, as->current_token->row + 1, \
 	as->current_token->column + 1, \
-	token_tab[as->current_token->token_type].string, \
+	g_token_tab[as->current_token->token_type].string, \
 	as->current_token->literal_str);
 	free(as->string);
 	return (FAIL);
@@ -83,13 +83,13 @@ t_bool			translate_label(t_project *as)
 	as->string = ft_itoa(sum);
 	if (as->current_token->token_type == DIRECT_LABEL)
 	{
-		if (op_tab[as->opcode_temp - 1].label)
+		if (g_op_tab[as->opcode_temp - 1].label)
 			size = 2;
 		else
 			size = 4;
 	}
 	else
-		size = token_tab[as->current_token->token_type].size;
+		size = g_token_tab[as->current_token->token_type].size;
 	write_str_to_buf(as, as->string, size);
 	free(as->string);
 	return (SUCCESS);
@@ -121,16 +121,17 @@ t_bool			translate_argument(t_project *as)
 		offset = 1;
 	if (as->current_token->token_type == DIRECT)
 	{
-		if (op_tab[as->opcode_temp - 1].label)
+		if (g_op_tab[as->opcode_temp - 1].label)
 			size = 2;
 		else
 			size = 4;
 	}
 	else
-		size = token_tab[as->current_token->token_type].size;
+		size = g_token_tab[as->current_token->token_type].size;
 	write_str_to_buf(as, as->current_token->literal_str + offset, size);
 	return (SUCCESS);
 }
+
 /*
 ** -------------------------------------------------------------------------- **
 ** translation_check checks whether the token type of the current token has a
@@ -148,8 +149,8 @@ t_bool			translate_argument(t_project *as)
 t_bool			translation_check(t_project *as)
 {
 	as->count = (as->flags & DEBUG_O) ? ft_printf("\t%s\n", __func__) : 0;
-	if (token_tab[as->current_token->token_type].translate)
-		return (token_tab[as->current_token->token_type].translate(as));
+	if (g_token_tab[as->current_token->token_type].translate)
+		return (g_token_tab[as->current_token->token_type].translate(as));
 	as->index = 0;
 	return (SUCCESS);
 }
