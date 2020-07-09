@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/09 19:54:39 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/07/09 20:15:42 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/09 20:20:37 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,5 +94,6 @@ t_bool			bytecode_to_file(t_project *as)
 		write(as->fd, as->tmp->content, as->tmp->content_size);
 		as->tmp = as->tmp->next;
 	}
+	as->buffer = NULL;
 	return (SUCCESS);
 }
