@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/07/08 17:20:11 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/07/09 11:54:32 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,6 @@ t_bool			is_valid_label_chars(t_project *as, char **line)
 	while (!ft_strchr(END_LABEL_CHARS, **line) && (**line) && **line != '-')
 	{
 		// ft_printf("char in loop = %c\n", **line);
-		// ft_putendl("here");
 		if (!ft_strchr(LABEL_CHARS, **line))
 		{
 			// ft_printf("char = %c\n", **line);
@@ -203,7 +202,6 @@ t_bool			label_or_instruction_token(t_project *as, char **line)
 	}
 	else
 	{
-		// ft_putendl("here");
 		instruction_token(as, line);
 	}
 	return (SUCCESS);
@@ -316,12 +314,13 @@ int				newline_string_token(t_project *as, char **line)
 		as->row++;
 		free(temp);
 		str_temp = ft_strchr(*line, (int)'"');
-		// ft_putendl("here");
 		// ft_printf("string in loop = %s\n", as->string);
 	}
 	temp = as->string;
-	str_temp = ft_strndup(*line, (str_temp - *line));
-	// ft_printf("str_temp = %s\n", str_temp);
+	if (!(str_temp - *line))
+		str_temp = ft_strnew(0);
+	else
+		str_temp = ft_strndup(*line, (str_temp - *line));
 	increment_line(as, line, ft_strlen(str_temp) + 1);
 	// ft_printf("line = %s\n", *line);
 	as->string = ft_strjoin(as->string, str_temp);
@@ -342,7 +341,6 @@ t_bool				new_string_token(t_project *as, char **line)
 	increment_line(as, line, 1);
 	str_temp = ft_strchr(*line, (int)'"');
 	len = str_temp - as->temp;
-	
 	if (len == 1)
 	{
 		ft_lstadd_back(&as->token_list, ft_lstnew_ptr((void*)new_token(as,
@@ -603,8 +601,7 @@ t_bool			analyze_lexicon(t_project *as)
 		}
 		if (*temp == '\n')
 		{
-			// ft_putendl("here");
-			endline_token(as, &temp);
+				endline_token(as, &temp);
 			as->row++;
 			as->column = 0;
 
