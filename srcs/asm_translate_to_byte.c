@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/07/08 14:28:56 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/09 10:42:47 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ t_bool			translate_label(t_project *as)
 {
 	t_elem		*hash_element;
 	int			sum;
+	char		size;
 
 	as->count = (as->flags & DEBUG_O) ? ft_printf("\t\t%s\n", __func__) : 0;
 	as->string = label_to_key(as->current_token->literal_str,
@@ -79,8 +80,16 @@ t_bool			translate_label(t_project *as)
 	free(as->string);
 	sum = ((long long)hash_element->content - (long long)as->temp_addres);
 	as->string = ft_itoa(sum);
-	write_str_to_buf(as, as->string,
-	(unsigned char)token_tab[as->current_token->token_type].size);
+	if (as->current_token->token_type == DIRECT_LABEL)
+	{
+		if (op_tab[as->opcode_temp - 1].label)
+			size = 2;
+		else
+			size = 4;
+	}
+	else
+		size = token_tab[as->current_token->token_type].size;
+	write_str_to_buf(as, as->string, size);
 	free(as->string);
 	return (SUCCESS);
 }
