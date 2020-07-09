@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/07/08 10:40:42 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/07/09 18:48:59 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ t_bool			write_number(t_project *as, int num)
 	str = ft_memrev(str, 4);
 	// ft_printf("str = %s\n", str);
 	write(as->fd, str, 4);
+	free(ptr);
+	free(str);
 	return (SUCCESS);	
 }
 
@@ -56,6 +58,8 @@ t_bool			write_name(t_project *as, int type, size_t max_size)
 	*ptr = 0;
 	str = ft_strnew(1);
 	ft_memcpy((void*)str, (const void*)ptr, 1);
+	free(ptr);
+	free(str);
 
 	as->count = (as->flags & DEBUG_O) ? ft_printf("%s\n", __func__) : 0;
 	as->tmp = as->token_list;
@@ -111,5 +115,6 @@ t_bool			write_translation(t_project *as)
 		write(as->fd, as->tmp->content, as->tmp->content_size);
 		as->tmp = as->tmp->next;
 	}
+	as->buffer = NULL;
 	return (SUCCESS);	
 }
