@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:02:07 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/07/09 18:29:56 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/07/09 18:56:18 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ static t_state	g_transitions[][2] =
 	[INITIALIZE] = {FREE_PROJECT, SET_OPTIONS},
 	[SET_OPTIONS] = {FREE_PROJECT, GET_INPUT_FILE},
 	[GET_INPUT_FILE] = {FREE_PROJECT, ANALYZE_LEXICON},
-	[ANALYZE_LEXICON] = {FREE_PROJECT, TOKENIZE_INPUT},
-	[TOKENIZE_INPUT] = {FREE_PROJECT, ANALYZE_SYNTAX},
+	[ANALYZE_LEXICON] = {FREE_PROJECT, ANALYZE_SYNTAX},
 	[ANALYZE_SYNTAX] = {FREE_PROJECT, ANALYZE_INSTRUCTIONS},
 	[ANALYZE_INSTRUCTIONS] = {FREE_PROJECT, ANALYZE_PARAMETERS},
 	[ANALYZE_PARAMETERS] = {FREE_PROJECT, TRANSLATE_TO_BYTE},
@@ -33,7 +32,6 @@ static t_event	g_events[] =
 	[SET_OPTIONS] = set_options,
 	[GET_INPUT_FILE] = get_input_file,
 	[ANALYZE_LEXICON] = analyze_lexicon,
-	[TOKENIZE_INPUT] = tokenize_input,
 	[ANALYZE_SYNTAX] = analyze_syntax,
 	[ANALYZE_INSTRUCTIONS] = analyze_instructions,
 	[ANALYZE_PARAMETERS] = analyze_parameters,
