@@ -6,28 +6,11 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:02:07 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/22 17:23:17 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/09 18:29:56 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
-
-enum
-{
-	INITIALIZE,
-	SET_OPTIONS,
-	GET_INPUT_FILE,
-	ANALYZE_LEXICON,
-	TOKENIZE_INPUT,
-	ANALYZE_SYNTAX,
-	ANALYZE_PARAMETERS,
-	ANALYZE_INSTRUCTIONS,
-	CREATE_OUTPUT_FILE,
-	TRANSLATE_TO_BYTE,
-	WRITE_TRANSLATION,
-	FREE_PROJECT,
-	UNINSTALL
-}	e_state;
 
 static t_state	g_transitions[][2] =
 {
