@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/07/09 18:08:54 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/07/09 20:12:27 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_bool			open_file(t_project *as)
 {
 	as->count = (as->flags & DEBUG_O) ? ft_printf("%s\n", __func__) : 0;
 	close(as->fd);
-	as->fd = open(as->string, O_WRONLY | O_CREAT, 0777);//revise this
+	as->fd = open(as->string, O_WRONLY | O_CREAT, 0777);
 	return (SUCCESS);
 }
 

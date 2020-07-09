@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/12 20:32:11 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/07/09 18:19:07 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/09 20:13:51 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,22 @@ t_bool			del_token_list(t_project *as)
 	return (SUCCESS);
 }
 
+static t_bool		del_token_list(t_project *as)
+{
+	if (as->tmp)
+		if (as->tmp->next)
+		{
+			if (as->tmp->next == as->token_list)
+			{
+				free(as->tmp);
+				as->tmp = as->token_list;
+			}
+			else
+				as->tmp = as->tmp->next;
+		}
+	return (SUCCESS);
+}
+
 t_bool			loop_token_list(t_project *as, t_bool (*check)(t_project *as))
 {
 	as->count = (as->flags & DEBUG_O) ? ft_printf("\t%s\n", __func__) : 0;
@@ -67,17 +83,7 @@ t_bool			loop_token_list(t_project *as, t_bool (*check)(t_project *as))
 			return (FAIL);
 		}
 		as->trail = as->tmp;
-		if (as->tmp)
-			if (as->tmp->next)
-			{
-				if (as->tmp->next == as->token_list)
-				{
-					free(as->tmp);
-					as->tmp = as->token_list;
-				}
-				else
-					as->tmp = as->tmp->next;
-			}
+		increment_token(as);
 	}
 	return (SUCCESS);
 }
