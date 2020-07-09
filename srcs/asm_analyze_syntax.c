@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/07/09 16:41:38 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/07/09 18:33:25 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,16 @@ t_bool			syntax_error(t_project *as)
 	if (as->next_token->token_type == ENDLINE)
 		ft_dprintf(2, ENDLINE_FORMAT, as->next_token->row + 1, \
 		as->next_token->column + 1, \
-		token_tab[as->next_token->token_type].string);
+		g_token_tab[as->next_token->token_type].string);
 	else if (as->next_token->token_type == STRING)
 		ft_dprintf(2, STRING_FORMAT, as->next_token->row + 1, \
 		as->next_token->column + 1, \
-		token_tab[as->next_token->token_type].string, \
+		g_token_tab[as->next_token->token_type].string, \
 		as->next_token->literal_str);
 	else
 		ft_dprintf(2, ERROR_FORMAT, as->next_token->row + 1, \
 		as->next_token->column + 1, \
-		token_tab[as->next_token->token_type].string, \
+		g_token_tab[as->next_token->token_type].string, \
 		as->next_token->literal_str);
 	return (FAIL);
 }
@@ -189,7 +189,7 @@ t_bool			syntax_check(t_project *as)
 	if (find_header(as) == FAIL)
 		if (command_syntax_check(as) == FAIL)
 			return (FAIL);
-	if (!token_tab[as->current_token->token_type].\
+	if (!g_token_tab[as->current_token->token_type].\
 		next[as->next_token->token_type])
 	{
 		if (syntax_break_check(as) == FAIL)

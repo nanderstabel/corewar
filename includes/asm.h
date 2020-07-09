@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/07/09 18:29:34 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/07/09 18:35:13 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,7 @@ typedef struct		s_token_tab
 	char			next[END + 1];
 }					t_token_tab;
 
-extern t_token_tab	token_tab[END + 1];
+extern t_token_tab	g_token_tab[END + 1];
 
 t_bool				set_options(t_project *as);
 t_bool				get_input_file(t_project *as);

@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/07/09 18:00:56 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/07/09 18:33:25 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_bool			adjust_encoding_byte(t_project *as)
 	as->count = (as->flags & DEBUG_O) ? ft_printf("\t\t%s\n", __func__) : 0;
 	if (as->current_token->encoding == 1)
 		--as->current_token->encoding;
-	as->current_token->encoding += token_tab[as->next_token->token_type].code;
+	as->current_token->encoding += g_token_tab[as->next_token->token_type].code;
 	as->current_token->encoding = (as->current_token->encoding << 2);
 	return (SUCCESS);
 }
@@ -36,7 +36,7 @@ t_bool			count_parameters(t_project *as)
 				if (!(g_op_tab[as->current_token->opcode - 1].args[as->index] &
 					as->octal))
 					return (FAIL);
-				as->pc += token_tab[as->next_token->token_type].size;
+				as->pc += g_token_tab[as->next_token->token_type].size;
 				if ((as->next_token->token_type == DIRECT || \
 					as->next_token->token_type == DIRECT_LABEL) && \
 					g_op_tab[as->current_token->opcode - 1].label)
@@ -95,7 +95,7 @@ t_bool			parameter_check(t_project *as)
 		if (loop_parameters(as) == FAIL)
 		{
 			ft_dprintf(2, "Invalid parameter %i type %s for instruction %s\n", \
-				as->index, token_tab[as->next_token->token_type].lower, \
+				as->index, g_token_tab[as->next_token->token_type].lower, \
 				as->current_token->literal_str);
 			return (FAIL);
 		}
