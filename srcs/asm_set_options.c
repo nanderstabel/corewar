@@ -6,22 +6,11 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/18 12:20:54 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/07/09 18:28:52 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
-
-enum
-{
-	INITIALIZE,
-	READ_ARGUMENT,
-	FIND_DASH,
-	FIND_OPTION,
-	VALIDATE_ARGUMENT,
-	PRINT_USAGE_MESSAGE,
-	UNINSTALL
-}	e_state;
 
 t_bool				read_argument(t_project *as)
 {
@@ -85,21 +74,21 @@ t_bool				print_usage_message(t_project *as)
 
 static t_state	g_transitions[][2] =
 {
-	[INITIALIZE] = {UNINSTALL, READ_ARGUMENT},
-	[READ_ARGUMENT] = {UNINSTALL, FIND_DASH},
-	[FIND_DASH] = {UNINSTALL, FIND_OPTION},
-	[FIND_OPTION] = {VALIDATE_ARGUMENT, FIND_OPTION},
-	[VALIDATE_ARGUMENT] = {PRINT_USAGE_MESSAGE, READ_ARGUMENT},
-	[PRINT_USAGE_MESSAGE] = {UNINSTALL, UNINSTALL}
+	[INITIALIZE_OPT] = {UNINSTALL_OPT, READ_ARGUMENT_OPT},
+	[READ_ARGUMENT_OPT] = {UNINSTALL_OPT, FIND_DASH_OPT},
+	[FIND_DASH_OPT] = {UNINSTALL_OPT, FIND_OPTION_OPT},
+	[FIND_OPTION_OPT] = {VALIDATE_ARGUMENT_OPT, FIND_OPTION_OPT},
+	[VALIDATE_ARGUMENT_OPT] = {PRINT_USAGE_MESSAGE_OPT, READ_ARGUMENT_OPT},
+	[PRINT_USAGE_MESSAGE_OPT] = {UNINSTALL_OPT, UNINSTALL_OPT}
 };
 
 static t_event	g_events[] =
 {
-	[READ_ARGUMENT] = read_argument,
-	[FIND_DASH] = find_dash,
-	[FIND_OPTION] = find_option,
-	[VALIDATE_ARGUMENT] = validate_argument,
-	[PRINT_USAGE_MESSAGE] = print_usage_message
+	[READ_ARGUMENT_OPT] = read_argument,
+	[FIND_DASH_OPT] = find_dash,
+	[FIND_OPTION_OPT] = find_option,
+	[VALIDATE_ARGUMENT_OPT] = validate_argument,
+	[PRINT_USAGE_MESSAGE_OPT] = print_usage_message
 };
 
 t_bool				set_options(t_project *as)
@@ -107,7 +96,7 @@ t_bool				set_options(t_project *as)
 	t_machine	*machine;
 
 	as->count = (as->flags & DEBUG_O) ? ft_printf("%s\n", __func__) : 0;
-	if (install_machine(&machine, UNINSTALL))
+	if (install_machine(&machine, UNINSTALL_OPT))
 		run_machine(machine, as, g_transitions, g_events);
 	uninstall_machine(&machine);
 	return (SUCCESS);
