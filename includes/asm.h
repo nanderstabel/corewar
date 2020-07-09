@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/07/09 18:35:13 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/07/09 18:49:50 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,6 @@ extern t_token_tab	g_token_tab[END + 1];
 t_bool				set_options(t_project *as);
 t_bool				get_input_file(t_project *as);
 t_bool				analyze_lexicon(t_project *as);
-t_bool				tokenize_input(t_project *as);
 t_bool				analyze_syntax(t_project *as);
 t_bool				analyze_parameters(t_project *as);
 t_bool				analyze_instructions(t_project *as);
