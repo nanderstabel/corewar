@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/12 20:32:11 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/07/09 20:16:19 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/09 20:17:51 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_bool			del_token_list(t_project *as)
 	return (SUCCESS);
 }
 
-static t_bool	del_token_list(t_project *as)
+static t_bool	increment_token(t_project *as)
 {
 	if (as->tmp)
 		if (as->tmp->next)
