@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/07/09 18:49:50 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/07/09 18:55:35 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ enum
 	SET_OPTIONS,
 	GET_INPUT_FILE,
 	ANALYZE_LEXICON,
-	TOKENIZE_INPUT,
 	ANALYZE_SYNTAX,
 	ANALYZE_PARAMETERS,
 	ANALYZE_INSTRUCTIONS,
