@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/07/09 19:39:47 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/07/09 20:36:24 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@
 
 # define TWO_DIGITS				2
 # define LOOK_UP_LEVELS			9
-
-typedef t_bool				(*t_f)(t_project *, char**);
 
 enum
 {
@@ -86,7 +84,7 @@ enum
 	END
 }	e_token;
 
-typedef struct s_token
+typedef struct		s_token
 {
 	size_t			row;
 	size_t			column;
@@ -128,11 +126,11 @@ typedef struct		s_project
 	t_token			*next_token;
 }					t_project;
 
-typedef struct s_redirect
+typedef struct		s_redirect
 {
-	char		*chars;
-	t_f			func;
-}				t_redirect;
+	char			*chars;
+	t_f				func;
+}					t_redirect;
 
 typedef struct		s_token_tab
 {
@@ -178,7 +176,7 @@ t_bool				indirect_label_token(t_project *as, char **line);
 t_bool				label_or_instruction_token(t_project *as, char **line);
 t_bool				register_token(t_project *as, char **line);
 t_bool				label_chars_redirect(t_project *as, char **line);
-t_bool				indrect_token(t_project *as, char **line);	
+t_bool				indrect_token(t_project *as, char **line);
 t_bool				separator_token(t_project *as, char **line);
 t_bool				string_token(t_project *as, char **line);
 void				endline_token(t_project *as, char **line);
@@ -195,11 +193,14 @@ t_bool				del_token_node(t_project *as);
 t_bool				del_token_list(t_project *as);
 t_bool				get_argtype(t_project *as);
 
-void				write_str_to_buf(t_project *as, char *to_bytecode, char type);
+void				write_str_to_buf(t_project *as, char *to_bytecode,
+					char type);
 void				write_byte_to_buf(t_project *as, char byte);
 void				add_buffer_to_list(t_project *as);
-t_bool				byte_string_to_file(t_project *as, int type, size_t max_size);
-void				print_zero_bytes(t_project *as, size_t len, size_t max_size);
+t_bool				byte_string_to_file(t_project *as, int type,
+					size_t max_size);
+void				print_zero_bytes(t_project *as, size_t len,
+					size_t max_size);
 t_bool				check_str_to_long(int type, size_t max_size, size_t len);
 t_bool				byte_num_to_file(t_project *as, int num);
 
