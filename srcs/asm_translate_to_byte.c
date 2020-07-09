@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/07/09 18:33:25 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/07/09 19:26:47 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ t_bool			translate_argument(t_project *as)
 	write_str_to_buf(as, as->current_token->literal_str + offset, size);
 	return (SUCCESS);
 }
+
 /*
 ** -------------------------------------------------------------------------- **
 ** translation_check checks whether the token type of the current token has a
