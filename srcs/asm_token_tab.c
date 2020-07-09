@@ -6,13 +6,13 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/12 16:40:21 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/07/09 10:47:24 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/09 18:33:25 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-t_token_tab		token_tab[END + 1] =
+t_token_tab		g_token_tab[END + 1] =
 {
 	{"INDIRECT_LABEL", "indirect", IND_SIZE, IND_CODE, translate_label,
 		{0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0}},

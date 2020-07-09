@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/07/09 11:54:32 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/09 17:58:22 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** Look up tabel to match the char where line is on to a function to execute.
 */
 
-t_redirect		look_up[] =
+t_redirect		g_look_up[] =
 {
 	{WHITESPACES, skip_whitespaces},
 	{"#;", skip_comment_line},
@@ -27,12 +27,12 @@ t_redirect		look_up[] =
 	{LABEL_CHARS, label_chars_redirect},
 	{"-", indrect_token},
 	{",", separator_token},
-	{"\"", new_string_token}
+	{"\"", string_token}
 };
 
 /*
 ** ---------------------------------------------------------------------------**
-** The (command_token) function checks if the string is a 
+** The (command_token) function checks if the string is a
 ** valid COMMAND token (until whitespaces & deliminator). If so a link is
 ** added to the link list. If not it is a lexical error.
 **
@@ -52,11 +52,8 @@ t_bool			command_token(t_project *as, char **line)
 		ft_lstnew_ptr((void*)new_token(as, as->column,
 		COMMAND_NAME, ft_strdup(".name")), sizeof(t_token)));
 		increment_line(as, line, 5);
-		// ft_printf("char = %c\n", **line);
 		as->count =
 		(as->flags & DEBUG_L) ? ft_printf("--add COMMAND_NAME token\n") : 0;
-		// ft_putendl("name token made\n");
-
 	}
 	else if (ft_strequ_wspace_delim(*line, ".comment"))
 	{
@@ -66,7 +63,6 @@ t_bool			command_token(t_project *as, char **line)
 		increment_line(as, line, 8);
 		as->count =
 		(as->flags & DEBUG_L) ? ft_printf("--add COMMAND_COMMENT token\n") : 0;
-		// ft_putendl("comment token made\n");
 	}
 	else
 		return (FAIL);
@@ -124,13 +120,10 @@ t_bool			register_token(t_project *as, char **line)
 t_bool			is_valid_label_chars(t_project *as, char **line)
 {
 	as->count = (as->flags & DEBUG_O) ? ft_printf("%s\n", __func__) : 0;
-		// ft_printf("char before = %c\n", **line);
 	while (!ft_strchr(END_LABEL_CHARS, **line) && (**line) && **line != '-')
 	{
-		// ft_printf("char in loop = %c\n", **line);
 		if (!ft_strchr(LABEL_CHARS, **line))
 		{
-			// ft_printf("char = %c\n", **line);
 			return (FAIL);
 		}
 		increment_line(as, line, 1);
@@ -154,8 +147,6 @@ void			instruction_token(t_project *as, char **line)
 	ft_lstadd_back(&as->token_list, ft_lstnew_ptr((void*)new_token(as,
 	(as->column - (*line - as->temp)), INSTRUCTION, ft_strndup(as->temp,
 	(*line - as->temp))), sizeof(t_token)));
-	// ft_printf("instruction = %s -- line = %s\n",  ft_strndup(as->temp,
-	// (*line - as->temp)), *line);
 }
 
 /*
@@ -182,7 +173,7 @@ void			label_token(t_project *as, char **line)
 ** The (label_or_instruction_token) function redirects to either the label_token
 ** function or to the instruction_token function.
 ** Otherwise it's a lexical error.
-
+**
 ** t_project 	*as		  =	struct of type t_project. olds all data for the asm
 ** char			**line	  =	points current place in the line
 **
@@ -249,72 +240,22 @@ t_bool			label_chars_redirect(t_project *as, char **line)
 	return (SUCCESS);
 }
 
-/*
-** ---------------------------------------------------------------------------**
-** The (add_to_string_token) function adds the string to an un-ended string
-** stored in the list. If temp =ft_strchr() is NULL it means the string does
-** not end on this line aswell.
-
-** t_project 	*as		  =	struct of type t_project. olds all data for the asm
-** char			**line	  =	points current place in the line
-**
-** return 		(0)		  =	in the next function all of ft_strlen(line) can be
-							incremented.
-** return		(len)	  = len can be incremented.
-*/
-
-// int				add_to_string_token(t_project *as, char **line)
-// {
-// 	char		*old_str;
-// 	t_list		*l_temp;
-// 	char		*temp;
-// 	int			len;
-
-// 	as->count = (as->flags & DEBUG_O) ? ft_printf("%s\n", __func__) : 0;
-// 	l_temp = ft_list_last_elem(as->token_list);
-// 	old_str = ((t_token*)l_temp->content)->literal_str;
-// 	temp = ft_strchr(*line, (int)'"');
-// 	len = (temp - as->temp);
-// 	// ft_printf("add_to_str --- old token type = %i -- old = %s --- temp %s -- len %i\n", ((t_token*)l_temp->content)->token_type, old_str, temp, len);
-// 	if (!temp)
-// 	{
-// 		((t_token*)l_temp->content)->literal_str = ft_strjoin(old_str, *line);
-// 		// ft_printf("strjoin string1 = %s\n", ((t_token*)l_temp->content)->literal_str);
-// 	}
-// 	else
-// 	{
-// 		temp = ft_strndup(as->temp, len);
-// 		((t_token*)l_temp->content)->literal_str = ft_strjoin(old_str, temp);
-// 		// ft_printf("strjoin string2 = %s\n", ((t_token*)l_temp->content)->literal_str);
-
-// 		free(temp);
-// 	}
-// 	as->count = (as->flags & DEBUG_L) ? ft_printf("--add STRING token\n") : 0;
-// 	free(old_str);
-// 	if (!temp)
-// 		return (0);
-// 	return (len);
-// }
-
 int				newline_string_token(t_project *as, char **line)
 {
 	char		*str_temp;
 	char		*temp;
-	
+
 	as->string = ft_strnew(0);
 	str_temp = ft_strchr(*line, (int)'"');
-	while (!str_temp )
+	while (!str_temp)
 	{
 		temp = as->string;
-		// str_temp = ft_strdup(*line)
 		as->string = ft_strjoin(as->string, *line);
-		// free(*line);
 		if (!get_next_endline(as->fd, line))
 			return (FAIL);
 		as->row++;
 		free(temp);
 		str_temp = ft_strchr(*line, (int)'"');
-		// ft_printf("string in loop = %s\n", as->string);
 	}
 	temp = as->string;
 	if (!(str_temp - *line))
@@ -322,17 +263,38 @@ int				newline_string_token(t_project *as, char **line)
 	else
 		str_temp = ft_strndup(*line, (str_temp - *line));
 	increment_line(as, line, ft_strlen(str_temp) + 1);
-	// ft_printf("line = %s\n", *line);
 	as->string = ft_strjoin(as->string, str_temp);
-	// ft_printf("as->string = %s\n", as->string);
 	free(str_temp);
 	free(temp);
-	// ft_printf("final string = %s\n", as->string);
 	return (SUCCESS);
-
 }
 
-t_bool				new_string_token(t_project *as, char **line)
+t_bool			string_token2(t_project *as, char **line, int len,
+				char *str_temp)
+{
+	if (!str_temp)
+	{
+		if (!newline_string_token(as, line))
+			return (FAIL);
+		ft_lstadd_back(&as->token_list, ft_lstnew_ptr((void*)new_token(as,
+		(as->column - (*line - as->temp)), STRING, as->string),
+		sizeof(t_token)));
+		as->count =
+		(as->flags & DEBUG_L) ? ft_printf("--add STRING token\n") : 0;
+	}
+	else
+	{
+		ft_lstadd_back(&as->token_list, ft_lstnew_ptr((void*)new_token(as,
+		(as->column - (*line - as->temp)), STRING, ft_strndup(as->temp + 1,
+		len - 1)), sizeof(t_token)));
+		as->count =
+		(as->flags & DEBUG_L) ? ft_printf("--add STRING token\n") : 0;
+		increment_line(as, line, len);
+	}
+	return (SUCCESS);
+}
+
+t_bool			string_token(t_project *as, char **line)
 {
 	char		*str_temp;
 	int			len;
@@ -344,61 +306,17 @@ t_bool				new_string_token(t_project *as, char **line)
 	if (len == 1)
 	{
 		ft_lstadd_back(&as->token_list, ft_lstnew_ptr((void*)new_token(as,
-		(as->column - (*line - as->temp)), STRING, ft_strnew(0)), sizeof(t_token)));
-		increment_line(as, line, 1);
-	}
-	else if (!str_temp)
-	{
-		if (!newline_string_token(as, line))
-			return (FAIL);
-		ft_lstadd_back(&as->token_list, ft_lstnew_ptr((void*)new_token(as,
-		(as->column - (*line - as->temp)), STRING, as->string),
+		(as->column - (*line - as->temp)), STRING, ft_strnew(0)),
 		sizeof(t_token)));
-		// ft_printf("y axis %i -- as->temp = %s\n", (as->column - (*line - as->temp)), as->temp);
-		as->count =
-		(as->flags & DEBUG_L) ? ft_printf("--add STRING token\n") : 0;
-		// ft_putendl("string token made\n");
-		// return (SUCCESS);
+		increment_line(as, line, 1);
 	}
 	else
 	{
-		ft_lstadd_back(&as->token_list, ft_lstnew_ptr((void*)new_token(as,
-		(as->column - (*line - as->temp)), STRING, ft_strndup(as->temp + 1,
-		len - 1)), sizeof(t_token)));
-		as->count =
-		(as->flags & DEBUG_L) ? ft_printf("--add STRING token\n") : 0;
-		increment_line(as, line, len);
-		// ft_putendl("string token made\n");
-
+		if (!string_token2(as, line, len, str_temp))
+			return (FAIL);
 	}
 	return (SUCCESS);
 }
-
-// t_bool			string_token(t_project *as, char **line)
-// {
-// 	int			ret;
-
-// 	as->count = (as->flags & DEBUG_O) ? ft_printf("%s\n", __func__) : 0;
-// 	if (as->index)
-// 		ret = add_to_string_token(as, line);
-// 	else
-// 		ret = new_string_token(as, line);
-// 	if (ret)
-// 	{
-// 		as->index = 0;
-// 		// ft_printf("line0 = %s\n", *line);
-
-// 		increment_line(as, line, ret + 1);
-// 		// ft_printf("line1 = %s\n", *line);
-// 	}
-// 	else
-// 	{
-// 		// ft_printf("strlen2 = %i\n", ft_strlen(*line));
-// 		increment_line(as, line, ft_strlen(*line));
-// 		as->index = 1;
-// 	}
-// 	return (SUCCESS);
-// }
 
 t_bool			separator_token(t_project *as, char **line)
 {
@@ -486,7 +404,7 @@ t_bool			direct_token(t_project *as, char **line)
 	as->count = (as->flags & DEBUG_O) ? ft_printf("%s\n", __func__) : 0;
 	if (ft_strchr(END_LABEL_CHARS, *(*line + 1)))
 		return (FAIL);
-	increment_line(as, line, 1); 
+	increment_line(as, line, 1);
 	if (**line == ':')
 	{
 		increment_line(as, line, 1);
@@ -515,7 +433,6 @@ t_bool			skip_comment_line(t_project *as, char **line)
 	as->count = (as->flags & DEBUG_O) ? ft_printf("%s\n", __func__) : 0;
 	while (**line != '\n')
 		increment_line(as, line, 1);
-	// as->row++;
 	return (SUCCESS);
 }
 
@@ -523,23 +440,23 @@ t_bool			skip_whitespaces(t_project *as, char **line)
 {
 	as->count = (as->flags & DEBUG_O) ? ft_printf("%s\n", __func__) : 0;
 	while ((**line == ' ' || **line == '\t' || **line == '\v' ||
-	**line == '\f'))// && (**line != '\0')
+	**line == '\f'))
 		increment_line(as, line, 1);
 	return (SUCCESS);
 }
 
 t_bool			process_line(t_project *as, char **line)
 {
-	size_t			index;
+	size_t		index;
 
 	as->count = (as->flags & DEBUG_O) ? ft_printf("%s\n", __func__) : 0;
 	index = 0;
 	while (**line != '\n' && **line != '\0')
 	{
-		if (ft_strchr(look_up[index].chars, **line))
+		if (ft_strchr(g_look_up[index].chars, **line))
 		{
 			as->temp = *line;
-			if (!(look_up[index].func(as, line)))
+			if (!(g_look_up[index].func(as, line)))
 				return (FAIL);
 			index = -1;
 		}
@@ -558,8 +475,6 @@ void			endline_token(t_project *as, char **line)
 	ENDLINE, NULL), sizeof(t_token)));
 	increment_line(as, line, 1);
 	as->count = (as->flags & DEBUG_L) ? ft_printf("--add ENDLINE token\n") : 0;
-	// ft_putendl("endline token made\n");
-
 }
 
 void			end_token(t_project *as)
@@ -601,10 +516,9 @@ t_bool			analyze_lexicon(t_project *as)
 		}
 		if (*temp == '\n')
 		{
-				endline_token(as, &temp);
+			endline_token(as, &temp);
 			as->row++;
 			as->column = 0;
-
 		}
 		free(line);
 		as->temp = NULL;

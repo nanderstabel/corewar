@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/12 10:18:45 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/07/08 11:19:54 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/07/09 17:48:17 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -847,7 +847,7 @@ Test(test_lexical_analysis, string_token_test)
 	as->column = 0;
 	line = ft_strdup("\"sdkfjsdk\"F\n");
 	as->temp = line;
-	ret = new_string_token(as, &line);
+	ret = string_token(as, &line);
 	temp = as->token_list;
 	cr_assert(((t_token*)temp->content)->token_type == STRING);
 	cr_assert(ret == SUCCESS);
@@ -859,7 +859,7 @@ Test(test_lexical_analysis, string_token_test)
 	as->column = 0;
 	line = ft_strdup("\"898fjsdk\"\t");
 	as->temp = line;
-	ret = new_string_token(as, &line);
+	ret = string_token(as, &line);
 	temp = temp->next;
 	cr_assert(((t_token*)temp->content)->token_type == STRING);
 	cr_assert(ret == SUCCESS);
@@ -871,7 +871,7 @@ Test(test_lexical_analysis, string_token_test)
 	// as->column = 0;
 	// line = ft_strdup("\"Dit is een n\n");
 	// as->temp = line;
-	// ret = new_string_token(as, &line);
+	// ret = string_token(as, &line);
 	// temp = temp->next;
 	// cr_assert(((t_token*)temp->content)->token_type == STRING);
 	// cr_assert(ret == SUCCESS);
@@ -883,7 +883,7 @@ Test(test_lexical_analysis, string_token_test)
 // 	as->column = 0;
 // 	line = ft_strdup("ieuwe test\"kdjf");
 // 	as->temp = line;
-// 	ret = new_string_token(as, &line);
+// 	ret = string_token(as, &line);
 
 // 	// temp = temp->next;
 // 	cr_assert(((t_token*)temp->content)->token_type == STRING);
@@ -896,7 +896,7 @@ Test(test_lexical_analysis, string_token_test)
 // 	as->column = 0;
 // 	line = ft_strdup("\"Een wat lang\n");
 // 	as->temp = line;
-// 	ret = new_string_token(as, &line);
+// 	ret = string_token(as, &line);
 // 	temp = temp->next;
 // 	cr_assert(((t_token*)temp->content)->token_type == STRING);
 // 	cr_assert(ret == SUCCESS);
@@ -908,7 +908,7 @@ Test(test_lexical_analysis, string_token_test)
 // 	as->column = 0;
 // 	line = ft_strdup("ere test met t\n");
 // 	as->temp = line;
-// 	ret = new_string_token(as, &line);
+// 	ret = string_token(as, &line);
 // 	// temp = temp->next;
 // 	cr_assert(((t_token*)temp->content)->token_type == STRING);
 // 	cr_assert(ret == SUCCESS);
@@ -919,7 +919,7 @@ Test(test_lexical_analysis, string_token_test)
 // 	as->column = 0;
 // 	line = ft_strdup("wee keer een newline\" %f");
 // 	as->temp = line;
-// 	ret = new_string_token(as, &line);
+// 	ret = string_token(as, &line);
 // 	// temp = temp->next;
 // 	cr_assert(((t_token*)temp->content)->token_type == STRING);
 // 	cr_assert(ret == SUCCESS);
