@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/09 19:54:39 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/07/09 19:55:15 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/09 20:13:21 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_bool			byte_num_to_file(t_project *as, int num)
 	write(as->fd, str, 4);
 	free(ptr);
 	free(str);
-	return (SUCCESS);	
+	return (SUCCESS);
 }
 
 t_bool			check_str_to_long(int type, size_t max_size,
@@ -100,5 +100,5 @@ t_bool			bytecode_to_file(t_project *as)
 		as->tmp = as->tmp->next;
 	}
 	as->buffer = NULL;
-	return (SUCCESS);	
+	return (SUCCESS);
 }

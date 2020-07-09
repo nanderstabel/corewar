@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/07/09 19:59:40 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/09 20:09:17 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ t_bool				print_usage_message(t_project *as)
 {
 	as->count = (as->flags & DEBUG_O) ? ft_printf("\t%s\n", __func__) : 0;
 	ft_printf("Usage: ./asm [-%s] <sourcefile.s>\n", OPTIONS);
-	//ft_printf("\t-a : Instead of creating a .cor file, outputs a stripped and annotated version of the code to the standard output\n");
 	ft_printf(\
 	"\t-g : Debug mode: shows executed functions in chronological order\n");
 	ft_printf("\t-u : Shows usage message\n");
