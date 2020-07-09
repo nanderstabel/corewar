@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/07/09 19:26:47 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/07/09 20:01:02 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ t_bool			label_error(t_project *as)
 	as->current_token->column + 1, \
 	g_token_tab[as->current_token->token_type].string, \
 	as->current_token->literal_str);
+	free(as->string);
 	return (FAIL);
 }
 
@@ -150,8 +151,6 @@ t_bool			translation_check(t_project *as)
 	as->count = (as->flags & DEBUG_O) ? ft_printf("\t%s\n", __func__) : 0;
 	if (g_token_tab[as->current_token->token_type].translate)
 		return (g_token_tab[as->current_token->token_type].translate(as));
-	ft_lstadd_back(&as->bytecode_list, ft_lstnew_ptr((void*)as->buffer,
-	as->index));
 	as->index = 0;
 	return (SUCCESS);
 }

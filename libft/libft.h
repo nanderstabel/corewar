@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/16 21:05:44 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/09 19:35:06 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/07/09 20:33:33 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ typedef enum
 typedef struct s_project	t_project;
 typedef t_bool				(*t_event)(t_project *);
 typedef short				t_state;
+typedef t_bool				(*t_f)(t_project *, char**);
 
 typedef struct		s_machine
 {
