@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   asm_bytecode_to_file.c                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
+/*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/07/09 19:19:06 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/07/09 19:21:09 by zitzak        ########   odam.nl         */
+/*   Created: 2020/07/09 19:54:39 by nstabel       #+#    #+#                 */
+/*   Updated: 2020/07/09 20:20:37 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,5 +94,6 @@ t_bool			bytecode_to_file(t_project *as)
 		write(as->fd, as->tmp->content, as->tmp->content_size);
 		as->tmp = as->tmp->next;
 	}
+	as->buffer = NULL;
 	return (SUCCESS);
 }
