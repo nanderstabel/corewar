@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/12 17:56:32 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/07/06 16:56:59 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/09 18:33:25 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # define NEXT_TOKEN						as->next_token
 # define SET_CURRENT_TOKEN				CURRENT_TOKEN = (t_token *)as->tmp->next->content
 # define SET_NEXT_TOKEN					NEXT_TOKEN = (t_token *)as->tmp->next->next->content
-# define FORMAT_SYNTAX_ERR(str0)		sprintf(error, "Syntax error at token [TOKEN][000:000] %s \"%s\"\n", token_tab[next].string, str0)
+# define FORMAT_SYNTAX_ERR(str0)		sprintf(error, "Syntax error at token [TOKEN][000:000] %s \"%s\"\n", g_token_tab[next].string, str0)
 # define TRAIL							END + 1
 
 void redirect_all_stdout2(void)
