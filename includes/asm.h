@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/07/09 18:55:35 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/07/09 19:21:09 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ enum
 	ANALYZE_INSTRUCTIONS,
 	CREATE_OUTPUT_FILE,
 	TRANSLATE_TO_BYTE,
-	WRITE_TRANSLATION,
+	BYTECODE_TO_FILE,
 	FREE_PROJECT,
 	UNINSTALL
 }	e_state;
@@ -154,7 +154,7 @@ t_bool				analyze_parameters(t_project *as);
 t_bool				analyze_instructions(t_project *as);
 t_bool				create_output_file(t_project *as);
 t_bool				translate_to_byte(t_project *as);
-t_bool				write_translation(t_project *as);
+t_bool				bytecode_to_file(t_project *as);
 t_bool				free_project(t_project *as);
 t_bool				lexical_analysis(t_machine *as);
 t_bool				print_usage_message(t_project *as);
@@ -198,5 +198,12 @@ t_bool				get_argtype(t_project *as);
 void				write_str_to_buf(t_project *as, char *to_bytecode, char type);
 void				write_byte_to_buf(t_project *as, char byte);
 void				add_buffer_to_list(t_project *as);
+t_bool				byte_string_to_file(t_project *as, int type, size_t max_size);
+void				print_zero_bytes(t_project *as, size_t len, size_t max_size);
+t_bool				check_str_to_long(int type, size_t max_size, size_t len);
+t_bool				byte_num_to_file(t_project *as, int num);
+
+
+
 
 #endif
