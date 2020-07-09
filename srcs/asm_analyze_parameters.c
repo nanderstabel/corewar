@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/07/09 10:48:20 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/09 18:00:56 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,10 @@ t_bool			adjust_encoding_byte(t_project *as)
 	return (SUCCESS);
 }
 
-
 t_bool			count_parameters(t_project *as)
 {
 	as->count = (as->flags & DEBUG_O) ? ft_printf("\t\t%s\n", __func__) : 0;
-	while (as->index < op_tab[as->current_token->opcode - 1].n_args)
+	while (as->index < g_op_tab[as->current_token->opcode - 1].n_args)
 	{
 		as->tmp = as->tmp->next;
 		as->next_token = (t_token *)as->tmp->content;
@@ -34,13 +33,13 @@ t_bool			count_parameters(t_project *as)
 		{
 			if (get_argtype(as))
 			{
-				if (!(op_tab[as->current_token->opcode - 1].args[as->index] & \
+				if (!(g_op_tab[as->current_token->opcode - 1].args[as->index] &
 					as->octal))
 					return (FAIL);
 				as->pc += token_tab[as->next_token->token_type].size;
 				if ((as->next_token->token_type == DIRECT || \
 					as->next_token->token_type == DIRECT_LABEL) && \
-					op_tab[as->current_token->opcode - 1].label)
+					g_op_tab[as->current_token->opcode - 1].label)
 					as->pc -= 2;
 				if (as->current_token->encoding)
 					adjust_encoding_byte(as);
@@ -119,6 +118,7 @@ t_bool			parameter_check(t_project *as)
 t_bool			analyze_parameters(t_project *as)
 {
 	as->count = (as->flags & DEBUG_O) ? ft_printf("%s\n", __func__) : 0;
-	as->labels = ft_malloc_hash_table((as->n_labels * 2) + 1, "labels", FORMAT_LEFT);
+	as->labels = ft_malloc_hash_table((as->n_labels * 2) + 1, "labels",
+	FORMAT_LEFT);
 	return (loop_token_list(as, parameter_check));
 }
