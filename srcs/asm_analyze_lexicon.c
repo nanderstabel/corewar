@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/07/08 16:47:05 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/08 17:20:11 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ t_bool			command_token(t_project *as, char **line)
 		ft_lstnew_ptr((void*)new_token(as, as->column,
 		COMMAND_NAME, ft_strdup(".name")), sizeof(t_token)));
 		increment_line(as, line, 5);
+		// ft_printf("char = %c\n", **line);
 		as->count =
 		(as->flags & DEBUG_L) ? ft_printf("--add COMMAND_NAME token\n") : 0;
 		// ft_putendl("name token made\n");
@@ -124,12 +125,15 @@ t_bool			is_valid_label_chars(t_project *as, char **line)
 {
 	as->count = (as->flags & DEBUG_O) ? ft_printf("%s\n", __func__) : 0;
 		// ft_printf("char before = %c\n", **line);
-	while (!ft_strchr(END_LABEL_CHARS, **line) && (**line))
+	while (!ft_strchr(END_LABEL_CHARS, **line) && (**line) && **line != '-')
 	{
 		// ft_printf("char in loop = %c\n", **line);
 		// ft_putendl("here");
 		if (!ft_strchr(LABEL_CHARS, **line))
+		{
+			// ft_printf("char = %c\n", **line);
 			return (FAIL);
+		}
 		increment_line(as, line, 1);
 	}
 	return (SUCCESS);
@@ -151,6 +155,8 @@ void			instruction_token(t_project *as, char **line)
 	ft_lstadd_back(&as->token_list, ft_lstnew_ptr((void*)new_token(as,
 	(as->column - (*line - as->temp)), INSTRUCTION, ft_strndup(as->temp,
 	(*line - as->temp))), sizeof(t_token)));
+	// ft_printf("instruction = %s -- line = %s\n",  ft_strndup(as->temp,
+	// (*line - as->temp)), *line);
 }
 
 /*
@@ -196,7 +202,10 @@ t_bool			label_or_instruction_token(t_project *as, char **line)
 			return (FAIL);
 	}
 	else
+	{
+		// ft_putendl("here");
 		instruction_token(as, line);
+	}
 	return (SUCCESS);
 }
 
