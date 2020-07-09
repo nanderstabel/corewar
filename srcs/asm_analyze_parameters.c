@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/07/08 15:09:44 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/09 10:48:20 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ t_bool			count_parameters(t_project *as)
 					as->octal))
 					return (FAIL);
 				as->pc += token_tab[as->next_token->token_type].size;
-				if (as->next_token->token_type == DIRECT && \
+				if ((as->next_token->token_type == DIRECT || \
+					as->next_token->token_type == DIRECT_LABEL) && \
 					op_tab[as->current_token->opcode - 1].label)
 					as->pc -= 2;
 				if (as->current_token->encoding)
