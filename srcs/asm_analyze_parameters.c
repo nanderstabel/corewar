@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/07/09 18:33:25 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/07/09 19:27:45 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ t_bool			adjust_encoding_byte(t_project *as)
 
 t_bool			count_parameters(t_project *as)
 {
-	as->count = (as->flags & DEBUG_O) ? ft_printf("\t\t%s\n", __func__) : 0;
 	while (as->index < g_op_tab[as->current_token->opcode - 1].n_args)
 	{
 		as->tmp = as->tmp->next;
@@ -75,7 +74,6 @@ t_bool			loop_parameters(t_project *as)
 
 t_bool			parameter_check(t_project *as)
 {
-	as->count = (as->flags & DEBUG_O) ? ft_printf("\t\t%s\n", __func__) : 0;
 	if (as->current_token->token_type == LABEL)
 	{
 		as->string = label_to_key(as->current_token->literal_str, \
