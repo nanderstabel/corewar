@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/07/09 17:58:22 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/07/10 12:02:15 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,6 +240,23 @@ t_bool			label_chars_redirect(t_project *as, char **line)
 	return (SUCCESS);
 }
 
+void			add_strings(t_project *as, char **line)
+{
+	char		*final_string;
+	char		*str_temp;
+
+	str_temp = ft_strchr(*line, (int)'"');
+	final_string = as->string;
+	if (!(str_temp - *line))
+		str_temp = ft_strnew(0);
+	else
+		str_temp = ft_strndup(*line, (str_temp - *line));
+	increment_line(as, line, ft_strlen(str_temp) + 1);
+	as->string = ft_strjoin(as->string, str_temp);
+	free(str_temp);
+	free(final_string);
+}
+
 int				newline_string_token(t_project *as, char **line)
 {
 	char		*str_temp;
@@ -251,21 +268,16 @@ int				newline_string_token(t_project *as, char **line)
 	{
 		temp = as->string;
 		as->string = ft_strjoin(as->string, *line);
+		if (as->og_line != NULL)
+			free(as->og_line);
 		if (!get_next_endline(as->fd, line))
 			return (FAIL);
+		as->og_line = *line;
 		as->row++;
 		free(temp);
 		str_temp = ft_strchr(*line, (int)'"');
 	}
-	temp = as->string;
-	if (!(str_temp - *line))
-		str_temp = ft_strnew(0);
-	else
-		str_temp = ft_strndup(*line, (str_temp - *line));
-	increment_line(as, line, ft_strlen(str_temp) + 1);
-	as->string = ft_strjoin(as->string, str_temp);
-	free(str_temp);
-	free(temp);
+	add_strings(as, line);
 	return (SUCCESS);
 }
 
@@ -475,6 +487,8 @@ void			endline_token(t_project *as, char **line)
 	ENDLINE, NULL), sizeof(t_token)));
 	increment_line(as, line, 1);
 	as->count = (as->flags & DEBUG_L) ? ft_printf("--add ENDLINE token\n") : 0;
+	as->row++;
+	as->column = 0;
 }
 
 void			end_token(t_project *as)
@@ -512,13 +526,15 @@ t_bool			analyze_lexicon(t_project *as)
 		if (!process_line(as, &temp))
 		{
 			ft_dprintf(2, LEXICAL_ERR, (as->row + 1), (as->column + 1));
+			exit(0);
 			return (FAIL);
 		}
 		if (*temp == '\n')
-		{
 			endline_token(as, &temp);
-			as->row++;
-			as->column = 0;
+		if (as->og_line != NULL)
+		{
+			free(as->og_line);
+			as->og_line = NULL;
 		}
 		free(line);
 		as->temp = NULL;
