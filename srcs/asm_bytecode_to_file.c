@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/09 19:54:39 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/07/09 20:20:37 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/10 10:54:39 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ t_bool			byte_num_to_file(t_project *as, int num)
 	ft_memcpy((void*)str, (const void*)ptr, 4);
 	str = ft_memrev(str, 4);
 	write(as->fd, str, 4);
+	free(ptr);
+	free(str);
 	return (SUCCESS);
 }
 
@@ -53,13 +55,7 @@ void			print_zero_bytes(t_project *as, size_t len, size_t max_size)
 t_bool			byte_string_to_file(t_project *as, int type, size_t max_size)
 {
 	size_t		len;
-	int			*ptr;
-	char		*str;
-
-	ptr = (int*)ft_memalloc(sizeof(int));
-	*ptr = 0;
-	str = ft_strnew(1);
-	ft_memcpy((void*)str, (const void*)ptr, 1);
+	
 	as->tmp = as->token_list;
 	while (as->tmp)
 	{
