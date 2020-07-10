@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/09 19:54:39 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/07/10 10:54:39 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/10 15:06:21 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void			print_zero_bytes(t_project *as, size_t len, size_t max_size)
 t_bool			byte_string_to_file(t_project *as, int type, size_t max_size)
 {
 	size_t		len;
-	
+
 	as->tmp = as->token_list;
 	while (as->tmp)
 	{
