@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/25 17:54:31 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/06/11 11:02:11 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/07/10 16:54:17 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,6 @@ static void	free_champions(t_champ ***champions)
 	*champions = NULL;
 }
 
-void		cursor_del(t_cursor *cursor_to_del)
-{
-	ft_bzero(cursor_to_del, sizeof(t_cursor));
-	free(cursor_to_del);
-}
-
 int			free_vm(t_vm *vm, int ret)
 {
 	t_cursor	*cursor_to_del;
@@ -63,7 +57,8 @@ int			free_vm(t_vm *vm, int ret)
 	{
 		cursor_to_del = vm->cursors;
 		vm->cursors = cursor_to_del->next;
-		cursor_del(cursor_to_del);
+		ft_bzero(cursor_to_del, sizeof(t_cursor));
+		free(cursor_to_del);
 	}
 	ft_bzero(vm, sizeof(t_vm));
 	return (ret);

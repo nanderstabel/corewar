@@ -6,7 +6,7 @@
 /*   By: lhageman <lhageman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/20 14:16:44 by lhageman      #+#    #+#                 */
-/*   Updated: 2020/07/06 16:17:31 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/07/10 13:52:00 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,6 @@ typedef struct		s_vis
 	unsigned char	*arena;
 	unsigned int	index;
 	unsigned int	bytes;
-	unsigned int	player;
-	unsigned int	bold;
-	unsigned int	inverse;
 }					t_vis;
 typedef struct s_vm	t_vm;
 

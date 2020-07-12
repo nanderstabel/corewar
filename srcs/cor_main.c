@@ -8,16 +8,9 @@
 int		main(int argc, char **argv)
 {
 	t_vm	vm;
-	int i = 0;
 
 	ft_bzero(&vm, sizeof(t_vm));
 	ft_bzero(vm.arena, MEM_SIZE);
-	while (i < MEM_SIZE)
-	{
-		vm.arena[i] = 0;
-		i += 1;
-	}
-	put_arena(vm.arena);
 	vm.dump = -1;
 	if (argc == 1)
 		return (print_message(USAGE, NULL, STDOUT, SUCCESS));

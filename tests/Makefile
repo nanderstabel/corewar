@@ -6,7 +6,7 @@
 #    By: mmarcell <mmarcell@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/01/08 13:03:52 by mmarcell      #+#    #+#                  #
-#    Updated: 2020/04/27 13:07:57 by mmarcell      ########   odam.nl          #
+#    Updated: 2020/07/12 14:34:39 by lhageman      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ COR_TEST_OBJS := $(COR_TEST_FILES:%.c=objs/%.o)
 ASM_TEST_OBJS := $(ASM_TEST_FILES:%.c=objs/%.o)
 TEST_OBJS := COR_TEST_OBJS ASM_TEST_OBJS
 
-CFLAGS := -Wall -Wextra -Werror
+CFLAGS := -Wall -Wextra -Werror -lncurses
 
 LIBFT_PATH := ../libft
 LIBFT := $(LIBFT_PATH)/libft.a
@@ -37,11 +37,11 @@ MINUS := $$(tput setaf 1)-$$(tput sgr0)
 all: cor_test # asm_test
 
 cor_test: $(COR_OBJS) $(COR_TEST_OBJS)
-	@$(CC) -o $@ $^ -lcriterion $(LIBFT)
+	@$(CC) -o $@ $^ $(CFLAGS) -lcriterion $(LIBFT)
 	@echo " ${PLUS} $@"
 
 asm_test: $(ASM_OBJS) $(ASM_TEST_OBJS)
-	@$(CC) -o $@ $^ -lcriterion $(LIBFT)
+	@$(CC) -o $@ $^ $(CFLAGS) -lcriterion $(LIBFT)
 	@echo " ${PLUS} $@"
 
 objs/%.o: srcs/%.c $(HDRS) | objs

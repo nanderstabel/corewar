@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/03 11:22:16 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/06 18:27:32 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/07/12 15:38:19 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	print_cursors(t_vm *vm)
 	}
 }
 
-static int	cursors_init(t_vm *vm)
+int	cursors_init(t_vm *vm)
 {
 	unsigned int	idx;
 	t_cursor		*new_cursor;
@@ -53,7 +53,7 @@ static int	cursors_init(t_vm *vm)
 		vm->cursors = new_cursor;
 		new_cursor->player = idx - 1;
 		ft_printf("with exec_code:\n");
-		// put_exec_code(vm->champ[idx]->exec_code, vm->champ[idx]->header.prog_size);
+		put_exec_code(vm->champ[idx]->exec_code, vm->champ[idx]->header.prog_size);
 		++idx;
 	}
 	return (SUCCESS);
@@ -96,10 +96,10 @@ int			vm_start(t_vm *vm)
 		vis_create(vm);
 		print_cursors(vm);
 	}
+	while (vm->cursors != NULL || 
+		(vm->dump > 0 && (unsigned int)(vm->dump) > vm->total_cycle_count))
+		game_loop(vm, operations);
 	if (vm->dump == 0)
 		put_arena(vm->arena);
-	// while (vm->cursors != NULL || 
-	// 	(vm->dump > 0 && (unsigned int)(vm->dump) > vm->total_cycle_count))
-	// 	game_loop(vm, operations);
 	return (SUCCESS);
 }

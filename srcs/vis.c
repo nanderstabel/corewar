@@ -6,7 +6,7 @@
 /*   By: lhageman <lhageman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/11 09:53:39 by lhageman      #+#    #+#                 */
-/*   Updated: 2020/07/06 12:11:00 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/07/12 14:30:31 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,6 @@ void	vis_set(t_vis *vis)
 	vis->arena = NULL;
 	vis->index = 0;
 	vis->bytes = 0;
-	vis->player = 0;
-	vis->bold = 0;
-	vis->inverse = 0;
 }
 
 void	vis_initiate(void)

@@ -6,7 +6,7 @@
 /*   By: zaz <marvin@42.fr>                           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2013/10/04 11:33:27 by zaz           #+#    #+#                 */
-/*   Updated: 2020/05/20 11:34:36 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/07/10 16:59:42 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 
 #ifndef OP_H
 # define OP_H
+
+# include <stdlib.h>
 
 # define IND_SIZE			2
 # define REG_SIZE			4

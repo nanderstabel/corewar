@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/28 17:10:22 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/06 17:27:40 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/07/10 16:45:04 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,24 +27,7 @@ unsigned int	new_idx(unsigned int current_idx, int offset,
 	return (new_idx);
 }
 
-void		kill_cursor(t_vm *vm, t_cursor *cursor)
-{
-	t_cursor	*walk;
-
-	if (vm->cursors == cursor)
-		vm->cursors = cursor->next;
-	walk = vm->cursors;
-	while (walk != NULL)
-	{
-		if (walk->next == cursor)
-			walk->next = cursor->next;
-		walk = walk->next;
-	}
-	// play killing sound
-	return (cursor_del(cursor));
-}
-
-int			convert_to_int(unsigned char *start, unsigned int len)
+int				convert_to_int(unsigned char *start, unsigned int len)
 {
 	int		integer;
 
@@ -60,7 +43,7 @@ int			convert_to_int(unsigned char *start, unsigned int len)
 	return (integer);
 }
 
-void	put_exec_code(unsigned char *code, unsigned int size)
+void			put_exec_code(unsigned char *code, unsigned int size)
 {
 	unsigned int	idx;
 
@@ -77,7 +60,7 @@ void	put_exec_code(unsigned char *code, unsigned int size)
 		write(1, "\n", 1);
 }
 
-void	put_arena(unsigned char *arena)
+void			put_arena(unsigned char *arena)
 {
 	unsigned int	idx;
 

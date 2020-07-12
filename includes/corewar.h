@@ -6,13 +6,14 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/07/06 18:31:13 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/07/12 14:44:53 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COREWAR_H
 # define COREWAR_H
 
+# include <stdlib.h>
 # include "libft.h"
 # include "op.h"
 # include "cor_errors.h"
@@ -23,6 +24,9 @@
 # define STDIN					0
 # define STDOUT					1
 # define STDERR					2
+# define REG					1
+# define DIR					2
+# define IND					3
 
 typedef struct		s_cursor
 {
@@ -101,8 +105,12 @@ void				put_arena(unsigned char *arena);
 void				put_exec_code(unsigned char *code, unsigned int size);
 
 int					vm_start(t_vm *vm);
+int					cursors_init(t_vm *vm);
 
 void				game_loop(t_vm *vm, t_op_table operations);
 
-void				check_cursors(t_vm *vm);
+int					get_arg_type(unsigned char enc, unsigned int no);
+void				move_pc(t_vm * vm, t_cursor *cursor, unsigned int move);
+
+void				perform_check(t_vm *vm);
 #endif

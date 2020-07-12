@@ -153,7 +153,7 @@ Test(new_idx, pos_1)
 
 Test(convert_to_int, 4_valid_neg)
 {
-	char	buf[10];
+	unsigned char	buf[10];
 	int		return_int;
 	int		expected_int;
 
@@ -170,7 +170,7 @@ Test(convert_to_int, 4_valid_neg)
 
 Test(convert_to_int, 4_valid_zero)
 {
-	char	buf[10];
+	unsigned char	buf[10];
 	int		return_int;
 	int		expected_int;
 
@@ -182,7 +182,7 @@ Test(convert_to_int, 4_valid_zero)
 
 Test(convert_to_int, 4_valid_one)
 {
-	char	buf[10];
+	unsigned char	buf[10];
 	int		return_int;
 	int		expected_int;
 
@@ -195,7 +195,7 @@ Test(convert_to_int, 4_valid_one)
 
 Test(convert_to_int, 4_valid_magic)
 {
-	char	buf[10];
+	unsigned char	buf[10];
 	int		return_int;
 	int		expected_int;
 
@@ -211,7 +211,7 @@ Test(convert_to_int, 4_valid_magic)
 
 Test(convert_to_int, 3_valid_zero)
 {
-	char	buf[10];
+	unsigned char	buf[10];
 	int		return_int;
 	int		expected_int;
 
@@ -223,7 +223,7 @@ Test(convert_to_int, 3_valid_zero)
 
 Test(convert_to_int, 3_valid_one)
 {
-	char	buf[10];
+	unsigned char	buf[10];
 	int		return_int;
 	int		expected_int;
 
@@ -236,7 +236,7 @@ Test(convert_to_int, 3_valid_one)
 
 Test(convert_to_int, 3_valid_magic)
 {
-	char	buf[10];
+	unsigned char	buf[10];
 	int		return_int;
 	int		expected_int;
 
@@ -251,7 +251,7 @@ Test(convert_to_int, 3_valid_magic)
 
 Test(convert_to_int, 2_valid_zero)
 {
-	char	buf[10];
+	unsigned char	buf[10];
 	int		return_int;
 	int		expected_int;
 
@@ -263,7 +263,7 @@ Test(convert_to_int, 2_valid_zero)
 
 Test(convert_to_int, 2_valid_one)
 {
-	char	buf[10];
+	unsigned char	buf[10];
 	int		return_int;
 	int		expected_int;
 
@@ -276,7 +276,7 @@ Test(convert_to_int, 2_valid_one)
 
 Test(convert_to_int, 2_valid_magic)
 {
-	char	buf[10];
+	unsigned char	buf[10];
 	int		return_int;
 	int		expected_int;
 
@@ -290,7 +290,7 @@ Test(convert_to_int, 2_valid_magic)
 
 Test(convert_to_int, 1_valid_zero)
 {
-	char	buf[10];
+	unsigned char	buf[10];
 	int		return_int;
 	int		expected_int;
 
@@ -302,7 +302,7 @@ Test(convert_to_int, 1_valid_zero)
 
 Test(convert_to_int, 1_valid_one)
 {
-	char	buf[10];
+	unsigned char	buf[10];
 	int		return_int;
 	int		expected_int;
 
@@ -315,7 +315,7 @@ Test(convert_to_int, 1_valid_one)
 
 Test(convert_to_int, 1_valid_magic)
 {
-	char	buf[10];
+	unsigned char	buf[10];
 	int		return_int;
 	int		expected_int;
 

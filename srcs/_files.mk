@@ -6,11 +6,12 @@
 #    By: mmarcell <mmarcell@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/02/28 18:56:22 by mmarcell      #+#    #+#                  #
-#    Updated: 2020/07/06 18:33:51 by lhageman      ########   odam.nl          #
+#    Updated: 2020/07/10 16:54:49 by lhageman      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 COR_FILES := \
+	op.c \
 	cor_input.c \
 	cor_input_check_file.c \
 	cor_input_add_champion.c \
@@ -31,6 +32,7 @@ COR_FILES := \
 	cor_op_sub.c \
 	cor_op_xor.c \
 	cor_op_zjmp.c \
+	cor_op_helpers.c \
 	vis_arena.c \
 	vis_attr_players.c \
 	vis_cursor.c \

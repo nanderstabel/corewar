@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/05 17:44:34 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/06 18:19:02 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/07/12 15:39:06 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ void		game_loop(t_vm *vm, t_op_table operations)
 			cursor->op_code = convert_to_int(&(vm->arena[cursor->pc]), 1);
 		--(cursor->ctw);
 		++(cursor->decay);
-		cursor = cursor->next;
 		if (cursor->ctw == 0)
 			operations[cursor->op_code](vm, cursor);
+		cursor = cursor->next;
 	}
 	++(vm->cycle_count);
 	++(vm->total_cycle_count);
 	if (vm->cycle_count == CYCLE_TO_DIE)
-		check_cursors(vm);
+		perform_check(vm);
 }
