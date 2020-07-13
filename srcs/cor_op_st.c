@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/08 16:51:19 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/13 15:18:04 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/07/13 17:05:13 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,23 +61,23 @@ void		op_st(t_vm *vm, t_cursor *cursor)
 {
 	int		arg_1;
 	int		arg_2;
+	int		type;
 
-	arg_1 = 0;
-	arg_2 = 0;
+	type = get_arg_type(vm->arena[new_idx(cursor->pc, 1, FALSE)], 2);
 	if (op_st_check(vm, cursor) != SUCCESS)
 		return ;
 	arg_1 = convert_to_int(&(vm->arena[new_idx(cursor->pc, 2, 0)]), 1);
-	if (get_arg_type(vm->arena[new_idx(cursor->pc, 1, FALSE)], 2) == 1)
+	if (type == REG)
 	{
 		arg_2 = convert_to_int(&(vm->arena[new_idx(cursor->pc, 3, 0)]), 1);
 		if (arg_2 < REG_NUMBER)
 			cursor->reg[arg_2] = cursor->reg[arg_1];
 		cursor->pc = new_idx(cursor->pc, 4, FALSE);
 	}
-	else if (get_arg_type(vm->arena[new_idx(cursor->pc, 1, FALSE)], 2) == 3)
+	else if (type == IND)
 	{
 		arg_2 = convert_to_int(&(vm->arena[new_idx(cursor->pc, 3, 0)]), 2);
-		vm->arena[new_idx(cursor->pc, arg_2, 0)] = cursor->reg[arg_1];
+		store_int_arena(vm->arena, new_idx(cursor->pc, arg_2, FALSE), cursor->reg[arg_1]);
 		vis_st(vm, cursor, arg_2);
 		cursor->pc = new_idx(cursor->pc, 5, FALSE);
 	}
