@@ -6,7 +6,7 @@
 #    By: mmarcell <mmarcell@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/02/28 18:56:22 by mmarcell      #+#    #+#                  #
-#    Updated: 2020/07/10 16:54:49 by lhageman      ########   odam.nl          #
+#    Updated: 2020/07/13 15:21:16 by lhageman      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,9 +26,13 @@ COR_FILES := \
 	cor_op_fork.c \
 	cor_op_ld.c \
 	cor_op_ldi.c \
+	cor_op_lfork.c \
 	cor_op_live.c \
+	cor_op_lld.c \
+	cor_op_lldi.c \
 	cor_op_or.c \
 	cor_op_st.c \
+	cor_op_sti.c \
 	cor_op_sub.c \
 	cor_op_xor.c \
 	cor_op_zjmp.c \

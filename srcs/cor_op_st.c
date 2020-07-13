@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/08 16:51:19 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/13 13:15:28 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/07/13 15:18:04 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ static int	op_st_check(t_vm *vm, t_cursor *cursor)
 	unsigned char	enc;
 
 	enc = vm->arena[new_idx(cursor->pc, 1, 0)];
-	if (get_arg_type(enc, 4) == 0 && \
-		get_arg_type(enc, 3) == 0 && \
-		get_arg_type(enc, 2) == 0 && \
-		get_arg_type(enc, 1) == 0 && \
-		get_arg_type(enc, 2) == DIR && \
+	if (get_arg_type(enc, 4) != 0 || \
+		get_arg_type(enc, 3) != 0 || \
+		get_arg_type(enc, 2) == 0 || \
+		get_arg_type(enc, 2) == DIR || \
+		get_arg_type(enc, 1) == 0 ||
 		get_arg_type(enc, 1) != REG)
 	{
 		cursor->pc = new_idx(cursor->pc, 1, FALSE);
@@ -81,10 +81,4 @@ void		op_st(t_vm *vm, t_cursor *cursor)
 		vis_st(vm, cursor, arg_2);
 		cursor->pc = new_idx(cursor->pc, 5, FALSE);
 	}
-}
-
-void	op_sti(t_vm *vm, t_cursor *cursor)
-{
-	if (vm == NULL || cursor == NULL)
-		return ;
 }

@@ -18,8 +18,4 @@ void	op_ldi(t_vm *vm, t_cursor *cursor)
 		return ;
 }
 
-void	op_lldi(t_vm *vm, t_cursor *cursor)
-{
-	if (vm == NULL || cursor == NULL)
-		return ;
-}
+

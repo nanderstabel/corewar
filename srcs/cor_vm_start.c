@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/03 11:22:16 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/13 12:07:59 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/07/13 15:18:57 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,7 @@ int	cursors_init(t_vm *vm)
 		++idx;
 	}
 	return (SUCCESS);
-}		
-
-
+}
 
 static void	set_op_table(t_op_table *operations)
 {

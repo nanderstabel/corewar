@@ -18,8 +18,3 @@ void	op_fork(t_vm *vm, t_cursor *cursor)
 		return ;
 }
 
-void	op_lfork(t_vm *vm, t_cursor *cursor)
-{
-	if (vm == NULL || cursor == NULL)
-		return ;
-}

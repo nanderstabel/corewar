@@ -18,8 +18,3 @@ void	op_ld(t_vm *vm, t_cursor *cursor)
 		return ;
 }
 
-void	op_lld(t_vm *vm, t_cursor *cursor)
-{
-	if (vm == NULL || cursor == NULL)
-		return ;
-}
