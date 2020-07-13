@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/07/12 14:44:53 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/07/13 12:08:12 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct		s_cursor
 	unsigned int	op_code;
 	unsigned int	ctw;
 	unsigned int	decay;
-	int				reg[REG_NUMBER];
+	int				reg[REG_NUMBER + 1];
 	unsigned int	carry;
 	int				player;
 	struct s_cursor	*next;
@@ -110,7 +110,6 @@ int					cursors_init(t_vm *vm);
 void				game_loop(t_vm *vm, t_op_table operations);
 
 int					get_arg_type(unsigned char enc, unsigned int no);
-void				move_pc(t_vm * vm, t_cursor *cursor, unsigned int move);
 
 void				perform_check(t_vm *vm);
 #endif

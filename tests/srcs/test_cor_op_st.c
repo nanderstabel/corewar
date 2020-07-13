@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/12 13:05:35 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/12 15:53:37 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/07/13 13:46:36 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ Test(cor_op_st, reg_reg_1)
 	char	decoding = 80;
 	int		move_bytes = 4;
 	char	arg_1 = 2;
-	char	arg_2 = 1;
+	char	arg_2 = 3;
 	int		value = 42;
 
 	ft_bzero(&vm, sizeof(t_vm));
@@ -68,7 +68,7 @@ Test(cor_op_st, reg_reg_1)
 	cursor = vm.cursors;
 	unsigned int pc_before = cursor->pc;
 	cursor->reg[(int)arg_1] = value;
-	cr_assert_eq(cursor->reg[(int)arg_2], 0, "reg[arg_2] not initialized to 0\n");
+	cr_assert_eq(cursor->reg[(int)arg_2], 0, "reg[arg_2] = %d not initialized to 0\n", cursor->reg[(int)arg_2]);
 	op_st(&vm, cursor);
 	unsigned int pc_after = cursor->pc;
 	cr_assert_eq(cursor->reg[(int)arg_2], value, "reg[arg_2] = %d\n expected: reg[arg_2] = %d", cursor->reg[(int)arg_1], value);

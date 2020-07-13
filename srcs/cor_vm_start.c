@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/03 11:22:16 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/12 15:38:19 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/07/13 12:07:59 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,16 +48,18 @@ int	cursors_init(t_vm *vm)
 		new_cursor->pc = (MEM_SIZE / vm->champ_count) * (idx - 1);
 		ft_memcpy(&(vm->arena[new_cursor->pc]), vm->champ[idx]->exec_code, \
 			vm->champ[idx]->header.prog_size);
-		new_cursor->reg[0] = -idx;
+		new_cursor->reg[1] = idx;
 		new_cursor->next = vm->cursors;
 		vm->cursors = new_cursor;
-		new_cursor->player = idx - 1;
+		new_cursor->player = idx;
 		ft_printf("with exec_code:\n");
 		put_exec_code(vm->champ[idx]->exec_code, vm->champ[idx]->header.prog_size);
 		++idx;
 	}
 	return (SUCCESS);
-}
+}		
+
+
 
 static void	set_op_table(t_op_table *operations)
 {

@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 11:20:48 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/10 16:29:16 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/07/13 13:24:41 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,22 @@
 
 static void	vis_live(t_vm *vm, t_cursor *cursor)
 {
+	int	bold;
+	int	inverse;
+	int	bytes;
+
+	bold = FALSE;
+	inverse = TRUE;
+	bytes = 1;
 	if (vm->vis == NULL)
 		return ;
-	vm->vis->attr[cursor->player](vis_calc_att(0, 1), vm->vis->graphics->arena);
+	vm->vis->attr[cursor->player](vis_calc_att(bold, inverse), vm->vis->graphics->arena);
 	vm->vis->index = cursor->pc;
-	vm->vis->bytes = 1;
+	vm->vis->bytes = bytes;
+	vis_print_cursor(vm->vis);
+	vm->vis->attr[cursor->player](vis_calc_att(bold, FALSE), vm->vis->graphics->arena);
+	vm->vis->index = cursor->pc;
+	vm->vis->bytes = bytes;
 	vis_print_cursor(vm->vis);
 }
 
@@ -29,20 +40,20 @@ void	op_live(t_vm *vm, t_cursor *cursor)
 	int				arg;
 
 	arg = convert_to_int(&(vm->arena[new_idx(cursor->pc, 1, FALSE)]), 4);
-	if (0 < -arg && (unsigned int)-arg <= vm->champ_count)
+	if (arg == cursor->reg[1])
 	{
 		vm->last_live = arg;
 		++(vm->live_count);
 		cursor->decay = 0;
 		if (vm->vis == NULL)
 			ft_printf("A process shows that player %d (%s) is alive\n", \
-				-arg, vm->champ[-arg]->header.prog_name);
+				arg, vm->champ[arg]->header.prog_name);
 		vis_live(vm, cursor);
-		move_pc(vm, cursor, 5);
+		cursor->pc = new_idx(cursor->pc, 5, FALSE);
 		// If wanted live count for champ
 		return ;
 	}
 	else
-		move_pc(vm, cursor, 1);
+		cursor->pc = new_idx(cursor->pc, 1, FALSE);
 	return ;
 }
