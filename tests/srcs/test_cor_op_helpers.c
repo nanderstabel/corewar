@@ -15,6 +15,384 @@
 #include <criterion/redirect.h>
 #include "corewar.h"
 
+Test(store_in_arena, len_4_neg)
+{
+	unsigned int	len = 4;
+	int				value = -1;
+	unsigned int	start_idx = MEM_SIZE - 2;
+
+	unsigned char	arena[MEM_SIZE];
+	ft_bzero(&arena, MEM_SIZE);
+	store_in_arena(arena, start_idx, len, value);
+	int converted = convert_to_int(arena, start_idx, len);
+	cr_expect_eq(value, converted, "value = %d, converted from arena = %d\n", value, converted);
+	unsigned int i = 0;
+	unsigned char stored_byte;
+	unsigned char value_byte;
+	while (i < len)
+	{
+		stored_byte = arena[new_idx(start_idx, i, FALSE)];
+		value_byte = ((unsigned char*)&value)[len - 1 - i];
+		cr_expect_eq(stored_byte, value_byte, "stored_byte[%d]: %d, expected: %d\n", i, stored_byte, value_byte);
+		++i;
+	}
+}
+
+Test(store_in_arena, len_4_pos)
+{
+	unsigned int	len = 4;
+	int				value = 42;
+	unsigned int	start_idx = 42;
+
+	unsigned char	arena[MEM_SIZE];
+	ft_bzero(&arena, MEM_SIZE);
+	store_in_arena(arena, start_idx, len, value);
+	int converted = convert_to_int(arena, start_idx, len);
+	cr_expect_eq(value, converted, "value = %d, converted from arena = %d\n", value, converted);
+	unsigned int i = 0;
+	unsigned char stored_byte;
+	unsigned char value_byte;
+	while (i < len)
+	{
+		stored_byte = arena[new_idx(start_idx, i, FALSE)];
+		value_byte = ((unsigned char*)&value)[len - 1 - i];
+		cr_expect_eq(stored_byte, value_byte, "stored_byte[%d]: %d, expected: %d\n", i, stored_byte, value_byte);
+		++i;
+	}
+}
+
+Test(store_in_arena, len_4_one)
+{
+	unsigned int	len = 4;
+	int				value = 1;
+	unsigned int	start_idx = 0;
+
+	unsigned char	arena[MEM_SIZE];
+	ft_bzero(&arena, MEM_SIZE);
+	store_in_arena(arena, start_idx, len, value);
+	int converted = convert_to_int(arena, start_idx, len);
+	cr_expect_eq(value, converted, "value = %d, converted from arena = %d\n", value, converted);
+	unsigned int i = 0;
+	unsigned char stored_byte;
+	unsigned char value_byte;
+	while (i < len)
+	{
+		stored_byte = arena[new_idx(start_idx, i, FALSE)];
+		value_byte = ((unsigned char*)&value)[len - 1 - i];
+		cr_expect_eq(stored_byte, value_byte, "stored_byte[%d]: %d, expected: %d\n", i, stored_byte, value_byte);
+		++i;
+	}
+}
+
+Test(store_in_arena, len_4_zero)
+{
+	unsigned int	len = 4;
+	int				value = 0;
+	unsigned int	start_idx = MEM_SIZE / 5;
+
+	unsigned char	arena[MEM_SIZE];
+	ft_bzero(&arena, MEM_SIZE);
+	store_in_arena(arena, start_idx, len, value);
+	int converted = convert_to_int(arena, start_idx, len);
+	cr_expect_eq(value, converted, "value = %d, converted from arena = %d\n", value, converted);
+	unsigned int i = 0;
+	unsigned char stored_byte;
+	unsigned char value_byte;
+	while (i < len)
+	{
+		stored_byte = arena[new_idx(start_idx, i, FALSE)];
+		value_byte = ((unsigned char*)&value)[len - 1 - i];
+		cr_expect_eq(stored_byte, value_byte, "stored_byte[%d]: %d, expected: %d\n", i, stored_byte, value_byte);
+		++i;
+	}
+}
+
+
+
+Test(store_in_arena, len_3_neg)
+{
+	unsigned int	len = 3;
+	int				value = -978016;
+	unsigned int	start_idx = MEM_SIZE - 6;
+
+	unsigned char	arena[MEM_SIZE];
+	ft_bzero(&arena, MEM_SIZE);
+	store_in_arena(arena, start_idx, len, value);
+	// int converted = convert_to_int(arena, start_idx, len);
+	// cr_expect_eq(value, converted, "value = %d, converted from arena = %d\n", value, converted);
+	unsigned int i = 0;
+	unsigned char stored_byte;
+	unsigned char value_byte;
+	while (i < len)
+	{
+		stored_byte = arena[new_idx(start_idx, i, FALSE)];
+		value_byte = ((unsigned char*)&value)[len - 1 - i];
+		cr_expect_eq(stored_byte, value_byte, "stored_byte[%d]: %d, expected: %d\n", i, stored_byte, value_byte);
+		++i;
+	}
+}
+
+Test(store_in_arena, len_3_pos)
+{
+	unsigned int	len = 3;
+	int				value = 978016;
+	unsigned int	start_idx = MEM_SIZE - 253;
+
+	unsigned char	arena[MEM_SIZE];
+	ft_bzero(&arena, MEM_SIZE);
+	store_in_arena(arena, start_idx, len, value);
+	int converted = convert_to_int(arena, start_idx, len);
+	cr_expect_eq(value, converted, "value = %d, converted from arena = %d\n", value, converted);
+	unsigned int i = 0;
+	unsigned char stored_byte;
+	unsigned char value_byte;
+	while (i < len)
+	{
+		stored_byte = arena[new_idx(start_idx, i, FALSE)];
+		value_byte = ((unsigned char*)&value)[len - 1 - i];
+		cr_expect_eq(stored_byte, value_byte, "stored_byte[%d]: %d, expected: %d\n", i, stored_byte, value_byte);
+		++i;
+	}
+}
+
+Test(store_in_arena, len_3_one)
+{
+	unsigned int	len = 3;
+	int				value = 1;
+	unsigned int	start_idx = 0;
+
+	unsigned char	arena[MEM_SIZE];
+	ft_bzero(&arena, MEM_SIZE);
+	store_in_arena(arena, start_idx, len, value);
+	int converted = convert_to_int(arena, start_idx, len);
+	cr_expect_eq(value, converted, "value = %d, converted from arena = %d\n", value, converted);
+	unsigned int i = 0;
+	unsigned char stored_byte;
+	unsigned char value_byte;
+	while (i < len)
+	{
+		stored_byte = arena[new_idx(start_idx, i, FALSE)];
+		value_byte = ((unsigned char*)&value)[len - 1 - i];
+		cr_expect_eq(stored_byte, value_byte, "stored_byte[%d]: %d, expected: %d\n", i, stored_byte, value_byte);
+		++i;
+	}
+}
+
+Test(store_in_arena, len_3_zero)
+{
+	unsigned int	len = 3;
+	int				value = 0;
+	unsigned int	start_idx = MEM_SIZE - 6;
+
+	unsigned char	arena[MEM_SIZE];
+	ft_bzero(&arena, MEM_SIZE);
+	store_in_arena(arena, start_idx, len, value);
+	int converted = convert_to_int(arena, start_idx, len);
+	cr_expect_eq(value, converted, "value = %d, converted from arena = %d\n", value, converted);
+	unsigned int i = 0;
+	unsigned char stored_byte;
+	unsigned char value_byte;
+	while (i < len)
+	{
+		stored_byte = arena[new_idx(start_idx, i, FALSE)];
+		value_byte = ((unsigned char*)&value)[len - 1 - i];
+		cr_expect_eq(stored_byte, value_byte, "stored_byte[%d]: %d, expected: %d\n", i, stored_byte, value_byte);
+		++i;
+	}
+}
+
+
+
+Test(store_in_arena, len_2_neg)
+{
+	unsigned int	len = 2;
+	int				value = -42;
+	unsigned int	start_idx = 0;
+
+	unsigned char	arena[MEM_SIZE];
+	ft_bzero(&arena, MEM_SIZE);
+	store_in_arena(arena, start_idx, len, value);
+	// int converted = convert_to_int(arena, start_idx, len);
+	// cr_expect_eq(value, converted, "value = %d, converted from arena = %d\n", value, converted);
+	unsigned int i = 0;
+	unsigned char stored_byte;
+	unsigned char value_byte;
+	while (i < len)
+	{
+		stored_byte = arena[new_idx(start_idx, i, FALSE)];
+		value_byte = ((unsigned char*)&value)[len - 1 - i];
+		cr_expect_eq(stored_byte, value_byte, "stored_byte[%d]: %d, expected: %d\n", i, stored_byte, value_byte);
+		++i;
+	}
+}
+
+Test(store_in_arena, len_2_pos)
+{
+	unsigned int	len = 2;
+	int				value = 42;
+	unsigned int	start_idx = MEM_SIZE - 1;
+
+	unsigned char	arena[MEM_SIZE];
+	ft_bzero(&arena, MEM_SIZE);
+	store_in_arena(arena, start_idx, len, value);
+	int converted = convert_to_int(arena, start_idx, len);
+	cr_expect_eq(value, converted, "value = %d, converted from arena = %d\n", value, converted);
+	unsigned int i = 0;
+	unsigned char stored_byte;
+	unsigned char value_byte;
+	while (i < len)
+	{
+		stored_byte = arena[new_idx(start_idx, i, FALSE)];
+		value_byte = ((unsigned char*)&value)[len - 1 - i];
+		cr_expect_eq(stored_byte, value_byte, "stored_byte[%d]: %d, expected: %d\n", i, stored_byte, value_byte);
+		++i;
+	}
+}
+
+Test(store_in_arena, len_2_one)
+{
+	unsigned int	len = 2;
+	int				value = 1;
+	unsigned int	start_idx = MEM_SIZE - 1;
+
+	unsigned char	arena[MEM_SIZE];
+	ft_bzero(&arena, MEM_SIZE);
+	store_in_arena(arena, start_idx, len, value);
+	int converted = convert_to_int(arena, start_idx, len);
+	cr_expect_eq(value, converted, "value = %d, converted from arena = %d\n", value, converted);
+	unsigned int i = 0;
+	unsigned char stored_byte;
+	unsigned char value_byte;
+	while (i < len)
+	{
+		stored_byte = arena[new_idx(start_idx, i, FALSE)];
+		value_byte = ((unsigned char*)&value)[len - 1 - i];
+		cr_expect_eq(stored_byte, value_byte, "stored_byte[%d]: %d, expected: %d\n", i, stored_byte, value_byte);
+		++i;
+	}
+}
+
+Test(store_in_arena, len_2_zero)
+{
+	unsigned int	len = 2;
+	int				value = 0;
+	unsigned int	start_idx = MEM_SIZE - 1;
+
+	unsigned char	arena[MEM_SIZE];
+	ft_bzero(&arena, MEM_SIZE);
+	store_in_arena(arena, start_idx, len, value);
+	int converted = convert_to_int(arena, start_idx, len);
+	cr_expect_eq(value, converted, "value = %d, converted from arena = %d\n", value, converted);
+	unsigned int i = 0;
+	unsigned char stored_byte;
+	unsigned char value_byte;
+	while (i < len)
+	{
+		stored_byte = arena[new_idx(start_idx, i, FALSE)];
+		value_byte = ((unsigned char*)&value)[len - 1 - i];
+		cr_expect_eq(stored_byte, value_byte, "stored_byte[%d]: %d, expected: %d\n", i, stored_byte, value_byte);
+		++i;
+	}
+}
+
+
+
+Test(store_in_arena, len_1_neg)
+{
+	unsigned int	len = 1;
+	int				value = -5;
+	unsigned int	start_idx = MEM_SIZE - 1;
+
+	unsigned char	arena[MEM_SIZE];
+	ft_bzero(&arena, MEM_SIZE);
+	store_in_arena(arena, start_idx, len, value);
+	// int converted = convert_to_int(arena, start_idx, len);
+	// cr_expect_eq(value, converted, "value = %d, converted from arena = %d\n", value, converted);
+	unsigned int i = 0;
+	unsigned char stored_byte;
+	unsigned char value_byte;
+	while (i < len)
+	{
+		stored_byte = arena[new_idx(start_idx, i, FALSE)];
+		value_byte = ((unsigned char*)&value)[len - 1 - i];
+		cr_expect_eq(stored_byte, value_byte, "stored_byte[%d]: %d, expected: %d\n", i, stored_byte, value_byte);
+		++i;
+	}
+}
+
+Test(store_in_arena, len_1_pos)
+{
+	unsigned int	len = 1;
+	int				value = 127;
+	unsigned int	start_idx = MEM_SIZE - 1;
+
+	unsigned char	arena[MEM_SIZE];
+	ft_bzero(&arena, MEM_SIZE);
+	store_in_arena(arena, start_idx, len, value);
+	int converted = convert_to_int(arena, start_idx, len);
+	cr_expect_eq(value, converted, "value = %d, converted from arena = %d\n", value, converted);
+	unsigned int i = 0;
+	unsigned char stored_byte;
+	unsigned char value_byte;
+	while (i < len)
+	{
+		stored_byte = arena[new_idx(start_idx, i, FALSE)];
+		value_byte = ((unsigned char*)&value)[len - 1 - i];
+		cr_expect_eq(stored_byte, value_byte, "stored_byte[%d]: %d, expected: %d\n", i, stored_byte, value_byte);
+		++i;
+	}
+}
+
+Test(store_in_arena, len_1_one)
+{
+	unsigned int	len = 1;
+	int				value = 1;
+	unsigned int	start_idx = MEM_SIZE - 1;
+
+	unsigned char	arena[MEM_SIZE];
+	ft_bzero(&arena, MEM_SIZE);
+	store_in_arena(arena, start_idx, len, value);
+	int converted = convert_to_int(arena, start_idx, len);
+	cr_expect_eq(value, converted, "value = %d, converted from arena = %d\n", value, converted);
+	unsigned int i = 0;
+	unsigned char stored_byte;
+	unsigned char value_byte;
+	while (i < len)
+	{
+		stored_byte = arena[new_idx(start_idx, i, FALSE)];
+		value_byte = ((unsigned char*)&value)[len - 1 - i];
+		cr_expect_eq(stored_byte, value_byte, "stored_byte[%d]: %d, expected: %d\n", i, stored_byte, value_byte);
+		++i;
+	}
+}
+
+Test(store_in_arena, len_1_zero)
+{
+	unsigned int	len = 1;
+	int				value = 0;
+	unsigned int	start_idx = MEM_SIZE - 1;
+
+	unsigned char	arena[MEM_SIZE];
+	ft_bzero(&arena, MEM_SIZE);
+	store_in_arena(arena, start_idx, len, value);
+	int converted = convert_to_int(arena, start_idx, len);
+	cr_expect_eq(value, converted, "value = %d, converted from arena = %d\n", value, converted);
+	unsigned int i = 0;
+	unsigned char stored_byte;
+	unsigned char value_byte;
+	while (i < len)
+	{
+		stored_byte = arena[new_idx(start_idx, i, FALSE)];
+		value_byte = ((unsigned char*)&value)[len - 1 - i];
+		cr_expect_eq(stored_byte, value_byte, "stored_byte[%d]: %d, expected: %d\n", i, stored_byte, value_byte);
+		++i;
+	}
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//	ARG_TYPE	ARG_TYPE	ARG_TYPE	ARG_TYPE	ARG_TYPE	ARG_TYPE	  //
+////////////////////////////////////////////////////////////////////////////////
+
 Test(get_arg_type, mix_3)
 {
 	unsigned char	enc = 96;	// 01 10 00 00
