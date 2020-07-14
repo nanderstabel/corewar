@@ -15,6 +15,12 @@
 #include <criterion/redirect.h>
 #include "corewar.h"
 
+static void	redirect_all_stdout(void)
+{
+	cr_redirect_stdout();
+	cr_redirect_stderr();
+}
+
 static int	init_champions(t_vm *vm, unsigned int champ_count)
 {
 	unsigned int idx;
@@ -45,7 +51,7 @@ static int	init_champions(t_vm *vm, unsigned int champ_count)
 	return (SUCCESS);
 }
 
-Test(cor_op_live, valid_id/* , .init=redirect_all_stdout */)
+Test(cor_op_live, valid_id, .init=redirect_all_stdout)
 {
 	t_vm vm;
 	t_cursor *cursor;

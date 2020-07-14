@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/10 14:51:50 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/13 12:02:32 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/07/13 17:04:54 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,21 @@ int		get_arg_type(unsigned char enc, unsigned int no)
 	if (no == 3)
 		return (type);
 	enc ^= (type << 2);
-	type = (enc >> 2);
+	type = enc;
 	if (no == 4)
 		return (type);
 	return (-1);
+}
+
+void	store_in_arena(unsigned char *arena, unsigned int idx, \
+		unsigned int len, int value)
+{
+	unsigned int	i;
+
+	i = len;
+	while (i > 0)
+	{
+		arena[new_idx(idx, len - i, FALSE)] = ((unsigned char*)&value)[i - 1];
+		--i;
+	}
 }

@@ -67,8 +67,8 @@ int			is_champion(char *file_name, int *champ_size)
 		return (ERROR);
 	if (check_for_null_bytes(buf) == ERROR)
 		return (print_message(FILE_INV_FORMAT, file_name, STDERR, ERROR));
-	*champ_size = convert_to_int(buf + 8 + PROG_NAME_LENGTH, 4);
-	magic = convert_to_int(buf, 4);
+	*champ_size = convert_to_int(buf, 8 + PROG_NAME_LENGTH, 4);
+	magic = convert_to_int(buf, 0, 4);
 	if (*champ_size < -1 || CHAMP_MAX_SIZE < *champ_size || \
 		bytes_read - champ_file_min_size != (unsigned int)*champ_size)
 		return (print_message(FILE_CHAMP_TOO_BIG, file_name, STDERR, ERROR));
