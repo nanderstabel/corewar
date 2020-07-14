@@ -233,7 +233,7 @@ Test(convert_to_int, 4_valid_magic)
 	ft_bzero(buf, MEM_SIZE);
 	int expected_int = 15369203;
 	unsigned int len = 4;
-	unsigned int start_idx = new_idx(MEM_SIZE - 1, 4, TRUE);
+	unsigned int start_idx = MEM_SIZE - 3;
 
 	unsigned int i = len;
 	while (i > 0)
@@ -252,7 +252,7 @@ Test(convert_to_int, 3_valid_zero)
 	ft_bzero(buf, MEM_SIZE);
 	int expected_int = 0;
 	unsigned int len = 3;
-	unsigned int start_idx = new_idx(MEM_SIZE - 1, 1, TRUE);
+	unsigned int start_idx = 0;
 
 	unsigned int i = len;
 	while (i > 0)
@@ -270,7 +270,7 @@ Test(convert_to_int, 3_valid_one)
 	ft_bzero(buf, MEM_SIZE);
 	int expected_int = 1;
 	unsigned int len = 3;
-	unsigned int start_idx = new_idx(MEM_SIZE - 1, 1, TRUE);
+	unsigned int start_idx = MEM_SIZE / 4;
 
 	unsigned int i = len;
 	while (i > 0)
@@ -288,7 +288,7 @@ Test(convert_to_int, 3_valid_magic)
 	ft_bzero(buf, MEM_SIZE);
 	int expected_int = 15369203;
 	unsigned int len = 3;
-	unsigned int start_idx = new_idx(MEM_SIZE - 1, 4, TRUE);
+	unsigned int start_idx = MEM_SIZE - 2;
 
 	unsigned int i = len;
 	while (i > 0)
@@ -306,7 +306,7 @@ Test(convert_to_int, 2_valid_zero)
 	ft_bzero(buf, MEM_SIZE);
 	int expected_int = 0;
 	unsigned int len = 2;
-	unsigned int start_idx = new_idx(MEM_SIZE - 1, 1, TRUE);
+	unsigned int start_idx = MEM_SIZE - MEM_SIZE + 5;
 
 	unsigned int i = len;
 	while (i > 0)
@@ -324,7 +324,7 @@ Test(convert_to_int, 2_valid_one)
 	ft_bzero(buf, MEM_SIZE);
 	int expected_int = 1;
 	unsigned int len = 2;
-	unsigned int start_idx = new_idx(MEM_SIZE - 1, 4, TRUE);
+	unsigned int start_idx = MEM_SIZE - 1;
 
 	unsigned int i = len;
 	while (i > 0)
@@ -342,7 +342,7 @@ Test(convert_to_int, 2_valid_magic)
 	ft_bzero(buf, MEM_SIZE);
 	int expected_int = 33779;
 	unsigned int len = 2;
-	unsigned int start_idx = new_idx(MEM_SIZE - 1, 4, TRUE);
+	unsigned int start_idx = MEM_SIZE - 2;
 
 	unsigned int i = len;
 	while (i > 0)
@@ -360,7 +360,7 @@ Test(convert_to_int, 1_valid_zero)
 	ft_bzero(buf, MEM_SIZE);
 	int expected_int = 0;
 	unsigned int len = 1;
-	unsigned int start_idx = new_idx(MEM_SIZE - 1, 1, TRUE);
+	unsigned int start_idx = 3;
 
 	unsigned int i = len;
 	while (i > 0)
@@ -378,7 +378,7 @@ Test(convert_to_int, 1_valid_one)
 	ft_bzero(buf, MEM_SIZE);
 	int expected_int = 1;
 	unsigned int len = 1;
-	unsigned int start_idx = new_idx(MEM_SIZE - 1, 7, TRUE);
+	unsigned int start_idx = MEM_SIZE / 2;
 
 	unsigned int i = len;
 	while (i > 0)
@@ -396,7 +396,7 @@ Test(convert_to_int, 1_valid_magic)
 	ft_bzero(buf, MEM_SIZE);
 	int expected_int = 131;
 	unsigned int len = 1;
-	unsigned int start_idx = new_idx(MEM_SIZE - 1, 6, TRUE);
+	unsigned int start_idx = 0;
 
 	unsigned int i = len;
 	while (i > 0)
