@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/09 19:54:39 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/07/10 10:54:39 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/10 13:09:37 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_bool			check_str_to_long(int type, size_t max_size,
 			ft_dprintf(2, "Champion name too long (Max length 128)\n");
 		else
 			ft_dprintf(2, "Champion comment too long (Max length 2048)\n");
-		return (FAIL);
+		exit(0);
 	}
 	return (SUCCESS);
 }
