@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/08 16:47:57 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/14 16:27:57 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/14 18:53:44 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,25 +43,26 @@ void		op_ld(t_vm *vm, t_cursor *cursor)
 {
 	int		arg_1;
 	int		arg_2;
+	int		type;
 
-	arg_1 = 0;
-	arg_2 = 0;
+	type = get_arg_type(vm->arena[new_idx(cursor->pc, 1, FALSE)], 1);
 	if (op_ld_check(vm, cursor) != SUCCESS)
 		return ;
-	if (get_arg_type(vm->arena[new_idx(cursor->pc, 1, FALSE)], 1) == DIR)
+	if (type == DIR)
 	{
-		arg_1 = convert_to_int(&(vm->arena[new_idx(cursor->pc, 2, 0)]), 4);
-		arg_2 = convert_to_int(&(vm->arena[new_idx(cursor->pc, 6, 0)]), 1);
+		arg_1 = convert_to_int(vm->arena, new_idx(cursor->pc, 2, 0), 4);
+		arg_2 = convert_to_int(vm->arena, new_idx(cursor->pc, 6, 0), 1);
 		if (arg_2 < REG_NUMBER)
 			cursor->reg[arg_2] = arg_1;
 		cursor->pc = new_idx(cursor->pc, 7, FALSE);
 	}
-	else if (get_arg_type(vm->arena[new_idx(cursor->pc, 1, FALSE)], 1) == IND)
+	else if (type == IND)
 	{
-		arg_1 = convert_to_int(&(vm->arena[new_idx(cursor->pc, 2, 0)]), 2);
-		arg_2 = convert_to_int(&(vm->arena[new_idx(cursor->pc, 4, 0)]), 1);
+		arg_1 = convert_to_int(vm->arena, new_idx(cursor->pc, 2, 0), 2);
+		arg_1 = convert_to_int(vm->arena, new_idx(cursor->pc, arg_1, 0), 4);
+		arg_2 = convert_to_int(vm->arena, new_idx(cursor->pc, 4, 0), 1);
 		if (arg_2 < REG_NUMBER)
-			cursor->reg[arg_2] = vm->arena[new_idx(cursor->pc, arg_1, 0)];
+			cursor->reg[arg_2] = arg_1;
 		cursor->pc = new_idx(cursor->pc, 5, FALSE);
 	}
 }
