@@ -127,6 +127,6 @@ void	op_sti(t_vm *vm, t_cursor *cursor)
 		return ;
 	}
 	store_idx = new_idx(cursor->pc, arg_2_value + arg_3_value, FALSE);
-	store_in_arena(&(vm->arena[store_idx]), cursor->reg[arg_1], 4);
+	store_in_arena(vm->arena, store_idx, 4, cursor->reg[arg_1]);
 	vis_sti(vm, cursor, store_idx);
 }

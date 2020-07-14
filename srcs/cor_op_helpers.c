@@ -34,13 +34,15 @@ int		get_arg_type(unsigned char enc, unsigned int no)
 	return (-1);
 }
 
-void	store_in_arena(unsigned char *start, int value, unsigned int len)
+void	store_in_arena(unsigned char *arena, unsigned int idx, \
+		unsigned int len, int value)
 {
-	start[0] = ((unsigned char*)&value)[3];
-	if (len >= 3)
-		start[new_idx(0, 1, FALSE)] = ((unsigned char*)&value)[2];
-	if (len >= 2)
-		start[new_idx(0, 2, FALSE)] = ((unsigned char*)&value)[1];
-	if (len >= 1)
-		start[new_idx(0, 3, FALSE)] = ((unsigned char*)&value)[0];
+	unsigned int	i;
+
+	i = len;
+	while (i > 0)
+	{
+		arena[new_idx(idx, len - i, FALSE)] = ((unsigned char*)&value)[i - 1];
+		--i;
+	}
 }

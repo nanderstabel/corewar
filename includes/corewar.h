@@ -111,8 +111,8 @@ int					cursors_init(t_vm *vm);
 void				game_loop(t_vm *vm, t_op_table operations);
 
 int					get_arg_type(unsigned char enc, unsigned int no);
-void				store_in_arena(unsigned char *start, int value, \
-					unsigned int len);
+void				store_in_arena(unsigned char *arena, unsigned int idx, \
+					unsigned int len, int value);
 
 void				perform_check(t_vm *vm);
 #endif

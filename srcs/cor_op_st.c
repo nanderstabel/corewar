@@ -77,8 +77,8 @@ void		op_st(t_vm *vm, t_cursor *cursor)
 	else if (type == IND)
 	{
 		arg_2 = convert_to_int(vm->arena, new_idx(cursor->pc, 3, 0), 2);
-		store_in_arena(&(vm->arena[new_idx(cursor->pc, arg_2, FALSE)]), \
-			cursor->reg[arg_1], 4);
+		store_in_arena(vm->arena, new_idx(cursor->pc, arg_2, FALSE), 4, \
+			cursor->reg[arg_1]);
 		vis_st(vm, cursor, arg_2);
 		cursor->pc = new_idx(cursor->pc, 5, FALSE);
 	}
