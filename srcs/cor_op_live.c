@@ -39,7 +39,7 @@ void	op_live(t_vm *vm, t_cursor *cursor)
 {
 	int				arg;
 
-	arg = convert_to_int(&(vm->arena[new_idx(cursor->pc, 1, FALSE)]), 4);
+	arg = convert_to_int(vm->arena, new_idx(cursor->pc, 1, FALSE), 4);
 	if (arg == cursor->reg[1])
 	{
 		vm->last_live = arg;

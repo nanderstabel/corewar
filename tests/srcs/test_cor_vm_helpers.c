@@ -68,6 +68,28 @@ Test(new_idx, neg_1)
 	cr_assert_eq(calculated_idx, expected_new, "current_idx = %d, offset = %d, l_flag = %d\nnew_idx = %d is incorrect\n", current_idx, offset, l_flag, calculated_idx);
 }
 
+Test(new_idx, pos_9)
+{
+	unsigned int	current_idx = MEM_SIZE;
+	int				offset = 42;
+	unsigned int	l_flag = TRUE;
+	unsigned int	expected_new = 42;
+
+	unsigned int	calculated_idx = new_idx(current_idx, offset, l_flag);
+	cr_assert_eq(calculated_idx, expected_new, "current_idx = %d, offset = %d, l_flag = %d\nnew_idx = %d is incorrect\n", current_idx, offset, l_flag, calculated_idx);
+}
+
+Test(new_idx, pos_8)
+{
+	unsigned int	current_idx = MEM_SIZE - 1;
+	int				offset = 1;
+	unsigned int	l_flag = TRUE;
+	unsigned int	expected_new = 0;
+
+	unsigned int	calculated_idx = new_idx(current_idx, offset, l_flag);
+	cr_assert_eq(calculated_idx, expected_new, "current_idx = %d, offset = %d, l_flag = %d\nnew_idx = %d is incorrect\n", current_idx, offset, l_flag, calculated_idx);
+}
+
 Test(new_idx, pos_7)
 {
 	unsigned int	current_idx = 3696;
@@ -153,175 +175,235 @@ Test(new_idx, pos_1)
 
 Test(convert_to_int, 4_valid_neg)
 {
-	unsigned char	buf[10];
-	int		return_int;
-	int		expected_int;
+	unsigned char	buf[MEM_SIZE];
+	ft_bzero(buf, MEM_SIZE);
+	int expected_int = -253066253;
+	unsigned int len = 4;
+	unsigned int start_idx = MEM_SIZE - 1;
 
-	ft_bzero(buf, 10);
-	expected_int = -253066253;
-	buf[6] = 0xf3;
-	buf[5] = 0x83;
-	buf[4] = 0xea;
-	buf[3] = 0xf0;
-	return_int = convert_to_int(buf + 3, 4);
-
+	unsigned int i = len;
+	while (i > 0)
+	{
+		buf[new_idx(start_idx, i - 1, TRUE)] = ((unsigned char*)&expected_int)[len - i];
+		--i;
+	}
+	int return_int = convert_to_int(buf, start_idx, len);
 	cr_assert_eq(return_int, expected_int, "expected value = %d doesn't match return value = %d", expected_int, return_int);
 }
 
 Test(convert_to_int, 4_valid_zero)
 {
-	unsigned char	buf[10];
-	int		return_int;
-	int		expected_int;
+	unsigned char	buf[MEM_SIZE];
+	ft_bzero(buf, MEM_SIZE);
+	int expected_int = 0;
+	unsigned int len = 4;
+	unsigned int start_idx = MEM_SIZE - 4;
 
-	ft_bzero(buf, 10);
-	expected_int = 0;
-	return_int = convert_to_int(buf, 4);
+	unsigned int i = len;
+	while (i > 0)
+	{
+		buf[new_idx(start_idx, i - 1, TRUE)] = ((unsigned char*)&expected_int)[len - i];
+		--i;
+	}
+	int return_int = convert_to_int(buf, start_idx, len);
 	cr_assert_eq(return_int, expected_int, "expected value = %d doesn't match return value = %d", expected_int, return_int);
 }
 
 Test(convert_to_int, 4_valid_one)
 {
-	unsigned char	buf[10];
-	int		return_int;
-	int		expected_int;
+	unsigned char	buf[MEM_SIZE];
+	ft_bzero(buf, MEM_SIZE);
+	int expected_int = 1;
+	unsigned int len = 4;
+	unsigned int start_idx = MEM_SIZE - 2;
 
-	ft_bzero(buf, 10);
-	expected_int = 1;
-	buf[3] = 1;
-	return_int = convert_to_int(buf, 4);
+	unsigned int i = len;
+	while (i > 0)
+	{
+		buf[new_idx(start_idx, i - 1, TRUE)] = ((unsigned char*)&expected_int)[len - i];
+		--i;
+	}
+	int return_int = convert_to_int(buf, start_idx, len);
 	cr_assert_eq(return_int, expected_int, "expected value = %d doesn't match return value = %d", expected_int, return_int);
 }
 
 Test(convert_to_int, 4_valid_magic)
 {
-	unsigned char	buf[10];
-	int		return_int;
-	int		expected_int;
+	unsigned char	buf[MEM_SIZE];
+	ft_bzero(buf, MEM_SIZE);
+	int expected_int = 15369203;
+	unsigned int len = 4;
+	unsigned int start_idx = new_idx(MEM_SIZE - 1, 4, TRUE);
 
-	ft_bzero(buf, 10);
-	expected_int = 15369203;
-	buf[6] = 0xf3;
-	buf[5] = 0x83;
-	buf[4] = 0xea;
-	return_int = convert_to_int(buf + 3, 4);
+	unsigned int i = len;
+	while (i > 0)
+	{
+		buf[new_idx(start_idx, i - 1, TRUE)] = ((unsigned char*)&expected_int)[len - i];
+		--i;
+	}
+	int return_int = convert_to_int(buf, start_idx, len);
 	cr_assert_eq(return_int, expected_int, "expected value = %d doesn't match return value = %d", expected_int, return_int);
 }
 
 
 Test(convert_to_int, 3_valid_zero)
 {
-	unsigned char	buf[10];
-	int		return_int;
-	int		expected_int;
+	unsigned char	buf[MEM_SIZE];
+	ft_bzero(buf, MEM_SIZE);
+	int expected_int = 0;
+	unsigned int len = 3;
+	unsigned int start_idx = new_idx(MEM_SIZE - 1, 1, TRUE);
 
-	ft_bzero(buf, 10);
-	expected_int = 0;
-	return_int = convert_to_int(buf, 3);
+	unsigned int i = len;
+	while (i > 0)
+	{
+		buf[new_idx(start_idx, i - 1, TRUE)] = ((unsigned char*)&expected_int)[len - i];
+		--i;
+	}
+	int return_int = convert_to_int(buf, start_idx, len);
 	cr_assert_eq(return_int, expected_int, "expected value = %d doesn't match return value = %d", expected_int, return_int);
 }
 
 Test(convert_to_int, 3_valid_one)
 {
-	unsigned char	buf[10];
-	int		return_int;
-	int		expected_int;
+	unsigned char	buf[MEM_SIZE];
+	ft_bzero(buf, MEM_SIZE);
+	int expected_int = 1;
+	unsigned int len = 3;
+	unsigned int start_idx = new_idx(MEM_SIZE - 1, 1, TRUE);
 
-	ft_bzero(buf, 10);
-	expected_int = 1;
-	buf[2] = 1;
-	return_int = convert_to_int(buf, 3);
+	unsigned int i = len;
+	while (i > 0)
+	{
+		buf[new_idx(start_idx, i - 1, TRUE)] = ((unsigned char*)&expected_int)[len - i];
+		--i;
+	}
+	int return_int = convert_to_int(buf, start_idx, len);
 	cr_assert_eq(return_int, expected_int, "expected value = %d doesn't match return value = %d", expected_int, return_int);
 }
 
 Test(convert_to_int, 3_valid_magic)
 {
-	unsigned char	buf[10];
-	int		return_int;
-	int		expected_int;
+	unsigned char	buf[MEM_SIZE];
+	ft_bzero(buf, MEM_SIZE);
+	int expected_int = 15369203;
+	unsigned int len = 3;
+	unsigned int start_idx = new_idx(MEM_SIZE - 1, 4, TRUE);
 
-	ft_bzero(buf, 10);
-	expected_int = 15369203;
-	buf[5] = 0xf3;
-	buf[4] = 0x83;
-	buf[3] = 0xea;
-	return_int = convert_to_int(buf + 3, 3);
+	unsigned int i = len;
+	while (i > 0)
+	{
+		buf[new_idx(start_idx, i - 1, TRUE)] = ((unsigned char*)&expected_int)[len - i];
+		--i;
+	}
+	int return_int = convert_to_int(buf, start_idx, len);
 	cr_assert_eq(return_int, expected_int, "expected value = %d doesn't match return value = %d", expected_int, return_int);
 }
 
 Test(convert_to_int, 2_valid_zero)
 {
-	unsigned char	buf[10];
-	int		return_int;
-	int		expected_int;
+	unsigned char	buf[MEM_SIZE];
+	ft_bzero(buf, MEM_SIZE);
+	int expected_int = 0;
+	unsigned int len = 2;
+	unsigned int start_idx = new_idx(MEM_SIZE - 1, 1, TRUE);
 
-	ft_bzero(buf, 10);
-	expected_int = 0;
-	return_int = convert_to_int(buf, 2);
+	unsigned int i = len;
+	while (i > 0)
+	{
+		buf[new_idx(start_idx, i - 1, TRUE)] = ((unsigned char*)&expected_int)[len - i];
+		--i;
+	}
+	int return_int = convert_to_int(buf, start_idx, len);
 	cr_assert_eq(return_int, expected_int, "expected value = %d doesn't match return value = %d", expected_int, return_int);
 }
 
 Test(convert_to_int, 2_valid_one)
 {
-	unsigned char	buf[10];
-	int		return_int;
-	int		expected_int;
+	unsigned char	buf[MEM_SIZE];
+	ft_bzero(buf, MEM_SIZE);
+	int expected_int = 1;
+	unsigned int len = 2;
+	unsigned int start_idx = new_idx(MEM_SIZE - 1, 4, TRUE);
 
-	ft_bzero(buf, 10);
-	expected_int = 1;
-	buf[4] = 1;
-	return_int = convert_to_int(buf + 3, 2);
+	unsigned int i = len;
+	while (i > 0)
+	{
+		buf[new_idx(start_idx, i - 1, TRUE)] = ((unsigned char*)&expected_int)[len - i];
+		--i;
+	}
+	int return_int = convert_to_int(buf, start_idx, len);
 	cr_assert_eq(return_int, expected_int, "expected value = %d doesn't match return value = %d", expected_int, return_int);
 }
 
 Test(convert_to_int, 2_valid_magic)
 {
-	unsigned char	buf[10];
-	int		return_int;
-	int		expected_int;
+	unsigned char	buf[MEM_SIZE];
+	ft_bzero(buf, MEM_SIZE);
+	int expected_int = 33779;
+	unsigned int len = 2;
+	unsigned int start_idx = new_idx(MEM_SIZE - 1, 4, TRUE);
 
-	ft_bzero(buf, 10);
-	expected_int = 33779;
-	buf[4] = 0xf3;
-	buf[3] = 0x83;
-	return_int = convert_to_int(buf + 3, 2);
+	unsigned int i = len;
+	while (i > 0)
+	{
+		buf[new_idx(start_idx, i - 1, TRUE)] = ((unsigned char*)&expected_int)[len - i];
+		--i;
+	}
+	int return_int = convert_to_int(buf, start_idx, len);
 	cr_assert_eq(return_int, expected_int, "expected value = %d doesn't match return value = %d", expected_int, return_int);
 }
 
 Test(convert_to_int, 1_valid_zero)
 {
-	unsigned char	buf[10];
-	int		return_int;
-	int		expected_int;
+	unsigned char	buf[MEM_SIZE];
+	ft_bzero(buf, MEM_SIZE);
+	int expected_int = 0;
+	unsigned int len = 1;
+	unsigned int start_idx = new_idx(MEM_SIZE - 1, 1, TRUE);
 
-	ft_bzero(buf, 10);
-	expected_int = 0;
-	return_int = convert_to_int(buf, 1);
+	unsigned int i = len;
+	while (i > 0)
+	{
+		buf[new_idx(start_idx, i - 1, TRUE)] = ((unsigned char*)&expected_int)[len - i];
+		--i;
+	}
+	int return_int = convert_to_int(buf, start_idx, len);
 	cr_assert_eq(return_int, expected_int, "expected value = %d doesn't match return value = %d", expected_int, return_int);
 }
 
 Test(convert_to_int, 1_valid_one)
 {
-	unsigned char	buf[10];
-	int		return_int;
-	int		expected_int;
+	unsigned char	buf[MEM_SIZE];
+	ft_bzero(buf, MEM_SIZE);
+	int expected_int = 1;
+	unsigned int len = 1;
+	unsigned int start_idx = new_idx(MEM_SIZE - 1, 7, TRUE);
 
-	ft_bzero(buf, 10);
-	expected_int = 1;
-	buf[6] = 1;
-	return_int = convert_to_int(buf + 6, 1);
+	unsigned int i = len;
+	while (i > 0)
+	{
+		buf[new_idx(start_idx, i - 1, TRUE)] = ((unsigned char*)&expected_int)[len - i];
+		--i;
+	}
+	int return_int = convert_to_int(buf, start_idx, len);
 	cr_assert_eq(return_int, expected_int, "expected value = %d doesn't match return value = %d", expected_int, return_int);
 }
 
 Test(convert_to_int, 1_valid_magic)
 {
-	unsigned char	buf[10];
-	int		return_int;
-	int		expected_int;
+	unsigned char	buf[MEM_SIZE];
+	ft_bzero(buf, MEM_SIZE);
+	int expected_int = 131;
+	unsigned int len = 1;
+	unsigned int start_idx = new_idx(MEM_SIZE - 1, 6, TRUE);
 
-	ft_bzero(buf, 10);
-	expected_int = 131;
-	buf[5] = 0x83;
-	return_int = convert_to_int(buf + 5, 1);
+	unsigned int i = len;
+	while (i > 0)
+	{
+		buf[new_idx(start_idx, i - 1, TRUE)] = ((unsigned char*)&expected_int)[len - i];
+		--i;
+	}
+	int return_int = convert_to_int(buf, start_idx, len);
 	cr_assert_eq(return_int, expected_int, "expected value = %d doesn't match return value = %d", expected_int, return_int);
 }

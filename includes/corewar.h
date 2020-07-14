@@ -98,7 +98,8 @@ int					read_champion(unsigned char *buf, char *file_name, \
 int					save_champion(t_vm *vm, char *file, int champ_len, \
 					unsigned int champ_no);
 
-int					convert_to_int(unsigned char *start, unsigned int len);
+int					convert_to_int(unsigned char *arena, unsigned int idx, \
+					unsigned int len);
 unsigned int		new_idx(unsigned int current_idx, int offset, \
 					unsigned int flag);
 void				put_arena(unsigned char *arena);
@@ -110,8 +111,8 @@ int					cursors_init(t_vm *vm);
 void				game_loop(t_vm *vm, t_op_table operations);
 
 int					get_arg_type(unsigned char enc, unsigned int no);
-void				store_int_arena(unsigned char *arena, unsigned int idx, \
-					int value);
+void				store_in_arena(unsigned char *start, int value, \
+					unsigned int len);
 
 void				perform_check(t_vm *vm);
 #endif

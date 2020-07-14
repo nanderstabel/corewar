@@ -27,19 +27,20 @@ unsigned int	new_idx(unsigned int current_idx, int offset,
 	return (new_idx);
 }
 
-int				convert_to_int(unsigned char *start, unsigned int len)
+int				convert_to_int(unsigned char *arena, unsigned int idx, \
+				unsigned int len)
 {
 	int		integer;
 
 	integer = 0;
 	if (len == 4)
-		((unsigned char*)&integer)[len - 4] = start[3];
+		((unsigned char*)&integer)[len - 4] = arena[new_idx(idx, 3, FALSE)];
 	if (len >= 3)
-		((unsigned char*)&integer)[len - 3] = start[2];
+		((unsigned char*)&integer)[len - 3] = arena[new_idx(idx, 2, FALSE)];
 	if (len >= 2)
-		((unsigned char*)&integer)[len - 2] = start[1];
+		((unsigned char*)&integer)[len - 2] = arena[new_idx(idx, 1, FALSE)];
 	if (len >= 1)
-		((unsigned char*)&integer)[len - 1] = start[0];
+		((unsigned char*)&integer)[len - 1] = arena[new_idx(idx, 0, FALSE)];
 	return (integer);
 }
 

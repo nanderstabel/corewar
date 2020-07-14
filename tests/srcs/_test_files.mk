@@ -14,5 +14,6 @@ COR_TEST_FILES := \
 	test_cor_input.c \
 	test_cor_input_check_file.c \
 	test_cor_vm_helpers.c \
+	test_cor_op_helpers.c \
 	test_cor_op_st.c \
 	test_cor_op_live.c

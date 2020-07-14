@@ -28,16 +28,19 @@ int		get_arg_type(unsigned char enc, unsigned int no)
 	if (no == 3)
 		return (type);
 	enc ^= (type << 2);
-	type = (enc >> 2);
+	type = enc;
 	if (no == 4)
 		return (type);
 	return (-1);
 }
 
-void	store_int_arena(unsigned char *arena, unsigned int idx, int value)
+void	store_in_arena(unsigned char *start, int value, unsigned int len)
 {
-	arena[idx] = ((unsigned char*)&value)[3];
-	arena[new_idx(idx, 1, FALSE)] = ((unsigned char*)&value)[2];
-	arena[new_idx(idx, 2, FALSE)] = ((unsigned char*)&value)[1];
-	arena[new_idx(idx, 3, FALSE)] = ((unsigned char*)&value)[0];
+	start[0] = ((unsigned char*)&value)[3];
+	if (len >= 3)
+		start[new_idx(0, 1, FALSE)] = ((unsigned char*)&value)[2];
+	if (len >= 2)
+		start[new_idx(0, 2, FALSE)] = ((unsigned char*)&value)[1];
+	if (len >= 1)
+		start[new_idx(0, 3, FALSE)] = ((unsigned char*)&value)[0];
 }

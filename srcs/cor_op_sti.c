@@ -17,7 +17,7 @@
 // memory: current_position + (Argument2 % IDX_MOD)"							
 // 11	sti	[T_REG]	[T_REG | T_DIR | T_IND]	[T_REG | T_DIR]	[00001011]	[0x0B]	store index ctw:25
 
-static int	get_arg_2(t_vm *vm, t_cursor *cursor, int *value)
+static int	get_arg_2_value(t_vm *vm, t_cursor *cursor, int *value)
 {
 	int				type;
 	unsigned char	enc;
@@ -29,7 +29,7 @@ static int	get_arg_2(t_vm *vm, t_cursor *cursor, int *value)
 	type = get_arg_type(enc, 2);
 	if (type == REG)
 	{
-		arg = convert_to_int(vm->arena[arg_pos], 1);
+		arg = convert_to_int(vm->arena, arg_pos, 1);
 		if (0 < arg && arg <= 16)
 			*value = cursor->reg[arg];
 		else
@@ -37,31 +37,31 @@ static int	get_arg_2(t_vm *vm, t_cursor *cursor, int *value)
 	}
 	else
 	{
-		arg = convert_to_int(vm->arena[arg_pos], 2);
+		arg = convert_to_int(vm->arena, arg_pos, 2);
 		if (type == DIR)
 			*value = arg;
 		else
-			*value = convert_to_int(&(vm->arena[new_idx(cursor->pc, 3, 0)]), 2);
+			*value = convert_to_int(vm->arena, new_idx(cursor->pc, 3, 0), 2);
 	}
 	return (SUCCESS);
 }
 
-static int	get_arg_3(t_vm *vm, t_cursor *cursor, int *value)
+static int	get_arg_3_value(t_vm *vm, t_cursor *cursor, int *value)
 {
 	int				type;
 	unsigned char	enc;
 	unsigned int	arg_pos;
 	unsigned int	arg;
 
+	enc = vm->arena[new_idx(cursor->pc, 1, 0)];
 	if (get_arg_type(enc, 2) == REG)
 		arg_pos = new_idx(cursor->pc, 4, FALSE);
 	else
 		arg_pos = new_idx(cursor->pc, 5, FALSE);
-	enc = vm->arena[new_idx(cursor->pc, 1, 0)];
 	type = get_arg_type(enc, 3);
 	if (type == REG)
 	{
-		arg = convert_to_int(vm->arena[arg_pos], 1);
+		arg = convert_to_int(vm->arena, arg_pos, 1);
 		if (0 < arg && arg <= 16)
 			*value = cursor->reg[arg];
 		else
@@ -69,7 +69,7 @@ static int	get_arg_3(t_vm *vm, t_cursor *cursor, int *value)
 	}
 	else if (type == DIR)
 	{
-		arg = convert_to_int(vm->arena[arg_pos], 2);
+		arg = convert_to_int(vm->arena, arg_pos, 2);
 		*value = arg;
 	}
 	return (SUCCESS);
@@ -89,11 +89,10 @@ static int	op_sti_check(t_vm *vm, t_cursor *cursor)
 		cursor->pc = new_idx(cursor->pc, 1, FALSE);
 		return (ERROR);
 	}
-	else
-		return (SUCCESS);
+	return (SUCCESS);
 }
 
-static int	vis_sti(t_vm *vm, t_cursor *cursor, unsigned int store_idx)
+static void	vis_sti(t_vm *vm, t_cursor *cursor, unsigned int store_idx)
 {
 	int	bold;
 	int	inverse;
@@ -119,7 +118,7 @@ void	op_sti(t_vm *vm, t_cursor *cursor)
 
 	if (op_sti_check(vm, cursor) != SUCCESS)
 		return ;
-	arg_1 = convert_to_int(&(vm->arena[new_idx(cursor->pc, 2, 0)]), 1);
+	arg_1 = convert_to_int(vm->arena, new_idx(cursor->pc, 2, 0), 1);
 	if (arg_1 <= 0 || arg_1 > 16 || \
 		get_arg_2_value(vm, cursor, &arg_2_value) == ERROR || \
 		get_arg_3_value(vm, cursor, &arg_3_value) == ERROR)
@@ -128,6 +127,6 @@ void	op_sti(t_vm *vm, t_cursor *cursor)
 		return ;
 	}
 	store_idx = new_idx(cursor->pc, arg_2_value + arg_3_value, FALSE);
-	store_int_arena(vm->arena, store_idx, cursor->reg[arg_1]);
+	store_in_arena(&(vm->arena[store_idx]), cursor->reg[arg_1], 4);
 	vis_sti(vm, cursor, store_idx);
 }

@@ -12,7 +12,14 @@
 
 #include <criterion/criterion.h>
 #include <criterion/assert.h>
+#include <criterion/redirect.h>
 #include "corewar.h"
+
+static void	redirect_all_stdout(void)
+{
+	cr_redirect_stdout();
+	cr_redirect_stderr();
+}
 
 static int	init_champions(t_vm *vm, unsigned int champ_count)
 {
@@ -44,7 +51,7 @@ static int	init_champions(t_vm *vm, unsigned int champ_count)
 	return (SUCCESS);
 }
 
-Test(cor_op_st, reg_reg_1)
+Test(cor_op_st, reg_reg_1, .init=redirect_all_stdout)
 {
 	t_vm vm;
 	t_cursor *cursor;
@@ -76,37 +83,37 @@ Test(cor_op_st, reg_reg_1)
 }
 
 
-Test(cor_op_st, reg_ind_1)
-{
-	t_vm vm;
-	t_cursor *cursor;
-	char	op_code = 3;
-	char	decoding = 112;
-	int		move_bytes = 5;
-	char	arg_1 = 2;
-	char	arg_2_byte_1 = 5;
-	char	arg_2_byte_2 = 10;
-	int		value = 42;
-	//01110000
-	ft_bzero(&vm, sizeof(t_vm));
-	cr_assert_eq(init_champions(&vm, 1), SUCCESS, "something went wrong when initializing the champs\n");
-	vm.champ[1]->exec_code[0] = op_code;
-	vm.champ[1]->exec_code[1] = decoding;
-	// store the value of reg 1 in reg 2
-	vm.champ[1]->exec_code[2] = arg_1;
-	vm.champ[1]->exec_code[3] = arg_2_byte_1;
-	vm.champ[1]->exec_code[4] = arg_2_byte_2;
-	vm.champ[1]->header.prog_size = move_bytes;
+// Test(cor_op_st, reg_ind_1, .init=redirect_all_stdout)
+// {
+// 	t_vm vm;
+// 	t_cursor *cursor;
+// 	char	op_code = 3;
+// 	char	decoding = 112;		// 01 11 00 00
+// 	int		move_bytes = 5;
+// 	char	arg_1 = 2;
+// 	char	arg_2_byte_1 = 5;	
+// 	char	arg_2_byte_2 = 10;
+// 	int		value = 42;
+// 	//01110000
+// 	ft_bzero(&vm, sizeof(t_vm));
+// 	cr_assert_eq(init_champions(&vm, 1), SUCCESS, "something went wrong when initializing the champs\n");
+// 	vm.champ[1]->exec_code[0] = op_code;
+// 	vm.champ[1]->exec_code[1] = decoding;
+// 	// store the value of reg 1 in reg 2
+// 	vm.champ[1]->exec_code[2] = arg_1;
+// 	vm.champ[1]->exec_code[3] = arg_2_byte_1;
+// 	vm.champ[1]->exec_code[4] = arg_2_byte_2;
+// 	vm.champ[1]->header.prog_size = move_bytes;
 
-	cr_assert_eq(cursors_init(&vm), SUCCESS, "something went wrong when initializing the cursors\n");	// creates cursor list from the champions and loads the exec code into the arena
-	cursor = vm.cursors;
-	int	arg_2 = convert_to_int(&(vm.arena[cursor->pc + 3]), 2);
-	unsigned int pc_before = cursor->pc;
-	cursor->reg[(int)arg_1] = value;
-	unsigned int store_idx = new_idx(cursor->pc, arg_2, FALSE);
-	cr_assert_eq((int)vm.arena[store_idx], 0, "arena at store_idx not initialized to 0\n");
-	op_st(&vm, cursor);
-	unsigned int pc_after = cursor->pc;
-	cr_assert_eq((int)vm.arena[store_idx], value, "reg[arg_2] = %d\n expected: reg[arg_2] = %d", (int)vm.arena[store_idx], value);
-	cr_assert_eq(pc_after - pc_before, move_bytes, "cursor moved %d bytes but should have moved %d bytes\n", pc_after - pc_before, move_bytes);
-}
+// 	cr_assert_eq(cursors_init(&vm), SUCCESS, "something went wrong when initializing the cursors\n");	// creates cursor list from the champions and loads the exec code into the arena
+// 	cursor = vm.cursors;
+// 	int	arg_2 = convert_to_int(&(vm.arena[cursor->pc + 3]), 2);
+// 	unsigned int pc_before = cursor->pc;
+// 	cursor->reg[(int)arg_1] = value;
+// 	unsigned int store_idx = new_idx(cursor->pc, arg_2, FALSE);
+// 	cr_assert_eq((int)vm.arena[store_idx], 0, "arena at store_idx not initialized to 0\n");
+// 	op_st(&vm, cursor);
+// 	unsigned int pc_after = cursor->pc;
+// 	cr_assert_eq((int)vm.arena[store_idx], value, "reg[arg_2] = %d\n expected: reg[arg_2] = %d", (int)vm.arena[store_idx], value);
+// 	cr_assert_eq(pc_after - pc_before, move_bytes, "cursor moved %d bytes but should have moved %d bytes\n", pc_after - pc_before, move_bytes);
+// }
