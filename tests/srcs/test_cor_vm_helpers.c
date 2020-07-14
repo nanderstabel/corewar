@@ -173,7 +173,7 @@ Test(new_idx, pos_1)
 ///////////////////////////////////////////////////////////////////////////////
 
 
-Test(convert_to_int, 4_valid_neg)
+Test(convert_to_int, len_4_neg)
 {
 	unsigned char	buf[MEM_SIZE];
 	ft_bzero(buf, MEM_SIZE);
@@ -191,7 +191,7 @@ Test(convert_to_int, 4_valid_neg)
 	cr_assert_eq(return_int, expected_int, "expected value = %d doesn't match return value = %d", expected_int, return_int);
 }
 
-Test(convert_to_int, 4_valid_zero)
+Test(convert_to_int, len_4_zero)
 {
 	unsigned char	buf[MEM_SIZE];
 	ft_bzero(buf, MEM_SIZE);
@@ -209,7 +209,7 @@ Test(convert_to_int, 4_valid_zero)
 	cr_assert_eq(return_int, expected_int, "expected value = %d doesn't match return value = %d", expected_int, return_int);
 }
 
-Test(convert_to_int, 4_valid_one)
+Test(convert_to_int, len_4_one)
 {
 	unsigned char	buf[MEM_SIZE];
 	ft_bzero(buf, MEM_SIZE);
@@ -227,7 +227,7 @@ Test(convert_to_int, 4_valid_one)
 	cr_assert_eq(return_int, expected_int, "expected value = %d doesn't match return value = %d", expected_int, return_int);
 }
 
-Test(convert_to_int, 4_valid_magic)
+Test(convert_to_int, len_4_magic)
 {
 	unsigned char	buf[MEM_SIZE];
 	ft_bzero(buf, MEM_SIZE);
@@ -246,7 +246,7 @@ Test(convert_to_int, 4_valid_magic)
 }
 
 
-Test(convert_to_int, 3_valid_zero)
+Test(convert_to_int, len_3_zero)
 {
 	unsigned char	buf[MEM_SIZE];
 	ft_bzero(buf, MEM_SIZE);
@@ -264,7 +264,7 @@ Test(convert_to_int, 3_valid_zero)
 	cr_assert_eq(return_int, expected_int, "expected value = %d doesn't match return value = %d", expected_int, return_int);
 }
 
-Test(convert_to_int, 3_valid_one)
+Test(convert_to_int, len_3_one)
 {
 	unsigned char	buf[MEM_SIZE];
 	ft_bzero(buf, MEM_SIZE);
@@ -282,7 +282,7 @@ Test(convert_to_int, 3_valid_one)
 	cr_assert_eq(return_int, expected_int, "expected value = %d doesn't match return value = %d", expected_int, return_int);
 }
 
-Test(convert_to_int, 3_valid_magic)
+Test(convert_to_int, len_3_magic)
 {
 	unsigned char	buf[MEM_SIZE];
 	ft_bzero(buf, MEM_SIZE);
@@ -300,7 +300,7 @@ Test(convert_to_int, 3_valid_magic)
 	cr_assert_eq(return_int, expected_int, "expected value = %d doesn't match return value = %d", expected_int, return_int);
 }
 
-Test(convert_to_int, 2_valid_zero)
+Test(convert_to_int, len_2_zero)
 {
 	unsigned char	buf[MEM_SIZE];
 	ft_bzero(buf, MEM_SIZE);
@@ -318,7 +318,7 @@ Test(convert_to_int, 2_valid_zero)
 	cr_assert_eq(return_int, expected_int, "expected value = %d doesn't match return value = %d", expected_int, return_int);
 }
 
-Test(convert_to_int, 2_valid_one)
+Test(convert_to_int, len_2_one)
 {
 	unsigned char	buf[MEM_SIZE];
 	ft_bzero(buf, MEM_SIZE);
@@ -336,7 +336,7 @@ Test(convert_to_int, 2_valid_one)
 	cr_assert_eq(return_int, expected_int, "expected value = %d doesn't match return value = %d", expected_int, return_int);
 }
 
-Test(convert_to_int, 2_valid_magic)
+Test(convert_to_int, len_2_magic)
 {
 	unsigned char	buf[MEM_SIZE];
 	ft_bzero(buf, MEM_SIZE);
@@ -354,7 +354,7 @@ Test(convert_to_int, 2_valid_magic)
 	cr_assert_eq(return_int, expected_int, "expected value = %d doesn't match return value = %d", expected_int, return_int);
 }
 
-Test(convert_to_int, 1_valid_zero)
+Test(convert_to_int, len_1_zero)
 {
 	unsigned char	buf[MEM_SIZE];
 	ft_bzero(buf, MEM_SIZE);
@@ -372,7 +372,7 @@ Test(convert_to_int, 1_valid_zero)
 	cr_assert_eq(return_int, expected_int, "expected value = %d doesn't match return value = %d", expected_int, return_int);
 }
 
-Test(convert_to_int, 1_valid_one)
+Test(convert_to_int, len_1_one)
 {
 	unsigned char	buf[MEM_SIZE];
 	ft_bzero(buf, MEM_SIZE);
@@ -390,7 +390,7 @@ Test(convert_to_int, 1_valid_one)
 	cr_assert_eq(return_int, expected_int, "expected value = %d doesn't match return value = %d", expected_int, return_int);
 }
 
-Test(convert_to_int, 1_valid_magic)
+Test(convert_to_int, len_1_magic)
 {
 	unsigned char	buf[MEM_SIZE];
 	ft_bzero(buf, MEM_SIZE);
