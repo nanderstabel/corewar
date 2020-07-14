@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/07/09 19:53:41 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/10 13:08:16 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ t_bool			parameter_check(t_project *as)
 			ft_dprintf(2, "Invalid parameter %i type %s for instruction %s\n", \
 				as->index, g_token_tab[as->next_token->token_type].lower, \
 				as->current_token->literal_str);
+			exit(0);
 			return (FAIL);
 		}
 	}

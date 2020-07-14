@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/11 16:07:54 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/07/09 18:33:25 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/07/10 13:07:40 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ t_bool			instruction_error(t_project *as)
 		as->current_token->column + 1, \
 		g_token_tab[as->current_token->token_type].string, \
 		as->current_token->literal_str);
+	exit(0);
 	return (FAIL);
 }
 
