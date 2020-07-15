@@ -24,9 +24,9 @@
 # define STDIN					0
 # define STDOUT					1
 # define STDERR					2
-# define REG					1
-# define DIR					2
-# define IND					3
+# define REG					REG_CODE
+# define DIR					DIR_CODE
+# define IND					IND_CODE
 
 typedef struct		s_cursor
 {
