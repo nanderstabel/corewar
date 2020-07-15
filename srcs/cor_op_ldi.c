@@ -47,7 +47,7 @@ void		op_ldi(t_vm *vm, t_cursor *cursor)
 
 	type = get_arg_type(vm->arena[new_idx(cursor->pc, 1, FALSE)], 1);
 	if (op_ldi_check(vm, cursor) != SUCCESS)
-		return ;
+		return (ERROR);
 	if (type == DIR)
 	{
 		arg_1 = convert_to_int(vm->arena, new_idx(cursor->pc, 2, 0), 4);
@@ -65,6 +65,5 @@ void		op_ldi(t_vm *vm, t_cursor *cursor)
 			cursor->reg[arg_2] = arg_1;
 		cursor->pc = new_idx(cursor->pc, 5, FALSE);
 	}
+	return (SUCCESS);
 }
-
-

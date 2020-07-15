@@ -12,8 +12,9 @@
 
 #include "corewar.h"
 
-void	op_xor(t_vm *vm, t_cursor *cursor)
+int		op_xor(t_vm *vm, t_cursor *cursor)
 {
 	if (vm == NULL || cursor == NULL)
-		return ;
+		return (ERROR);
+	return (OK);
 }

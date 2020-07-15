@@ -12,9 +12,10 @@
 
 #include "corewar.h"
 
-void	op_fork(t_vm *vm, t_cursor *cursor)
+int		op_fork(t_vm *vm, t_cursor *cursor)
 {
 	if (vm == NULL || cursor == NULL)
-		return ;
+		return (ERROR);
+	return (SUCCESS);
 }
 

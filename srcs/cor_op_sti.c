@@ -85,10 +85,7 @@ static int	op_sti_check(t_vm *vm, t_cursor *cursor)
 		get_arg_type(enc, 3) == IND || \
 		get_arg_type(enc, 2) == 0 || \
 		get_arg_type(enc, 1) != REG)
-	{
-		cursor->pc = new_idx(cursor->pc, 1, FALSE);
 		return (ERROR);
-	}
 	return (SUCCESS);
 }
 
@@ -103,30 +100,29 @@ static void	vis_sti(t_vm *vm, t_cursor *cursor, unsigned int store_idx)
 	bytes = 4;
 	if (vm->vis == NULL)
 		return ;
-	vm->vis->attr[cursor->player](vis_calc_att(bold, inverse), vm->vis->graphics->arena);
+	vm->vis->attr[cursor->player](vis_calc_att(bold, inverse), \
+		vm->vis->graphics->arena);
 	vm->vis->index = store_idx;
 	vm->vis->bytes = bytes;
 	vis_print_cursor(vm->vis);
 }
 
-void	op_sti(t_vm *vm, t_cursor *cursor)
+int		op_sti(t_vm *vm, t_cursor *cursor)
 {
 	int				arg_1;
 	int				arg_2_value;
 	int				arg_3_value;
 	unsigned int	store_idx;
 
-	if (op_sti_check(vm, cursor) != SUCCESS)
-		return ;
+	if (op_sti_check(vm, cursor) == SUCCESS)
+		return (ERROR);
 	arg_1 = convert_to_int(vm->arena, new_idx(cursor->pc, 2, 0), 1);
 	if (arg_1 <= 0 || arg_1 > 16 || \
 		get_arg_2_value(vm, cursor, &arg_2_value) == ERROR || \
 		get_arg_3_value(vm, cursor, &arg_3_value) == ERROR)
-	{
-		cursor->pc = new_idx(cursor->pc, 1, FALSE);
-		return ;
-	}
+		return (ERROR);
 	store_idx = new_idx(cursor->pc, arg_2_value + arg_3_value, FALSE);
 	store_in_arena(vm->arena, store_idx, 4, cursor->reg[arg_1]);
 	vis_sti(vm, cursor, store_idx);
+	return (SUCCESS);
 }

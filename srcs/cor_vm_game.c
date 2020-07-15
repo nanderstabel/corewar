@@ -30,8 +30,9 @@ void		game_loop(t_vm *vm, t_op_table operations)
 		if (cursor->ctw > 0)
 			--(cursor->ctw);
 		++(cursor->decay);
-		if (cursor->ctw == 0 && cursor->op_code > 0 && cursor->op_code <= 16)
-			operations[cursor->op_code](vm, cursor);
+		if (cursor->ctw == 0 && cursor->op_code > 0 && cursor->op_code <= 16 \
+			&& ((operations[cursor->op_code](vm, cursor)) == ERROR))
+			cursor->pc = new_idx(cursor->pc, 1, FALSE);
 		cursor = cursor->next;
 		if (vm->visualizer == TRUE)
 			vis_print_data(vm);

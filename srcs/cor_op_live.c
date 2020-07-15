@@ -25,35 +25,33 @@ static void	vis_live(t_vm *vm, t_cursor *cursor)
 	bytes = 1;
 	if (vm->vis == NULL)
 		return ;
-	vm->vis->attr[cursor->player](vis_calc_att(bold, inverse), vm->vis->graphics->arena);
+	vm->vis->attr[cursor->player](vis_calc_att(bold, inverse), \
+		vm->vis->graphics->arena);
 	vm->vis->index = cursor->pc;
 	vm->vis->bytes = bytes;
 	vis_print_cursor(vm->vis);
-	vm->vis->attr[cursor->player](vis_calc_att(bold, FALSE), vm->vis->graphics->arena);
+	vm->vis->attr[cursor->player](vis_calc_att(bold, FALSE), \
+		vm->vis->graphics->arena);
 	vm->vis->index = cursor->pc;
 	vm->vis->bytes = bytes;
 	vis_print_cursor(vm->vis);
 }
 
-void	op_live(t_vm *vm, t_cursor *cursor)
+int			op_live(t_vm *vm, t_cursor *cursor)
 {
 	int				arg;
 
 	arg = convert_to_int(vm->arena, new_idx(cursor->pc, 1, FALSE), 4);
-	if (arg == cursor->reg[1])
-	{
-		vm->last_live = arg;
-		++(vm->live_count);
-		cursor->decay = 0;
-		if (vm->vis == NULL)
-			ft_printf("A process shows that player %d (%s) is alive\n", \
-				arg, vm->champ[arg]->header.prog_name);
-		vis_live(vm, cursor);
-		cursor->pc = new_idx(cursor->pc, 5, FALSE);
-		// If wanted live count for champ
-		return ;
-	}
-	else
-		cursor->pc = new_idx(cursor->pc, 1, FALSE);
-	return ;
+	if (arg != cursor->reg[1])
+		return (ERROR);
+	vm->last_live = arg;
+	++(vm->live_count);
+	cursor->decay = 0;
+	if (vm->vis == NULL)
+		ft_printf("A process shows that player %d (%s) is alive\n", \
+			arg, vm->champ[arg]->header.prog_name);
+	vis_live(vm, cursor);
+	cursor->pc = new_idx(cursor->pc, 5, FALSE);
+	// If wanted live count for champ
+	return (SUCCESS);
 }
