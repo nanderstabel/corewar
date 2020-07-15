@@ -65,24 +65,24 @@ typedef struct		s_vm
 	unsigned char	arena[MEM_SIZE];
 }					t_vm;
 
-typedef void		(*t_op_table[17])(t_vm *vm, t_cursor *cursor);
+typedef int		(*t_op_table[17])(t_vm *vm, t_cursor *cursor);
 
-void				op_live(t_vm *vm, t_cursor *cursor);
-void				op_ld(t_vm *vm, t_cursor *cursor);
-void				op_st(t_vm *vm, t_cursor *cursor);
-void				op_add(t_vm *vm, t_cursor *cursor);
-void				op_sub(t_vm *vm, t_cursor *cursor);
-void				op_and(t_vm *vm, t_cursor *cursor);
-void				op_or(t_vm *vm, t_cursor *cursor);
-void				op_xor(t_vm *vm, t_cursor *cursor);
-void				op_zjmp(t_vm *vm, t_cursor *cursor);
-void				op_ldi(t_vm *vm, t_cursor *cursor);
-void				op_sti(t_vm *vm, t_cursor *cursor);
-void				op_fork(t_vm *vm, t_cursor *cursor);
-void				op_lld(t_vm *vm, t_cursor *cursor);
-void				op_lldi(t_vm *vm, t_cursor *cursor);
-void				op_lfork(t_vm *vm, t_cursor *cursor);
-void				op_aff(t_vm *vm, t_cursor *cursor);
+int					op_live(t_vm *vm, t_cursor *cursor);
+int					op_ld(t_vm *vm, t_cursor *cursor);
+int					op_st(t_vm *vm, t_cursor *cursor);
+int					op_add(t_vm *vm, t_cursor *cursor);
+int					op_sub(t_vm *vm, t_cursor *cursor);
+int					op_and(t_vm *vm, t_cursor *cursor);
+int					op_or(t_vm *vm, t_cursor *cursor);
+int					op_xor(t_vm *vm, t_cursor *cursor);
+int					op_zjmp(t_vm *vm, t_cursor *cursor);
+int					op_ldi(t_vm *vm, t_cursor *cursor);
+int					op_sti(t_vm *vm, t_cursor *cursor);
+int					op_fork(t_vm *vm, t_cursor *cursor);
+int					op_lld(t_vm *vm, t_cursor *cursor);
+int					op_lldi(t_vm *vm, t_cursor *cursor);
+int					op_lfork(t_vm *vm, t_cursor *cursor);
+int					op_aff(t_vm *vm, t_cursor *cursor);
 
 int					print_message(char *message, char *info, int fd, \
 					int ret);

@@ -12,8 +12,9 @@
 
 #include "corewar.h"
 
-void	op_add(t_vm *vm, t_cursor *cursor)
+int		op_add(t_vm *vm, t_cursor *cursor)
 {
 	if (vm == NULL || cursor == NULL)
-		return ;
+		return (ERROR);
+	return (SUCCESS);
 }
