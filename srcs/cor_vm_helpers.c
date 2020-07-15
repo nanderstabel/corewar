@@ -32,8 +32,10 @@ int				convert_to_int(unsigned char *arena, unsigned int idx, \
 {
 	int				value;
 	unsigned int	i;
+	char			sign;
 
-	value = 0;
+	sign = arena[idx] >> 7;
+	value = sign ? ~0 : 0;
 	i = len;
 	while (i > 0)
 	{
