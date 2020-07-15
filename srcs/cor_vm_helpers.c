@@ -68,9 +68,11 @@ void			put_arena(unsigned char *arena)
 	while (idx < MEM_SIZE)
 	{
 		if (idx == 0 || (idx + 1) % 64 != 0)
-			ft_printf("%s ", vis_itoa(arena[idx]));
+			// ft_printf("%s ", vis_itoa(arena[idx]));
+			ft_printf("%03s ", ft_itoa(arena[idx]));
 		else
-			ft_printf("%s\n", vis_itoa(arena[idx]));
+			// ft_printf("%s\n", vis_itoa(arena[idx]));
+			ft_printf("%03s\n", ft_itoa(arena[idx]));
 		idx += 1;
 	}
 }
