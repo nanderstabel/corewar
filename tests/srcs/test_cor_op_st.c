@@ -61,14 +61,14 @@ Test(cor_op_st, reg_reg_5, .init=redirect_all_stdout)
 	ft_bzero(&vm, sizeof(t_vm));
 	t_cursor *cursor;
 	unsigned char	op_code = 3;
+	unsigned int	champ_count = 3;
+	unsigned int	champ_no = 1;
 	unsigned char	decoding = 80;		// 01 01 00 00
 	unsigned int	prog_size = 4;
 	unsigned char	arg_1 = 2;
 	unsigned char	arg_2 = REG_NUMBER - 1;
 	unsigned int	arg_2_len = 1;
 	int				value = 4;
-	unsigned int	champ_count = 3;
-	unsigned int	champ_no = 1;
 
 	// preparing the champion to test
 	cr_assert_eq(init_champions(&vm, champ_count), SUCCESS, "something went wrong when initializing the champs\n");
@@ -103,14 +103,14 @@ Test(cor_op_st, reg_reg_4, .init=redirect_all_stdout)
 	ft_bzero(&vm, sizeof(t_vm));
 	t_cursor *cursor;
 	unsigned char	op_code = 3;
+	unsigned int	champ_count = 3;
+	unsigned int	champ_no = 1;
 	unsigned char	decoding = 80;		// 01 01 00 00
 	unsigned int	prog_size = 4;
 	unsigned char	arg_1 = 2;
 	unsigned char	arg_2 = REG_NUMBER;
 	unsigned int	arg_2_len = 1;
 	int				value = 4;
-	unsigned int	champ_count = 3;
-	unsigned int	champ_no = 1;
 
 	// preparing the champion to test
 	cr_assert_eq(init_champions(&vm, champ_count), SUCCESS, "something went wrong when initializing the champs\n");
@@ -145,14 +145,14 @@ Test(cor_op_st, reg_reg_3, .init=redirect_all_stdout)
 	ft_bzero(&vm, sizeof(t_vm));
 	t_cursor *cursor;
 	unsigned char	op_code = 3;
+	unsigned int	champ_count = 3;
+	unsigned int	champ_no = 1;
 	unsigned char	decoding = 80;		// 01 01 00 00
 	unsigned int	prog_size = 4;
 	unsigned char	arg_1 = REG_NUMBER;
 	unsigned char	arg_2 = 1;
 	unsigned int	arg_2_len = 1;
 	int				value = 2;
-	unsigned int	champ_count = 3;
-	unsigned int	champ_no = 1;
 
 	// preparing the champion to test
 	cr_assert_eq(init_champions(&vm, champ_count), SUCCESS, "something went wrong when initializing the champs\n");
@@ -186,14 +186,14 @@ Test(cor_op_st, reg_reg_2, .init=redirect_all_stdout)
 	ft_bzero(&vm, sizeof(t_vm));
 	t_cursor *cursor;
 	unsigned char	op_code = 3;
+	unsigned int	champ_count = 3;
+	unsigned int	champ_no = 1;
 	unsigned char	decoding = 80;		// 01 01 00 00
 	unsigned int	prog_size = 4;
 	unsigned char	arg_1 = 1;
 	unsigned char	arg_2 = REG_NUMBER;
 	unsigned int	arg_2_len = 1;
 	int				value = 4;
-	unsigned int	champ_count = 3;
-	unsigned int	champ_no = 1;
 
 	// preparing the champion to test
 	cr_assert_eq(init_champions(&vm, champ_count), SUCCESS, "something went wrong when initializing the champs\n");
@@ -228,14 +228,14 @@ Test(cor_op_st, reg_reg_1, .init=redirect_all_stdout)
 	ft_bzero(&vm, sizeof(t_vm));
 	t_cursor *cursor;
 	unsigned char	op_code = 3;
+	unsigned int	champ_count = 3;
+	unsigned int	champ_no = 1;
 	unsigned char	decoding = 80;		// 01 01 00 00
 	unsigned int	prog_size = 4;
 	unsigned char	arg_1 = 2;
 	unsigned char	arg_2 = 3;
 	unsigned int	arg_2_len = 1;
 	int				value = 42;
-	unsigned int	champ_count = 3;
-	unsigned int	champ_no = 1;
 
 	// preparing the champion to test
 	cr_assert_eq(init_champions(&vm, champ_count), SUCCESS, "something went wrong when initializing the champs\n");
@@ -273,14 +273,14 @@ Test(cor_op_st, reg_ind_3, .init=redirect_all_stdout)
 	ft_bzero(&vm, sizeof(t_vm));
 	t_cursor *cursor;
 	unsigned char	op_code = 3;
+	unsigned int	champ_count = 3;
+	unsigned int	champ_no = 1;
 	unsigned char	decoding = 112;		// 01 11 00 00
 	unsigned int	prog_size = 5;
 	unsigned char	arg_1 = 2;
 	unsigned short	arg_2 = -5;
 	unsigned int	arg_2_len = 2;
 	int				value = 42;
-	unsigned int	champ_count = 3;
-	unsigned int	champ_no = 1;
 
 	// preparing the champion to test
 	cr_assert_eq(init_champions(&vm, champ_count), SUCCESS, "something went wrong when initializing the champs\n");
@@ -319,14 +319,14 @@ Test(cor_op_st, reg_ind_2, .init=redirect_all_stdout)
 	ft_bzero(&vm, sizeof(t_vm));
 	t_cursor *cursor;
 	unsigned char	op_code = 3;
+	unsigned int	champ_count = 3;
+	unsigned int	champ_no = 1;
 	unsigned char	decoding = 112;		// 01 11 00 00
 	unsigned int	prog_size = 5;
 	unsigned char	arg_1 = 2;
 	unsigned short	arg_2 = 5;
 	unsigned int	arg_2_len = 2;
 	int				value = -42;
-	unsigned int	champ_count = 3;
-	unsigned int	champ_no = 1;
 
 	// preparing the champion to test
 	cr_assert_eq(init_champions(&vm, champ_count), SUCCESS, "something went wrong when initializing the champs\n");
@@ -365,14 +365,14 @@ Test(cor_op_st, reg_ind_1, .init=redirect_all_stdout)
 	ft_bzero(&vm, sizeof(t_vm));
 	t_cursor *cursor;
 	unsigned char	op_code = 3;
+	unsigned int	champ_count = 3;
+	unsigned int	champ_no = 1;
 	unsigned char	decoding = 112;		// 01 11 00 00
 	unsigned int	prog_size = 5;
 	unsigned char	arg_1 = 2;
 	unsigned short	arg_2 = 5;
 	unsigned int	arg_2_len = 2;
 	int				value = 42;
-	unsigned int	champ_count = 3;
-	unsigned int	champ_no = 1;
 
 	// preparing the champion to test
 	cr_assert_eq(init_champions(&vm, champ_count), SUCCESS, "something went wrong when initializing the champs\n");
