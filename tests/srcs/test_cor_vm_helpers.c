@@ -246,6 +246,24 @@ Test(convert_to_int, len_4_magic)
 }
 
 
+Test(convert_to_int, len_3_neg)
+{
+	unsigned char	buf[MEM_SIZE];
+	ft_bzero(buf, MEM_SIZE);
+	int expected_int = -424242;
+	unsigned int len = 3;
+	unsigned int start_idx = 0;
+
+	unsigned int i = len;
+	while (i > 0)
+	{
+		buf[new_idx(start_idx, i - 1, TRUE)] = ((unsigned char*)&expected_int)[len - i];
+		--i;
+	}
+	int return_int = convert_to_int(buf, start_idx, len);
+	cr_assert_eq(return_int, expected_int, "expected value = %d doesn't match return value = %d", expected_int, return_int);
+}
+
 Test(convert_to_int, len_3_zero)
 {
 	unsigned char	buf[MEM_SIZE];
@@ -286,9 +304,28 @@ Test(convert_to_int, len_3_magic)
 {
 	unsigned char	buf[MEM_SIZE];
 	ft_bzero(buf, MEM_SIZE);
-	int expected_int = 15369203;
+	int expected_int = 153692;
 	unsigned int len = 3;
 	unsigned int start_idx = MEM_SIZE - 2;
+
+	unsigned int i = len;
+	while (i > 0)
+	{
+		buf[new_idx(start_idx, i - 1, TRUE)] = ((unsigned char*)&expected_int)[len - i];
+		--i;
+	}
+	int return_int = convert_to_int(buf, start_idx, len);
+	cr_assert_eq(return_int, expected_int, "expected value = %d doesn't match return value = %d", expected_int, return_int);
+}
+
+
+Test(convert_to_int, len_2_neg)
+{
+	unsigned char	buf[MEM_SIZE];
+	ft_bzero(buf, MEM_SIZE);
+	int expected_int = -4242;
+	unsigned int len = 2;
+	unsigned int start_idx = MEM_SIZE - MEM_SIZE + 5;
 
 	unsigned int i = len;
 	while (i > 0)
@@ -340,9 +377,28 @@ Test(convert_to_int, len_2_magic)
 {
 	unsigned char	buf[MEM_SIZE];
 	ft_bzero(buf, MEM_SIZE);
-	int expected_int = 33779;
+	int expected_int = 337;
 	unsigned int len = 2;
 	unsigned int start_idx = MEM_SIZE - 2;
+
+	unsigned int i = len;
+	while (i > 0)
+	{
+		buf[new_idx(start_idx, i - 1, TRUE)] = ((unsigned char*)&expected_int)[len - i];
+		--i;
+	}
+	int return_int = convert_to_int(buf, start_idx, len);
+	cr_assert_eq(return_int, expected_int, "expected value = %d doesn't match return value = %d", expected_int, return_int);
+}
+
+
+Test(convert_to_int, len_1_neg)
+{
+	unsigned char	buf[MEM_SIZE];
+	ft_bzero(buf, MEM_SIZE);
+	int expected_int = -1;
+	unsigned int len = 2;
+	unsigned int start_idx = MEM_SIZE - MEM_SIZE + 5;
 
 	unsigned int i = len;
 	while (i > 0)
@@ -394,7 +450,7 @@ Test(convert_to_int, len_1_magic)
 {
 	unsigned char	buf[MEM_SIZE];
 	ft_bzero(buf, MEM_SIZE);
-	int expected_int = 131;
+	int expected_int = 127;
 	unsigned int len = 1;
 	unsigned int start_idx = 0;
 
