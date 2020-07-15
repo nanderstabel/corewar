@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/22 17:44:26 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/07/09 20:12:03 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /*
 ** ---------------------------------------------------------------------------**
-** Check if the argument given to ./asm has the right extension ('.s') and if 
+** Check if the argument given to ./asm has the right extension ('.s') and if
 ** the file exists. If so, open the file into a file descriptor
 **
 ** t_project *as		struct of type t_project. Holds all data for the asm
@@ -39,7 +39,8 @@ t_bool			get_input_file(t_project *as)
 	if (as->fd == -1)
 	{
 		ft_printf("Can't read source file %s\n", *as->argv);
+		exit(0);
 		return (FAIL);
 	}
-	return (SUCCESS);	
+	return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/07 18:01:44 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/12 22:06:30 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/09 17:41:06 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,6 @@ typedef struct		s_op
 	char			label;
 }					t_op;
 
-extern t_op			op_tab[17];
+extern t_op			g_op_tab[17];
 
 #endif

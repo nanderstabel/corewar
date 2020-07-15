@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/16 21:05:44 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/05/15 20:45:49 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/07/09 20:33:33 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define LIBFT_H
 
 # include <stdarg.h>
-# include <stdio.h>//norm?
 # include <stdlib.h>
 # include <unistd.h>
 # include <sys/types.h>
@@ -93,14 +92,15 @@ typedef enum
 typedef struct s_project	t_project;
 typedef t_bool				(*t_event)(t_project *);
 typedef short				t_state;
+typedef t_bool				(*t_f)(t_project *, char**);
 
-typedef struct	s_machine
+typedef struct		s_machine
 {
-	t_state		size;
-	t_state		current_state;
-	t_state		last_state;
-	t_bool		transition;
-}				t_machine;
+	t_state			size;
+	t_state			current_state;
+	t_state			last_state;
+	t_bool			transition;
+}					t_machine;
 
 typedef	struct		s_adlist
 {

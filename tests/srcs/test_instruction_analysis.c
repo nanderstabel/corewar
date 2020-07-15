@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/12 17:56:32 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/15 01:32:16 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/06 17:13:35 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ Test(test_instruction_analysis, instruction_analysis_err1_test, .init=redirect_a
 	analyze_syntax(as);
 	ret = analyze_instructions(as);
 	cr_assert((ret == FAIL));
-	cr_assert_stdout_eq_str("Invalid instruction at token [TOKEN][006:002] INSTRUCTION \"ld50\"\n");
+	cr_assert_stderr_eq_str("Invalid instruction at token [TOKEN][006:002] INSTRUCTION \"ld50\"\n");
 }
 
 Test(test_instruction_analysis, instruction_analysis_break1_test, .init=redirect_all_stdout3)

@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/12 17:56:32 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/15 16:07:30 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/09 18:33:25 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # define NEXT_TOKEN						as->next_token
 # define SET_CURRENT_TOKEN				CURRENT_TOKEN = (t_token *)as->tmp->next->content
 # define SET_NEXT_TOKEN					NEXT_TOKEN = (t_token *)as->tmp->next->next->content
-# define FORMAT_SYNTAX_ERR(str0)		sprintf(error, "Syntax error at token [TOKEN][000:000] %s \"%s\"\n", token_tab[next].string, str0)
+# define FORMAT_SYNTAX_ERR(str0)		sprintf(error, "Syntax error at token [TOKEN][000:000] %s \"%s\"\n", g_token_tab[next].string, str0)
 # define TRAIL							END + 1
 
 void redirect_all_stdout2(void)
@@ -60,7 +60,7 @@ void redirect_all_stdout2(void)
 // 				cr_assert((ret == FAIL));
 // 				FORMAT_SYNTAX_ERR(ft_itoa(current));
 // 				// ft_printf(error);
-// 				cr_assert_stdout_eq_str(error);
+// 				cr_assert_stderr_eq_str(error);
 // 				fflush(stdout);
 // 			}
 // 			else
@@ -82,7 +82,7 @@ Test(test_syntax_analysis, syntax_analysis_err1_test, .init=redirect_all_stdout2
 	analyze_lexicon(as);	
 	ret = analyze_syntax(as);
 	cr_assert((ret == FAIL));
-	cr_assert_stdout_eq_str("Syntax error at token [TOKEN][008:010] INDIRECT_LABEL \":l2\"\n");
+	cr_assert_stderr_eq_str("Syntax error at token [TOKEN][008:010] INDIRECT_LABEL \":l2\"\n");
 }
 
 Test(test_syntax_analysis, syntax_analysis_err2_test, .init=redirect_all_stdout2)
@@ -94,7 +94,7 @@ Test(test_syntax_analysis, syntax_analysis_err2_test, .init=redirect_all_stdout2
 	analyze_lexicon(as);	
 	ret = analyze_syntax(as);
 	cr_assert((ret == FAIL));
-	cr_assert_stdout_eq_str("Syntax error at token [TOKEN][012:018] INDIRECT \"100\"\n");
+	cr_assert_stderr_eq_str("Syntax error at token [TOKEN][012:018] INDIRECT \"100\"\n");
 }
 
 Test(test_syntax_analysis, syntax_analysis_err3_test, .init=redirect_all_stdout2)
@@ -106,7 +106,7 @@ Test(test_syntax_analysis, syntax_analysis_err3_test, .init=redirect_all_stdout2
 	analyze_lexicon(as);	
 	ret = analyze_syntax(as);
 	cr_assert((ret == FAIL));
-	cr_assert_stdout_eq_str("Syntax error at token [TOKEN][003:001] COMMAND_COMMENT \".comment\"\n");
+	cr_assert_stderr_eq_str("Syntax error at token [TOKEN][003:001] COMMAND_COMMENT \".comment\"\n");
 }
 
 Test(test_syntax_analysis, syntax_analysis_err4_test, .init=redirect_all_stdout2)
@@ -118,7 +118,7 @@ Test(test_syntax_analysis, syntax_analysis_err4_test, .init=redirect_all_stdout2
 	analyze_lexicon(as);	
 	ret = analyze_syntax(as);
 	cr_assert((ret == FAIL));
-	cr_assert_stdout_eq_str("Syntax error at token [TOKEN][003:001] COMMAND_NAME \".name\"\n");
+	cr_assert_stderr_eq_str("Syntax error at token [TOKEN][003:001] COMMAND_NAME \".name\"\n");
 }
 
 Test(test_syntax_analysis, syntax_analysis_err6_test, .init=redirect_all_stdout2)
@@ -130,7 +130,7 @@ Test(test_syntax_analysis, syntax_analysis_err6_test, .init=redirect_all_stdout2
 	analyze_lexicon(as);	
 	ret = analyze_syntax(as);
 	cr_assert((ret == FAIL));
-	cr_assert_stdout_eq_str("Syntax error at token [TOKEN][008:016] INDIRECT \"-44\"\n");
+	cr_assert_stderr_eq_str("Syntax error at token [TOKEN][008:016] INDIRECT \"-44\"\n");
 }
 
 Test(test_syntax_analysis, syntax_analysis_err7_test, .init=redirect_all_stdout2)
@@ -142,7 +142,7 @@ Test(test_syntax_analysis, syntax_analysis_err7_test, .init=redirect_all_stdout2
 	analyze_lexicon(as);	
 	ret = analyze_syntax(as);
 	cr_assert((ret == FAIL));
-	cr_assert_stdout_eq_str("Syntax error at token [TOKEN][078:007] INSTRUCTION \"x0370044\"\n");
+	cr_assert_stderr_eq_str("Syntax error at token [TOKEN][078:007] INSTRUCTION \"x0370044\"\n");
 }
 
 Test(test_syntax_analysis, syntax_analysis_err8_test, .init=redirect_all_stdout2)
@@ -154,7 +154,7 @@ Test(test_syntax_analysis, syntax_analysis_err8_test, .init=redirect_all_stdout2
 	analyze_lexicon(as);	
 	ret = analyze_syntax(as);
 	cr_assert((ret == FAIL));
-	cr_assert_stdout_eq_str("Syntax error at token [TOKEN][007:021] ENDLINE\n");
+	cr_assert_stderr_eq_str("Syntax error at token [TOKEN][007:021] ENDLINE\n");
 }
 
 Test(test_syntax_analysis, syntax_analysis_err9_test, .init=redirect_all_stdout2)
@@ -166,7 +166,7 @@ Test(test_syntax_analysis, syntax_analysis_err9_test, .init=redirect_all_stdout2
 	analyze_lexicon(as);	
 	ret = analyze_syntax(as);
 	cr_assert((ret == FAIL));
-	cr_assert_stdout_eq_str("Syntax error at token [TOKEN][007:021] INSTRUCTION \"st\"\n");
+	cr_assert_stderr_eq_str("Syntax error at token [TOKEN][007:021] INSTRUCTION \"st\"\n");
 }
 
 Test(test_syntax_analysis, syntax_analysis_err10_test, .init=redirect_all_stdout2)
@@ -178,7 +178,7 @@ Test(test_syntax_analysis, syntax_analysis_err10_test, .init=redirect_all_stdout
 	analyze_lexicon(as);	
 	ret = analyze_syntax(as);
 	cr_assert((ret == FAIL));
-	cr_assert_stdout_eq_str("Syntax error at token [TOKEN][007:022] INSTRUCTION \"st\"\n");
+	cr_assert_stderr_eq_str("Syntax error at token [TOKEN][007:022] INSTRUCTION \"st\"\n");
 }
 
 Test(test_syntax_analysis, syntax_analysis_err11_test, .init=redirect_all_stdout2)
@@ -190,7 +190,7 @@ Test(test_syntax_analysis, syntax_analysis_err11_test, .init=redirect_all_stdout
 	analyze_lexicon(as);	
 	ret = analyze_syntax(as);
 	cr_assert((ret == FAIL));
-	cr_assert_stdout_eq_str("Syntax error at token [TOKEN][007:021] LABEL \"test:\"\n");
+	cr_assert_stderr_eq_str("Syntax error at token [TOKEN][007:021] LABEL \"test:\"\n");
 }
 
 Test(test_syntax_analysis, syntax_analysis_err12_test, .init=redirect_all_stdout2)
@@ -202,7 +202,7 @@ Test(test_syntax_analysis, syntax_analysis_err12_test, .init=redirect_all_stdout
 	analyze_lexicon(as);	
 	ret = analyze_syntax(as);
 	cr_assert((ret == FAIL));
-	cr_assert_stdout_eq_str("Syntax error at token [TOKEN][070:007] INSTRUCTION \"live\"\n");
+	cr_assert_stderr_eq_str("Syntax error at token [TOKEN][070:007] INSTRUCTION \"live\"\n");
 }
 
 Test(test_syntax_analysis, syntax_analysis_err13_test, .init=redirect_all_stdout2)
@@ -214,7 +214,7 @@ Test(test_syntax_analysis, syntax_analysis_err13_test, .init=redirect_all_stdout
 	analyze_lexicon(as);	
 	ret = analyze_syntax(as);
 	cr_assert((ret == FAIL));
-	cr_assert_stdout_eq_str("Syntax error at token [TOKEN][002:001] END \"(null)\"\n");
+	cr_assert_stderr_eq_str("Syntax error at token [TOKEN][002:001] END \"(null)\"\n");
 }
 
 Test(test_syntax_analysis, syntax_analysis_err15_test, .init=redirect_all_stdout2)
@@ -226,7 +226,7 @@ Test(test_syntax_analysis, syntax_analysis_err15_test, .init=redirect_all_stdout
 	analyze_lexicon(as);	
 	ret = analyze_syntax(as);
 	cr_assert((ret == FAIL));
-	cr_assert_stdout_eq_str("Syntax error - unexpected end of input (Perhaps you forgot to end with a newline ?)\n");
+	cr_assert_stderr_eq_str("Syntax error - unexpected end of input (Perhaps you forgot to end with a newline ?)\n");
 }
 
 Test(test_syntax_analysis, syntax_analysis_err16_test, .init=redirect_all_stdout2)
@@ -238,7 +238,7 @@ Test(test_syntax_analysis, syntax_analysis_err16_test, .init=redirect_all_stdout
 	analyze_lexicon(as);	
 	ret = analyze_syntax(as);
 	cr_assert((ret == FAIL));
-	cr_assert_stdout_eq_str("Syntax error at token [TOKEN][004:007] END \"(null)\"\n");
+	cr_assert_stderr_eq_str("Syntax error at token [TOKEN][004:007] END \"(null)\"\n");
 }
 
 Test(test_syntax_analysis, syntax_analysis_no_label1_test, .init=redirect_all_stdout2)
@@ -404,7 +404,7 @@ Test(test_syntax_analysis, syntax_analysis_1line_test, .init=redirect_all_stdout
 	analyze_lexicon(as);	
 	ret = analyze_syntax(as);
 	cr_assert((ret == FAIL));
-	cr_assert_stdout_eq_str("Syntax error at token [TOKEN][001:001] LABEL \"tirf:\"\n");
+	cr_assert_stderr_eq_str("Syntax error at token [TOKEN][001:001] LABEL \"tirf:\"\n");
 }
 
 Test(test_syntax_analysis, syntax_analysis_3lines_test, .init=redirect_all_stdout2)
@@ -416,7 +416,7 @@ Test(test_syntax_analysis, syntax_analysis_3lines_test, .init=redirect_all_stdou
 	analyze_lexicon(as);	
 	ret = analyze_syntax(as);
 	cr_assert((ret == FAIL));
-	cr_assert_stdout_eq_str("Syntax error at token [TOKEN][001:001] LABEL \"tirf:\"\n");
+	cr_assert_stderr_eq_str("Syntax error at token [TOKEN][001:001] LABEL \"tirf:\"\n");
 }
 
 Test(test_syntax_analysis, syntax_analysis_err17_test, .init=redirect_all_stdout2)
@@ -428,7 +428,7 @@ Test(test_syntax_analysis, syntax_analysis_err17_test, .init=redirect_all_stdout
 	analyze_lexicon(as);	
 	ret = analyze_syntax(as);
 	cr_assert((ret == FAIL));
-	cr_assert_stdout_eq_str("Syntax error at token [TOKEN][001:001] INDIRECT_LABEL \":label\"\n");
+	cr_assert_stderr_eq_str("Syntax error at token [TOKEN][001:001] INDIRECT_LABEL \":label\"\n");
 }
 
 Test(test_syntax_analysis, syntax_analysis_err18_test, .init=redirect_all_stdout2)
@@ -440,7 +440,7 @@ Test(test_syntax_analysis, syntax_analysis_err18_test, .init=redirect_all_stdout
 	analyze_lexicon(as);	
 	ret = analyze_syntax(as);
 	cr_assert((ret == FAIL));
-	cr_assert_stdout_eq_str("Syntax error at token [TOKEN][001:001] INSTRUCTION \"live\"\n");
+	cr_assert_stderr_eq_str("Syntax error at token [TOKEN][001:001] INSTRUCTION \"live\"\n");
 }
 
 Test(test_syntax_analysis, syntax_analysis_err19_test, .init=redirect_all_stdout2)
@@ -452,7 +452,7 @@ Test(test_syntax_analysis, syntax_analysis_err19_test, .init=redirect_all_stdout
 	analyze_lexicon(as);	
 	ret = analyze_syntax(as);
 	cr_assert((ret == FAIL));
-	cr_assert_stdout_eq_str("Syntax error at token [TOKEN][001:001] REGISTER \"r20\"\n");
+	cr_assert_stderr_eq_str("Syntax error at token [TOKEN][001:001] REGISTER \"r20\"\n");
 }
 
 Test(test_syntax_analysis, syntax_analysis_err20_test, .init=redirect_all_stdout2)
@@ -464,7 +464,7 @@ Test(test_syntax_analysis, syntax_analysis_err20_test, .init=redirect_all_stdout
 	analyze_lexicon(as);	
 	ret = analyze_syntax(as);
 	cr_assert((ret == FAIL));
-	cr_assert_stdout_eq_str("Syntax error at token [TOKEN][001:001] SEPARATOR \",\"\n");
+	cr_assert_stderr_eq_str("Syntax error at token [TOKEN][001:001] SEPARATOR \",\"\n");
 }
 
 Test(test_syntax_analysis, syntax_analysis_err21_test, .init=redirect_all_stdout2)
@@ -476,7 +476,7 @@ Test(test_syntax_analysis, syntax_analysis_err21_test, .init=redirect_all_stdout
 	analyze_lexicon(as);	
 	ret = analyze_syntax(as);
 	cr_assert((ret == FAIL));
-	cr_assert_stdout_eq_str("Syntax error at token [TOKEN][001:001] STRING \"\"string\"\"\n");
+	cr_assert_stderr_eq_str("Syntax error at token [TOKEN][001:001] STRING \"\"string\"\"\n");
 }
 
 Test(test_syntax_analysis, syntax_analysis_err22_test, .init=redirect_all_stdout2)
@@ -488,7 +488,7 @@ Test(test_syntax_analysis, syntax_analysis_err22_test, .init=redirect_all_stdout
 	analyze_lexicon(as);	
 	ret = analyze_syntax(as);
 	cr_assert((ret == FAIL));
-	cr_assert_stdout_eq_str("Syntax error at token [TOKEN][001:001] INDIRECT \"123\"\n");
+	cr_assert_stderr_eq_str("Syntax error at token [TOKEN][001:001] INDIRECT \"123\"\n");
 }
 
 Test(test_syntax_analysis, syntax_analysis_err23_test, .init=redirect_all_stdout2)
@@ -500,7 +500,7 @@ Test(test_syntax_analysis, syntax_analysis_err23_test, .init=redirect_all_stdout
 	analyze_lexicon(as);	
 	ret = analyze_syntax(as);
 	cr_assert((ret == FAIL));
-	cr_assert_stdout_eq_str("Syntax error at token [TOKEN][002:001] INDIRECT_LABEL \":label\"\n");
+	cr_assert_stderr_eq_str("Syntax error at token [TOKEN][002:001] INDIRECT_LABEL \":label\"\n");
 }
 
 Test(test_syntax_analysis, syntax_analysis_err24_test, .init=redirect_all_stdout2)
@@ -512,5 +512,5 @@ Test(test_syntax_analysis, syntax_analysis_err24_test, .init=redirect_all_stdout
 	analyze_lexicon(as);	
 	ret = analyze_syntax(as);
 	cr_assert((ret == FAIL));
-	cr_assert_stdout_eq_str("Syntax error at token [TOKEN][001:006] END \"(null)\"\n");
+	cr_assert_stderr_eq_str("Syntax error at token [TOKEN][001:006] END \"(null)\"\n");
 }
