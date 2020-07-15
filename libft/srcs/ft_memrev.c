@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/02/06 18:08:15 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/15 21:17:09 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/07/15 13:00:41 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void	*ft_memrev(void *src, size_t len)
 		c = *((unsigned char*)start);
 		*((unsigned char*)start) = *((unsigned char*)end);
 		*((unsigned char*)end) = c;
-		(unsigned char*)start++;
-		(unsigned char*)end--;
+		start++;
+		end--;
 		index++;
 		len--;
 	}
