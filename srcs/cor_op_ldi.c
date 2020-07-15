@@ -39,7 +39,7 @@ static int	op_ldi_check(t_vm *vm, t_cursor *cursor)
 		return (SUCCESS);
 }
 
-void		op_ldi(t_vm *vm, t_cursor *cursor)
+int		op_ldi(t_vm *vm, t_cursor *cursor)
 {
 	int		arg_1;
 	int		arg_2;

@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/08 16:47:57 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/15 13:19:50 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/15 16:32:38 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int		op_ld(t_vm *vm, t_cursor *cursor)
 
 	type = get_arg_type(vm->arena[new_idx(cursor->pc, 1, FALSE)], 1);
 	if (op_ld_check(vm, cursor) != SUCCESS)
-		return (FAIL);
+		return (ERROR);
 	if (type == DIR)
 	{
 		arg_1 = convert_to_int(vm->arena, new_idx(cursor->pc, 2, 0), 4);
