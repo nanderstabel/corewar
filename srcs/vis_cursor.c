@@ -6,7 +6,7 @@
 /*   By: lhageman <lhageman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 09:43:31 by lhageman      #+#    #+#                 */
-/*   Updated: 2020/07/13 13:32:40 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/07/15 13:13:34 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,14 +66,12 @@ void	vis_print(t_vis *vis, int x, int y)
 			mvwprintw(vis->graphics->arena, y, x, c);
 			ft_strdel(&c);
 			x += 3;
-			vis->index += 1;
 			i += 1;
 		}
 		y += 1;
 		x = 3;
 	}
 	wrefresh(vis->graphics->arena);
-	// sleep(1);
 }
 
 void	vis_print_cursor(t_vis *vis)
