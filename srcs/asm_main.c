@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:02:07 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/07/09 19:18:20 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/07/15 18:51:59 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,18 @@ static void			initialize_project(t_project **as)
 
 int					main(int argc, char **argv)
 {
+
+	int size = 71 * 2 + 1;
+	t_elem **ptr_array = ft_memalloc(sizeof(t_elem *) * size);
+	int i = 0;
+
+	while (i < size)
+	{
+		ft_printf("[%2i] = %p\n", i, ptr_array[i]);
+		i++;
+	}
+	exit(0);
+
 	t_machine	*machine;
 	t_project	*as;
 
