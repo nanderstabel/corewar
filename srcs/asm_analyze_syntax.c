@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/15 19:23:18 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/09 18:33:25 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,23 @@ t_bool			syntax_error(t_project *as)
 	if (as->next_token->token_type == END && as->header_found && \
 		as->current_token->token_type != LABEL)
 	{
-		ft_printf(UNEXPECTED_END);
+		ft_dprintf(2, UNEXPECTED_END);
 		return (FAIL);
 	}
-	ft_printf(SYNTAX_ERR);
+	ft_dprintf(2, SYNTAX_ERR);
 	if (as->next_token->token_type == ENDLINE)
-		ft_printf(ENDLINE_FORMAT, as->next_token->row + 1, \
+		ft_dprintf(2, ENDLINE_FORMAT, as->next_token->row + 1, \
 		as->next_token->column + 1, \
-		token_tab[as->next_token->token_type].string);
+		g_token_tab[as->next_token->token_type].string);
+	else if (as->next_token->token_type == STRING)
+		ft_dprintf(2, STRING_FORMAT, as->next_token->row + 1, \
+		as->next_token->column + 1, \
+		g_token_tab[as->next_token->token_type].string, \
+		as->next_token->literal_str);
 	else
-		ft_printf(ERROR_FORMAT, as->next_token->row + 1, \
+		ft_dprintf(2, ERROR_FORMAT, as->next_token->row + 1, \
 		as->next_token->column + 1, \
-		token_tab[as->next_token->token_type].string, \
+		g_token_tab[as->next_token->token_type].string, \
 		as->next_token->literal_str);
 	return (FAIL);
 }
@@ -144,9 +149,15 @@ t_bool			syntax_break_check(t_project *as)
 	if (as->current_token->token_type == ENDLINE)
 		if (is_argument(as->next_token->token_type) || \
 			as->next_token->token_type == SEPARATOR || \
-			as->next_token->token_type == STRING)
+			as->next_token->token_type == STRING || \
+			as->next_token->token_type == COMMAND_NAME || \
+			as->next_token->token_type == COMMAND_COMMENT)
 		{
-			as->tmp->next = NULL;//del list from this point
+			as->tmp = as->tmp->next;
+			as->trail = as->trail->next;
+			del_token_list(as);
+			end_token(as);
+			as->tmp = as->trail->next;
 			return (FAIL);
 		}
 	return (SUCCESS);
@@ -178,13 +189,15 @@ t_bool			syntax_check(t_project *as)
 	if (find_header(as) == FAIL)
 		if (command_syntax_check(as) == FAIL)
 			return (FAIL);
-	if (!token_tab[as->current_token->token_type].\
+	if (!g_token_tab[as->current_token->token_type].\
 		next[as->next_token->token_type])
 	{
 		if (syntax_break_check(as) == FAIL)
 			return (FAIL);
 		return (syntax_error(as));
 	}
+	else
+		syntax_break_check(as);
 	if (as->current_token->token_type == SEPARATOR)
 		del_token_node(as);
 	return (SUCCESS);

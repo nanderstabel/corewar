@@ -6,11 +6,9 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/05/22 15:56:16 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/07/10 12:03:11 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
-
-
 
 #ifndef ASM_H
 # define ASM_H
@@ -22,8 +20,10 @@
 # define SYNTAX_ERR				"Syntax error at token [TOKEN]"
 # define UNEXPECTED_END			"Syntax error - unexpected end of input (Perhaps you forgot to end with a newline ?)\n"
 # define INSTRUCTION_ERR		"Invalid instruction at token [TOKEN]"
+# define LABEL_ERR				"No such label %s while attempting to dereference token [TOKEN]"
 
 # define ERROR_FORMAT			"[%3.3u:%3.3u] %s \"%s\"\n"
+# define STRING_FORMAT			"[%3.3u:%3.3u] %s \"\"%s\"\"\n"
 # define ENDLINE_FORMAT			"[%3.3u:%3.3u] %s\n"
 # define LEXICAL_ERR			"Lexical error at [%d:%d]\n"
 # define END_LABEL_CHARS		",%#\";\n \t\v\f\0"
@@ -33,14 +33,39 @@
 # define TWO_DIGITS				2
 # define LOOK_UP_LEVELS			9
 
-typedef t_bool				(*t_f)(t_project *, char**);
-
 enum
 {
 	DEBUG_O = (1 << 0),
 	USAGE_O = (1 << 1),
 	DEBUG_L = (1 << 2)
 }	e_flags;
+
+enum
+{
+	INITIALIZE_OPT,
+	READ_ARGUMENT_OPT,
+	FIND_DASH_OPT,
+	FIND_OPTION_OPT,
+	VALIDATE_ARGUMENT_OPT,
+	PRINT_USAGE_MESSAGE_OPT,
+	UNINSTALL_OPT
+}	e_state_opt;
+
+enum
+{
+	INITIALIZE,
+	SET_OPTIONS,
+	GET_INPUT_FILE,
+	ANALYZE_LEXICON,
+	ANALYZE_SYNTAX,
+	ANALYZE_PARAMETERS,
+	ANALYZE_INSTRUCTIONS,
+	CREATE_OUTPUT_FILE,
+	TRANSLATE_TO_BYTE,
+	BYTECODE_TO_FILE,
+	FREE_PROJECT,
+	UNINSTALL
+}	e_state;
 
 enum
 {
@@ -59,7 +84,7 @@ enum
 	END
 }	e_token;
 
-typedef struct s_token
+typedef struct		s_token
 {
 	size_t			row;
 	size_t			column;
@@ -80,10 +105,12 @@ typedef struct		s_project
 	int				argc;
 	char			**argv;
 	char			name_found;
+	char			*og_line;
 	char			comment_found;
 	char			header_found;
 	char			opcode_temp;
 	size_t			pc;
+	size_t			temp_addres;
 	int				flags;
 	size_t			index;
 	char			*string;
@@ -100,11 +127,11 @@ typedef struct		s_project
 	t_token			*next_token;
 }					t_project;
 
-typedef struct s_redirect
+typedef struct		s_redirect
 {
-	char		*chars;
-	t_f			func;
-}				t_redirect;
+	char			*chars;
+	t_f				func;
+}					t_redirect;
 
 typedef struct		s_token_tab
 {
@@ -116,18 +143,17 @@ typedef struct		s_token_tab
 	char			next[END + 1];
 }					t_token_tab;
 
-extern t_token_tab	token_tab[END + 1];
+extern t_token_tab	g_token_tab[END + 1];
 
 t_bool				set_options(t_project *as);
 t_bool				get_input_file(t_project *as);
 t_bool				analyze_lexicon(t_project *as);
-t_bool				tokenize_input(t_project *as);
 t_bool				analyze_syntax(t_project *as);
 t_bool				analyze_parameters(t_project *as);
 t_bool				analyze_instructions(t_project *as);
 t_bool				create_output_file(t_project *as);
 t_bool				translate_to_byte(t_project *as);
-t_bool				write_translation(t_project *as);
+t_bool				bytecode_to_file(t_project *as);
 t_bool				free_project(t_project *as);
 t_bool				lexical_analysis(t_machine *as);
 t_bool				print_usage_message(t_project *as);
@@ -151,11 +177,9 @@ t_bool				indirect_label_token(t_project *as, char **line);
 t_bool				label_or_instruction_token(t_project *as, char **line);
 t_bool				register_token(t_project *as, char **line);
 t_bool				label_chars_redirect(t_project *as, char **line);
-t_bool				indrect_token(t_project *as, char **line);	
+t_bool				indrect_token(t_project *as, char **line);
 t_bool				separator_token(t_project *as, char **line);
 t_bool				string_token(t_project *as, char **line);
-int					add_to_string_token(t_project *as, char **line);
-int					new_string_token(t_project *as, char **line);
 void				endline_token(t_project *as, char **line);
 void				end_token(t_project *as);
 void				instruction_token(t_project *as, char **line);
@@ -170,8 +194,16 @@ t_bool				del_token_node(t_project *as);
 t_bool				del_token_list(t_project *as);
 t_bool				get_argtype(t_project *as);
 
-void				write_str_to_buf(t_project *as, char *to_bytecode, char type);
+void				write_str_to_buf(t_project *as, char *to_bytecode,
+					char type);
 void				write_byte_to_buf(t_project *as, char byte);
 void				add_buffer_to_list(t_project *as);
+t_bool				byte_string_to_file(t_project *as, int type,
+					size_t max_size);
+void				print_zero_bytes(t_project *as, size_t len,
+					size_t max_size);
+t_bool				check_str_to_long(int type, size_t max_size, size_t len);
+t_bool				byte_num_to_file(t_project *as, int num);
+void				add_strings(t_project *as, char **line);
 
 #endif

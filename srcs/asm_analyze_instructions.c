@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/11 16:07:54 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/15 12:11:49 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/09 18:33:25 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 /*
 ** -------------------------------------------------------------------------- **
 ** this function tries to find the current INSTRUCTION. It loops through the
-** operations stored in op_tab. If it finds the instruction, it's opcode gets
+** operations stored in g_op_tab. If it finds the instruction, it's opcode gets
 ** updated, and the encoding variable is switched on (later used to calculate
 ** the encoding byte of the INSTRUCTION). SUCCESS is returned. If the
 ** INSTRUCTION is not found, FAIL is returned.
 ** params
 **	as->current_token	the current token
-**	op_tab				operation table
+**	g_op_tab				operation table
 ** return
 **	SUCCESS				in case INSTRUCTION is found
 **	FAIL				in case INSTRUCTION is not found
@@ -32,11 +32,11 @@ t_bool			find_instruction(t_project *as)
 	as->index = 0;
 	while (as->index < REG_NUMBER)
 	{
-		if (ft_strequ(op_tab[as->index].operation, \
+		if (ft_strequ(g_op_tab[as->index].operation, \
 			as->current_token->literal_str))
 		{
-			as->current_token->opcode = op_tab[as->index].opcode;
-			as->current_token->encoding = op_tab[as->index].encoded;
+			as->current_token->opcode = g_op_tab[as->index].opcode;
+			as->current_token->encoding = g_op_tab[as->index].encoded;
 			return (SUCCESS);
 		}
 		++as->index;
@@ -58,10 +58,10 @@ t_bool			find_instruction(t_project *as)
 
 t_bool			instruction_error(t_project *as)
 {
-	ft_printf(INSTRUCTION_ERR);
-	ft_printf(ERROR_FORMAT, as->current_token->row + 1, \
+	ft_dprintf(2, INSTRUCTION_ERR);
+	ft_dprintf(2, ERROR_FORMAT, as->current_token->row + 1, \
 		as->current_token->column + 1, \
-		token_tab[as->current_token->token_type].string, \
+		g_token_tab[as->current_token->token_type].string, \
 		as->current_token->literal_str);
 	return (FAIL);
 }

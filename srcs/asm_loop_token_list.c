@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/12 20:32:11 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/16 13:04:41 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/09 20:17:51 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,13 @@ t_bool			del_token_node(t_project *as)
 	t_token		*tmp_token;
 
 	as->count = (as->flags & DEBUG_O) ? ft_printf("\t\t%s\n", __func__) : 0;
+	if (as->tmp == as->token_list)
+	{
+		tmp_token = (t_token *)as->tmp->content;
+		free(tmp_token);
+		as->token_list = as->token_list->next;
+		return (SUCCESS);
+	}
 	tmp_list = as->tmp;
 	as->tmp = as->trail;
 	as->tmp->next = as->tmp->next->next;
@@ -38,7 +45,22 @@ t_bool			del_token_list(t_project *as)
 		as->trail = as->tmp;
 		as->tmp = as->tmp->next;
 	}
-	free(as->tmp);
+	return (SUCCESS);
+}
+
+static t_bool	increment_token(t_project *as)
+{
+	if (as->tmp)
+		if (as->tmp->next)
+		{
+			if (as->tmp->next == as->token_list)
+			{
+				free(as->tmp);
+				as->tmp = as->token_list;
+			}
+			else
+				as->tmp = as->tmp->next;
+		}
 	return (SUCCESS);
 }
 
@@ -61,8 +83,7 @@ t_bool			loop_token_list(t_project *as, t_bool (*check)(t_project *as))
 			return (FAIL);
 		}
 		as->trail = as->tmp;
-		if (as->tmp->next)
-			as->tmp = as->tmp->next;
+		increment_token(as);
 	}
 	return (SUCCESS);
 }

@@ -6,13 +6,13 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/12 16:40:21 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/05/22 15:52:58 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/07/09 18:33:25 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
-t_token_tab		token_tab[END + 1] =
+t_token_tab		g_token_tab[END + 1] =
 {
 	{"INDIRECT_LABEL", "indirect", IND_SIZE, IND_CODE, translate_label,
 		{0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0}},
@@ -22,7 +22,7 @@ t_token_tab		token_tab[END + 1] =
 	{"REGISTER", "register", 1, REG_CODE, translate_argument,
 		{0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0}},
 	{"SEPARATOR", NULL, 0, 0, NULL, {1, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 1, 0}},
-	{"DIRECT_LABEL", "direct", IND_SIZE, DIR_CODE, translate_label,
+	{"DIRECT_LABEL", "direct", DIR_SIZE, DIR_CODE, translate_label,
 		{0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0}},
 	{"DIRECT", "direct", DIR_SIZE, DIR_CODE, translate_argument,
 		{0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0}},
