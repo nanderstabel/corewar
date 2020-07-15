@@ -33,7 +33,6 @@ static int	op_st_check(t_vm *vm, t_cursor *cursor)
 		get_arg_type(enc, 1) == 0 ||
 		get_arg_type(enc, 1) != REG)
 	{
-		cursor->pc = new_idx(cursor->pc, 1, FALSE);
 		return (ERROR);
 	}
 	else
@@ -64,15 +63,22 @@ void		op_st(t_vm *vm, t_cursor *cursor)
 	int		type;
 
 	type = get_arg_type(vm->arena[new_idx(cursor->pc, 1, FALSE)], 2);
-	if (op_st_check(vm, cursor) != SUCCESS)
-		return ;
 	arg_1 = convert_to_int(vm->arena, new_idx(cursor->pc, 2, 0), 1);
+	if (op_st_check(vm, cursor) != SUCCESS || arg_1 <= 0 || 16 < arg_1)
+	{
+		cursor->pc = new_idx(cursor->pc, 1, FALSE);
+		return ;
+	}
 	if (type == REG)
 	{
 		arg_2 = convert_to_int(vm->arena, new_idx(cursor->pc, 3, 0), 1);
-		if (arg_2 < REG_NUMBER)
+		if (0 < arg_2 && arg_2 <= REG_NUMBER)
+		{
 			cursor->reg[arg_2] = cursor->reg[arg_1];
-		cursor->pc = new_idx(cursor->pc, 4, FALSE);
+			cursor->pc = new_idx(cursor->pc, 4, FALSE);
+		}
+		else
+			cursor->pc = new_idx(cursor->pc, 1, FALSE);
 	}
 	else if (type == IND)
 	{
