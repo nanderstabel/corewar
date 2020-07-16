@@ -63,7 +63,7 @@ Test(cor_op_st, reg_reg_inv_1, .init=redirect_all_stdout)
 	unsigned char	op_code = 3;
 	unsigned int	champ_count = 3;
 	unsigned int	champ_no = 1;
-	unsigned char	decoding = 80;		// 01 01 00 00
+	unsigned char	encoding = 80;		// 01 01 00 00
 	unsigned int	prog_size = 4;
 	unsigned char	arg_1 = 2;
 	unsigned char	arg_2 = REG_NUMBER - 1;
@@ -73,7 +73,7 @@ Test(cor_op_st, reg_reg_inv_1, .init=redirect_all_stdout)
 	// preparing the champion to test
 	cr_assert_eq(init_champions(&vm, champ_count), SUCCESS, "something went wrong when initializing the champs\n");
 	vm.champ[champ_no]->exec_code[0] = op_code;
-	vm.champ[champ_no]->exec_code[1] = decoding;
+	vm.champ[champ_no]->exec_code[1] = encoding;
 	vm.champ[champ_no]->exec_code[2] = arg_1;
 	store_in_arena(vm.champ[champ_no]->exec_code, 3, arg_2_len, arg_2);
 	vm.champ[champ_no]->header.prog_size = prog_size;
@@ -97,7 +97,7 @@ Test(cor_op_st, reg_reg_inv_1, .init=redirect_all_stdout)
 	cr_assert_eq(pc_after - pc_before, prog_size, "cursor moved %d bytes but should have moved %d bytes\n", pc_after - pc_before, prog_size);
 }
 
-Test(cor_op_st, reg_reg_4, .init=redirect_all_stdout)
+Test(cor_op_st, reg_reg_4/* , .init=redirect_all_stdout */)
 {
 	t_vm vm;
 	ft_bzero(&vm, sizeof(t_vm));
@@ -105,7 +105,7 @@ Test(cor_op_st, reg_reg_4, .init=redirect_all_stdout)
 	unsigned char	op_code = 3;
 	unsigned int	champ_count = 3;
 	unsigned int	champ_no = 1;
-	unsigned char	decoding = 80;		// 01 01 00 00
+	unsigned char	encoding = 80;		// 01 01 00 00
 	unsigned int	prog_size = 4;
 	unsigned char	arg_1 = 2;
 	unsigned char	arg_2 = REG_NUMBER;
@@ -115,7 +115,7 @@ Test(cor_op_st, reg_reg_4, .init=redirect_all_stdout)
 	// preparing the champion to test
 	cr_assert_eq(init_champions(&vm, champ_count), SUCCESS, "something went wrong when initializing the champs\n");
 	vm.champ[champ_no]->exec_code[0] = op_code;
-	vm.champ[champ_no]->exec_code[1] = decoding;
+	vm.champ[champ_no]->exec_code[1] = encoding;
 	vm.champ[champ_no]->exec_code[2] = arg_1;
 	store_in_arena(vm.champ[champ_no]->exec_code, 3, arg_2_len, arg_2);
 	vm.champ[champ_no]->header.prog_size = prog_size;
@@ -147,7 +147,7 @@ Test(cor_op_st, reg_reg_3, .init=redirect_all_stdout)
 	unsigned char	op_code = 3;
 	unsigned int	champ_count = 3;
 	unsigned int	champ_no = 1;
-	unsigned char	decoding = 80;		// 01 01 00 00
+	unsigned char	encoding = 80;		// 01 01 00 00
 	unsigned int	prog_size = 4;
 	unsigned char	arg_1 = REG_NUMBER;
 	unsigned char	arg_2 = 1;
@@ -157,7 +157,7 @@ Test(cor_op_st, reg_reg_3, .init=redirect_all_stdout)
 	// preparing the champion to test
 	cr_assert_eq(init_champions(&vm, champ_count), SUCCESS, "something went wrong when initializing the champs\n");
 	vm.champ[champ_no]->exec_code[0] = op_code;
-	vm.champ[champ_no]->exec_code[1] = decoding;
+	vm.champ[champ_no]->exec_code[1] = encoding;
 	vm.champ[champ_no]->exec_code[2] = arg_1;
 	store_in_arena(vm.champ[champ_no]->exec_code, 3, arg_2_len, arg_2);
 	vm.champ[champ_no]->header.prog_size = prog_size;
@@ -188,7 +188,7 @@ Test(cor_op_st, reg_reg_2, .init=redirect_all_stdout)
 	unsigned char	op_code = 3;
 	unsigned int	champ_count = 3;
 	unsigned int	champ_no = 1;
-	unsigned char	decoding = 80;		// 01 01 00 00
+	unsigned char	encoding = 80;		// 01 01 00 00
 	unsigned int	prog_size = 4;
 	unsigned char	arg_1 = 1;
 	unsigned char	arg_2 = REG_NUMBER;
@@ -198,7 +198,7 @@ Test(cor_op_st, reg_reg_2, .init=redirect_all_stdout)
 	// preparing the champion to test
 	cr_assert_eq(init_champions(&vm, champ_count), SUCCESS, "something went wrong when initializing the champs\n");
 	vm.champ[champ_no]->exec_code[0] = op_code;
-	vm.champ[champ_no]->exec_code[1] = decoding;
+	vm.champ[champ_no]->exec_code[1] = encoding;
 	vm.champ[champ_no]->exec_code[2] = arg_1;
 	store_in_arena(vm.champ[champ_no]->exec_code, 3, arg_2_len, arg_2);
 	vm.champ[champ_no]->header.prog_size = prog_size;
@@ -230,7 +230,7 @@ Test(cor_op_st, reg_reg_1, .init=redirect_all_stdout)
 	unsigned char	op_code = 3;
 	unsigned int	champ_count = 3;
 	unsigned int	champ_no = 1;
-	unsigned char	decoding = 80;		// 01 01 00 00
+	unsigned char	encoding = 80;		// 01 01 00 00
 	unsigned int	prog_size = 4;
 	unsigned char	arg_1 = 2;
 	unsigned char	arg_2 = 3;
@@ -240,7 +240,7 @@ Test(cor_op_st, reg_reg_1, .init=redirect_all_stdout)
 	// preparing the champion to test
 	cr_assert_eq(init_champions(&vm, champ_count), SUCCESS, "something went wrong when initializing the champs\n");
 	vm.champ[champ_no]->exec_code[0] = op_code;
-	vm.champ[champ_no]->exec_code[1] = decoding;
+	vm.champ[champ_no]->exec_code[1] = encoding;
 	vm.champ[champ_no]->exec_code[2] = arg_1;
 	store_in_arena(vm.champ[champ_no]->exec_code, 3, arg_2_len, arg_2);
 	vm.champ[champ_no]->header.prog_size = prog_size;
@@ -275,7 +275,7 @@ Test(cor_op_st, reg_ind_3, .init=redirect_all_stdout)
 	unsigned char	op_code = 3;
 	unsigned int	champ_count = 3;
 	unsigned int	champ_no = 1;
-	unsigned char	decoding = 112;		// 01 11 00 00
+	unsigned char	encoding = 112;		// 01 11 00 00
 	unsigned int	prog_size = 5;
 	unsigned char	arg_1 = 2;
 	short			arg_2 = -5;
@@ -285,7 +285,7 @@ Test(cor_op_st, reg_ind_3, .init=redirect_all_stdout)
 	// preparing the champion to test
 	cr_assert_eq(init_champions(&vm, champ_count), SUCCESS, "something went wrong when initializing the champs\n");
 	vm.champ[champ_no]->exec_code[0] = op_code;
-	vm.champ[champ_no]->exec_code[1] = decoding;
+	vm.champ[champ_no]->exec_code[1] = encoding;
 	vm.champ[champ_no]->exec_code[2] = arg_1;
 	store_in_arena(vm.champ[champ_no]->exec_code, 3, arg_2_len, arg_2);
 	vm.champ[champ_no]->header.prog_size = prog_size;
@@ -321,7 +321,7 @@ Test(cor_op_st, reg_ind_2, .init=redirect_all_stdout)
 	unsigned char	op_code = 3;
 	unsigned int	champ_count = 3;
 	unsigned int	champ_no = 1;
-	unsigned char	decoding = 112;		// 01 11 00 00
+	unsigned char	encoding = 112;		// 01 11 00 00
 	unsigned int	prog_size = 5;
 	unsigned char	arg_1 = 2;
 	short			arg_2 = 5;
@@ -331,7 +331,7 @@ Test(cor_op_st, reg_ind_2, .init=redirect_all_stdout)
 	// preparing the champion to test
 	cr_assert_eq(init_champions(&vm, champ_count), SUCCESS, "something went wrong when initializing the champs\n");
 	vm.champ[champ_no]->exec_code[0] = op_code;
-	vm.champ[champ_no]->exec_code[1] = decoding;
+	vm.champ[champ_no]->exec_code[1] = encoding;
 	vm.champ[champ_no]->exec_code[2] = arg_1;
 	store_in_arena(vm.champ[champ_no]->exec_code, 3, arg_2_len, arg_2);
 	vm.champ[champ_no]->header.prog_size = prog_size;
@@ -366,8 +366,8 @@ Test(cor_op_st, reg_ind_1, .init=redirect_all_stdout)
 	t_cursor *cursor;
 	unsigned char	op_code = 3;
 	unsigned int	champ_count = 3;
-	unsigned int	champ_no = 1;
-	unsigned char	decoding = 112;		// 01 11 00 00
+	unsigned int	champ_no = 3;
+	unsigned char	encoding = 0b01110000;
 	unsigned int	prog_size = 5;
 	unsigned char	arg_1 = 2;
 	short			arg_2 = 5;
@@ -377,7 +377,7 @@ Test(cor_op_st, reg_ind_1, .init=redirect_all_stdout)
 	// preparing the champion to test
 	cr_assert_eq(init_champions(&vm, champ_count), SUCCESS, "something went wrong when initializing the champs\n");
 	vm.champ[champ_no]->exec_code[0] = op_code;
-	vm.champ[champ_no]->exec_code[1] = decoding;
+	vm.champ[champ_no]->exec_code[1] = encoding;
 	vm.champ[champ_no]->exec_code[2] = arg_1;
 	store_in_arena(vm.champ[champ_no]->exec_code, 3, arg_2_len, arg_2);
 	vm.champ[champ_no]->header.prog_size = prog_size;
