@@ -104,7 +104,7 @@ int			input_validation(t_vm *vm, char **argv, int argc)
 	while (idx < argc)
 	{
 		champ_size = 0;
-		if (is_champion(argv[idx], &champ_size) == ERROR || \
+		if (is_champion(argv[idx], &champ_size) == SUCCESS && \
 			save_champion(vm, argv[idx], champ_size, 0) == ERROR)
 			return (ERROR);
 		++idx;
