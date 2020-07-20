@@ -21,7 +21,8 @@ static void	print_cursors(t_vm *vm)
 	idx = vm->champ_count;
 	while (current && idx > 0)
 	{
-		vm->vis->attr[current->player](vis_calc_att(0, 0), vm->vis->graphics->arena);
+		vm->vis->attr[current->player](vis_calc_att(0, 0), \
+			vm->vis->graphics->arena);
 		vm->vis->index = current->pc;
 		vm->vis->bytes = vm->champ[idx]->header.prog_size;
 		vis_print_cursor(vm->vis);
@@ -39,7 +40,7 @@ int	cursors_init(t_vm *vm)
 	ft_printf("Introducing contestants...\n");
 	while (idx <= vm->champ_count)
 	{
-		ft_printf("Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n", idx, \
+		ft_printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n", idx, \
 		vm->champ[idx]->header.prog_size, vm->champ[idx]->header.prog_name, \
 		vm->champ[idx]->header.comment);
 		new_cursor = (t_cursor*)ft_memalloc(sizeof(t_cursor));
@@ -52,8 +53,8 @@ int	cursors_init(t_vm *vm)
 		new_cursor->next = vm->cursors;
 		vm->cursors = new_cursor;
 		new_cursor->player = idx;
-		ft_printf("with exec_code:\n");
-		put_exec_code(vm->champ[idx]->exec_code, vm->champ[idx]->header.prog_size);
+		// ft_printf("with exec_code:\n");
+		// put_exec_code(vm->champ[idx]->exec_code, vm->champ[idx]->header.prog_size);
 		++idx;
 	}
 	return (SUCCESS);
@@ -96,10 +97,10 @@ int			vm_start(t_vm *vm)
 		vis_create(vm);
 		print_cursors(vm);
 	}
-	while (vm->cursors != NULL || 
+	while (vm->cursors != NULL && \
 		(vm->dump > 0 && (unsigned int)(vm->dump) > vm->total_cycle_count))
 		game_loop(vm, operations);
-	if (vm->dump == 0)
+	if (vm->dump > 0 && (unsigned int)vm->dump == vm->total_cycle_count)
 		put_arena(vm->arena);
 	return (SUCCESS);
 }
