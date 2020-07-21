@@ -6,7 +6,7 @@
 /*   By: lhageman <lhageman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 09:43:31 by lhageman      #+#    #+#                 */
-/*   Updated: 2020/07/15 13:13:34 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/07/21 12:03:14 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ int		vis_calc_att(int bold, int inverse)
 		return (2);
 	if (bold == 0 && inverse == 1)
 		return (3);
+	if (bold == 1 && inverse == 1)
+		return (4);
 	else
 		return (1);
 }
