@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/07/10 10:56:32 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/21 11:40:32 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@ t_bool			check_strings_to_long(t_project *as)
 	if (ft_strlen(as->current_token->literal_str) > PROG_NAME_LENGTH)
 	{
 		ft_dprintf(2, "Champion name too long (Max length 128)\n");
-		return (FAIL);
+		exit(0);
 	}
 	temp = temp->next->next;
 	as->current_token = (t_token *)temp->content;
 	if (ft_strlen(as->current_token->literal_str) > COMMENT_LENGTH)
 	{
 		ft_dprintf(2, "Champion comment too long (Max length 2048)\n");
-		return (FAIL);
+		exit(0);
 	}
 	return (SUCCESS);
 }
