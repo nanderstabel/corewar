@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 11:20:48 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/13 13:24:41 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/07/21 12:03:33 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	vis_live(t_vm *vm, t_cursor *cursor)
 	int	inverse;
 	int	bytes;
 
-	bold = FALSE;
+	bold = TRUE;
 	inverse = TRUE;
 	bytes = 1;
 	if (vm->vis == NULL)
