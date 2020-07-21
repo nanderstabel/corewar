@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/07/09 20:01:02 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/14 14:20:56 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,14 @@ void			write_byte_to_buf(t_project *as, char byte)
 	if (as->index == CHAMP_MAX_SIZE)
 		add_buffer_to_list(as);
 }
+
+// t_bool		check_overflow(char *str)
+// {
+// 	if (!str)
+// 		return (FAIL);
+// 	"18446744073709551615"
+// 	return (SUCCESS);
+// }
 
 void			write_str_to_buf(t_project *as, char *to_bytecode, char type)
 {
@@ -63,6 +71,7 @@ t_bool			label_error(t_project *as)
 	g_token_tab[as->current_token->token_type].string, \
 	as->current_token->literal_str);
 	free(as->string);
+	exit(0);
 	return (FAIL);
 }
 

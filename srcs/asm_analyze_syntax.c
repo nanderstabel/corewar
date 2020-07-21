@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/07/09 18:33:25 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/07/10 13:09:21 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_bool			syntax_error(t_project *as)
 		as->current_token->token_type != LABEL)
 	{
 		ft_dprintf(2, UNEXPECTED_END);
-		return (FAIL);
+		exit(0);
 	}
 	ft_dprintf(2, SYNTAX_ERR);
 	if (as->next_token->token_type == ENDLINE)
@@ -49,6 +49,7 @@ t_bool			syntax_error(t_project *as)
 		as->next_token->column + 1, \
 		g_token_tab[as->next_token->token_type].string, \
 		as->next_token->literal_str);
+	exit(0);
 	return (FAIL);
 }
 
