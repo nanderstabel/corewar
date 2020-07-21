@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/08 16:52:34 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/06/08 16:52:34 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/07/21 14:20:36 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 
 int		op_zjmp(t_vm *vm, t_cursor *cursor)
 {
-	if (vm == NULL || cursor == NULL)
-		return (ERROR);
-	return (OK);
+	int		arg;
+
+	arg = convert_to_int(vm->arena, new_idx(cursor->pc, 1, FALSE), 2);
+	if (cursor->carry)
+		cursor->pc = new_idx(cursor->pc, arg, FALSE);
+	return (SUCCESS);
 }

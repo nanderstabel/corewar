@@ -6,7 +6,7 @@
 /*   By: lhageman <lhageman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 14:09:12 by lhageman      #+#    #+#                 */
-/*   Updated: 2020/07/17 15:11:38 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/21 16:07:11 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,19 +71,19 @@ int		op_lldi(t_vm *vm, t_cursor *cursor)
 	if (op_lldi_check(vm, cursor) != SUCCESS)
 		return (ERROR);
 	size = 2;
-	arg_1 = get_arg_type(vm->arena[new_idx(cursor->pc, 1, FALSE)], 1);
-	arg_2 = get_arg_type(vm->arena[new_idx(cursor->pc, 1, FALSE)], 2);
+	arg_1 = get_arg_type(vm->arena[new_idx(cursor->pc, 1, TRUE)], 1);
+	arg_2 = get_arg_type(vm->arena[new_idx(cursor->pc, 1, TRUE)], 2);
 
 	arg_1 = get_value(vm, cursor, arg_1, &size);
 	arg_2 = get_value(vm, cursor, arg_2, &size);
 	arg_3 = convert_to_int(vm->arena, new_idx(cursor->pc, size, 0), 1);
 
 	if (arg_3 < REG_NUMBER)
-		cursor->reg[arg_3] = cursor->pc + (arg_1 + arg_2) % IDX_MOD;
+		cursor->reg[arg_3] = convert_to_int(vm->arena, new_idx(cursor->pc, arg_1 + arg_2, 0), 4);
 	else
 		return (ERROR);
 	size++;
 	cursor->pc = new_idx(cursor->pc, size, FALSE);
-
+	cursor->carry = (cursor->reg[arg_3]) ? 0 : 1;
 	return (SUCCESS);
 }

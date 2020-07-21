@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/08 16:47:57 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/17 15:14:01 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/21 16:00:04 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,11 @@ int		op_ld(t_vm *vm, t_cursor *cursor)
 	arg_2 = convert_to_int(vm->arena, new_idx(cursor->pc, size, 0), 1);
 	// ft_printf("[arg_1 = %u, arg_2 = %u, size = %u]\n", arg_1, arg_2, size);
 	if (arg_2 > 0 && arg_2 < REG_NUMBER)
-		cursor->reg[arg_2] = arg_1;
+		cursor->reg[arg_2] = convert_to_int(vm->arena, new_idx(cursor->pc, arg_1, 0), 4);
 	else
 		return (ERROR);
 	size++;
 	cursor->pc = new_idx(cursor->pc, size, FALSE);
-	cursor->carry = (arg_1) ? 0 : 1;
+	cursor->carry = (cursor->reg[arg_2]) ? 0 : 1;
 	return (SUCCESS);
 }
