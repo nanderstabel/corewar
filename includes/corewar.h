@@ -46,7 +46,8 @@ typedef struct		s_champ
 	unsigned char	exec_code[CHAMP_MAX_SIZE];
 	t_header		header;
 }					t_champ;
-typedef struct		s_vis	t_vis;
+
+typedef struct s_vis	t_vis;
 
 typedef struct		s_vm
 {

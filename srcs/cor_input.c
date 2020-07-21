@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 
 #include "corewar.h"
+#include <fcntl.h>
+#include <unistd.h>
 
 static int	last_check(t_vm *vm)
 {
@@ -28,6 +30,17 @@ static int	last_check(t_vm *vm)
 	return (SUCCESS);
 }
 
+static int	does_file_exist(char *str)
+{
+	int	fd;
+
+	fd = open(str, O_RDONLY);
+	if (fd == -1)
+		return (print_message(FILE_NOT_EXIST, str, STDERR, ERROR));
+	close(fd);
+	return (SUCCESS);
+}
+
 static int	is_option_or_file(char *str)
 {
 	unsigned int	i;
@@ -35,7 +48,7 @@ static int	is_option_or_file(char *str)
 	if (ft_strequ(str, "-dump") == SUCCESS)
 		return (SUCCESS);
 	if (str[0] != '-' && ft_strstr(str, ".cor"))
-		return (SUCCESS);
+		return (does_file_exist(str));
 	if (str[0] != '-' || str[0] == '\0')
 		return (print_message(USAGE, NULL, STDERR, ERROR));
 	if (str[1] == '\0' || \
@@ -104,7 +117,7 @@ int			input_validation(t_vm *vm, char **argv, int argc)
 	while (idx < argc)
 	{
 		champ_size = 0;
-		if (is_champion(argv[idx], &champ_size) == TRUE && \
+		if (is_champion(argv[idx], &champ_size) == SUCCESS && \
 			save_champion(vm, argv[idx], champ_size, 0) == ERROR)
 			return (ERROR);
 		++idx;
