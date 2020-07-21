@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/07/10 13:09:21 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/21 13:42:24 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,8 @@ t_bool			command_syntax_check(t_project *as)
 t_bool			find_header(t_project *as)
 {
 	as->count = (as->flags & DEBUG_O) ? ft_printf("\t\t%s\n", __func__) : 0;
+	if (as->current_token->token_type == INSTRUCTION || as->current_token->token_type == LABEL)
+		as->body_found = SUCCESS;
 	if (as->header_found)
 		return (SUCCESS);
 	if (as->next_token->token_type == LABEL || \
@@ -197,6 +199,8 @@ t_bool			syntax_check(t_project *as)
 			return (FAIL);
 		return (syntax_error(as));
 	}
+	else if (as->next_token->token_type == END && !as->body_found)
+		return (syntax_error(as));
 	else
 		syntax_break_check(as);
 	if (as->current_token->token_type == SEPARATOR)

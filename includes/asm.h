@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/07/10 12:03:11 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/07/21 13:15:06 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ typedef struct		s_project
 	char			*og_line;
 	char			comment_found;
 	char			header_found;
+	char			body_found;
 	char			opcode_temp;
 	size_t			pc;
 	size_t			temp_addres;
