@@ -203,8 +203,8 @@ t_bool				byte_string_to_file(t_project *as, int type,
 					size_t max_size);
 void				print_zero_bytes(t_project *as, size_t len,
 					size_t max_size);
-t_bool				check_str_to_long(int type, size_t max_size, size_t len);
 t_bool				byte_num_to_file(t_project *as, int num);
 void				add_strings(t_project *as, char **line);
+t_bool			check_strings_to_long(t_project *as);
 
 #endif
