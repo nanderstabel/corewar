@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/26 11:58:03 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/06 17:24:52 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/07/21 15:23:00 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int			save_champion(t_vm *vm, char *file, int champ_len,
 		return (ERROR);
 	vm->champ[champ_no]->header.magic = COREWAR_EXEC_MAGIC;
 	vm->champ[champ_no]->header.prog_size = champ_len;
+	vm->champ[champ_no]->id = champ_no;
 	ft_strcpy(vm->champ[champ_no]->header.prog_name, (char*)buf + 4);
 	ft_strcpy(vm->champ[champ_no]->header.comment, (char*)buf + 12 + PROG_NAME_LENGTH);
 	ft_memcpy(vm->champ[champ_no]->exec_code, buf + 16 + PROG_NAME_LENGTH \
