@@ -6,7 +6,7 @@
 /*   By: lhageman <lhageman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/20 16:24:05 by lhageman      #+#    #+#                 */
-/*   Updated: 2020/07/21 11:50:35 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/07/21 13:39:29 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,5 +92,5 @@ void	vis_attr_p4(int set, WINDOW *arena)
 	if (set == 4)
 		wattron(arena, COLOR_PAIR(14));
 	if (set == 1 || set == 3 || set == 4)
-		watroff(arena, A_BOLD);
+		wattroff(arena, A_BOLD);
 }
