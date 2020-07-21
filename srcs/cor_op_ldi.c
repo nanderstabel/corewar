@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   cor_op_ldii.c                                       :+:    :+:            */
+/*   cor_op_ldi.c                                       :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
+/*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/06/08 16:49:42 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/06/08 16:49:42 by mmarcell      ########   odam.nl         */
+/*   Created: 2020/07/17 15:12:58 by nstabel       #+#    #+#                 */
+/*   Updated: 2020/07/17 15:13:00 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ static int		get_value(t_vm *vm, t_cursor *cursor, int type, int *size)
 	if (type == REG)
 	{
 		type = convert_to_int(vm->arena, new_idx(cursor->pc, *size, 0), 1);
+		type = cursor->reg[type];
 		*size += 1;
 	}
 	else if (type == IND)
@@ -75,10 +76,13 @@ int		op_ldi(t_vm *vm, t_cursor *cursor)
 
 	arg_1 = get_value(vm, cursor, arg_1, &size);
 	arg_2 = get_value(vm, cursor, arg_2, &size);
-	arg_3 = get_value(vm, cursor, REG, &size);
+	arg_3 = convert_to_int(vm->arena, new_idx(cursor->pc, size, 0), 1);
 
 	if (arg_3 < REG_NUMBER)
-		cursor->reg[arg_3] = convert_to_int(vm->arena, new_idx(cursor->pc, arg_1 + arg_2, 0), 4);;
+		cursor->reg[arg_3] = cursor->pc + (arg_1 + arg_2) % IDX_MOD;
+	else
+		return (ERROR);
+	size++;
 	cursor->pc = new_idx(cursor->pc, size, FALSE);
 
 	return (SUCCESS);
