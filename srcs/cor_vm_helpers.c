@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/28 17:10:22 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/21 18:24:06 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/07/21 18:35:39 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,10 +72,9 @@ void			put_arena(unsigned char *arena)
 	{
 		if (idx != 0 && idx % 64 == 0)
 			ft_printf("%#06x : ", idx);
-		if (idx == 0 || (idx + 1) % 64 != 0)
-			ft_printf("%s ", vis_itoa(arena[idx]));
-		else
-			ft_printf("%s\n", vis_itoa(arena[idx]));
+		ft_printf("%s ", vis_itoa(arena[idx]));
+		if ((idx + 1) % 64 == 0)
+			ft_printf("\n", vis_itoa(arena[idx]));
 		idx += 1;
 	}
 }
