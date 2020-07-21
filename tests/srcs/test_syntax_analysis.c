@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/12 17:56:32 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/07/09 18:33:25 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/07/21 13:06:19 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,53 @@ void redirect_all_stdout2(void)
 // 		++current;
 // 	}
 // }
+
+Test(test_syntax_analysis, syntax_analysis_no_op_test, .init=redirect_all_stdout2)
+{
+	t_project	*as = (t_project *)ft_memalloc(sizeof(t_project));
+	t_bool		ret;
+
+	as->fd = open("./invalid_asm/op_no_code.s", O_RDONLY);
+	analyze_lexicon(as);	
+	ret = analyze_syntax(as);
+	cr_assert((ret == FAIL));
+	cr_assert_stderr_eq_str("Syntax error at token [TOKEN][003:001] END \"(null)\"\n");
+}
+
+Test(test_syntax_analysis, syntax_analysis_only_arg_test, .init=redirect_all_stdout2)
+{
+	t_project	*as = (t_project *)ft_memalloc(sizeof(t_project));
+	t_bool		ret;
+
+	as->fd = open("./invalid_asm/only_arg.s", O_RDONLY);
+	analyze_lexicon(as);	
+	ret = analyze_syntax(as);
+	cr_assert((ret == FAIL));
+	cr_assert_stderr_eq_str("Syntax error at token [TOKEN][004:002] INDIRECT \"321\"\n");
+}
+
+Test(test_syntax_analysis, syntax_analysis_only_label_test, .init=redirect_all_stdout2)
+{
+	t_project	*as = (t_project *)ft_memalloc(sizeof(t_project));
+	t_bool		ret;
+
+	as->fd = open("./invalid_asm/only_label.s", O_RDONLY);
+	analyze_lexicon(as);	
+	ret = analyze_syntax(as);
+	cr_assert((ret == SUCCESS));
+}
+
+Test(test_syntax_analysis, syntax_analysis_only_op_test, .init=redirect_all_stdout2)
+{
+	t_project	*as = (t_project *)ft_memalloc(sizeof(t_project));
+	t_bool		ret;
+
+	as->fd = open("./invalid_asm/only_op.s", O_RDONLY);
+	analyze_lexicon(as);	
+	ret = analyze_syntax(as);
+	cr_assert((ret == FAIL));
+	cr_assert_stderr_eq_str("Syntax error at token [TOKEN][004:006] ENDLINE\n");
+}
 
 Test(test_syntax_analysis, syntax_analysis_err1_test, .init=redirect_all_stdout2)
 {
