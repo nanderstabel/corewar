@@ -63,6 +63,7 @@ Test(cor_op_sti, reg_reg_ind_1, .init=redirect_all_stdout)
 	unsigned char	op_code = 3;
 	unsigned int	champ_count = 3;
 	unsigned int	champ_no = 1;
+	unsigned int	champ_pos = (MEM_SIZE / champ_count) * (champ_no - 1);
 	unsigned char	encoding = 0b01011000;
 	unsigned char	arg_1 = 2;
 	unsigned int	arg_1_len = 1;
@@ -73,7 +74,7 @@ Test(cor_op_sti, reg_reg_ind_1, .init=redirect_all_stdout)
 	short			arg_3 = 42;
 	unsigned int	arg_3_len = 2;
 	unsigned int	prog_size = 2 + arg_1_len + arg_2_len + arg_3_len;
-	unsigned int	expected_store_idx = new_idx(0, arg_2_value + arg_3, FALSE);
+	unsigned int	expected_store_idx = new_idx(champ_pos, arg_2_value + arg_3, FALSE);
 
 	// preparing the champion to test
 	cr_assert_eq(init_champions(&vm, champ_count), SUCCESS, "something went wrong when initializing the champs\n");
@@ -98,7 +99,7 @@ Test(cor_op_sti, reg_reg_ind_1, .init=redirect_all_stdout)
 	cursor->reg[(int)arg_2] = arg_2_value;
 	cr_assert_eq(op_sti(&vm, cursor), SUCCESS, "op_sti() returned ERROR with arg_1 = %d, arg_2 = %d and arg_3 = %d\n", arg_1, arg_2, arg_3);
 	unsigned int pc_after = cursor->pc;
-	int	store_idx = cursor->reg[arg_2] + convert_to_int(vm.arena, 3 + arg_2_len, 2);
+	int	store_idx = new_idx(champ_pos, cursor->reg[arg_2] + convert_to_int(vm.arena, champ_pos + 3 + arg_2_len, 2), FALSE);
 	cr_assert_eq(store_idx, expected_store_idx, "store_idx = %d, expected_store_idx = %d\n", store_idx, expected_store_idx);
 	int stored_value = convert_to_int(vm.arena, store_idx, 4);
 	cr_assert_eq(stored_value, arg_1_value, "stored = %d\n expected = %d", stored_value, arg_1_value);
@@ -115,8 +116,9 @@ Test(cor_op_sti, reg_reg_dir_3, .init=redirect_all_stdout)
 	ft_bzero(&vm, sizeof(t_vm));
 	t_cursor *cursor;
 	unsigned char	op_code = 3;
-	unsigned int	champ_count = 3;
-	unsigned int	champ_no = 1;
+	unsigned int	champ_count = 4;
+	unsigned int	champ_no = 2;
+	unsigned int	champ_pos = (MEM_SIZE / champ_count) * (champ_no - 1);
 	unsigned char	encoding = 0b01011000;
 	unsigned char	arg_1 = 2;
 	unsigned int	arg_1_len = 1;
@@ -127,7 +129,7 @@ Test(cor_op_sti, reg_reg_dir_3, .init=redirect_all_stdout)
 	short			arg_3 = -42;
 	unsigned int	arg_3_len = 2;
 	unsigned int	prog_size = 2 + arg_1_len + arg_2_len + arg_3_len;
-	unsigned int	expected_store_idx = new_idx(0, arg_2_value + arg_3, FALSE);
+	unsigned int	expected_store_idx = new_idx(champ_pos, arg_2_value + arg_3, FALSE);
 
 	// preparing the champion to test
 	cr_assert_eq(init_champions(&vm, champ_count), SUCCESS, "something went wrong when initializing the champs\n");
@@ -152,8 +154,8 @@ Test(cor_op_sti, reg_reg_dir_3, .init=redirect_all_stdout)
 	cursor->reg[(int)arg_2] = arg_2_value;
 	cr_assert_eq(op_sti(&vm, cursor), SUCCESS, "op_sti() returned ERROR with arg_1 = %d, arg_2 = %d and arg_3 = %d\n", arg_1, arg_2, arg_3);
 	unsigned int pc_after = cursor->pc;
-	int	store_idx = new_idx(0, cursor->reg[arg_2] + convert_to_int(vm.arena, 3 + arg_2_len, 2), FALSE);
-	cr_assert_eq(store_idx, expected_store_idx, "store_idx = %d, expected_store_idx = %d\n", store_idx, expected_store_idx);
+	int	store_idx = new_idx(champ_pos, cursor->reg[arg_2] + convert_to_int(vm.arena, champ_pos + 3 + arg_2_len, 2), FALSE);
+	cr_assert_eq(store_idx, expected_store_idx, "store_idx = %d, expected_store_idx = %d, pc = %d, champ_pos = %d\n", store_idx, expected_store_idx, cursor->pc, champ_pos);
 	int stored_value = convert_to_int(vm.arena, store_idx, 4);
 	cr_assert_eq(stored_value, arg_1_value, "stored = %d\n expected = %d", stored_value, arg_1_value);
 	cr_assert_eq(pc_after - pc_before, prog_size, "cursor moved %d bytes but should have moved %d bytes\n", pc_after - pc_before, prog_size);
@@ -167,6 +169,7 @@ Test(cor_op_sti, reg_reg_dir_2, .init=redirect_all_stdout)
 	unsigned char	op_code = 3;
 	unsigned int	champ_count = 3;
 	unsigned int	champ_no = 1;
+	unsigned int	champ_pos = (MEM_SIZE / champ_count) * (champ_no - 1);
 	unsigned char	encoding = 0b01011000;
 	unsigned char	arg_1 = 2;
 	unsigned int	arg_1_len = 1;
@@ -177,7 +180,7 @@ Test(cor_op_sti, reg_reg_dir_2, .init=redirect_all_stdout)
 	short			arg_3 = 42;
 	unsigned int	arg_3_len = 2;
 	unsigned int	prog_size = 2 + arg_1_len + arg_2_len + arg_3_len;
-	unsigned int	expected_store_idx = new_idx(0, arg_2_value + arg_3, FALSE);
+	unsigned int	expected_store_idx = new_idx(champ_pos, arg_2_value + arg_3, FALSE);
 
 	// preparing the champion to test
 	cr_assert_eq(init_champions(&vm, champ_count), SUCCESS, "something went wrong when initializing the champs\n");
@@ -202,7 +205,7 @@ Test(cor_op_sti, reg_reg_dir_2, .init=redirect_all_stdout)
 	cursor->reg[(int)arg_2] = arg_2_value;
 	cr_assert_eq(op_sti(&vm, cursor), SUCCESS, "op_sti() returned ERROR with arg_1 = %d, arg_2 = %d and arg_3 = %d\n", arg_1, arg_2, arg_3);
 	unsigned int pc_after = cursor->pc;
-	int	store_idx = cursor->reg[arg_2] + convert_to_int(vm.arena, 3 + arg_2_len, 2);
+	int	store_idx = new_idx(champ_pos, cursor->reg[arg_2] + convert_to_int(vm.arena, champ_pos + 3 + arg_2_len, 2), FALSE);
 	cr_assert_eq(store_idx, expected_store_idx, "store_idx = %d, expected_store_idx = %d\n", store_idx, expected_store_idx);
 	int stored_value = convert_to_int(vm.arena, store_idx, 4);
 	cr_assert_eq(stored_value, arg_1_value, "stored = %d\n expected = %d", stored_value, arg_1_value);
@@ -217,6 +220,7 @@ Test(cor_op_sti, reg_reg_dir_1, .init=redirect_all_stdout)
 	unsigned char	op_code = 3;
 	unsigned int	champ_count = 3;
 	unsigned int	champ_no = 1;
+	unsigned int	champ_pos = (MEM_SIZE / champ_count) * (champ_no - 1);
 	unsigned char	encoding = 0b01011000;
 	unsigned char	arg_1 = 2;
 	unsigned int	arg_1_len = 1;
@@ -227,7 +231,7 @@ Test(cor_op_sti, reg_reg_dir_1, .init=redirect_all_stdout)
 	short			arg_3 = 42;
 	unsigned int	arg_3_len = 2;
 	unsigned int	prog_size = 2 + arg_1_len + arg_2_len + arg_3_len;
-	unsigned int	expected_store_idx = new_idx(0, arg_2_value + arg_3, FALSE);
+	unsigned int	expected_store_idx = new_idx(champ_pos, arg_2_value + arg_3, FALSE);
 
 	// preparing the champion to test
 	cr_assert_eq(init_champions(&vm, champ_count), SUCCESS, "something went wrong when initializing the champs\n");
@@ -252,7 +256,7 @@ Test(cor_op_sti, reg_reg_dir_1, .init=redirect_all_stdout)
 	cursor->reg[(int)arg_2] = arg_2_value;
 	cr_assert_eq(op_sti(&vm, cursor), SUCCESS, "op_sti() returned ERROR with arg_1 = %d, arg_2 = %d and arg_3 = %d\n", arg_1, arg_2, arg_3);
 	unsigned int pc_after = cursor->pc;
-	int	store_idx = cursor->reg[arg_2] + convert_to_int(vm.arena, 3 + arg_2_len, 2);
+	int	store_idx = new_idx(champ_pos, cursor->reg[arg_2] + convert_to_int(vm.arena, champ_pos + 3 + arg_2_len, 2), FALSE);
 	cr_assert_eq(store_idx, expected_store_idx, "store_idx = %d, expected_store_idx = %d\n", store_idx, expected_store_idx);
 	int stored_value = convert_to_int(vm.arena, store_idx, 4);
 	cr_assert_eq(stored_value, arg_1_value, "stored = %d\n expected = %d", stored_value, arg_1_value);
