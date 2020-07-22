@@ -44,7 +44,7 @@ typedef void		(*t_attr_func)(int, WINDOW *);
 typedef struct		s_vis
 {
 	t_graphics		*graphics;
-	t_attr_func		attr[4];
+	t_attr_func		attr[5];
 	unsigned char	*arena;
 	unsigned int	index;
 	unsigned int	bytes;
