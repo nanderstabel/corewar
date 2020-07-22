@@ -100,6 +100,7 @@ int			vm_start(t_vm *vm)
 	while (vm->cursors != NULL && (vm->dump == -1 ||\
 		(vm->dump > 0 && (unsigned int)(vm->dump) > vm->total_cycle_count)))
 		game_loop(vm, operations);
+	exit_visualizer(vm);
 	if (vm->dump > 0 && (unsigned int)vm->dump == vm->total_cycle_count)
 		put_arena(vm->arena);
 	return (SUCCESS);

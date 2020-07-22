@@ -89,6 +89,7 @@ int					print_message(char *message, char *info, int fd, \
 					int ret);
 int					free_vm(t_vm *vm, int ret);
 void				cursor_del(t_cursor *cursor);
+void				exit_visualizer(t_vm *vm);
 
 int					input_validation(t_vm *vm, char **argv, int argc);
 

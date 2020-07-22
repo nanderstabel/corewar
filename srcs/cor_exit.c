@@ -39,10 +39,8 @@ static void	free_champions(t_champ ***champions)
 	*champions = NULL;
 }
 
-int			free_vm(t_vm *vm, int ret)
+void		exit_visualizer(t_vm *vm)
 {
-	t_cursor	*cursor_to_del;
-
 	if (vm->vis != NULL)
 	{
 		vis_close_windows(vm->vis);
@@ -51,6 +49,12 @@ int			free_vm(t_vm *vm, int ret)
 		ft_bzero(vm->vis, sizeof(t_vis));
 		ft_memdel((void**)&(vm->vis));
 	}
+}
+
+int			free_vm(t_vm *vm, int ret)
+{
+	t_cursor	*cursor_to_del;
+
 	if (vm->champ)
 		free_champions(&(vm->champ));
 	while (vm->cursors)
