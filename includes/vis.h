@@ -67,4 +67,5 @@ int					vis_print_data(t_vm *vm);
 void				vis_attr_array(t_attr_func *attr);
 
 char				*vis_itoa(unsigned char nbr);
+void				vis_exit(t_vm *vm);
 #endif
