@@ -54,7 +54,7 @@ int		op_or(t_vm *vm, t_cursor *cursor)
 	int		arg_2;
 	int		arg_3;
 
-	if (op_add_check(vm, cursor) != SUCCESS)
+	if (op_or_check(vm, cursor) != SUCCESS)
 		return (ERROR);
 	arg_1 = convert_to_int(vm->arena, new_idx(cursor->pc, 2, 0), 1);
 	arg_2 = convert_to_int(vm->arena, new_idx(cursor->pc, 3, 0), 1);
