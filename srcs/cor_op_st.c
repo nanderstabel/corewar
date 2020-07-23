@@ -37,9 +37,9 @@ static int	op_st_check(t_vm *vm, t_cursor *cursor)
 
 static void	vis_st(t_vm *vm, t_cursor *cursor, int offset)
 {
-	int	bold;
-	int	inverse;
-	int	bytes;
+	int				bold;
+	int				inverse;
+	unsigned int	bytes;
 
 	bold = TRUE;
 	inverse = FALSE;
@@ -51,6 +51,7 @@ static void	vis_st(t_vm *vm, t_cursor *cursor, int offset)
 	vm->vis->index = new_idx(cursor->pc, offset, FALSE);
 	vm->vis->bytes = bytes;
 	vis_print_cursor(vm->vis);
+	// vis_reset_add(vm->vis, (unsigned char)(cursor->player), cursor->pc, bytes);
 }
 
 int		op_st(t_vm *vm, t_cursor *cursor)
@@ -66,7 +67,7 @@ int		op_st(t_vm *vm, t_cursor *cursor)
 	if (type == REG)
 	{
 		arg_2 = convert_to_int(vm->arena, new_idx(cursor->pc, 3, 0), 1);
-		if (arg_1 <= 0 || 16 < arg_1)
+		if (arg_1 <= 0 || REG_NUMBER < arg_1)
 			return (ERROR);
 		cursor->reg[arg_2] = cursor->reg[arg_1];
 		cursor->pc = new_idx(cursor->pc, 4, FALSE);

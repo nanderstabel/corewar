@@ -30,12 +30,20 @@ void	vis_set_graphics(t_graphics *graphics)
 
 void	vis_set(t_vis *vis)
 {
+	// int		idx;
+
 	vis->graphics = ft_memalloc(sizeof(t_graphics));
 	vis_set_graphics(vis->graphics);
 	vis_attr_array(vis->attr);
 	vis->arena = NULL;
 	vis->index = 0;
 	vis->bytes = 0;
+	// idx = 0;
+	// while (idx < MEM_SIZE)
+	// {
+	// 	vis->reset[idx] = (t_reset*)ft_memalloc(sizeof(t_reset));
+	// 	++idx;
+	// }
 }
 
 void	vis_initiate(void)
