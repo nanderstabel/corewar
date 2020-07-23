@@ -1,22 +1,23 @@
 #!/bin/bash
 PATH_YOUR_CW="../../corewar"
 PATH_ORGN_CW="cor_bin/mac/corewar"
-PATH_PLAYERS="../valid_asm/valid_cor/"
+PATH_PLAYERS="../valid_asm/valid_cor/*.cor"
 
-players=("vm_test")
+# players=("vm_test")
 #( ( i <= $CYCLES ) && ( $error == 0 ) )
 function    test_players()
 {
     CYCLES=10000
     error=0
 
-    for player in ${players[@]}
+    for player in $PATH_PLAYERS
     do
         ((error=0))
+        # echo $player
         for (( i=1; ( ( i <= $CYCLES ) && ( $error == 0 ) ) ; i+=100))
         do
-            $PATH_ORGN_CW $PATH_PLAYERS$player".cor" -d $i | sed -n -e '/^0x/p' > diff/origin_output1
-            $PATH_YOUR_CW $PATH_PLAYERS$player".cor" -dump $i | sed -n -e'/^0x/p' > diff/yours_output2
+            $PATH_ORGN_CW $player -d $i | sed -n -e '/^0x/p' > diff/origin_output1
+            $PATH_YOUR_CW $player -dump $i | sed -n -e'/^0x/p' > diff/yours_output2
             if ! cmp -s "diff/origin_output1" "diff/yours_output2"; then
                 printf '\033[0m[%10s] ' "$player"
                 ((i=i-1))
