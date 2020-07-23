@@ -17,8 +17,9 @@ int		main(int argc, char **argv)
 	if (input_validation(&vm, argv, argc) == ERROR)
 		return (free_vm(&vm, ERROR));
 	vm_start(&vm);
-	ft_printf("player %d (\"%s\") won !\n", vm.last_live, \
-		vm.champ[vm.last_live]->header.prog_name);
+	if (vm.cursors == NULL)
+		ft_printf("Contestant %d, \"%s\", has won !\n", vm.last_live, \
+			vm.champ[vm.last_live]->header.prog_name);
 	return (free_vm(&vm, SUCCESS));
 }
 

@@ -101,7 +101,7 @@ int			vm_start(t_vm *vm)
 		(vm->dump > 0 && (unsigned int)(vm->dump) > vm->total_cycle_count)))
 		game_loop(vm, operations);
 	vis_exit(vm);
-	if (vm->dump > 0 && (unsigned int)vm->dump == vm->total_cycle_count)
+	if (vm->dump >= 0 && (unsigned int)vm->dump == vm->total_cycle_count)
 		put_arena(vm->arena);
 	return (SUCCESS);
 }
