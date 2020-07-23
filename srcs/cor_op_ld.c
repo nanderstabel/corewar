@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/08 16:47:57 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/23 09:45:28 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/23 11:37:54 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ int		op_ld(t_vm *vm, t_cursor *cursor)
 	int		arg_2;
 	int		size;
 
-	ft_printf("cursor: %i\n", cursor->pc);
 	if (op_ld_check(vm, cursor) != SUCCESS)
 		return (ERROR);
 	size = 2;
