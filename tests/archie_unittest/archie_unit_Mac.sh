@@ -1,6 +1,6 @@
 #!/bin/bash
 PATH_YOUR_CW="../../corewar"
-PATH_ORGN_CW="../og_vm/corewar"
+PATH_ORGN_CW="cor_bin/mac/corewar"
 PATH_PLAYERS="../valid_asm/"
 
 players=("vm_test")
