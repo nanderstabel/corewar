@@ -14,7 +14,7 @@ echo $DUMP
 
 $OG_COR $PATH_TO_PLAYER$PLAYER.cor -d $DUMP > diff/og_output
 $OUR_COR $PATH_TO_PLAYER$PLAYER.cor -d $DUMP > diff/our_output
-if ! cmp -s "diff diff/og_output" "diff/our_output"; then
+if ! diff "diff/og_output" "diff/our_output" ; then
     echo '-----no diff'
 fi
 rm diff/og_output diff/our_output
