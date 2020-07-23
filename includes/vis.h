@@ -6,7 +6,7 @@
 /*   By: lhageman <lhageman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/20 14:16:44 by lhageman      #+#    #+#                 */
-/*   Updated: 2020/07/10 13:52:00 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/07/21 18:26:53 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ typedef void		(*t_attr_func)(int, WINDOW *);
 typedef struct		s_vis
 {
 	t_graphics		*graphics;
-	t_attr_func		attr[4];
+	t_attr_func		attr[5];
 	unsigned char	*arena;
 	unsigned int	index;
 	unsigned int	bytes;
@@ -67,4 +67,5 @@ int					vis_print_data(t_vm *vm);
 void				vis_attr_array(t_attr_func *attr);
 
 char				*vis_itoa(unsigned char nbr);
+void				vis_exit(t_vm *vm);
 #endif

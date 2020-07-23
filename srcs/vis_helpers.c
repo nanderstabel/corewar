@@ -33,11 +33,14 @@ char	*vis_itoa(unsigned char nbr)
 	return (result);
 }
 
-void	vis_putnbr(unsigned char nbr)
+void	vis_exit(t_vm *vm)
 {
-	char	*result;
-
-	result = vis_itoa(nbr);
-	//print number with visualizer
-	ft_strdel(&result);
+	if (vm->vis != NULL)
+	{
+		vis_close_windows(vm->vis);
+		ft_bzero(vm->vis->graphics, sizeof(t_graphics));
+		ft_memdel((void**)&(vm->vis->graphics));
+		ft_bzero(vm->vis, sizeof(t_vis));
+		ft_memdel((void**)&(vm->vis));
+	}
 }

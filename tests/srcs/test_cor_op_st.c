@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/12 13:05:35 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/13 13:46:36 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/07/21 16:30:25 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ Test(cor_op_st, reg_reg_inv_1, .init=redirect_all_stdout)
 	cr_assert_eq(pc_after - pc_before, prog_size, "cursor moved %d bytes but should have moved %d bytes\n", pc_after - pc_before, prog_size);
 }
 
-Test(cor_op_st, reg_reg_4/* , .init=redirect_all_stdout */)
+Test(cor_op_st, reg_reg_4, .init=redirect_all_stdout)
 {
 	t_vm vm;
 	ft_bzero(&vm, sizeof(t_vm));
