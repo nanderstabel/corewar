@@ -1,8 +1,8 @@
 #!/bin/bash
 OG_COR="cor_bin/lin/corewar"
 OUR_COR="../../corewar"
-PATH_TO_PLAYER="../valid_asm/valid_cor/"
-PLAYER="test_and3"
+PATH_TO_PLAYER="../valid_asm/"
+PLAYER="Bazou"
 
 if [ -z "$1" ]
   then

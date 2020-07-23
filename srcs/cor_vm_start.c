@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/03 11:22:16 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/21 14:59:52 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/07/23 14:57:36 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int			vm_start(t_vm *vm)
 		print_cursors(vm);
 	}
 	while (vm->cursors != NULL && (vm->dump == -1 ||\
-		(vm->dump > 0 && (unsigned int)(vm->dump) > vm->total_cycle_count)))
+		(vm->dump >= 0 && (unsigned int)(vm->dump) > vm->total_cycle_count)))
 		game_loop(vm, operations);
 	vis_exit(vm);
 	return (SUCCESS);

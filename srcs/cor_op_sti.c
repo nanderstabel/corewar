@@ -6,7 +6,7 @@
 /*   By: lhageman <lhageman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 15:10:22 by lhageman      #+#    #+#                 */
-/*   Updated: 2020/07/21 17:32:11 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/07/23 16:40:38 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ static void	vis_sti(t_vm *vm, t_cursor *cursor, unsigned int store_idx)
 
 int		op_sti(t_vm *vm, t_cursor *cursor)
 {
+	//ft_printf("pc: %i, sti, cycle: %i\n", cursor->pc, vm->total_cycle_count);
 	int				arg_1;
 	int				arg_2_value;
 	int				arg_3_value;

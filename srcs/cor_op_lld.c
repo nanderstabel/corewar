@@ -6,7 +6,7 @@
 /*   By: lhageman <lhageman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 14:08:58 by lhageman      #+#    #+#                 */
-/*   Updated: 2020/07/23 09:46:19 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/23 16:40:38 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,7 @@ static int	op_lld_check(t_vm *vm, t_cursor *cursor)
 		get_arg_type(enc, 3) != 0 || \
 		get_arg_type(enc, 2) != REG || \
 		get_arg_type(enc, 1) == 0 ||
-		get_arg_type(enc, 1) == REG)
-	{
-		cursor->pc = new_idx(cursor->pc, 1, FALSE);
-		return (ERROR);
-	}
+		get_arg_type(enc, 1) == REG)		return (ERROR);
 	else
 		return (SUCCESS);
 }
@@ -63,6 +59,7 @@ static int		get_value(t_vm *vm, t_cursor *cursor, int type, int *size)
 
 int		op_lld(t_vm *vm, t_cursor *cursor)
 {
+	//ft_printf("pc: %i, lld, cycle: %i\n", cursor->pc, vm->total_cycle_count);
 	int		arg_1;
 	int		arg_2;
 	int		size;
