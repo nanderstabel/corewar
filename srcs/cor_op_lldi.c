@@ -6,7 +6,7 @@
 /*   By: lhageman <lhageman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 14:09:12 by lhageman      #+#    #+#                 */
-/*   Updated: 2020/07/21 16:07:11 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/23 10:14:49 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ static int		get_value(t_vm *vm, t_cursor *cursor, int type, int *size)
 	}
 	else if (type == DIR)
 	{
-		type = convert_to_int(vm->arena, new_idx(cursor->pc, *size, 0), 4);
-		*size += 4;
+		type = convert_to_int(vm->arena, new_idx(cursor->pc, *size, 0), 2);
+		*size += 2;
 	}
 	return (type);
 }
@@ -71,15 +71,15 @@ int		op_lldi(t_vm *vm, t_cursor *cursor)
 	if (op_lldi_check(vm, cursor) != SUCCESS)
 		return (ERROR);
 	size = 2;
-	arg_1 = get_arg_type(vm->arena[new_idx(cursor->pc, 1, TRUE)], 1);
-	arg_2 = get_arg_type(vm->arena[new_idx(cursor->pc, 1, TRUE)], 2);
+	arg_1 = get_arg_type(vm->arena[new_idx(cursor->pc, 1, FALSE)], 1);
+	arg_2 = get_arg_type(vm->arena[new_idx(cursor->pc, 1, FALSE)], 2);
 
 	arg_1 = get_value(vm, cursor, arg_1, &size);
 	arg_2 = get_value(vm, cursor, arg_2, &size);
 	arg_3 = convert_to_int(vm->arena, new_idx(cursor->pc, size, 0), 1);
 
 	if (arg_3 < REG_NUMBER)
-		cursor->reg[arg_3] = convert_to_int(vm->arena, new_idx(cursor->pc, arg_1 + arg_2, 0), 4);
+		cursor->reg[arg_3] = convert_to_int(vm->arena, new_idx(cursor->pc, arg_1 + arg_2, 1), 4);
 	else
 		return (ERROR);
 	size++;
