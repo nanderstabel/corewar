@@ -1,19 +1,19 @@
 #!/bin/bash
 OG_COR="cor_bin/lin/corewar"
 OUR_COR="../../corewar"
-PATH_TO_PLAYER="../valid_asm/"
-PLAYER="Bazou"
+# PATH_TO_PLAYER="../valid_asm/valid_cor/"
+PLAYER=$1
 
-if [ -z "$1" ]
+if [ -z "$2" ]
   then
     DUMP=5
     else
-    DUMP=$1
+    DUMP=$2
 fi
 
 rm diff/og_output diff/our_output
-$OG_COR $PATH_TO_PLAYER$PLAYER.cor -d $DUMP > diff/og_output
-$OUR_COR $PATH_TO_PLAYER$PLAYER.cor -d $DUMP > diff/our_output
+$OG_COR $PLAYER -d $DUMP > diff/og_output
+$OUR_COR $PLAYER -d $DUMP > diff/our_output
 DIFF=$(diff "diff/og_output" "diff/our_output")
 if [ "$DIFF" != "" ]
 then
