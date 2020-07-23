@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/08 16:45:01 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/21 16:29:02 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/23 16:40:38 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,7 @@ static int	op_add_check(t_vm *vm, t_cursor *cursor)
 	if (get_arg_type(enc, 4) != 0 || \
 		get_arg_type(enc, 3) != REG || \
 		get_arg_type(enc, 2) != REG || \
-		get_arg_type(enc, 1) != REG)
-	{
-		cursor->pc = new_idx(cursor->pc, 1, FALSE);
-		return (ERROR);
-	}
+		get_arg_type(enc, 1) != REG)		return (ERROR);
 	else
 		return (SUCCESS);
 }
@@ -53,6 +49,7 @@ static int		get_value(t_vm *vm, t_cursor *cursor, int type, int *size)
 
 int		op_add(t_vm *vm, t_cursor *cursor)
 {
+	//ft_printf("pc: %i, add, cycle: %i\n", cursor->pc, vm->total_cycle_count);
 	int		arg_1;
 	int		arg_2;
 	int		arg_3;

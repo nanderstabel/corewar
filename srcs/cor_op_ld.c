@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/08 16:47:57 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/23 11:37:54 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/23 17:52:09 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,7 @@ static int	op_ld_check(t_vm *vm, t_cursor *cursor)
 		get_arg_type(enc, 3) != 0 || \
 		get_arg_type(enc, 2) != REG || \
 		get_arg_type(enc, 1) == 0 ||
-		get_arg_type(enc, 1) == REG)
-	{
-		cursor->pc = new_idx(cursor->pc, 1, FALSE);
-		return (ERROR);
-	}
+		get_arg_type(enc, 1) == REG)		return (ERROR);
 	else
 		return (SUCCESS);
 }
@@ -63,6 +59,7 @@ static int		get_value(t_vm *vm, t_cursor *cursor, int type, int *size)
 
 int		op_ld(t_vm *vm, t_cursor *cursor)
 {
+	//ft_printf("pc: %i, ld, cycle: %i\n", cursor->pc, vm->total_cycle_count);
 	int		arg_1;
 	int		arg_2;
 	int		size;
@@ -76,10 +73,10 @@ int		op_ld(t_vm *vm, t_cursor *cursor)
 	// ft_printf("[arg_1 = %u, size = %u]\n", arg_1, size);
 	arg_2 = convert_to_int(vm->arena, new_idx(cursor->pc, size, 0), 1);
 	// ft_printf("[arg_1 = %u, arg_2 = %u, size = %u]\n", arg_1, arg_2, size);
-	if (arg_2 > 0 && arg_2 < REG_NUMBER)
+	if (arg_2 > 0 && arg_2 <= REG_NUMBER)
 		cursor->reg[arg_2] = arg_1;
-	else
-		return (ERROR);
+	// else
+	// 	return (ERROR);
 	size++;
 	cursor->pc = new_idx(cursor->pc, size, FALSE);
 	cursor->carry = (cursor->reg[arg_2]) ? 0 : 1;

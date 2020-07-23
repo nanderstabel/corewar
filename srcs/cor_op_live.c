@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 11:20:48 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/21 15:09:17 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/07/23 16:40:38 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,18 +40,20 @@ static void	vis_live(t_vm *vm, t_cursor *cursor)
 
 int			op_live(t_vm *vm, t_cursor *cursor)
 {
+	//ft_printf("pc: %i, live, cycle: %i\n", cursor->pc, vm->total_cycle_count);
 	int				arg;
 
 	arg = convert_to_int(vm->arena, new_idx(cursor->pc, 1, FALSE), 4);
-	if (-arg != cursor->reg[1])
-		return (ERROR);
-	vm->last_live = arg;
-	++(vm->live_count);
-	cursor->decay = 0;
-	// if (vm->vis == NULL)
-	// 	ft_printf("A process shows that player %d (%s) is alive\n", \
-	// 		arg, vm->champ[arg]->header.prog_name);
-	vis_live(vm, cursor);
+	if (-arg == cursor->reg[1])
+	{
+		vm->last_live = arg;
+		++(vm->live_count);
+		cursor->decay = 0;
+		// if (vm->vis == NULL)
+		// 	ft_printf("A process shows that player %d (%s) is alive\n", 
+		// 		arg, vm->champ[arg]->header.prog_name);
+		vis_live(vm, cursor);
+	}
 	cursor->pc = new_idx(cursor->pc, 5, FALSE);
 	// If wanted live count for champ
 	return (SUCCESS);

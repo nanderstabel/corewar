@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/08 16:46:55 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/06/08 16:46:55 by mmarcell      ########   odam.nl         */
+/*   Updated: 2020/07/23 17:08:59 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		op_aff(t_vm *vm, t_cursor *cursor)
 	arg = convert_to_int(vm->arena, new_idx(cursor->pc, 2, FALSE), 1);
 	if (0 < arg && arg <= REG_NUMBER)
 	{
-		arg_value = (char)(cursor->reg[arg]);
+		arg_value = (char)(cursor->reg[(int)arg]);
 		if (vm->vis != NULL)
 			ft_putchar(arg_value);
 	}

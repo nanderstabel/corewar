@@ -6,7 +6,7 @@
 /*   By: lhageman <lhageman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 14:08:37 by lhageman      #+#    #+#                 */
-/*   Updated: 2020/07/17 16:22:16 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/23 16:40:38 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int		op_lfork(t_vm *vm, t_cursor *cursor)
 {
+	//ft_printf("pc: %i, lfork, cycle: %i\n", cursor->pc, vm->total_cycle_count);
 	int			arg;
 	t_cursor	*new_cursor;
 
