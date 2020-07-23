@@ -6,7 +6,7 @@
 /*   By: lhageman <lhageman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 14:08:58 by lhageman      #+#    #+#                 */
-/*   Updated: 2020/07/23 18:04:08 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/23 18:06:25 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,6 @@ int		op_lld(t_vm *vm, t_cursor *cursor)
 	// ft_printf("[arg_1 = %u, arg_2 = %u, size = %u]\n", arg_1, arg_2, size);
 	if (arg_2 > 0 && arg_2 < REG_NUMBER)
 		cursor->reg[arg_2] = arg_1;
-	else
-		return (ERROR);
 	size++;
 	cursor->pc = new_idx(cursor->pc, size, FALSE);
 	cursor->carry = (cursor->reg[arg_2]) ? 0 : 1;

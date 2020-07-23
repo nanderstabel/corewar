@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/17 15:12:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/07/23 18:03:31 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/23 18:06:16 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,6 @@ int		op_ldi(t_vm *vm, t_cursor *cursor)
 
 	if (arg_3 > 0 && arg_3 <= REG_NUMBER)
 		cursor->reg[arg_3] = convert_to_int(vm->arena, new_idx(cursor->pc, arg_1 + arg_2, 0), 4);
-	else
-		return (ERROR);
 	size++;
 	cursor->pc = new_idx(cursor->pc, size, FALSE);
 

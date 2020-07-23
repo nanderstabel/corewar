@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/08 16:51:53 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/23 16:40:38 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/23 18:09:41 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ static int	op_sub_check(t_vm *vm, t_cursor *cursor)
 	if (get_arg_type(enc, 4) != 0 || \
 		get_arg_type(enc, 3) != REG || \
 		get_arg_type(enc, 2) != REG || \
-		get_arg_type(enc, 1) != REG)		return (ERROR);
+		get_arg_type(enc, 1) != REG)
+		return (ERROR);
 	else
 		return (SUCCESS);
 }
@@ -64,8 +65,6 @@ int		op_sub(t_vm *vm, t_cursor *cursor)
 
 	if (arg_3 < REG_NUMBER)
 		cursor->reg[arg_3] = arg_1 - arg_2;
-	else
-		return (ERROR);
 	size++;
 	cursor->pc = new_idx(cursor->pc, size, FALSE);
 	cursor->carry = (cursor->reg[arg_3]) ? 0 : 1;
