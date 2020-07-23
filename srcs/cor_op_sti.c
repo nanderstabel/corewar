@@ -6,7 +6,7 @@
 /*   By: lhageman <lhageman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 15:10:22 by lhageman      #+#    #+#                 */
-/*   Updated: 2020/07/13 17:05:22 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/07/21 17:32:11 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,8 @@ static int	op_sti_check(t_vm *vm, t_cursor *cursor)
 	enc = vm->arena[new_idx(cursor->pc, 1, 0)];
 	if (get_arg_type(enc, 4) != 0 || \
 		get_arg_type(enc, 3) == 0 || \
-		get_arg_type(enc, 3) == IND || \
 		get_arg_type(enc, 2) == 0 || \
+		get_arg_type(enc, 3) == IND || \
 		get_arg_type(enc, 1) != REG)
 		return (ERROR);
 	return (SUCCESS);
@@ -113,9 +113,11 @@ int		op_sti(t_vm *vm, t_cursor *cursor)
 	int				arg_2_value;
 	int				arg_3_value;
 	unsigned int	store_idx;
+	unsigned int	op_len;
 
-	if (op_sti_check(vm, cursor) == SUCCESS)
+	if (op_sti_check(vm, cursor) == ERROR)
 		return (ERROR);
+	op_len = 6 + (get_arg_type(vm->arena[new_idx(cursor->pc, 1, 0)], 2) != REG);
 	arg_1 = convert_to_int(vm->arena, new_idx(cursor->pc, 2, 0), 1);
 	if (arg_1 <= 0 || arg_1 > 16 || \
 		get_arg_2_value(vm, cursor, &arg_2_value) == ERROR || \
@@ -124,5 +126,6 @@ int		op_sti(t_vm *vm, t_cursor *cursor)
 	store_idx = new_idx(cursor->pc, arg_2_value + arg_3_value, FALSE);
 	store_in_arena(vm->arena, store_idx, 4, cursor->reg[arg_1]);
 	vis_sti(vm, cursor, store_idx);
+	cursor->pc = new_idx(cursor->pc, op_len, FALSE);
 	return (SUCCESS);
 }

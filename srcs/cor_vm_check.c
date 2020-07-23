@@ -16,46 +16,36 @@ static void	kill_cursor(t_vm *vm, t_cursor *cursor)
 {
 	t_cursor	*walk;
 
-	if (vm->cursors == cursor)
-		vm->cursors = cursor->next;
-	walk = vm->cursors;
-	while (walk != NULL)
+	if (vm->cursors != cursor)
 	{
-		if (walk->next == cursor)
-			walk->next = cursor->next;
-		walk = walk->next;
+		walk = vm->cursors;
+		while (walk != NULL)
+		{
+			if (walk->next == cursor)
+				walk->next = cursor->next;
+			walk = walk->next;
+		}
 	}
+	else
+		vm->cursors = cursor->next;
 	ft_bzero(cursor, sizeof(t_cursor));
 	free(cursor);
+	cursor = NULL;
 	// play killing sound
 }
 
 static void	check_cursors(t_vm *vm)
 {
-	t_cursor *walk;
-	t_cursor *del;
+	t_cursor	*walk;
+	t_cursor	*tmp;
 
 	walk = vm->cursors;
-	while (walk->next != NULL)
+	while (walk != NULL)
 	{
-		if (walk->decay <= CYCLE_TO_DIE)
-			walk = walk->next;
-		else
-		{
-			if (vm->cursors == walk)
-				vm->cursors = walk->next;
-			del = walk;
-			walk = walk->next;
-			kill_cursor(vm, del);
-		}
-	}
-	if (walk->decay <= CYCLE_TO_DIE)
+		tmp = walk;
 		walk = walk->next;
-	else
-	{
-		if (vm->cursors == walk)
-			vm->cursors = NULL;
-		kill_cursor(vm, walk);
+		if (tmp->decay <= CYCLE_TO_DIE)
+			kill_cursor(vm, tmp);
 	}
 }
 

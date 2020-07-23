@@ -14,7 +14,21 @@
 
 int		op_aff(t_vm *vm, t_cursor *cursor)
 {
-	if (vm == NULL || cursor == NULL)
+	unsigned char	enc;
+	char			arg;
+	char			arg_value;
+
+	enc = convert_to_int(vm->arena, new_idx(cursor->pc, 1, FALSE), 1);
+	if (get_arg_type(enc, 1) != REG || get_arg_type(enc, 2) != 0 || \
+		get_arg_type(enc, 3) != 0 || get_arg_type(enc, 4) != 0)
 		return (ERROR);
+	arg = convert_to_int(vm->arena, new_idx(cursor->pc, 2, FALSE), 1);
+	if (0 < arg && arg <= REG_NUMBER)
+	{
+		arg_value = (char)(cursor->reg[arg]);
+		if (vm->vis != NULL)
+			ft_putchar(arg_value);
+	}
+	cursor->pc = new_idx(cursor->pc, 3, FALSE);
 	return (SUCCESS);
 }

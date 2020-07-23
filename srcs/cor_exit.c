@@ -43,14 +43,6 @@ int			free_vm(t_vm *vm, int ret)
 {
 	t_cursor	*cursor_to_del;
 
-	if (vm->vis != NULL)
-	{
-		vis_close_windows(vm->vis);
-		ft_bzero(vm->vis->graphics, sizeof(t_graphics));
-		ft_memdel((void**)&(vm->vis->graphics));
-		ft_bzero(vm->vis, sizeof(t_vis));
-		ft_memdel((void**)&(vm->vis));
-	}
 	if (vm->champ)
 		free_champions(&(vm->champ));
 	while (vm->cursors)

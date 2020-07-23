@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 11:20:48 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/21 12:03:33 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/07/21 15:09:17 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ static void	vis_live(t_vm *vm, t_cursor *cursor)
 	vm->vis->index = cursor->pc;
 	vm->vis->bytes = bytes;
 	vis_print_cursor(vm->vis);
-	vm->vis->attr[cursor->player](vis_calc_att(bold, FALSE), \
+	vis_print_data(vm);
+	vm->vis->attr[cursor->player](vis_calc_att(FALSE, FALSE), \
 		vm->vis->graphics->arena);
 	vm->vis->index = cursor->pc;
 	vm->vis->bytes = bytes;
@@ -42,14 +43,14 @@ int			op_live(t_vm *vm, t_cursor *cursor)
 	int				arg;
 
 	arg = convert_to_int(vm->arena, new_idx(cursor->pc, 1, FALSE), 4);
-	if (arg != cursor->reg[1])
+	if (-arg != cursor->reg[1])
 		return (ERROR);
 	vm->last_live = arg;
 	++(vm->live_count);
 	cursor->decay = 0;
-	if (vm->vis == NULL)
-		ft_printf("A process shows that player %d (%s) is alive\n", \
-			arg, vm->champ[arg]->header.prog_name);
+	// if (vm->vis == NULL)
+	// 	ft_printf("A process shows that player %d (%s) is alive\n", \
+	// 		arg, vm->champ[arg]->header.prog_name);
 	vis_live(vm, cursor);
 	cursor->pc = new_idx(cursor->pc, 5, FALSE);
 	// If wanted live count for champ

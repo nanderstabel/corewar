@@ -6,7 +6,7 @@
 /*   By: lhageman <lhageman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 09:43:31 by lhageman      #+#    #+#                 */
-/*   Updated: 2020/07/21 12:03:14 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/07/21 18:14:42 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 
 void	vis_attr_array(t_attr_func *attr)
 {
-	attr[0] = vis_attr_p1;
-	attr[1] = vis_attr_p2;
-	attr[2] = vis_attr_p3;
-	attr[3] = vis_attr_p4;
+	attr[0] = NULL;
+	attr[1] = vis_attr_p1;
+	attr[2] = vis_attr_p2;
+	attr[3] = vis_attr_p3;
+	attr[4] = vis_attr_p4;
 }
 
 void	vis_calc_pos(int pos, int *x, int *y)

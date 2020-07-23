@@ -49,7 +49,7 @@ int	cursors_init(t_vm *vm)
 		new_cursor->pc = (MEM_SIZE / vm->champ_count) * (idx - 1);
 		ft_memcpy(&(vm->arena[new_cursor->pc]), vm->champ[idx]->exec_code, \
 			vm->champ[idx]->header.prog_size);
-		new_cursor->reg[1] = idx;
+		new_cursor->reg[1] = -idx;
 		new_cursor->next = vm->cursors;
 		vm->cursors = new_cursor;
 		new_cursor->player = idx;
@@ -100,7 +100,6 @@ int			vm_start(t_vm *vm)
 	while (vm->cursors != NULL && (vm->dump == -1 ||\
 		(vm->dump > 0 && (unsigned int)(vm->dump) > vm->total_cycle_count)))
 		game_loop(vm, operations);
-	if (vm->dump > 0 && (unsigned int)vm->dump == vm->total_cycle_count)
-		put_arena(vm->arena);
+	vis_exit(vm);
 	return (SUCCESS);
 }
