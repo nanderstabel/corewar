@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 11:20:48 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/21 12:03:33 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/07/21 15:09:17 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ static void	vis_live(t_vm *vm, t_cursor *cursor)
 	vm->vis->index = cursor->pc;
 	vm->vis->bytes = bytes;
 	vis_print_cursor(vm->vis);
-	vm->vis->attr[cursor->player](vis_calc_att(bold, FALSE), \
+	vis_print_data(vm);
+	vm->vis->attr[cursor->player](vis_calc_att(FALSE, FALSE), \
 		vm->vis->graphics->arena);
 	vm->vis->index = cursor->pc;
 	vm->vis->bytes = bytes;

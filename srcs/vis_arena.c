@@ -6,7 +6,7 @@
 /*   By: lhageman <lhageman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/03 16:31:49 by lhageman      #+#    #+#                 */
-/*   Updated: 2020/07/06 17:41:30 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/07/21 16:28:48 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	vis_borders(WINDOW *window, int y, int x)
 	int i;
 
 	i = 0;
-	wattron(window, COLOR_PAIR(10));
+	wattron(window, COLOR_PAIR(14));
 	while (i < x)
 	{
 		mvwprintw(window, 0, i, "*");
@@ -32,7 +32,7 @@ void	vis_borders(WINDOW *window, int y, int x)
 		i += 1;
 	}
 	wrefresh(window);
-	wattroff(window, COLOR_PAIR(10));
+	wattroff(window, COLOR_PAIR(14));
 }
 
 void	vis_draw_borders(t_graphics *graphics)
@@ -49,7 +49,7 @@ int		vis_draw_arena(t_graphics *graphics)
 
 	i = 0;
 	y = 2;
-	wattron(graphics->arena, COLOR_PAIR(9));
+	wattron(graphics->arena, COLOR_PAIR(13));
 	while (i < MEM_SIZE && y < VIS_Y - 2)
 	{
 		x = 3;
