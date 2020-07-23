@@ -120,13 +120,14 @@ int		op_sti(t_vm *vm, t_cursor *cursor)
 		return (ERROR);
 	op_len = 6 + (get_arg_type(vm->arena[new_idx(cursor->pc, 1, 0)], 2) != REG);
 	arg_1 = convert_to_int(vm->arena, new_idx(cursor->pc, 2, 0), 1);
-	if (arg_1 <= 0 || arg_1 > 16 || \
-		get_arg_2_value(vm, cursor, &arg_2_value) == ERROR || \
-		get_arg_3_value(vm, cursor, &arg_3_value) == ERROR)
-		return (ERROR);
-	store_idx = new_idx(cursor->pc, arg_2_value + arg_3_value, FALSE);
-	store_in_arena(vm->arena, store_idx, 4, cursor->reg[arg_1]);
-	vis_sti(vm, cursor, store_idx);
+	if (0 < arg_1 && arg_1 <= REG_NUMBER \
+		&& get_arg_2_value(vm, cursor, &arg_2_value) == SUCCESS \
+		&& get_arg_3_value(vm, cursor, &arg_3_value) == SUCCESS)
+	{
+		store_idx = new_idx(cursor->pc, arg_2_value + arg_3_value, FALSE);
+		store_in_arena(vm->arena, store_idx, 4, cursor->reg[arg_1]);
+		vis_sti(vm, cursor, store_idx);
+	}
 	cursor->pc = new_idx(cursor->pc, op_len, FALSE);
 	return (SUCCESS);
 }
