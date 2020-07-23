@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/05 17:44:34 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/23 16:48:14 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/23 17:43:39 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,12 @@ void		game_loop(t_vm *vm, t_op_table operations)
 		if (cursor->ctw > 0)
 			--(cursor->ctw);
 		++(cursor->decay);
-		if (cursor->ctw == 0 && cursor->op_code > 0 && cursor->op_code <= 16 && ft_printf("pc: %i, operation: %s, cycle: %i\n", cursor->pc, g_op_tab[cursor->op_code - 1].operation, vm->total_cycle_count)  \
+		if (cursor->ctw == 0 && cursor->op_code > 0 && cursor->op_code <= 16 && ft_printf("pc: %i, operation: %s, cycle: %i, enc: %u\n", cursor->pc, g_op_tab[cursor->op_code - 1].operation, vm->total_cycle_count, vm->arena[new_idx(cursor->pc, 1, 0)])  \
 			&& ((operations[cursor->op_code](vm, cursor)) == ERROR))
 		{
-			
+			ft_printf("[ERROR!!!] loop_cycle: %i, opcode: %i\n", vm->total_cycle_count, cursor->op_code);
 			cursor->pc = new_idx(cursor->pc, 1, FALSE);
 		}
-		// ft_printf("loop_cycle: %i, opcode: %i\n", vm->total_cycle_count, cursor->op_code);
 		cursor = cursor->next;
 		if (vm->visualizer == TRUE)
 			vis_print_data(vm);
