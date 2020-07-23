@@ -17,7 +17,10 @@ int		main(int argc, char **argv)
 	if (input_validation(&vm, argv, argc) == ERROR)
 		return (free_vm(&vm, ERROR));
 	vm_start(&vm);
-	if (vm.cursors == NULL || vm.cursors->next == NULL)
+	if (vm.cursors != NULL && \
+		vm.dump >= 0 && (unsigned int)vm.dump == vm.total_cycle_count)
+		put_arena(vm.arena);
+	else
 		ft_printf("Contestant %d, \"%s\", has won !\n", vm.last_live, \
 			vm.champ[vm.last_live]->header.prog_name);
 	return (free_vm(&vm, SUCCESS));
