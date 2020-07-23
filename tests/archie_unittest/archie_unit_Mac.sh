@@ -1,7 +1,7 @@
 #!/bin/bash
 PATH_YOUR_CW="../../corewar"
 PATH_ORGN_CW="cor_bin/mac/corewar"
-PATH_PLAYERS="../valid_asm/"
+PATH_PLAYERS="../valid_asm/valid_cor/"
 
 players=("vm_test")
 #( ( i <= $CYCLES ) && ( $error == 0 ) )
