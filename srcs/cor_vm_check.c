@@ -16,15 +16,18 @@ static void	kill_cursor(t_vm *vm, t_cursor *cursor)
 {
 	t_cursor	*walk;
 
-	if (vm->cursors == cursor)
-		vm->cursors = cursor->next;
-	walk = vm->cursors;
-	while (walk != NULL)
+	if (vm->cursors != cursor)
 	{
-		if (walk->next == cursor)
-			walk->next = cursor->next;
-		walk = walk->next;
+		walk = vm->cursors;
+		while (walk != NULL)
+		{
+			if (walk->next == cursor)
+				walk->next = cursor->next;
+			walk = walk->next;
+		}
 	}
+	else
+		vm->cursors = cursor->next;
 	ft_bzero(cursor, sizeof(t_cursor));
 	free(cursor);
 	// play killing sound
