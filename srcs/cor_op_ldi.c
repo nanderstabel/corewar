@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/17 15:12:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/07/21 16:02:08 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/23 10:14:41 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ static int		get_value(t_vm *vm, t_cursor *cursor, int type, int *size)
 	}
 	else if (type == DIR)
 	{
-		type = convert_to_int(vm->arena, new_idx(cursor->pc, *size, 0), 4);
-		*size += 4;
+		type = convert_to_int(vm->arena, new_idx(cursor->pc, *size, 0), 2);
+		*size += 2;
 	}
 	return (type);
 }
