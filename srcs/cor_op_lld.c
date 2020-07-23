@@ -6,7 +6,7 @@
 /*   By: lhageman <lhageman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 14:08:58 by lhageman      #+#    #+#                 */
-/*   Updated: 2020/07/23 16:40:38 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/23 18:04:08 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ static int	op_lld_check(t_vm *vm, t_cursor *cursor)
 		get_arg_type(enc, 3) != 0 || \
 		get_arg_type(enc, 2) != REG || \
 		get_arg_type(enc, 1) == 0 ||
-		get_arg_type(enc, 1) == REG)		return (ERROR);
+		get_arg_type(enc, 1) == REG)
+		return (ERROR);
 	else
 		return (SUCCESS);
 }
