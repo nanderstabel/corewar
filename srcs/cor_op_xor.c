@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/08 16:52:21 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/23 16:40:38 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/23 18:50:36 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ static int	op_xor_check(t_vm *vm, t_cursor *cursor)
 	if (get_arg_type(enc, 4) != 0 || \
 		get_arg_type(enc, 3) != REG || \
 		get_arg_type(enc, 2) == 0 || \
-		get_arg_type(enc, 1) == 0)		return (ERROR);
+		get_arg_type(enc, 1) == 0)
+		return (ERROR);
 	else
 		return (SUCCESS);
 }
@@ -65,10 +66,8 @@ int		op_xor(t_vm *vm, t_cursor *cursor)
 	arg_2 = get_value(vm, cursor, arg_2, &size);
 	arg_3 = convert_to_int(vm->arena, new_idx(cursor->pc, size, 0), 1);
 
-	if (arg_3 < REG_NUMBER)
+	if (arg_3 > 0 && arg_3 <= REG_NUMBER)
 		cursor->reg[arg_3] = (arg_1 ^ arg_2);
-	else
-		return (ERROR);
 	size++;
 	cursor->pc = new_idx(cursor->pc, size, FALSE);
 	cursor->carry = (cursor->reg[arg_3]) ? 0 : 1;
