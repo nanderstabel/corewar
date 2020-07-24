@@ -14,7 +14,7 @@ fi
 rm diff/og_output diff/our_output
 $OG_COR $PLAYER -d $DUMP > diff/og_output
 $OUR_COR $PLAYER -d $DUMP > diff/our_output
-DIFF=$(diff "diff/og_output" "diff/our_output")
+DIFF=$(diff "diff/our_output" "diff/og_output")
 if [ "$DIFF" != "" ]
 then
   diff "diff/og_output" "diff/our_output"

@@ -11,6 +11,7 @@ if [ -z "$1"]
     else
     CYCLES=$1
 fi
+
 function    test_players()
 {
     # CYCLES=10000
