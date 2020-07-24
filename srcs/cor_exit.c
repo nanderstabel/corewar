@@ -18,6 +18,8 @@ int			print_message(char *message, char *info, int fd, int ret)
 	if (info != NULL)
 		ft_dprintf(fd, "%s:\n", info);
 	ft_dprintf(fd, "%s", message);
+	if (ret == ERROR)
+		exit(0);
 	return (ret);
 }
 
