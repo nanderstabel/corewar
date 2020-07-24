@@ -1,5 +1,4 @@
 #!/bin/bash
-OG_COR="cor_bin/mac/corewar"
 OUR_COR="../../corewar"
 # PATH_TO_PLAYER="../valid_asm/valid_cor/"
 PLAYER=$1
@@ -9,6 +8,14 @@ if [ -z "$2" ]
     DUMP=5
     else
     DUMP=$2
+fi
+
+OS=$(uname -s)
+if [ $OS == Linux ]
+    then
+        OG_COR="cor_bin/lin/corewar"
+else
+    OG_COR="cor_bin/mac/corewar"
 fi
 
 rm diff/og_output diff/our_output
