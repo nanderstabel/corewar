@@ -6,7 +6,7 @@
 /*   By: lhageman <lhageman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 14:08:37 by lhageman      #+#    #+#                 */
-/*   Updated: 2020/07/23 16:40:38 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/24 10:40:42 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ int		op_lfork(t_vm *vm, t_cursor *cursor)
 	arg = convert_to_int(vm->arena, new_idx(cursor->pc, 1, FALSE), 2);
 	new_cursor = (t_cursor *)malloc(sizeof(t_cursor));
 	ft_memmove(new_cursor, cursor, sizeof(t_cursor));
-	new_cursor->pc = arg;
+	new_cursor->pc = new_idx(cursor->pc, arg, TRUE);
 	new_cursor->next = vm->cursors;
 	vm->cursors = new_cursor;
-	cursor->pc = new_idx(cursor->pc, arg, FALSE);
+	cursor->pc = new_idx(cursor->pc, 3, FALSE);
 	return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: lhageman <lhageman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 15:10:22 by lhageman      #+#    #+#                 */
-/*   Updated: 2020/07/23 16:40:38 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/24 14:02:15 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,17 @@ static int	get_arg_2_value(t_vm *vm, t_cursor *cursor, int *value)
 	if (type == REG)
 	{
 		arg = convert_to_int(vm->arena, arg_pos, 1);
-		if (0 < arg && arg <= 16)
-			*value = cursor->reg[arg];
-		else
+		if (arg <= 0 || REG_NUMBER < arg)
 			return (ERROR);
+		*value = cursor->reg[arg];
 	}
-	else
+	else if (type == DIR || type == IND)
 	{
 		arg = convert_to_int(vm->arena, arg_pos, 2);
 		if (type == DIR)
 			*value = arg;
 		else
-			*value = convert_to_int(vm->arena, new_idx(cursor->pc, 3, 0), 2);
+			*value = convert_to_int(vm->arena, new_idx(cursor->pc, arg, 0), 4);
 	}
 	return (SUCCESS);
 }
@@ -62,10 +61,9 @@ static int	get_arg_3_value(t_vm *vm, t_cursor *cursor, int *value)
 	if (type == REG)
 	{
 		arg = convert_to_int(vm->arena, arg_pos, 1);
-		if (0 < arg && arg <= 16)
-			*value = cursor->reg[arg];
-		else
+		if (arg <= 0 || REG_NUMBER < arg)
 			return (ERROR);
+		*value = cursor->reg[arg];
 	}
 	else if (type == DIR)
 	{

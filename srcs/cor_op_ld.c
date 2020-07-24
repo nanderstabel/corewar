@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/08 16:47:57 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/23 18:09:55 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/24 15:19:30 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,48 +36,24 @@ static int	op_ld_check(t_vm *vm, t_cursor *cursor)
 		return (SUCCESS);
 }
 
-static int		get_value(t_vm *vm, t_cursor *cursor, int type, int *size)
-{
-	if (type == REG)
-	{
-		type = convert_to_int(vm->arena, new_idx(cursor->pc, *size, 0), 1);
-		type = cursor->reg[type];
-		*size += 1;
-	}
-	else if (type == IND)
-	{
-		type = convert_to_int(vm->arena, new_idx(cursor->pc, *size, 0), 2);
-		type = convert_to_int(vm->arena, new_idx(cursor->pc, type, 0), 4);
-		*size += 2;
-	}
-	else if (type == DIR)
-	{
-		type = convert_to_int(vm->arena, new_idx(cursor->pc, *size, 0), 4);
-		*size += 4;
-	}
-	return (type);
-}
-
 int		op_ld(t_vm *vm, t_cursor *cursor)
 {
-	//ft_printf("pc: %i, ld, cycle: %i\n", cursor->pc, vm->total_cycle_count);
-	int		arg_1;
-	int		arg_2;
-	int		size;
+	int		params[4];
 
 	if (op_ld_check(vm, cursor) != SUCCESS)
 		return (ERROR);
-	size = 2;
-	arg_1 = get_arg_type(vm->arena[new_idx(cursor->pc, 1, FALSE)], 1);
-	// ft_printf("[arg_1 = %u, size = %u]\n", arg_1, size);
-	arg_1 = get_value(vm, cursor, arg_1, &size);
-	// ft_printf("[arg_1 = %u, size = %u]\n", arg_1, size);
-	arg_2 = convert_to_int(vm->arena, new_idx(cursor->pc, size, 0), 1);
-	// ft_printf("[arg_1 = %u, arg_2 = %u, size = %u]\n", arg_1, arg_2, size);
-	if (arg_2 > 0 && arg_2 <= REG_NUMBER)
-		cursor->reg[arg_2] = arg_1;
-	size++;
-	cursor->pc = new_idx(cursor->pc, size, FALSE);
-	cursor->carry = (cursor->reg[arg_2]) ? 0 : 1;
+	params[0] = 2;
+	params[1] = get_arg_type(vm->arena[new_idx(cursor->pc, 1, FALSE)], 1);
+
+	if (get_value(vm, cursor, params) == SUCCESS)
+	{
+		params[2] = convert_to_int(vm->arena, new_idx(cursor->pc, params[0], 0), 1);
+
+		if (params[2] > 0 && params[2] <= REG_NUMBER)
+			cursor->reg[params[2]] = params[1];
+		params[0]++;
+		cursor->carry = (cursor->reg[params[2]]) ? 0 : 1;
+	}
+	cursor->pc = new_idx(cursor->pc, params[0], FALSE);
 	return (SUCCESS);
 }
