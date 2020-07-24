@@ -1,0 +1,9 @@
+-[../valid_asm/valid_cor/champ.cor] memory is NOT the same at cycle [1600]
+
+-[../valid_asm/valid_cor/sti_reg_ind_dir.cor] memory is NOT the same at cycle [100]
+
+-[../valid_asm/valid_cor/sti_reg_ind_reg.cor] memory is NOT the same at cycle [100]
+
+-[../valid_asm/valid_cor/test_and6.cor] memory is NOT the same at cycle [100]
+
+-[../valid_asm/valid_cor/test_ldi.cor] memory is NOT the same at cycle [1600]

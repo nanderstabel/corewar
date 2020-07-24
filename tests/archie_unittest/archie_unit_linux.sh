@@ -5,9 +5,15 @@ PATH_PLAYERS="../valid_asm/valid_cor/*.cor"
 
 # players=("vm_test")
 #( ( i <= $CYCLES ) && ( $error == 0 ) )
+if [ -z "$1"]
+    then
+        CYCLES=10000
+    else
+    CYCLES=$1
+fi
 function    test_players()
 {
-    CYCLES=10000
+    # CYCLES=10000
     error=0
 
     for player in $PATH_PLAYERS
