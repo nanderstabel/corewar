@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/08 16:51:19 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/24 16:05:15 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/24 16:59:40 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ int		op_st(t_vm *vm, t_cursor *cursor)
 		return (ERROR);
 	params[0] = 2;
 	params[1] = REG;
+	params[2] = 0;
 
 	if (get_value(vm, cursor, params) == SUCCESS)
 	{

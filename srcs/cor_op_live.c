@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 11:20:48 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/23 16:40:38 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/24 17:52:40 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,13 @@ int			op_live(t_vm *vm, t_cursor *cursor)
 	if (-arg == cursor->reg[1])
 	{
 		vm->last_live = arg;
-		++(vm->live_count);
-		cursor->decay = 0;
 		// if (vm->vis == NULL)
 		// 	ft_printf("A process shows that player %d (%s) is alive\n", 
 		// 		arg, vm->champ[arg]->header.prog_name);
-		vis_live(vm, cursor);
 	}
+		++(vm->live_count);
+		cursor->decay = 0;
+		vis_live(vm, cursor);
 	cursor->pc = new_idx(cursor->pc, 5, FALSE);
 	// If wanted live count for champ
 	return (SUCCESS);

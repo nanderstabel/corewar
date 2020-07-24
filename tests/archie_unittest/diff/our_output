@@ -1,4 +1,18 @@
-0x0000 : 02 90 00 00 00 0a 02 03 70 02 00 14 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 0a 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
+Introducing contestants...
+* Player 1, weighing 40 bytes, "Bazou" ("C'est comme un petit lapin mais en plus peureux et avec des moins grandes oreilles.") !
+cursor: [0x2496b90], pc: 000000, operation: ld, cycle: 5, enc: 10010000, carry: 0
+ld| arg1: 0, arg2: 14, carry: 1
+cursor: [0x2496b90], pc: 0x0007, operation: zjmp, cycle: 25, enc: 00000000, carry: 1
+cursor: [0x2496b90], pc: 0x000a, operation: st, cycle: 30, enc: 01110000, carry: 1
+cursor: [0x2496b90], pc: 0x000f, operation: ld, cycle: 35, enc: 10010000, carry: 1
+ld| arg1: 33554431, arg2: 1, carry: 0
+cursor: [0x2496b90], pc: 0x0016, operation: zjmp, cycle: 55, enc: 11111111, carry: 0
+cursor: [0x2496b90], pc: 0x001d, operation: ld, cycle: 64, enc: 00000011, carry: 0
+[ERROR!!!] loop_cycle: 64, opcode: 2
+cursor: [0x2496b90], pc: 0x0020, operation: live, cycle: 75, enc: 11111111, carry: 0
+cursor: [0x2496b90], pc: 0x0025, operation: ld, cycle: 80, enc: 11111110, carry: 0
+[ERROR!!!] loop_cycle: 80, opcode: 2
+0x0000 : 02 90 00 00 00 00 0e 09 00 03 03 70 01 00 0d 02 90 01 ff ff ff 01 09 ff ff ff ff ff fc 02 03 70 01 ff e9 03 70 02 fe 3d 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
 0x0040 : 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
 0x0080 : 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 
 0x00c0 : 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 

@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/17 15:12:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/07/24 15:50:02 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/24 16:51:47 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int		op_ldi(t_vm *vm, t_cursor *cursor)
 	params[0] = 2;
 	params[1] = get_arg_type(vm->arena[new_idx(cursor->pc, 1, FALSE)], 1);
 	params[2] = get_arg_type(vm->arena[new_idx(cursor->pc, 1, FALSE)], 2);
-
 	if (get_value(vm, cursor, params) == SUCCESS)
 	{
 		params[3] = convert_to_int(vm->arena, new_idx(cursor->pc, params[0], 0), 1);
