@@ -39,7 +39,7 @@ MAX_PARALLEL = 6
 all: $(COR_NAME) # $(ASM_NAME)
 
 $(COR_NAME): $(LIBFT) $(COR_OBJS)
-	@$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^ $(LIBFT)
+	@$(CC) $(CFLAGS) -o $@ $^ $(LIBFT) $(LDFLAGS) 
 	@echo " $(PLUS) $@"
 
 $(ASM_NAME): $(LIBFT) $(ASM_OBJS)
