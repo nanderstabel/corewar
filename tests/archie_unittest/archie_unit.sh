@@ -1,6 +1,5 @@
 #!/bin/bash
 PATH_YOUR_CW="../../corewar"
-PATH_ORGN_CW="cor_bin/mac/corewar"
 PATH_PLAYERS="../valid_asm/valid_cor/*.cor"
 
 # players=("vm_test")
@@ -10,6 +9,14 @@ if [ -z "$1"]
         CYCLES=10000
     else
     CYCLES=$1
+fi
+
+OS=$(uname -s)
+if [ $OS == Linux ]
+    then
+        PATH_ORGN_CW="cor_bin/lin/corewar"
+else
+    PATH_ORGN_CW="cor_bin/mac/corewar"
 fi
 
 function    test_players()
