@@ -6,6 +6,6 @@
 	st r2, :label		#which is stored at label:
 
 label:
-	xor 69, r3, r4		#(4 of) these 6 bytes are overwritten by previous 'ld' and skipped
+	xor 69, r3, r4		#(4 of) these 6 bytes are overwritten by previous 'st' and skipped
 	st r1, 20			#perfectly valid operation will be skipped! (5 bytes)
 	live %-1			# previous 11 bytes are skipped
