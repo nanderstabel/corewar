@@ -16,13 +16,7 @@ COR_NAME := corewar
 
 ASM_NAME := asm
 
-COR_OBJS := $(COR_FILES:%.c=objs/%.o) objs/cor_main.oBranch 'fix_ops' set up to track remote branch 'fix_ops' from 'origin'.
-Switched to a new branch 'fix_ops'
-mgross@mgross-B450M-DS3H:~/Documents/code/code/corewar/tests/archie_unittest$ git pull
-Already up to date.
-mgross@mgross-B450M-DS3H:~/Documents/code/code/corewar/tests/archie_unittest$ git checkout vm_test 
-Switched to branch 'vm_test'
-Your branch is up to date with 'origin/vm_test'.
+COR_OBJS := $(COR_FILES:%.c=objs/%.o) objs/cor_main.o
 
 ASM_OBJS := $(ASM_FILES:%.c=objs/%.o) objs/asm_main.o
 
