@@ -45,7 +45,7 @@ static void	check_cursors(t_vm *vm)
 		tmp = walk;
 		walk = walk->next;
 		ft_printf("ctd: %i, decay: %i\n", vm->ctd, tmp->decay);
-		if (tmp->decay > vm->ctd)
+		if (tmp->decay >= vm->ctd)
 			kill_cursor(vm, tmp);
 	}
 }

@@ -43,7 +43,6 @@ static void	free_champions(t_champ ***champions)
 int			free_vm(t_vm *vm, int ret)
 {
 	t_cursor	*cursor_to_del;
-
 	if (vm->champ)
 		free_champions(&(vm->champ));
 	while (vm->cursors)
