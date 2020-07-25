@@ -91,6 +91,8 @@ void				cursor_del(t_cursor *cursor);
 
 int					input_validation(t_vm *vm, char **argv, int argc);
 
+int					save_option(t_vm *vm, char **argv, int idx, int argc);
+
 int					is_champion(char *file, int *champ_len);
 int					read_champion(unsigned char *buf, char *file_name, \
 					unsigned int champ_file_size);

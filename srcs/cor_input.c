@@ -64,38 +64,6 @@ static int	is_option_or_file(char *str)
 	return (SUCCESS);
 }
 
-static int	save_option(t_vm *vm, char **argv, int idx, int argc)
-{
-	long int	tmp;
-	int			champ_size;
-
-	if (ft_strstr(argv[idx], ".cor") != NULL)
-		return (1);
-	if (ft_strchr(argv[idx], 'v') != NULL)
-	{
-		vm->visualizer = TRUE;
-		return (1);
-	}
-	if ((ft_strchr(argv[idx], 'd') != NULL || (ft_strchr(argv[idx], 'n') != NULL
-		&& (idx + 2 < argc))) && ft_isint(argv[idx + 1]) == TRUE)
-	{
-		tmp = ft_atoi(argv[idx + 1]);
-		if (tmp < 0 || FT_INT_MAX < tmp)
-			return (print_message(INV_OPT, argv[idx], STDERR));
-		if (ft_strchr(argv[idx], 'd') != NULL)
-		{
-			vm->dump = tmp;
-			return (2);
-		}
-		champ_size = 0;
-		if (ft_strchr(argv[idx], 'n') != NULL && tmp <= MAX_PLAYERS && \
-			is_champion(argv[idx + 2], &champ_size) == TRUE && \
-			save_champion(vm, argv[idx + 2], champ_size, tmp) == TRUE)
-			return (3);
-	}
-	return (print_message(INV_OPT, argv[idx], STDERR));
-}
-
 int			input_validation(t_vm *vm, char **argv, int argc)
 {
 	int				idx;

@@ -18,7 +18,7 @@ static int	check_for_champ_no(t_vm *vm, unsigned int *champ_no)
 		return (print_message(INV_OPT_N, NULL, STDERR));
 	if (vm->champ == NULL)
 		vm->champ = (t_champ**)ft_memalloc(sizeof(t_champ*) * \
-			MAX_PLAYERS + 1);
+			(MAX_PLAYERS + 1));
 	if (vm->champ == NULL)
 		return (ERROR);
 	if (*champ_no > 0 && vm->champ[*champ_no] == NULL)

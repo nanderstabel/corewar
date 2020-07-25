@@ -13,6 +13,7 @@
 COR_FILES := \
 	op.c \
 	cor_input.c \
+	cor_input_save_option.c \
 	cor_input_check_file.c \
 	cor_input_add_champion.c \
 	cor_exit.c \
