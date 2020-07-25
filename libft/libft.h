@@ -16,12 +16,18 @@
 # include <stdarg.h>
 # include <stdio.h>
 
-# define TRUE 1
-# define FALSE 0
-# define BUFF_SIZE 512
-# define FD_MAX 4864
-# define CONV_CHAR_START 'B'
-# define CONV_CHAR_END 121
+# define TRUE				1
+# define FALSE				0
+# define SUCCESS			TRUE
+# define ERROR				FALSE
+
+# define FT_INT_MAX			2147483647
+# define FT_INT_MIN			-2147483648
+
+# define BUFF_SIZE			512
+# define FD_MAX				4864
+# define CONV_CHAR_START	'B'
+# define CONV_CHAR_END		121
 
 typedef struct		s_list
 {
@@ -62,37 +68,44 @@ typedef struct		s_buffer
 
 typedef void		(*t_conversion_table[CONV_CHAR_END - CONV_CHAR_START])
 					(va_list ap, t_buffer *buf, t_flags *flags);
-int					ft_power(int base, unsigned int exp);
-int					ft_islower(int c);
-int					ft_isupper(int c);
-void				ft_lstadd_back(t_list **alst, t_list *item);
-void				ft_delete(void *ptr, size_t size);
-void				ft_lstfold(t_list **alst, t_list *start, t_list *end);
-void				ft_lstadd_behind(t_list **alst, t_list *node,
-					t_list *new_nd);
-void				ft_lstadd_before(t_list **alst, t_list *node,
-					t_list *new_nd);
-size_t				ft_lstcount(t_list *lst);
-void				*ft_memdup(void *ptr, size_t size);
+
 long long int		ft_atoi(const char *s);
+char				*ft_itoa(long long int n);
+char				*ft_itoa_base_unsgnd(unsigned long long int n, int base,
+					int is_cap, unsigned int len);
+
+unsigned int		ft_nbrlen_unsigned(long long int nbr, int base);
+
 void				ft_bzero(void *s, size_t n);
+
 void				ft_swap_ptr(void **ptr1, void **ptr2);
+
 int					ft_isint(char *str);
 int					ft_isalnum(int c);
 int					ft_isalpha(int c);
 int					ft_isascii(int c);
 int					ft_isdigit(int c);
 int					ft_isprint(int c);
-char				*ft_itoa(long long int n);
-char				*ft_itoa_base_unsgnd(unsigned long long int n, int base,
-					int is_cap, unsigned int len);
-unsigned int		ft_nbrlen_unsigned(long long int nbr, int base);
+int					ft_islower(int c);
+int					ft_isupper(int c);
+int					ft_tolower(int c);
+int					ft_toupper(int c);
+
 void				ft_lstadd(t_list **alst, t_list *item);
 void				ft_lstdel(t_list **alst, void (*del)(void *, size_t));
 void				ft_lstdelone(t_list **alst, void (*del)(void *, size_t));
 void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 t_list				*ft_lstnew(void const *content, size_t content_size);
+void				ft_lstadd_back(t_list **alst, t_list *item);
+void				ft_lstfold(t_list **alst, t_list *start, t_list *end);
+void				ft_lstadd_behind(t_list **alst, t_list *node,
+					t_list *new_nd);
+void				ft_lstadd_before(t_list **alst, t_list *node,
+					t_list *new_nd);
+size_t				ft_lstcount(t_list *lst);
+
+void				ft_delete(void *ptr, size_t size);
 void				*ft_memalloc(size_t size);
 void				*ft_memccpy(void *dst, const void *src, int c, size_t n);
 void				*ft_memchr(const void *s, int c, size_t n);
@@ -101,6 +114,8 @@ void				*ft_memcpy(void *dst, const void *src, size_t n);
 void				ft_memdel(void **ap);
 void				*ft_memmove(void *dst, const void *src, size_t len);
 void				*ft_memset(void *b, int c, size_t len);
+void				*ft_memdup(void *ptr, size_t size);
+
 void				ft_putchar(char c);
 void				ft_putchar_fd(char c, int fd);
 void				ft_putnbr(int n);
@@ -109,6 +124,8 @@ void				ft_putendl(const char *s);
 void				ft_putendl_fd(const char *s, int fd);
 void				ft_putstr(const char *s);
 void				ft_putstr_fd(const char *s, int fd);
+ssize_t				ft_putnstr_fd(const char *str, size_t len, int fd);
+
 char				*ft_strcat(char *s1, const char *s2);
 char				*ft_strchr(const char *s, int c);
 void				ft_strclr(char *s);
@@ -136,17 +153,20 @@ char				**ft_strsplit(const char *s, char c);
 char				*ft_strstr(const char *hay, const char *needle);
 char				*ft_strsub(const char *s, unsigned int start, size_t len);
 char				*ft_strtrim(const char *s);
-int					ft_tolower(int c);
-int					ft_toupper(int c);
+char				*ft_strrev(char *s);
+
 long long int		ft_absolute(long long int nbr);
-int					get_next_line(const int fd, char **line);
-int					ft_printf(const char *format, ...);
-int					ft_dprintf(const int fd, const char *format, ...);
 unsigned int		ft_absolute_doublelen(long double ld, unsigned int prcs);
 unsigned int		ft_absolute_nbrlen(long long int nbr, int base);
+int					ft_power(int base, unsigned int exp);
 double				ft_double_power(double base, int exp);
 long double			ft_ldouble_power(long double base, int exp);
-ssize_t				ft_putnstr_fd(const char *str, size_t len, int fd);
+
+int					get_next_line(const int fd, char **line);
+
+int					ft_printf(const char *format, ...);
+int					ft_dprintf(const int fd, const char *format, ...);
+
 void				buff_push(t_buffer *buf, char *str, size_t n);
 void				buff_filler(t_buffer *buf, char c, unsigned int n);
 void				buff_print_dump(t_buffer *buf);
@@ -178,10 +198,10 @@ void				launch_int8(va_list ap, t_buffer *buf, t_flags *flags);
 void				launch_int16(va_list ap, t_buffer *buf, t_flags *flags);
 void				launch_int2(va_list ap, t_buffer *buf, t_flags *flags);
 void				launch_n(va_list ap, t_buffer *buf, t_flags *flags);
-void				handler_sc(char *s, t_buffer *buf, t_flags *flags,
-					char is_char);
 void				launch_c(va_list ap, t_buffer *buf, t_flags *flags);
 void				launch_s(va_list ap, t_buffer *buf, t_flags *flags);
+void				handler_sc(char *s, t_buffer *buf, t_flags *flags,
+					char is_char);
 void				handle_char(char c, t_buffer *buf, t_flags *flags);
 
 #endif

@@ -35,14 +35,17 @@
 *.i*86
 *.x86_64
 *.hex
-./corewar
-tests/test
+corewar
+asm
+tests/cor_test
+tests/asm_test
 
 # Debug files
 *.dSYM/
 *.su
 *.idb
 *.pdb
+.vscode/*
 
 # Kernel Module Compile Results
 *.mod*
@@ -52,3 +55,7 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+
+# Resources
+vm-champ-linux
+

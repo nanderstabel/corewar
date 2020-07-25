@@ -1,7 +1,7 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         ::::::::             #
-#    _file_names                                        :+:    :+:             #
+#    _file_names.mk                                     :+:    :+:             #
 #                                                      +:+                     #
 #    By: mmarcell <mmarcell@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
@@ -46,6 +46,7 @@ FILES := ft_putchar.c ft_putchar_fd.c \
 	ft_strequ.c ft_strnequ.c \
 	ft_striter.c ft_striteri.c \
 	ft_strmap.c ft_strmapi.c \
+	ft_strrev.c \
 	ft_lstnew.c \
 	ft_lstadd.c ft_lstadd_back.c \
 	ft_lstdel.c ft_lstdelone.c \
