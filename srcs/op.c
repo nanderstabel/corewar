@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   op.c                                               :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
+/*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/05/20 11:17:30 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/10 16:59:07 by lhageman      ########   odam.nl         */
+/*   Created: 2020/05/07 18:04:50 by nstabel       #+#    #+#                 */
+/*   Updated: 2020/07/09 17:41:10 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
