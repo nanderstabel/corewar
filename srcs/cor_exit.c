@@ -13,14 +13,13 @@
 #include "corewar.h"
 #include <stdlib.h>
 
-int			print_message(char *message, char *info, int fd, int ret)
+int			print_message(char *message, char *info, int fd)
 {
 	if (info != NULL)
 		ft_dprintf(fd, "%s:\n", info);
 	ft_dprintf(fd, "%s", message);
-	if (ret == ERROR)
-		exit(0);
-	return (ret);
+	exit(0);
+	return (ERROR);
 }
 
 static void	free_champions(t_champ ***champions)

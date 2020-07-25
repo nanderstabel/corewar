@@ -24,7 +24,7 @@ static int	last_check(t_vm *vm)
 	while (idx <= vm->champ_count)
 	{
 		if (vm->champ[idx] == NULL)
-			return (print_message(INV_OPT, "-n", STDERR, ERROR));
+			return (print_message(INV_OPT, "-n", STDERR));
 		++idx;
 	}
 	return (SUCCESS);
@@ -36,7 +36,7 @@ static int	does_file_exist(char *str)
 
 	fd = open(str, O_RDONLY);
 	if (fd == -1)
-		return (print_message(FILE_NOT_EXIST, str, STDERR, ERROR));
+		return (print_message(FILE_NOT_EXIST, str, STDERR));
 	close(fd);
 	return (SUCCESS);
 }
@@ -50,15 +50,15 @@ static int	is_option_or_file(char *str)
 	if (str[0] != '-' && ft_strstr(str, ".cor"))
 		return (does_file_exist(str));
 	if (str[0] != '-' || str[0] == '\0')
-		return (print_message(USAGE, NULL, STDERR, ERROR));
+		return (print_message(USAGE, NULL, STDERR));
 	if (str[1] == '\0' || \
 		(ft_strchr(str, 'n') != NULL && ft_strchr(str, 'd') != NULL))
-		return (print_message(INV_OPT, str, STDERR, ERROR));
+		return (print_message(INV_OPT, str, STDERR));
 	i = 1;
 	while (str[i] != '\0')
 	{
 		if (ft_strchr(OPTIONS, str[i]) == NULL)
-			return (print_message(INV_OPT, str, STDERR, ERROR));
+			return (print_message(INV_OPT, str, STDERR));
 		++i;
 	}
 	return (SUCCESS);
@@ -81,7 +81,7 @@ static int	save_option(t_vm *vm, char **argv, int idx, int argc)
 	{
 		tmp = ft_atoi(argv[idx + 1]);
 		if (tmp < 0 || FT_INT_MAX < tmp)
-			return (print_message(INV_OPT, argv[idx], STDERR, ERROR));
+			return (print_message(INV_OPT, argv[idx], STDERR));
 		if (ft_strchr(argv[idx], 'd') != NULL)
 		{
 			vm->dump = tmp;
@@ -93,7 +93,7 @@ static int	save_option(t_vm *vm, char **argv, int idx, int argc)
 			save_champion(vm, argv[idx + 2], champ_size, tmp) == TRUE)
 			return (3);
 	}
-	return (print_message(INV_OPT, argv[idx], STDERR, ERROR));
+	return (print_message(INV_OPT, argv[idx], STDERR));
 }
 
 int			input_validation(t_vm *vm, char **argv, int argc)
