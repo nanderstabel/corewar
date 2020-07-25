@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/07/14 14:20:56 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/21 15:58:40 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,56 @@ void			write_byte_to_buf(t_project *as, char byte)
 		add_buffer_to_list(as);
 }
 
-// t_bool		check_overflow(char *str)
-// {
-// 	if (!str)
-// 		return (FAIL);
-// 	"18446744073709551615"
-// 	return (SUCCESS);
-// }
+static int		create_max_value_string(char *str, char **max_value)
+{
+	int		index;
+
+	if (*str == '%')
+	{
+		if (str[1] == '-')
+			*max_value = ft_strdup("%-9223372036854775808");
+		else
+			*max_value = ft_strdup("%18446744073709551615");
+		index = 1;
+	}
+	else
+	{
+		if (str[0] == '-')
+			*max_value = ft_strdup("-9223372036854775808");
+		else
+			*max_value = ft_strdup("18446744073709551615");
+		index = 0;
+	}
+	return (index);
+}
+
+static t_bool	check_overflow(char **str)
+{
+	char	*max_value;
+	int		index;
+
+	index = create_max_value_string(*str, &max_value);
+	if (ft_strlen(*str) > ft_strlen(max_value))
+	{
+		free(*str);
+		*str = max_value;
+		return (FAIL);
+	}
+	else if (ft_strlen(*str) < ft_strlen(max_value))
+		return (SUCCESS);
+	while ((*str)[index] != '\0')
+	{
+		if ((*str)[index] > max_value[index])
+		{
+			free(*str);
+			*str = max_value;
+			return (SUCCESS);
+		}
+		index++;
+	}
+	free(max_value);
+	return (SUCCESS);
+}
 
 void			write_str_to_buf(t_project *as, char *to_bytecode, char type)
 {
@@ -128,6 +171,9 @@ t_bool			translate_argument(t_project *as)
 	if (as->current_token->token_type == REGISTER ||
 	as->current_token->token_type == DIRECT)
 		offset = 1;
+	if (as->current_token->token_type == DIRECT
+	|| as->current_token->token_type == INDIRECT)
+		check_overflow(&as->current_token->literal_str);
 	if (as->current_token->token_type == DIRECT)
 	{
 		if (g_op_tab[as->opcode_temp - 1].label)

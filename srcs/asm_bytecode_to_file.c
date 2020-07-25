@@ -29,20 +29,6 @@ t_bool			byte_num_to_file(t_project *as, int num)
 	return (SUCCESS);
 }
 
-t_bool			check_str_to_long(int type, size_t max_size,
-				size_t len)
-{
-	if (len > max_size)
-	{
-		if (type == COMMAND_NAME)
-			ft_dprintf(2, "Champion name too long (Max length 128)\n");
-		else
-			ft_dprintf(2, "Champion comment too long (Max length 2048)\n");
-		exit(0);
-	}
-	return (SUCCESS);
-}
-
 void			print_zero_bytes(t_project *as, size_t len, size_t max_size)
 {
 	while (len < max_size)
@@ -64,8 +50,6 @@ t_bool			byte_string_to_file(t_project *as, int type, size_t max_size)
 		{
 			as->current_token = (t_token *)as->tmp->next->content;
 			len = ft_strlen(as->current_token->literal_str);
-			if (!check_str_to_long(type, max_size, len))
-				return (FAIL);
 			write(as->fd, as->current_token->literal_str, len);
 			print_zero_bytes(as, len, max_size);
 			return (SUCCESS);
