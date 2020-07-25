@@ -44,6 +44,8 @@ int		op_lld(t_vm *vm, t_cursor *cursor)
 		return (ERROR);
 	params[0] = 2;
 	params[1] = get_arg_type(vm->arena[new_idx(cursor->pc, 1, TRUE)], 1);
+	params[2] = 0;
+	params[3] = 0;
 
 	if (get_value(vm, cursor, params) == SUCCESS)
 	{

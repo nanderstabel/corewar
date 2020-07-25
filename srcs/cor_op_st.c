@@ -98,6 +98,7 @@ int		op_st(t_vm *vm, t_cursor *cursor)
 	params[0] = 2;
 	params[1] = REG;
 	params[2] = 0;
+	params[3] = 0;
 
 	if (get_value(vm, cursor, params) == SUCCESS)
 	{

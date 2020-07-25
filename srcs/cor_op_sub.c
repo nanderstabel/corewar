@@ -35,6 +35,7 @@ int		op_sub(t_vm *vm, t_cursor *cursor)
 	params[0] = 2;
 	params[1] = REG;
 	params[2] = REG;
+	params[3] = 0;
 	if (get_value(vm, cursor, params) == SUCCESS)
 	{
 		params[3] = convert_to_int(vm->arena, new_idx(cursor->pc, params[0], 0), 1);
