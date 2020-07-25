@@ -38,7 +38,7 @@ void		game_loop(t_vm *vm, t_op_table operations)
 			ft_printf("[ERROR!!!] loop_cycle: %i, opcode: %i\n", vm->total_cycle_count, cursor->op_code);
 			cursor->pc = new_idx(cursor->pc, 1, FALSE);
 		}
-		ft_printf("cursor: [%p], current pc: : %i\n", cursor, cursor->pc);
+		// ft_printf("cursor: [%p], current pc: : %i\n", cursor, cursor->pc);
 		cursor = cursor->next;
 		if (vm->visualizer == TRUE)
 			vis_print_data(vm);
