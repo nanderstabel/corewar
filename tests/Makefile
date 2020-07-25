@@ -23,6 +23,13 @@ ASM_TEST_OBJS := $(ASM_TEST_FILES:%.c=objs/%.o)
 TEST_OBJS := COR_TEST_OBJS ASM_TEST_OBJS
 
 CFLAGS := -Wall -Wextra -Werror -lncurses
+TEST_MAIN = test_main
+
+TEST_MAIN_FILE = test_main.c
+
+TESTS_OBJS := $(TEST_FILES:%.c=objs/%.o)
+
+TEST_MAIN_OBJ := $(TEST_MAIN_FILE:%.c=objs/%.o)
 
 LIBFT_PATH := ../libft
 LIBFT := $(LIBFT_PATH)/libft.a
@@ -34,7 +41,7 @@ HDRS := $(INCLUDES_PATH)/
 PLUS := $$(tput setaf 2)+$$(tput sgr0)
 MINUS := $$(tput setaf 1)-$$(tput sgr0)
 
-all: cor_test # asm_test
+all: cor_test asm_test
 
 cor_test: $(COR_OBJS) $(COR_TEST_OBJS)
 	@$(CC) -o $@ $^ $(CFLAGS) -lcriterion $(LIBFT)
@@ -51,11 +58,14 @@ objs/%.o: srcs/%.c $(HDRS) | objs
 objs:
 	@mkdir -p $@
 
+test_main: $(TEST_MAIN_OBJ) $(OBJS)
+	@$(CC) -o $(TEST_MAIN) $^ $(INCLUDES) $(LIBFT) $(CFLAGS) -g
+
 clean:
 	@rm -rfv objs | sed "s/^/ $(MINUS) /"
 
 fclean: clean
-	@rm -fv test | sed "s/^/ $(MINUS) /"
+	@rm -fv test test_main | sed "s/^/ $(MINUS) /"
 
 re: fclean all
 

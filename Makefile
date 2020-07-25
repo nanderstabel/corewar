@@ -6,7 +6,7 @@
 #    By: mmarcell <mmarcell@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/01/07 18:47:20 by mmarcell      #+#    #+#                  #
-#    Updated: 2020/06/11 11:00:45 by mmarcell      ########   odam.nl          #
+#    Updated: 2020/05/07 13:54:44 by nstabel       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ MINUS := $$(tput setaf 1)-$$(tput sgr0)
 
 MAX_PARALLEL = 6
 
-all: $(COR_NAME) # $(ASM_NAME)
+all: $(COR_NAME) $(ASM_NAME)
 
 $(COR_NAME): $(LIBFT) $(COR_OBJS)
 	@$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^ $(LIBFT)

@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   ft_strrev.c                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
+/*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/05/20 18:53:21 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/05/20 18:53:21 by mmarcell      ########   odam.nl         */
+/*   Created: 2019/02/06 18:08:15 by nstabel       #+#    #+#                 */
+/*   Updated: 2020/07/09 19:36:14 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,22 @@
 
 char	*ft_strrev(char *str)
 {
-	char			*tmp;
-	unsigned int	i;
-	unsigned int	j;
+	char			*start;
+	char			*end;
+	char			c;
 
-	tmp = ft_strdup(str);
-	i = ft_strlen(str);
-	j = 0;
-	while (i != 0)
+	if (str)
 	{
-		str[j] = (unsigned char)(tmp[i]);
-		j += 1;
-		i -= 1;
+		start = str;
+		end = str + (ft_strlen(str) - 1);
+		while (start < end)
+		{
+			c = *start;
+			*start = *end;
+			*end = c;
+			start++;
+			end--;
+		}
 	}
-	ft_strdel(&tmp);
 	return (str);
 }

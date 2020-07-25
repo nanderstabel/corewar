@@ -20,3 +20,11 @@ COR_TEST_FILES := \
 	test_cor_op_ldi.c
 	test_cor_op_sti.c \
 	test_cor_op_live.c
+	
+TEST_FILES := 	test_get_input_file.c			\
+				test_analyze_lexicon.c			\
+				test_syntax_analysis.c			\
+				test_instruction_analysis.c		\
+				test_parameter_analysis.c		\
+				test_translate_to_bytecode.c	\
+				test_label_check.c

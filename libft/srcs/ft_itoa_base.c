@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/07/04 16:42:23 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/04/22 17:36:07 by moana         ########   odam.nl         */
+/*   Updated: 2020/07/09 19:38:24 by zitzak        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,31 @@ char			*ft_itoa_base_unsgnd(unsigned long long int n, int base,
 		++i;
 	}
 	return (result);
+}
+
+char			*ft_itoa_base(unsigned long long value, int base)
+{
+	char				*s;
+	char				*hex;
+	unsigned long long	tmp;
+	int					i;
+
+	i = 1;
+	hex = "0123456789abcdef";
+	tmp = value;
+	while (tmp /= base)
+		i++;
+	s = (char *)malloc(sizeof(char) * i + 1);
+	if (s == NULL)
+		return (NULL);
+	s[i] = 0;
+	if (value == 0)
+		s[0] = '0';
+	while (value)
+	{
+		i--;
+		s[i] = hex[value % base];
+		value /= base;
+	}
+	return (s);
 }
