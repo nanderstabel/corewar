@@ -11,11 +11,6 @@
 /* ************************************************************************** */
 
 #include "corewar.h"
-// "Value from the Argument1 is written to the memory, to the address: current_position + 
-// ((Argument2 + Argument3) % IDX_MOD)
-// If Argument2 is of type T_IND, value (4 bytes) for address calculation is read from 
-// memory: current_position + (Argument2 % IDX_MOD)"							
-// 11	sti	[T_REG]	[T_REG | T_DIR | T_IND]	[T_REG | T_DIR]	[00001011]	[0x0B]	store index ctw:25
 
 static int	get_arg_2_value(t_vm *vm, t_cursor *cursor, int *value)
 {
@@ -105,9 +100,8 @@ static void	vis_sti(t_vm *vm, t_cursor *cursor, unsigned int store_idx)
 	vis_print_cursor(vm->vis);
 }
 
-int		op_sti(t_vm *vm, t_cursor *cursor)
+int			op_sti(t_vm *vm, t_cursor *cursor)
 {
-	//ft_printf("pc: %i, sti, cycle: %i\n", cursor->pc, vm->total_cycle_count);
 	int				arg_1;
 	int				arg_2_value;
 	int				arg_3_value;

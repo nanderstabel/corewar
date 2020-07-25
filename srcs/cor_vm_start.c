@@ -12,7 +12,7 @@
 
 #include "corewar.h"
 
-static void	print_cursors(t_vm *vm)
+static void		print_cursors(t_vm *vm)
 {
 	t_cursor	*current;
 	int			idx;
@@ -31,7 +31,7 @@ static void	print_cursors(t_vm *vm)
 	}
 }
 
-int	cursors_init(t_vm *vm)
+int				cursors_init(t_vm *vm)
 {
 	unsigned int	idx;
 	t_cursor		*new_cursor;
@@ -53,14 +53,12 @@ int	cursors_init(t_vm *vm)
 		new_cursor->next = vm->cursors;
 		vm->cursors = new_cursor;
 		new_cursor->player = idx;
-		// ft_printf("with exec_code:\n");
-		// put_exec_code(vm->champ[idx]->exec_code, vm->champ[idx]->header.prog_size);
 		++idx;
 	}
 	return (SUCCESS);
 }
 
-static void	set_op_table(t_op_table *operations)
+static void		set_op_table(t_op_table *operations)
 {
 	(*operations)[1] = op_live;
 	(*operations)[2] = op_ld;
@@ -80,7 +78,7 @@ static void	set_op_table(t_op_table *operations)
 	(*operations)[16] = op_aff;
 }
 
-int			vm_start(t_vm *vm)
+int				vm_start(t_vm *vm)
 {
 	t_op_table	operations;
 

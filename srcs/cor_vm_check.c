@@ -61,11 +61,3 @@ void		perform_check(t_vm *vm)
 	}
 	vm->cycle_count = 0;
 }
-
-// if (live_count > NBR_LIVE)
-// true: decrease CTD with CYCLE_DELTA
-// false: if (check_count < MAX_CHECK)
-// true: leave CTD as it is
-// false: decrease CTDC with CYCLE_DELTA and set check_count to 0
-// reset cycle_count
-// check_count++
