@@ -3,7 +3,7 @@ rm valid_asm/*.cor
 rm valid_asm/.*.cor
 for file in $@; do
 	echo $file
-	./asm_vm_OS/asm $file
+	./archie_unittest/cor_bin/mac/asm $file
 	file=`echo $file | sed 's/.s$//g'`
 	mv "${file}.cor" "${file}_2.cor"
 	../asm "${file}.s"
