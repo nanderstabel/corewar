@@ -48,18 +48,6 @@ static void			initialize_project(t_project **as)
 
 int					main(int argc, char **argv)
 {
-
-	int size = 71 * 2 + 1;
-	t_elem **ptr_array = ft_memalloc(sizeof(t_elem *) * size);
-	int i = 0;
-
-	while (i < size)
-	{
-		ft_printf("[%2i] = %p\n", i, ptr_array[i]);
-		i++;
-	}
-	exit(0);
-
 	t_machine	*machine;
 	t_project	*as;
 
