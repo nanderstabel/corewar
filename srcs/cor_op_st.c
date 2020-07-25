@@ -53,42 +53,6 @@ static void	vis_st(t_vm *vm, t_cursor *cursor, int offset)
 	vis_print_cursor(vm->vis);
 }
 
-// int		op_st(t_vm *vm, t_cursor *cursor)
-// {
-// 	//ft_printf("pc: %i, st, cycle: %i\n", cursor->pc, vm->total_cycle_count);
-// 	int		arg_1;
-// 	int		arg_2;
-// 	// int		arg_2_value;
-// 	int		type;
-
-// 	type = get_arg_type(vm->arena[new_idx(cursor->pc, 1, FALSE)], 2);
-// 	arg_1 = convert_to_int(vm->arena, new_idx(cursor->pc, 2, 0), 1);
-// 	if (op_st_check(vm, cursor) != SUCCESS)
-// 		return (ERROR);
-// 	if (arg_1 > 0 && arg_1 <= REG_NUMBER)
-// 	{
-// 		if (type == REG)
-// 		{
-// 			arg_2 = convert_to_int(vm->arena, new_idx(cursor->pc, 3, 0), 1);
-// 			if (arg_2 > 0 && REG_NUMBER >= arg_2)
-// 			{
-// 				cursor->reg[arg_2] = cursor->reg[arg_1];
-// 				cursor->pc = new_idx(cursor->pc, 4, FALSE);
-// 			}
-// 		}
-// 		else if (type == IND)
-// 		{
-// 			arg_2 = convert_to_int(vm->arena, new_idx(cursor->pc, 3, 0), 2);
-// 			// arg_2_value = convert_to_int(vm->arena, new_idx(cursor->pc, arg_2, FALSE), 4);
-// 			store_in_arena(vm->arena, new_idx(cursor->pc, arg_2, FALSE), 4, 
-// 				cursor->reg[arg_1]);
-// 			vis_st(vm, cursor, arg_2);
-// 			cursor->pc = new_idx(cursor->pc, 5, FALSE);
-// 		}
-// 	}
-// 	return (SUCCESS);
-// }
-
 int		op_st(t_vm *vm, t_cursor *cursor)
 {
 	int		params[4];
@@ -99,20 +63,22 @@ int		op_st(t_vm *vm, t_cursor *cursor)
 	params[1] = REG;
 	params[2] = 0;
 	params[3] = 0;
-
 	if (get_value(vm, cursor, params) == SUCCESS)
 	{
 		if (get_arg_type(vm->arena[new_idx(cursor->pc, 1, FALSE)], 2) == REG)
 		{
-			params[2] = convert_to_int(vm->arena, new_idx(cursor->pc, params[0], 0), 1);
+			params[2] = \
+				convert_to_int(vm->arena, new_idx(cursor->pc, params[0], 0), 1);
 			if (params[2] > 0 && params[2] <= REG_NUMBER)
 				cursor->reg[params[2]] = params[1];
 			params[0]++;
 		}
 		else
 		{
-			params[2] = convert_to_int(vm->arena, new_idx(cursor->pc, params[0], 0), 2);
-			store_in_arena(vm->arena, new_idx(cursor->pc, params[2], 0), 4, params[1]);
+			params[2] = \
+				convert_to_int(vm->arena, new_idx(cursor->pc, params[0], 0), 2);
+			store_in_arena(vm->arena, \
+				new_idx(cursor->pc, params[2], 0), 4, params[1]);
 			vis_st(vm, cursor, params[2]);
 			params[0] += 2;
 		}

@@ -26,10 +26,8 @@ static int	op_xor_check(t_vm *vm, t_cursor *cursor)
 		return (SUCCESS);
 }
 
-int		op_xor(t_vm *vm, t_cursor *cursor)
+int			op_xor(t_vm *vm, t_cursor *cursor)
 {
-	//ft_printf("pc: %i, xor, cycle: %i\n", cursor->pc, vm->total_cycle_count);
-
 	int		params[4];
 
 	if (op_xor_check(vm, cursor) != SUCCESS)
@@ -38,11 +36,10 @@ int		op_xor(t_vm *vm, t_cursor *cursor)
 	params[1] = get_arg_type(vm->arena[new_idx(cursor->pc, 1, FALSE)], 1);
 	params[2] = get_arg_type(vm->arena[new_idx(cursor->pc, 1, FALSE)], 2);
 	params[3] = 0;
-
 	if (get_value(vm, cursor, params) == SUCCESS)
 	{
-		params[3] = convert_to_int(vm->arena, new_idx(cursor->pc, params[0], 0), 1);
-
+		params[3] = \
+			convert_to_int(vm->arena, new_idx(cursor->pc, params[0], 0), 1);
 		if (params[3] > 0 && params[3] <= REG_NUMBER)
 			cursor->reg[params[3]] = (params[1] ^ params[2]);
 		params[0]++;

@@ -12,7 +12,7 @@
 
 #include "corewar.h"
 
-static int	get_size(t_cursor *cursor, int	byte)
+static int	get_size(t_cursor *cursor, int byte)
 {
 	if (byte == 0 || byte == 1)
 		return (byte);
@@ -32,12 +32,12 @@ static int	get_num_bytes(t_vm *vm, t_cursor *cursor)
 	int		params[3];
 	int		bytes;
 	size_t	index;
+
 	index = 0;
 	bytes = 2;
 	params[0] = get_arg_type(vm->arena[new_idx(cursor->pc, 1, FALSE)], 1);
 	params[1] = get_arg_type(vm->arena[new_idx(cursor->pc, 1, FALSE)], 2);
 	params[2] = get_arg_type(vm->arena[new_idx(cursor->pc, 1, FALSE)], 3);
-	ft_printf("opcode = %d -- byte 1 = %d -- byte 2 = %d -- byte 3 = %d\n", cursor->op_code, params[0], params[1], params[2]);
 	while (index < g_op_tab[cursor->op_code - 1].n_args)
 	{
 		bytes = bytes + get_size(cursor, params[index]);

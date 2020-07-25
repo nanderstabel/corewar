@@ -14,7 +14,6 @@
 
 int		op_lfork(t_vm *vm, t_cursor *cursor)
 {
-	//ft_printf("pc: %i, lfork, cycle: %i\n", cursor->pc, vm->total_cycle_count);
 	int			arg;
 	t_cursor	*new_cursor;
 

@@ -26,7 +26,7 @@ static int	op_sub_check(t_vm *vm, t_cursor *cursor)
 		return (SUCCESS);
 }
 
-int		op_sub(t_vm *vm, t_cursor *cursor)
+int			op_sub(t_vm *vm, t_cursor *cursor)
 {
 	int		params[4];
 
@@ -38,8 +38,8 @@ int		op_sub(t_vm *vm, t_cursor *cursor)
 	params[3] = 0;
 	if (get_value(vm, cursor, params) == SUCCESS)
 	{
-		params[3] = convert_to_int(vm->arena, new_idx(cursor->pc, params[0], 0), 1);
-
+		params[3] = \
+			convert_to_int(vm->arena, new_idx(cursor->pc, params[0], 0), 1);
 		if (params[3] > 0 && params[3] <= REG_NUMBER)
 			cursor->reg[params[3]] = (params[1] - params[2]);
 		params[0]++;

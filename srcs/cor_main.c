@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        ::::::::            */
+/*   cor_main.c                                         :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2020/07/25 12:46:51 by nstabel       #+#    #+#                 */
+/*   Updated: 2020/07/25 12:46:51 by nstabel       ########   odam.nl         */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "corewar.h"
 #include "op.h"
 #include <sys/types.h>
@@ -25,16 +37,3 @@ int		main(int argc, char **argv)
 			vm.champ[vm.last_live]->header.prog_name);
 	return (free_vm(&vm, SUCCESS));
 }
-
-// int	main(void)
-// {
-// 	unsigned char arena[MEM_SIZE];
-
-// 	arena[0] = 0;
-// 	arena[1] = 32;
-// 	arena[2] = 31;
-// 	arena[3] = 255;
-
-// 	ft_printf("	arena[0] = %d = 0x%s\n arena[1] = %d = 0x%s\n arena[2] = %d = 0x%s\n arena[3] = %d = 0x%s\n", arena[0], cor_itoa(arena[0]), arena[1], cor_itoa(arena[1]), arena[2], cor_itoa(arena[2]), arena[3], cor_itoa(arena[3]));
-// 	return (0);
-// }

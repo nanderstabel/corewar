@@ -12,15 +12,6 @@
 
 #include "corewar.h"
 
-// If Argument2 is of type T_REG, set value from registry <Argument1> into registry <Argument2>
-// If Argument2 is of type T_IND, set value from registry <Argument1> into memory. 
-// Address is calculated as follows: (current_position + (Argument2 % IDX_MOD))
-
-// REG 01	1	Registry Rx (where х = registry number, 1 to REG_NUMBER)			
-// DIR 10	2-4	A number, saved on 2 or 4 bytes, depending on label			
-// IND 11	2	Relative address, read 4 bytes from position <±T_IND bytes>
-
-// 01010000
 static int	op_lldi_check(t_vm *vm, t_cursor *cursor)
 {
 	unsigned char	enc;
@@ -36,7 +27,7 @@ static int	op_lldi_check(t_vm *vm, t_cursor *cursor)
 		return (SUCCESS);
 }
 
-int		op_lldi(t_vm *vm, t_cursor *cursor)
+int			op_lldi(t_vm *vm, t_cursor *cursor)
 {
 	int		params[4];
 
@@ -49,10 +40,12 @@ int		op_lldi(t_vm *vm, t_cursor *cursor)
 
 	if (get_value(vm, cursor, params) == SUCCESS)
 	{
-		params[3] = convert_to_int(vm->arena, new_idx(cursor->pc, params[0], 0), 1);
+		params[3] = \
+			convert_to_int(vm->arena, new_idx(cursor->pc, params[0], 0), 1);
 
 		if (params[3] > 0 && params[3] <= REG_NUMBER)
-			cursor->reg[params[3]] = convert_to_int(vm->arena, new_idx(cursor->pc, params[1] + params[2], TRUE), 4);
+			cursor->reg[params[3]] = convert_to_int(vm->arena, \
+				new_idx(cursor->pc, params[1] + params[2], TRUE), 4);
 		params[0]++;
 		cursor->carry = (cursor->reg[params[3]]) ? 0 : 1;
 	}

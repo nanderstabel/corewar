@@ -37,7 +37,8 @@ static int	check_trailing_zeros(unsigned char *buf)
 	int		position_2;
 
 	position_1 = ft_strlen((char*)buf + 4) + 4;
-	position_2 = ft_strlen((char*)buf + 12 + PROG_NAME_LENGTH) + 12 + PROG_NAME_LENGTH;
+	position_2 = ft_strlen((char*)buf + 12 + PROG_NAME_LENGTH) + \
+		12 + PROG_NAME_LENGTH;
 	while (position_1 - 4 < PROG_NAME_LENGTH || \
 		position_2 - 12 - PROG_NAME_LENGTH < COMMENT_LENGTH)
 	{
@@ -70,7 +71,8 @@ int			save_champion(t_vm *vm, char *file, int champ_len,
 	vm->champ[champ_no]->header.prog_size = champ_len;
 	vm->champ[champ_no]->id = champ_no;
 	ft_strcpy(vm->champ[champ_no]->header.prog_name, (char*)buf + 4);
-	ft_strcpy(vm->champ[champ_no]->header.comment, (char*)buf + 12 + PROG_NAME_LENGTH);
+	ft_strcpy(vm->champ[champ_no]->header.comment, \
+		(char*)buf + 12 + PROG_NAME_LENGTH);
 	ft_memcpy(vm->champ[champ_no]->exec_code, buf + 16 + PROG_NAME_LENGTH \
 		+ COMMENT_LENGTH, champ_len);
 	vm->champ_count++;
