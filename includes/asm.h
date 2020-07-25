@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/07/10 12:03:11 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/07/21 13:15:06 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ typedef struct		s_project
 	char			*og_line;
 	char			comment_found;
 	char			header_found;
+	char			body_found;
 	char			opcode_temp;
 	size_t			pc;
 	size_t			temp_addres;
@@ -202,8 +203,8 @@ t_bool				byte_string_to_file(t_project *as, int type,
 					size_t max_size);
 void				print_zero_bytes(t_project *as, size_t len,
 					size_t max_size);
-t_bool				check_str_to_long(int type, size_t max_size, size_t len);
 t_bool				byte_num_to_file(t_project *as, int num);
 void				add_strings(t_project *as, char **line);
+t_bool			check_strings_to_long(t_project *as);
 
 #endif
