@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/08 16:52:21 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/26 12:33:19 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/26 21:20:16 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ static int	op_xor_check(t_vm *vm, t_cursor *cursor)
 		get_arg_type(enc, 2) == 0 || \
 		get_arg_type(enc, 1) == 0)
 		return (ERROR);
-	else
-		return (SUCCESS);
+	ft_printf("P%5i | %s", cursor->p, g_op_tab[cursor->op_code - 1].operation);//
+	return (SUCCESS);
 }
 
 int			op_xor(t_vm *vm, t_cursor *cursor)
@@ -44,6 +44,7 @@ int			op_xor(t_vm *vm, t_cursor *cursor)
 			cursor->reg[params[3]] = (params[1] ^ params[2]);
 		params[0]++;
 		cursor->carry = (cursor->reg[params[3]]) ? 0 : 1;
+		ft_printf(" r%i\n", params[3]);//
 	}
 	return (SUCCESS);
 }
