@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 11:20:48 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/24 17:52:40 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/26 13:54:57 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ int			op_live(t_vm *vm, t_cursor *cursor)
 		++(vm->live_count);
 		cursor->decay = 0;
 		vis_live(vm, cursor);
-	cursor->pc = new_idx(cursor->pc, 5, FALSE);
 	// If wanted live count for champ
 	return (SUCCESS);
 }

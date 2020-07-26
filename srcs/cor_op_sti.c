@@ -6,7 +6,7 @@
 /*   By: lhageman <lhageman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 15:10:22 by lhageman      #+#    #+#                 */
-/*   Updated: 2020/07/24 14:02:15 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/26 12:38:17 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,11 +106,9 @@ int			op_sti(t_vm *vm, t_cursor *cursor)
 	int				arg_2_value;
 	int				arg_3_value;
 	unsigned int	store_idx;
-	unsigned int	op_len;
 
 	if (op_sti_check(vm, cursor) == ERROR)
 		return (ERROR);
-	op_len = 6 + (get_arg_type(vm->arena[new_idx(cursor->pc, 1, 0)], 2) != REG);
 	arg_1 = convert_to_int(vm->arena, new_idx(cursor->pc, 2, 0), 1);
 	if (0 < arg_1 && arg_1 <= REG_NUMBER \
 		&& get_arg_2_value(vm, cursor, &arg_2_value) == SUCCESS \
@@ -120,6 +118,5 @@ int			op_sti(t_vm *vm, t_cursor *cursor)
 		store_in_arena(vm->arena, store_idx, 4, cursor->reg[arg_1]);
 		vis_sti(vm, cursor, store_idx);
 	}
-	cursor->pc = new_idx(cursor->pc, op_len, FALSE);
 	return (SUCCESS);
 }

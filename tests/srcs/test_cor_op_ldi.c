@@ -70,7 +70,8 @@ Test(cor_op_ldi, dir_reg_1, .init=redirect_all_stdout)
 	unsigned char	arg_3 = 4;
 	unsigned int	arg_3_len = 1;
 	unsigned int	prog_size = 2 + arg_1_len + arg_2_len + arg_3_len;
-	int				value = (0x6969 + 0x0420) % IDX_MOD;
+	int				value = 420;
+	int				address = (0x6969 + 0x0420) % IDX_MOD;
 	unsigned int	champ_count = 3;
 	unsigned int	champ_no = 1;
 
@@ -83,6 +84,7 @@ Test(cor_op_ldi, dir_reg_1, .init=redirect_all_stdout)
 	store_in_arena(vm.champ[champ_no]->exec_code, 2 + arg_1_len + arg_2_len, arg_3_len, arg_3);
 	vm.champ[champ_no]->header.prog_size = prog_size;
 
+	store_in_arena(vm.arena, address, 4, value);
 	// create cursor list from the champions and load the exec code into the arena
 	cr_assert_eq(cursors_init(&vm), SUCCESS, "something went wrong when initializing the cursors\n");
 	unsigned int count = champ_no;
