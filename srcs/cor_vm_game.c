@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/05 17:44:34 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/26 16:05:17 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/26 23:08:49 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,24 @@ static int	get_num_bytes(t_vm *vm, t_cursor *cursor)
 		bytes += get_size(cursor, params[index]);
 		index++;
 	}
-	ft_printf("op_code %i, total: %d\n", cursor->op_code, bytes);
+	// ft_printf("op_code %i, total: %d\n", cursor->op_code, bytes);
 	return (bytes);
+}
+
+void		put_adv(t_vm *vm, t_cursor *cursor, size_t size)
+{
+	unsigned int	idx;
+
+	idx = 0;
+	if (cursor->op_code == 9 && cursor->carry)
+		return ;
+	ft_printf("ADV %i (0x%04x -> 0x%04x) ", size, cursor->pc, cursor->pc + size);//
+	while (idx < size)
+	{
+		ft_printf("%s ", vis_itoa(vm->arena[cursor->pc + idx]));
+		idx += 1;
+	}
+	ft_putchar('\n');
 }
 
 void		game_loop(t_vm *vm, t_op_table operations)
@@ -75,8 +91,9 @@ void		game_loop(t_vm *vm, t_op_table operations)
 		{
 			if (cursor->op_code > 0 && cursor->op_code <= 16)
 			{
-				ft_printf("cursor: [%p], pc: %#06x, operation: %s, cycle: %i, enc: %08B, carry: %i\n", cursor, cursor->pc, g_op_tab[cursor->op_code - 1].operation, vm->total_cycle_count, vm->arena[new_idx(cursor->pc, 1, 0)], cursor->carry);
+				// ft_printf("cursor: [%p], pc: %#06x, operation: %s, cycle: %i, enc: %08B, carry: %i\n", cursor, cursor->pc, g_op_tab[cursor->op_code - 1].operation, vm->total_cycle_count, vm->arena[new_idx(cursor->pc, 1, 0)], cursor->carry);
 				size = get_num_bytes(vm, cursor);
+				put_adv(vm, cursor, size);//
 				operations[cursor->op_code](vm, cursor);
 				if (cursor->op_code != 9)
 					cursor->pc = new_idx(cursor->pc, size, FALSE);
@@ -84,7 +101,7 @@ void		game_loop(t_vm *vm, t_op_table operations)
 			else
 			{
 				cursor->pc = new_idx(cursor->pc, 1, FALSE);
-				ft_printf("[ERROR!!!], pc: %#06x,  loop_cycle: %i, opcode: %i\n", cursor->pc, vm->total_cycle_count, cursor->op_code);
+				// ft_printf("[ERROR!!!], pc: %#06x,  loop_cycle: %i, opcode: %i\n", cursor->pc, vm->total_cycle_count, cursor->op_code);
 			}
 		}
 		// ft_printf("cursor: [%p], current pc: : %i\n", cursor, cursor->pc);
