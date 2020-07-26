@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/07/24 14:53:14 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/26 21:59:42 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct		s_cursor
 	int				reg[REG_NUMBER + 1];
 	unsigned int	carry;
 	int				player;
+	int				p;
 	struct s_cursor	*next;
 }					t_cursor;
 
@@ -63,6 +64,7 @@ typedef struct		s_vm
 	t_vis			*vis;
 	t_champ			**champ;
 	t_cursor		*cursors;
+	size_t			n_cursors;
 	unsigned char	arena[MEM_SIZE];
 }					t_vm;
 
