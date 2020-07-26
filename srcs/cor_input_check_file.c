@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/22 16:46:37 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/06 15:07:46 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/07/26 16:23:23 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ static int	check_for_null_bytes(unsigned char *buf)
 	unsigned int	position_1;
 	unsigned int	position_2;
 
-	position_1 = 4 + PROG_NAME_LENGTH - 1;
-	position_2 = position_1 + 4 + COMMENT_LENGTH;
+	position_1 = 4 + PROG_NAME_LENGTH;
+	position_2 = position_1 + 4 + 4 + COMMENT_LENGTH;
 	count = 0;
 	while (count < 4)
 	{
