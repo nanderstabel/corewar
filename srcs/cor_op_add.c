@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/08 16:45:01 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/24 16:34:46 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/26 12:31:15 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,5 @@ int			op_add(t_vm *vm, t_cursor *cursor)
 		params[0]++;
 		cursor->carry = (cursor->reg[params[3]]) ? 0 : 1;
 	}
-	cursor->pc = new_idx(cursor->pc, params[0], FALSE);
 	return (SUCCESS);
 }

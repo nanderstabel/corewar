@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/07/21 13:15:06 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/26 10:57:36 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "libft.h"
 # include "op.h"
 
-# define OPTIONS				"agul"
+// # define OPTIONS				"agul"
 # define SYNTAX_ERR				"Syntax error at token [TOKEN]"
 # define UNEXPECTED_END			"Syntax error - unexpected end of input (Perhaps you forgot to end with a newline ?)\n"
 # define INSTRUCTION_ERR		"Invalid instruction at token [TOKEN]"

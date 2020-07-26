@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/12 13:05:35 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/21 16:30:25 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/07/26 11:20:26 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,7 +173,7 @@ Test(cor_op_st, reg_reg_3, .init=redirect_all_stdout)
 	}
 	unsigned int pc_before = cursor->pc;
 	cursor->reg[(int)arg_1] = value;
-	cr_assert_eq(cursor->reg[(int)arg_2], champ_no, "reg[%d] = %d not initialized to %d\n", arg_2, cursor->reg[(int)arg_2], champ_no);
+	cr_assert_eq(cursor->reg[(int)arg_2], -champ_no, "reg[%d] = %d not initialized to %d\n", arg_2, cursor->reg[(int)arg_2], -champ_no);
 	cr_assert_eq(op_st(&vm, cursor), SUCCESS, "op_st() returned ERROR with (REG)arg_1 = %d and (REG)arg_2 = %d\n", arg_1, arg_2);
 	unsigned int pc_after = cursor->pc;
 	cr_assert_eq(cursor->reg[(int)arg_2], value, "stored: reg[arg_2] = %d\n expected: reg[arg_2] = %d", cursor->reg[(int)arg_2], value);
