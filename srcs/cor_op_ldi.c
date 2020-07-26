@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/17 15:12:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/07/24 16:51:47 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/26 12:31:52 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,5 @@ int			op_ldi(t_vm *vm, t_cursor *cursor)
 				new_idx(cursor->pc, params[1] + params[2], 0), 4);
 		params[0]++;
 	}
-	cursor->pc = new_idx(cursor->pc, params[0], FALSE);
 	return (SUCCESS);
 }

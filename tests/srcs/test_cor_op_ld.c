@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/12 13:05:35 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/17 14:16:56 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/26 12:20:49 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,12 +89,12 @@ Test(cor_op_ld, dir_reg_1, .init=redirect_all_stdout)
 		cursor = cursor->next;
 		++count;
 	}
+	cursor->op_code = op_code;
 	unsigned int pc_before = cursor->pc;
 	cr_assert_eq(cursor->reg[(int)arg_2], 0, "reg[arg_2] = %d not initialized to 0\n", cursor->reg[(int)arg_2]);
 	cr_assert_eq(op_ld(&vm, cursor), SUCCESS, "op_ld() returned ERROR with (DIR)arg_1 = %d and (REG)arg_2 = %d\n", arg_1, arg_2);
 	unsigned int pc_after = cursor->pc;
 	cr_assert_eq(cursor->reg[(int)arg_2], arg_1, "stored: reg[arg_2] = %d\n expected: reg[arg_2] = %d", cursor->reg[(int)arg_2], arg_1);
-	// cr_assert_eq(cursor->reg[(int)arg_1], value, "stored: reg[arg_1] = %d\n expected: reg[arg_1] = %d", cursor->reg[(int)arg_1], value);
 	cr_assert_eq(pc_after - pc_before, prog_size, "cursor moved %d bytes but should have moved %d bytes\n", pc_after - pc_before, prog_size);
 	cr_assert_eq(cursor->carry, value, "carry: %d\n expected: %d", cursor->carry, value);
 }
@@ -132,6 +132,7 @@ Test(cor_op_ld, dir_reg_2, .init=redirect_all_stdout)
 		cursor = cursor->next;
 		++count;
 	}
+	cursor->op_code = op_code;
 	unsigned int pc_before = cursor->pc;
 	cr_assert_eq(cursor->reg[(int)arg_2], 0, "reg[arg_2] = %d not initialized to 0\n", cursor->reg[(int)arg_2]);
 	cr_assert_eq(op_ld(&vm, cursor), SUCCESS, "op_ld() returned ERROR with (DIR)arg_1 = %d and (REG)arg_2 = %d\n", arg_1, arg_2);
@@ -175,6 +176,7 @@ Test(cor_op_ld, dir_reg_carry, .init=redirect_all_stdout)
 		cursor = cursor->next;
 		++count;
 	}
+	cursor->op_code = op_code;
 	unsigned int pc_before = cursor->pc;
 	cr_assert_eq(cursor->reg[(int)arg_2], 0, "reg[arg_2] = %d not initialized to 0\n", cursor->reg[(int)arg_2]);
 	cr_assert_eq(op_ld(&vm, cursor), SUCCESS, "op_ld() returned ERROR with (DIR)arg_1 = %d and (REG)arg_2 = %d\n", arg_1, arg_2);
@@ -195,7 +197,7 @@ Test(cor_op_ld, dir_reg_inv_1, .init=redirect_all_stdout)
 	unsigned int	prog_size = 7;
 	unsigned char	arg_1 = 0x69;
 	unsigned int	arg_1_len = 4;
-	unsigned char	arg_2 = - 1;
+	unsigned char	arg_2 = -1;
 	unsigned int	arg_2_len = 1;
 	// int				value = 4;
 	unsigned int	champ_count = 3;
@@ -218,6 +220,7 @@ Test(cor_op_ld, dir_reg_inv_1, .init=redirect_all_stdout)
 		cursor = cursor->next;
 		++count;
 	}
+	cursor->op_code = op_code;
 	unsigned int pc_before = cursor->pc;
 	cr_assert_eq(cursor->reg[(int)arg_2], 0, "reg[arg_2] = %d not initialized to 0\n", cursor->reg[(int)arg_2]);
 	cr_assert_eq(op_ld(&vm, cursor), ERROR, "op_ld() did not return ERROR with (DIR)arg_1 = %d and (REG)arg_2 = %d\n", arg_1, arg_2);
@@ -262,6 +265,7 @@ Test(cor_op_ld, ind_reg_1, .init=redirect_all_stdout)
 		cursor = cursor->next;
 		++count;
 	}
+	cursor->op_code = op_code;
 	unsigned int pc_before = cursor->pc;
 	cr_assert_eq(cursor->reg[(int)arg_2], 0, "reg[arg_2] = %d not initialized to 0\n", cursor->reg[(int)arg_2]);
 	cr_assert_eq(op_ld(&vm, cursor), SUCCESS, "op_ld() returned ERROR with (DIR)arg_1 = %d and (REG)arg_2 = %d\n", arg_1, arg_2);
