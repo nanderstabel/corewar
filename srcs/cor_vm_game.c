@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/05 17:44:34 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/24 18:58:45 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/26 14:19:53 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,16 @@ static int	get_num_bytes(t_vm *vm, t_cursor *cursor)
 	size_t	index;
 
 	index = 0;
-	bytes = 2;
+	bytes = (g_op_tab[cursor->op_code - 1].encoded) ? 2 : 1;
 	params[0] = get_arg_type(vm->arena[new_idx(cursor->pc, 1, FALSE)], 1);
 	params[1] = get_arg_type(vm->arena[new_idx(cursor->pc, 1, FALSE)], 2);
 	params[2] = get_arg_type(vm->arena[new_idx(cursor->pc, 1, FALSE)], 3);
 	while (index < g_op_tab[cursor->op_code - 1].n_args)
 	{
-		bytes = bytes + get_size(cursor, params[index]);
+		bytes += get_size(cursor, params[index]);
 		index++;
 	}
-	ft_printf("total: %d\n", bytes);
+	ft_printf("op_code %i, total: %d\n", cursor->op_code, bytes);
 	return (bytes);
 }
 
@@ -61,17 +61,24 @@ void		game_loop(t_vm *vm, t_op_table operations)
 			cursor->op_code = convert_to_int(vm->arena, cursor->pc, 1);
 			if (cursor->op_code > 0 && cursor->op_code <= 16)
 				cursor->ctw = g_op_tab[cursor->op_code - 1].cycles_to_wait;
-			else
-				cursor->pc = new_idx(cursor->pc, 1, FALSE);
 		}
 		if (cursor->ctw > 0)
 			--(cursor->ctw);
 		++(cursor->decay);
-		if (cursor->ctw == 0 && cursor->op_code > 0 && cursor->op_code <= 16 && ft_printf("cursor: [%p], pc: %#06x, operation: %s, cycle: %i, enc: %08B, carry: %i\n", cursor, cursor->pc, g_op_tab[cursor->op_code - 1].operation, vm->total_cycle_count, vm->arena[new_idx(cursor->pc, 1, 0)], cursor->carry)  \
-			&& ((operations[cursor->op_code](vm, cursor)) == ERROR))
+		if (cursor->ctw == 0)
 		{
-			ft_printf("[ERROR!!!] loop_cycle: %i, opcode: %i\n", vm->total_cycle_count, cursor->op_code);
-			cursor->pc = new_idx(cursor->pc, get_num_bytes(vm, cursor), FALSE);
+			if (cursor->op_code > 0 && cursor->op_code <= 16)
+			{
+				ft_printf("cursor: [%p], pc: %#06x, operation: %s, cycle: %i, enc: %08B, carry: %i\n", cursor, cursor->pc, g_op_tab[cursor->op_code - 1].operation, vm->total_cycle_count, vm->arena[new_idx(cursor->pc, 1, 0)], cursor->carry);
+				operations[cursor->op_code](vm, cursor);
+				if (cursor->op_code != 9)
+					cursor->pc = new_idx(cursor->pc, get_num_bytes(vm, cursor), FALSE);
+			}
+			else
+			{
+				cursor->pc = new_idx(cursor->pc, 1, FALSE);
+				ft_printf("[ERROR!!!], pc: %#06x,  loop_cycle: %i, opcode: %i\n", cursor->pc, vm->total_cycle_count, cursor->op_code);
+			}
 		}
 		// ft_printf("cursor: [%p], current pc: : %i\n", cursor, cursor->pc);
 		cursor = cursor->next;
