@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/05 17:44:34 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/26 14:19:53 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/26 16:05:17 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,14 @@ static int	get_num_bytes(t_vm *vm, t_cursor *cursor)
 
 	index = 0;
 	bytes = (g_op_tab[cursor->op_code - 1].encoded) ? 2 : 1;
-	params[0] = get_arg_type(vm->arena[new_idx(cursor->pc, 1, FALSE)], 1);
-	params[1] = get_arg_type(vm->arena[new_idx(cursor->pc, 1, FALSE)], 2);
-	params[2] = get_arg_type(vm->arena[new_idx(cursor->pc, 1, FALSE)], 3);
+	if (g_op_tab[cursor->op_code - 1].encoded)
+	{
+		params[0] = get_arg_type(vm->arena[new_idx(cursor->pc, 1, FALSE)], 1);
+		params[1] = get_arg_type(vm->arena[new_idx(cursor->pc, 1, FALSE)], 2);
+		params[2] = get_arg_type(vm->arena[new_idx(cursor->pc, 1, FALSE)], 3);
+	}
+	else
+		params[0] = DIR;
 	while (index < g_op_tab[cursor->op_code - 1].n_args)
 	{
 		bytes += get_size(cursor, params[index]);
@@ -50,6 +55,7 @@ static int	get_num_bytes(t_vm *vm, t_cursor *cursor)
 void		game_loop(t_vm *vm, t_op_table operations)
 {
 	t_cursor	*cursor;
+	size_t		size;
 
 	cursor = vm->cursors;
 	++(vm->cycle_count);
@@ -70,9 +76,10 @@ void		game_loop(t_vm *vm, t_op_table operations)
 			if (cursor->op_code > 0 && cursor->op_code <= 16)
 			{
 				ft_printf("cursor: [%p], pc: %#06x, operation: %s, cycle: %i, enc: %08B, carry: %i\n", cursor, cursor->pc, g_op_tab[cursor->op_code - 1].operation, vm->total_cycle_count, vm->arena[new_idx(cursor->pc, 1, 0)], cursor->carry);
+				size = get_num_bytes(vm, cursor);
 				operations[cursor->op_code](vm, cursor);
 				if (cursor->op_code != 9)
-					cursor->pc = new_idx(cursor->pc, get_num_bytes(vm, cursor), FALSE);
+					cursor->pc = new_idx(cursor->pc, size, FALSE);
 			}
 			else
 			{
