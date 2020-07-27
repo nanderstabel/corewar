@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/05 17:44:34 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/27 11:14:49 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/27 13:46:12 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static int	get_num_bytes(t_vm *vm, t_cursor *cursor)
 	return (bytes);
 }
 
-void		put_adv(t_vm *vm, t_cursor *cursor, size_t size)
+static void	put_adv(t_vm *vm, t_cursor *cursor, size_t size)
 {
 	unsigned int	idx;
 
@@ -60,7 +60,8 @@ void		put_adv(t_vm *vm, t_cursor *cursor, size_t size)
 	idx = 0;
 	if (cursor->op_code == 9 && cursor->carry)
 		return ;
-	ft_printf("ADV %i (0x%04x -> 0x%04x) ", size, cursor->pc, cursor->pc + size);//
+	ft_printf("ADV %i (0x%04x -> 0x%04x) ", \
+		size, cursor->pc, cursor->pc + size);
 	while (idx < size)
 	{
 		ft_printf("%s ", vis_itoa(vm->arena[cursor->pc + idx]));
@@ -69,43 +70,46 @@ void		put_adv(t_vm *vm, t_cursor *cursor, size_t size)
 	ft_putchar('\n');
 }
 
+static void	play(t_vm *vm, t_cursor *cursor, t_op_table operations)
+{
+	size_t	size;
+
+	if (cursor->ctw == 0)
+	{
+		cursor->op_code = convert_to_int(vm->arena, cursor->pc, 1);
+		if (cursor->op_code > 0 && cursor->op_code <= 16)
+			cursor->ctw = g_op_tab[cursor->op_code - 1].cycles_to_wait;
+	}
+	if (cursor->ctw > 0)
+		--(cursor->ctw);
+	++(cursor->decay);
+	if (cursor->ctw == 0)
+	{
+		if (cursor->op_code > 0 && cursor->op_code <= 16)
+		{
+			size = get_num_bytes(vm, cursor);
+			put_adv(vm, cursor, size);
+			operations[cursor->op_code](vm, cursor);
+			if (cursor->op_code != 9)
+				cursor->pc = new_idx(cursor->pc, size, FALSE);
+		}
+		else
+			cursor->pc = new_idx(cursor->pc, 1, FALSE);
+	}
+}
+
 void		game_loop(t_vm *vm, t_op_table operations)
 {
 	t_cursor	*cursor;
-	size_t		size;
 
 	cursor = vm->cursors;
 	++(vm->cycle_count);
 	++(vm->total_cycle_count);
+	if (vm->e_option)
+		ft_printf("It is now cycle %i\n", vm->total_cycle_count);
 	while (cursor != NULL)
 	{
-		if (cursor->ctw == 0)
-		{
-			cursor->op_code = convert_to_int(vm->arena, cursor->pc, 1);
-			if (cursor->op_code > 0 && cursor->op_code <= 16)
-				cursor->ctw = g_op_tab[cursor->op_code - 1].cycles_to_wait;
-		}
-		if (cursor->ctw > 0)
-			--(cursor->ctw);
-		++(cursor->decay);
-		if (cursor->ctw == 0)
-		{
-			if (cursor->op_code > 0 && cursor->op_code <= 16)
-			{
-				// ft_printf("cursor: [%p], pc: %#06x, operation: %s, cycle: %i, enc: %08B, carry: %i\n", cursor, cursor->pc, g_op_tab[cursor->op_code - 1].operation, vm->total_cycle_count, vm->arena[new_idx(cursor->pc, 1, 0)], cursor->carry);
-				size = get_num_bytes(vm, cursor);
-				put_adv(vm, cursor, size);//
-				operations[cursor->op_code](vm, cursor);
-				if (cursor->op_code != 9)
-					cursor->pc = new_idx(cursor->pc, size, FALSE);
-			}
-			else
-			{
-				cursor->pc = new_idx(cursor->pc, 1, FALSE);
-				// ft_printf("[ERROR!!!], pc: %#06x,  loop_cycle: %i, opcode: %i\n", cursor->pc, vm->total_cycle_count, cursor->op_code);
-			}
-		}
-		// ft_printf("cursor: [%p], current pc: : %i\n", cursor, cursor->pc);
+		play(vm, cursor, operations);
 		cursor = cursor->next;
 		if (vm->visualizer == TRUE)
 			vis_print_data(vm);

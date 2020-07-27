@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/17 15:12:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/07/27 10:40:59 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/27 13:24:47 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static int	op_ldi_check(t_vm *vm, t_cursor *cursor)
 		get_arg_type(enc, 1) == 0)
 		return (ERROR);
 	if (vm->a_option)
-		ft_printf("P%5i | %s", cursor->p, g_op_tab[cursor->op_code - 1].operation);//
+		ft_printf(FORMAT_A, cursor->p, g_op_tab[cursor->op_code - 1].operation);
 	return (SUCCESS);
 }
 
@@ -47,7 +47,7 @@ int			op_ldi(t_vm *vm, t_cursor *cursor)
 				new_idx(cursor->pc, params[1] + params[2], 0), 4);
 		params[0]++;
 		if (vm->a_option)
-			ft_printf(" r%i\n", params[3]);//
+			ft_printf(" r%i\n", params[3]);
 	}
 	return (SUCCESS);
 }

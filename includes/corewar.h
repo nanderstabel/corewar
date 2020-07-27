@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/07/27 10:35:12 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/27 13:28:48 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,17 @@
 # include "cor_errors.h"
 # include "vis.h"
 
-# define OPTIONS				"abdnv"
+# define OPTIONS		"abcdefnv"
 
-# define STDIN					0
-# define STDOUT					1
-# define STDERR					2
-# define REG					REG_CODE
-# define DIR					DIR_CODE
-# define IND					IND_CODE
+# define FORMAT_A		"P%5i | %s"
+# define FORMAT_F		"Player %i (%s) is said to be alive\n"
+
+# define STDIN			0
+# define STDOUT			1
+# define STDERR			2
+# define REG			REG_CODE
+# define DIR			DIR_CODE
+# define IND			IND_CODE
 
 typedef struct		s_cursor
 {
@@ -61,6 +64,9 @@ typedef struct		s_vm
 	unsigned int	live_count;
 	unsigned int	a_option;
 	unsigned int	b_option;
+	unsigned int	c_option;
+	unsigned int	e_option;
+	unsigned int	f_option;
 	unsigned int	visualizer;
 	int				dump;
 	t_vis			*vis;
