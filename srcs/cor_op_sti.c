@@ -6,7 +6,7 @@
 /*   By: lhageman <lhageman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 15:10:22 by lhageman      #+#    #+#                 */
-/*   Updated: 2020/07/27 10:43:13 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/27 13:46:31 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	get_arg_2_value(t_vm *vm, t_cursor *cursor, int *value)
 			return (ERROR);
 		*value = cursor->reg[arg];
 		if (vm->a_option)
-			ft_printf(" r%i", arg);//
+			ft_printf(" r%i", arg);
 	}
 	else if (type == DIR || type == IND)
 	{
@@ -39,7 +39,7 @@ static int	get_arg_2_value(t_vm *vm, t_cursor *cursor, int *value)
 		else
 			*value = convert_to_int(vm->arena, new_idx(cursor->pc, arg, 0), 4);
 		if (vm->a_option)
-			ft_printf(" %i", arg);//
+			ft_printf(" %i", arg);
 	}
 	return (SUCCESS);
 }
@@ -64,14 +64,14 @@ static int	get_arg_3_value(t_vm *vm, t_cursor *cursor, int *value)
 			return (ERROR);
 		*value = cursor->reg[arg];
 		if (vm->a_option)
-			ft_printf(" r%i\n", arg);//
+			ft_printf(" r%i\n", arg);
 	}
 	else if (type == DIR)
 	{
 		arg = convert_to_int(vm->arena, arg_pos, 2);
 		*value = arg;
 		if (vm->a_option)
-			ft_printf(" %i\n", arg);//
+			ft_printf(" %i\n", arg);
 	}
 	return (SUCCESS);
 }
@@ -111,17 +111,17 @@ static void	vis_sti(t_vm *vm, t_cursor *cursor, unsigned int store_idx)
 int			op_sti(t_vm *vm, t_cursor *cursor)
 {
 	int				arg_1;
-	int				arg_2_value = 0;
-	int				arg_3_value = 0;
+	int				arg_2_value;
+	int				arg_3_value;
 	unsigned int	store_idx;
 
 	if (op_sti_check(vm, cursor) == ERROR)
 		return (ERROR);
 	if (vm->a_option)
-		ft_printf("P%5i | %s", cursor->p, g_op_tab[cursor->op_code - 1].operation);//
+		ft_printf(FORMAT_A, cursor->p, g_op_tab[cursor->op_code - 1].operation);
 	arg_1 = convert_to_int(vm->arena, new_idx(cursor->pc, 2, 0), 1);
 	if (vm->a_option)
-		ft_printf(" r%i", arg_1);//
+		ft_printf(" r%i", arg_1);
 	if (0 < arg_1 && arg_1 <= REG_NUMBER \
 		&& get_arg_2_value(vm, cursor, &arg_2_value) == SUCCESS \
 		&& get_arg_3_value(vm, cursor, &arg_3_value) == SUCCESS)
@@ -130,7 +130,9 @@ int			op_sti(t_vm *vm, t_cursor *cursor)
 		store_in_arena(vm->arena, store_idx, 4, cursor->reg[arg_1]);
 		vis_sti(vm, cursor, store_idx);
 		if (vm->a_option)
-			ft_printf("%8c -> store to %i + %i = %i (with pc and mod %i)\n", '|', arg_2_value, arg_3_value, arg_2_value + arg_3_value, store_idx);//
+			ft_printf("%8c -> store to %i + %i = %i (with pc and mod %i)\n", \
+				'|', arg_2_value, arg_3_value, arg_2_value + arg_3_value, \
+				store_idx);
 	}
 	return (SUCCESS);
 }

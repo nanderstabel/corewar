@@ -6,19 +6,11 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/08 16:51:19 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/27 10:42:21 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/27 13:47:56 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
-
-// If Argument2 is of type T_REG, set value from registry <Argument1> into registry <Argument2>
-// If Argument2 is of type T_IND, set value from registry <Argument1> into memory. 
-// Address is calculated as follows: (current_position + (Argument2 % IDX_MOD))
-
-// REG 01	1	Registry Rx (where х = registry number, 1 to REG_NUMBER)			
-// DIR 10	2-4	A number, saved on 2 or 4 bytes, depending on label			
-// IND 11	2	Relative address, read 4 bytes from position <±T_IND bytes>
 
 static int	op_st_check(t_vm *vm, t_cursor *cursor)
 {
@@ -33,7 +25,7 @@ static int	op_st_check(t_vm *vm, t_cursor *cursor)
 		get_arg_type(enc, 1) != REG)
 		return (ERROR);
 	if (vm->a_option)
-		ft_printf("P%5i | %s", cursor->p, g_op_tab[cursor->op_code - 1].operation);//
+		ft_printf(FORMAT_A, cursor->p, g_op_tab[cursor->op_code - 1].operation);
 	return (SUCCESS);
 }
 
@@ -55,7 +47,7 @@ static void	vis_st(t_vm *vm, t_cursor *cursor, int offset)
 	vis_print_cursor(vm->vis);
 }
 
-int		op_st(t_vm *vm, t_cursor *cursor)
+int			op_st(t_vm *vm, t_cursor *cursor)
 {
 	int		params[4];
 
@@ -75,7 +67,7 @@ int		op_st(t_vm *vm, t_cursor *cursor)
 				cursor->reg[params[2]] = params[1];
 			params[0]++;
 			if (vm->a_option)
-				ft_printf(" r%i\n", params[2]);//
+				ft_printf(" r%i\n", params[2]);
 		}
 		else
 		{
@@ -86,7 +78,7 @@ int		op_st(t_vm *vm, t_cursor *cursor)
 			vis_st(vm, cursor, params[2]);
 			params[0] += 2;
 			if (vm->a_option)
-				ft_printf(" %i\n", params[2]);//
+				ft_printf(" %i\n", params[2]);
 		}
 	}
 	return (SUCCESS);
