@@ -6,7 +6,7 @@
 /*   By: lhageman <lhageman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 15:10:22 by lhageman      #+#    #+#                 */
-/*   Updated: 2020/07/27 13:46:31 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/27 17:50:02 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	get_arg_2_value(t_vm *vm, t_cursor *cursor, int *value)
 			return (ERROR);
 		*value = cursor->reg[arg];
 		if (vm->a_option)
-			ft_printf(" r%i", arg);
+			ft_printf(" %i", *value);
 	}
 	else if (type == DIR || type == IND)
 	{
@@ -64,7 +64,7 @@ static int	get_arg_3_value(t_vm *vm, t_cursor *cursor, int *value)
 			return (ERROR);
 		*value = cursor->reg[arg];
 		if (vm->a_option)
-			ft_printf(" r%i\n", arg);
+			ft_printf(" %i\n", *value);
 	}
 	else if (type == DIR)
 	{
