@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/06 18:15:19 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/27 12:59:25 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/27 13:48:43 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ static void	kill_cursor(t_vm *vm, t_cursor *cursor)
 	t_cursor	*walk;
 
 	if (vm->c_option)
-		ft_printf("Process %i hasn't lived for %i cycles (CTD %i)\n", cursor->p, cursor->decay, vm->ctd);
+		ft_printf("Process %i hasn't lived for %i cycles (CTD %i)\n", \
+			cursor->p, cursor->decay, vm->ctd);
 	if (vm->cursors != cursor)
 	{
 		walk = vm->cursors;
@@ -33,7 +34,6 @@ static void	kill_cursor(t_vm *vm, t_cursor *cursor)
 	ft_bzero(cursor, sizeof(t_cursor));
 	free(cursor);
 	cursor = NULL;
-	// play killing sound
 }
 
 static void	check_cursors(t_vm *vm)
@@ -46,7 +46,6 @@ static void	check_cursors(t_vm *vm)
 	{
 		tmp = walk;
 		walk = walk->next;
-		// ft_printf("ctd: %i, decay: %i\n", vm->ctd, tmp->decay);
 		if (tmp->decay >= vm->ctd)
 			kill_cursor(vm, tmp);
 	}
