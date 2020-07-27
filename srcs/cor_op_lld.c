@@ -6,7 +6,7 @@
 /*   By: lhageman <lhageman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 14:08:58 by lhageman      #+#    #+#                 */
-/*   Updated: 2020/07/26 21:20:16 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/27 10:41:45 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ static int	op_lld_check(t_vm *vm, t_cursor *cursor)
 		get_arg_type(enc, 1) == 0 ||
 		get_arg_type(enc, 1) == REG)
 		return (ERROR);
-	ft_printf("P%5i | %s", cursor->p, g_op_tab[cursor->op_code - 1].operation);//
+	if (vm->a_option)
+		ft_printf("P%5i | %s", cursor->p, g_op_tab[cursor->op_code - 1].operation);//
 	return (SUCCESS);
 }
 
@@ -45,7 +46,8 @@ int		op_lld(t_vm *vm, t_cursor *cursor)
 			cursor->reg[params[2]] = params[1];
 		params[0]++;
 		cursor->carry = (cursor->reg[params[2]]) ? 0 : 1;
-		ft_printf(" r%i\n", params[2]);//
+		if (vm->a_option)
+			ft_printf(" r%i\n", params[2]);//
 	}
 	return (SUCCESS);
 }

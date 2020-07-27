@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/03 11:22:16 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/26 22:07:27 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/27 10:30:10 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int				vm_start(t_vm *vm)
 	set_op_table(&operations);
 	vm->last_live = vm->champ[vm->champ_count]->id;
 	vm->ctd = CYCLE_TO_DIE;
-	vm->n_cursors = vm->champ_count;
+	vm->cursor_count = vm->champ_count;
 	if (cursors_init(vm) == ERROR)
 		return (ERROR);
 	if (vm->visualizer == TRUE)
