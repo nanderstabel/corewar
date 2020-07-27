@@ -46,11 +46,11 @@ int			op_live(t_vm *vm, t_cursor *cursor)
 	if (arg == cursor->reg[1])
 	{
 		vm->last_live = arg;
+		cursor->decay = 0;
 		if (vm->f_option)
 			ft_printf(FORMAT_F, -arg, vm->champ[-arg]->header.prog_name);
 	}
 	++(vm->live_count);
-	cursor->decay = 0;
 	vis_live(vm, cursor);
 	if (vm->a_option)
 		ft_printf(" %i\n", arg);
