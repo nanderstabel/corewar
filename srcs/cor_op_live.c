@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 11:20:48 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/26 13:54:57 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/27 10:41:27 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,10 @@ static void	vis_live(t_vm *vm, t_cursor *cursor)
 
 int			op_live(t_vm *vm, t_cursor *cursor)
 {
-	//ft_printf("pc: %i, live, cycle: %i\n", cursor->pc, vm->total_cycle_count);
 	int				arg;
 
+	if (vm->a_option)
+		ft_printf("P%5i | %s", cursor->p, g_op_tab[cursor->op_code - 1].operation);//
 	arg = convert_to_int(vm->arena, new_idx(cursor->pc, 1, FALSE), 4);
 	if (-arg == cursor->reg[1])
 	{
@@ -55,5 +56,7 @@ int			op_live(t_vm *vm, t_cursor *cursor)
 		cursor->decay = 0;
 		vis_live(vm, cursor);
 	// If wanted live count for champ
+	if (vm->a_option)
+		ft_printf(" %i\n", arg);//
 	return (SUCCESS);
 }

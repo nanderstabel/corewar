@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/05 17:44:34 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/26 23:08:49 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/27 11:10:47 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ static int	get_num_bytes(t_vm *vm, t_cursor *cursor)
 		bytes += get_size(cursor, params[index]);
 		index++;
 	}
-	// ft_printf("op_code %i, total: %d\n", cursor->op_code, bytes);
 	return (bytes);
 }
 
