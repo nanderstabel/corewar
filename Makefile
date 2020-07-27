@@ -81,7 +81,11 @@ lre:
 
 test: $(LIBFT) $(OBJS) $(HDRS)
 	@$(MAKE) all
-	@make re -C tests
+	@make re -C test_folder/criterion
+	@echo "\n		---- ASM ----		\n"
+	@./test_folder/criterion/asm_test
+	@echo "\n		---- VM ----		\n"
+	@./test_folder/criterion/cor_test
 
 FORCE:
 
