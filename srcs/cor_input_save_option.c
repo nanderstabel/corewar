@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/25 13:02:32 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/27 12:08:01 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/27 13:04:25 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,16 @@ int			save_option(t_vm *vm, char **argv, int idx, int argc)
 	if (ft_strchr(argv[idx], 'c') != NULL)
 	{
 		vm->c_option = TRUE;
+		return (1);
+	}
+	if (ft_strchr(argv[idx], 'e') != NULL)
+	{
+		vm->e_option = TRUE;
+		return (1);
+	}
+	if (ft_strchr(argv[idx], 'f') != NULL)
+	{
+		vm->f_option = TRUE;
 		return (1);
 	}
 	if ((ft_strchr(argv[idx], 'd') != NULL || (ft_strchr(argv[idx], 'n') != NULL
