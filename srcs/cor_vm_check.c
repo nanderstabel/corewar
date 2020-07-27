@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/06 18:15:19 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/24 17:56:29 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/26 18:04:21 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	check_cursors(t_vm *vm)
 	{
 		tmp = walk;
 		walk = walk->next;
-		ft_printf("ctd: %i, decay: %i\n", vm->ctd, tmp->decay);
+		// ft_printf("ctd: %i, decay: %i\n", vm->ctd, tmp->decay);
 		if (tmp->decay >= vm->ctd)
 			kill_cursor(vm, tmp);
 	}

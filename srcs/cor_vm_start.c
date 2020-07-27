@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/03 11:22:16 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/26 12:02:55 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/27 10:30:10 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int				cursors_init(t_vm *vm)
 		new_cursor->next = vm->cursors;
 		vm->cursors = new_cursor;
 		new_cursor->player = idx;
+		new_cursor->p = idx;
 		new_cursor->ctw = 0;
 		++idx;
 	}
@@ -86,6 +87,7 @@ int				vm_start(t_vm *vm)
 	set_op_table(&operations);
 	vm->last_live = vm->champ[vm->champ_count]->id;
 	vm->ctd = CYCLE_TO_DIE;
+	vm->cursor_count = vm->champ_count;
 	if (cursors_init(vm) == ERROR)
 		return (ERROR);
 	if (vm->visualizer == TRUE)
