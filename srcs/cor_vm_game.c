@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/05 17:44:34 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/27 11:10:47 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/27 11:14:49 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ void		put_adv(t_vm *vm, t_cursor *cursor, size_t size)
 {
 	unsigned int	idx;
 
+	if (!vm->b_option)
+		return ;
 	idx = 0;
 	if (cursor->op_code == 9 && cursor->carry)
 		return ;
