@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/07/27 12:04:41 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/27 13:04:16 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include "cor_errors.h"
 # include "vis.h"
 
-# define OPTIONS				"abcdnv"
+# define OPTIONS				"abcdefnv"
 
 # define STDIN					0
 # define STDOUT					1
@@ -62,6 +62,8 @@ typedef struct		s_vm
 	unsigned int	a_option;
 	unsigned int	b_option;
 	unsigned int	c_option;
+	unsigned int	e_option;
+	unsigned int	f_option;
 	unsigned int	visualizer;
 	int				dump;
 	t_vis			*vis;

@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/05 17:44:34 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/27 11:14:49 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/27 13:06:43 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ void		game_loop(t_vm *vm, t_op_table operations)
 	cursor = vm->cursors;
 	++(vm->cycle_count);
 	++(vm->total_cycle_count);
+	if (vm->e_option)
+		ft_printf("It is now cycle %i\n", vm->total_cycle_count);
 	while (cursor != NULL)
 	{
 		if (cursor->ctw == 0)
@@ -92,20 +94,15 @@ void		game_loop(t_vm *vm, t_op_table operations)
 		{
 			if (cursor->op_code > 0 && cursor->op_code <= 16)
 			{
-				// ft_printf("cursor: [%p], pc: %#06x, operation: %s, cycle: %i, enc: %08B, carry: %i\n", cursor, cursor->pc, g_op_tab[cursor->op_code - 1].operation, vm->total_cycle_count, vm->arena[new_idx(cursor->pc, 1, 0)], cursor->carry);
 				size = get_num_bytes(vm, cursor);
-				put_adv(vm, cursor, size);//
+				put_adv(vm, cursor, size);
 				operations[cursor->op_code](vm, cursor);
 				if (cursor->op_code != 9)
 					cursor->pc = new_idx(cursor->pc, size, FALSE);
 			}
 			else
-			{
 				cursor->pc = new_idx(cursor->pc, 1, FALSE);
-				// ft_printf("[ERROR!!!], pc: %#06x,  loop_cycle: %i, opcode: %i\n", cursor->pc, vm->total_cycle_count, cursor->op_code);
-			}
 		}
-		// ft_printf("cursor: [%p], current pc: : %i\n", cursor, cursor->pc);
 		cursor = cursor->next;
 		if (vm->visualizer == TRUE)
 			vis_print_data(vm);
