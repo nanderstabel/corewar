@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/08 16:51:19 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/27 13:47:56 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/27 18:04:36 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int			op_st(t_vm *vm, t_cursor *cursor)
 				cursor->reg[params[2]] = params[1];
 			params[0]++;
 			if (vm->a_option)
-				ft_printf(" r%i\n", params[2]);
+				ft_printf(" %i\n", params[2]);
 		}
 		else
 		{
