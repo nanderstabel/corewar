@@ -6,13 +6,13 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/10 14:51:50 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/27 10:50:07 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/27 13:39:06 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-int		get_arg_type(unsigned char enc, unsigned int no)
+int			get_arg_type(unsigned char enc, unsigned int no)
 {
 	char	type;
 
@@ -34,7 +34,7 @@ int		get_arg_type(unsigned char enc, unsigned int no)
 	return (-1);
 }
 
-void	store_in_arena(unsigned char *arena, unsigned int idx, \
+void		store_in_arena(unsigned char *arena, unsigned int idx, \
 		unsigned int len, int value)
 {
 	unsigned int	i;
@@ -47,7 +47,41 @@ void	store_in_arena(unsigned char *arena, unsigned int idx, \
 	}
 }
 
-int		get_value(t_vm *vm, t_cursor *cursor, int param[4])
+static int	get_reg(t_vm *vm, t_cursor *cursor, int param[4], int i)
+{
+	param[i] = convert_to_int(vm->arena, new_idx(cursor->pc, param[0], 0), 1);
+	if (vm->a_option)
+		ft_printf("r%i", param[i]);
+	if (param[i] <= 0 || param[i] > REG_NUMBER)
+		return (ERROR);
+	param[i] = cursor->reg[param[i]];
+	param[0] += 1;
+	return (SUCCESS);
+}
+
+static void	get_dir_ind(t_vm *vm, t_cursor *cursor, int param[4], int i)
+{
+	if (param[i] == IND)
+	{
+		param[i] = convert_to_int(vm->arena, \
+			new_idx(cursor->pc, param[0], 0), 2);
+		if (vm->a_option)
+			ft_printf("%i", param[i]);
+		param[i] = convert_to_int(vm->arena, \
+			new_idx(cursor->pc, param[i], 0), 4);
+		param[0] += 2;
+	}
+	else if (param[i] == DIR)
+	{
+		param[i] = convert_to_int(vm->arena, new_idx(cursor->pc, param[0], 0), \
+			2 * (1 + (g_op_tab[cursor->op_code - 1].label == 0)));
+		if (vm->a_option)
+			ft_printf("%i", param[i]);
+		param[0] += 2 * (1 + (g_op_tab[cursor->op_code - 1].label == 0));
+	}
+}
+
+int			get_value(t_vm *vm, t_cursor *cursor, int param[4])
 {
 	int		i;
 
@@ -56,31 +90,10 @@ int		get_value(t_vm *vm, t_cursor *cursor, int param[4])
 	{
 		if (vm->a_option)
 			ft_putchar(' ');
-		if (param[i] == REG)
-		{
-			param[i] = convert_to_int(vm->arena, new_idx(cursor->pc, param[0], 0), 1);
-			if (vm->a_option)
-				ft_printf("r%i", param[i]);//
-			if (param[i] <= 0 || param[i] > REG_NUMBER)
-				return (ERROR);
-			param[i] = cursor->reg[param[i]];
-			param[0] += 1;
-		}
-		else if (param[i] == IND)
-		{
-			param[i] = convert_to_int(vm->arena, new_idx(cursor->pc, param[0], 0), 2);
-			if (vm->a_option)
-				ft_printf("%i", param[i]);//
-			param[i] = convert_to_int(vm->arena, new_idx(cursor->pc, param[i], 0), 4);
-			param[0] += 2;
-		}
-		else if (param[i] == DIR)
-		{
-			param[i] = convert_to_int(vm->arena, new_idx(cursor->pc, param[0], 0), 2 * (1 + (g_op_tab[cursor->op_code - 1].label == 0)));
-			if (vm->a_option)
-				ft_printf("%i", param[i]);//
-			param[0] += 2 * (1 + (g_op_tab[cursor->op_code - 1].label == 0));
-		}
+		if (param[i] == REG && get_reg(vm, cursor, param, i) == ERROR)
+			return (ERROR);
+		else if (param[i] != 0)
+			get_dir_ind(vm, cursor, param, i);
 		++i;
 	}
 	return (SUCCESS);
