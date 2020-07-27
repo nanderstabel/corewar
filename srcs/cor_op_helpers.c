@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/10 14:51:50 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/26 12:18:30 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/27 10:50:07 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,13 @@ int		get_value(t_vm *vm, t_cursor *cursor, int param[4])
 	i = 1;
 	while (param[i])
 	{
+		if (vm->a_option)
+			ft_putchar(' ');
 		if (param[i] == REG)
 		{
 			param[i] = convert_to_int(vm->arena, new_idx(cursor->pc, param[0], 0), 1);
+			if (vm->a_option)
+				ft_printf("r%i", param[i]);//
 			if (param[i] <= 0 || param[i] > REG_NUMBER)
 				return (ERROR);
 			param[i] = cursor->reg[param[i]];
@@ -65,12 +69,16 @@ int		get_value(t_vm *vm, t_cursor *cursor, int param[4])
 		else if (param[i] == IND)
 		{
 			param[i] = convert_to_int(vm->arena, new_idx(cursor->pc, param[0], 0), 2);
+			if (vm->a_option)
+				ft_printf("%i", param[i]);//
 			param[i] = convert_to_int(vm->arena, new_idx(cursor->pc, param[i], 0), 4);
 			param[0] += 2;
 		}
 		else if (param[i] == DIR)
 		{
 			param[i] = convert_to_int(vm->arena, new_idx(cursor->pc, param[0], 0), 2 * (1 + (g_op_tab[cursor->op_code - 1].label == 0)));
+			if (vm->a_option)
+				ft_printf("%i", param[i]);//
 			param[0] += 2 * (1 + (g_op_tab[cursor->op_code - 1].label == 0));
 		}
 		++i;
