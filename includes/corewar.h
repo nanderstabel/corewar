@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/07/27 10:35:12 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/27 12:04:41 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include "cor_errors.h"
 # include "vis.h"
 
-# define OPTIONS				"abdnv"
+# define OPTIONS				"abcdnv"
 
 # define STDIN					0
 # define STDOUT					1
@@ -61,6 +61,7 @@ typedef struct		s_vm
 	unsigned int	live_count;
 	unsigned int	a_option;
 	unsigned int	b_option;
+	unsigned int	c_option;
 	unsigned int	visualizer;
 	int				dump;
 	t_vis			*vis;
