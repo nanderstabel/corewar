@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/08 16:51:19 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/26 21:20:16 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/27 10:42:21 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ static int	op_st_check(t_vm *vm, t_cursor *cursor)
 		get_arg_type(enc, 1) == 0 ||
 		get_arg_type(enc, 1) != REG)
 		return (ERROR);
-	ft_printf("P%5i | %s", cursor->p, g_op_tab[cursor->op_code - 1].operation);//
+	if (vm->a_option)
+		ft_printf("P%5i | %s", cursor->p, g_op_tab[cursor->op_code - 1].operation);//
 	return (SUCCESS);
 }
 
@@ -73,7 +74,8 @@ int		op_st(t_vm *vm, t_cursor *cursor)
 			if (params[2] > 0 && params[2] <= REG_NUMBER)
 				cursor->reg[params[2]] = params[1];
 			params[0]++;
-			ft_printf(" r%i\n", params[2]);//
+			if (vm->a_option)
+				ft_printf(" r%i\n", params[2]);//
 		}
 		else
 		{
@@ -83,7 +85,8 @@ int		op_st(t_vm *vm, t_cursor *cursor)
 				new_idx(cursor->pc, params[2], 0), 4, params[1]);
 			vis_st(vm, cursor, params[2]);
 			params[0] += 2;
-			ft_printf(" %i\n", params[2]);//
+			if (vm->a_option)
+				ft_printf(" %i\n", params[2]);//
 		}
 	}
 	return (SUCCESS);
