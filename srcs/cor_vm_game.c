@@ -74,6 +74,9 @@ static void	play(t_vm *vm, t_cursor *cursor, t_op_table operations)
 {
 	size_t	size;
 
+	++(cursor->decay);
+	if (vm->total_cycle_count == 6112 && cursor->p == 16)
+		ft_printf("cycle_count: %i, ctd: %i, cursor_decay: %i\n", vm->cycle_count, vm->ctd, cursor->decay);
 	if (cursor->ctw == 0)
 	{
 		cursor->op_code = convert_to_int(vm->arena, cursor->pc, 1);
@@ -82,7 +85,6 @@ static void	play(t_vm *vm, t_cursor *cursor, t_op_table operations)
 	}
 	if (cursor->ctw > 0)
 		--(cursor->ctw);
-	++(cursor->decay);
 	if (cursor->ctw == 0)
 	{
 		if (cursor->op_code > 0 && cursor->op_code <= 16)
@@ -114,6 +116,6 @@ void		game_loop(t_vm *vm, t_op_table operations)
 		if (vm->visualizer == TRUE)
 			vis_print_data(vm);
 	}
-	if (vm->cycle_count == CYCLE_TO_DIE)
+	if (vm->cycle_count == vm->ctd)
 		perform_check(vm);
 }
