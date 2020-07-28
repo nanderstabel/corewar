@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/05 17:44:34 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/28 09:35:06 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/28 23:07:13 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,10 @@ static void	put_adv(t_vm *vm, t_cursor *cursor, size_t size)
 	if (cursor->op_code == 9 && cursor->carry)
 		return ;
 	ft_printf("ADV %i (0x%04x -> 0x%04x) ", \
-		size, cursor->pc, cursor->pc + size);
+		size, cursor->pc, new_idx(cursor->pc, size, 0));
 	while (idx < size)
 	{
-		ft_printf("%s ", vis_itoa(vm->arena[cursor->pc + idx]));
+		ft_printf("%s ", vis_itoa(vm->arena[new_idx(cursor->pc, idx, 0)]));
 		idx += 1;
 	}
 	ft_putchar('\n');
