@@ -15,52 +15,67 @@ if [ -z "$1" ] || [ "$1" == "-help" ]
         printf "$USAGE" 
         exit 1
 fi
-
+echo $#
 if [ "$1" == "-a" ] || [ "$1" == "-b" ] || [ "$1" = "-c" ]
     then
         FLAG=$1
+        shift
         if  [ "$1" == "-a" ]
             then
                 FLAG_OG="-v  4"
         elif [ "$1" == "-b" ]
             then
                 FLAG_OG="-v  16"
+                # shift
         elif [ "$1" == "-c" ]
             then
                 FLAG_OG="-v  8"
+                # shift
+
         fi
 else
-    printf "$USAGE" 
+    printf "test = $USAGE" 
     exit 1
 fi
 
-if [ -z "$2" ]
+# printf 'var flag %s\n' "$FLAG"
+if [ "$1" == "-d" ]
+  then
+    shift
+    DUMP=$1
+    shift
+    else
+        DUMP=12000
+fi
+# printf 'DUMP = %s\n' "$DUMP"
+if [ -z "$1" ]
     then
     printf "$USAGE" 
         exit  1
-else
-    PLAYER=$2
-
 fi
+# printf 'var flag %s\n' "$PLAYER"
+# echo $FLAG
+# echo $PLAYER
+# echo $DUMP
+# if [ -n "$4" ]
+#     then
+#         printf "$USAGE" 
+#         exit  1
+# fi
 
-if [ -z "$3" ]
-  then
-    DUMP=1000
-    else
-    DUMP=$3
-fi
+# test=$(find  ../asm_test_folder/valid_s_files/ -type f | shuf -n1)
+# echo $test
+# printf "arguments $1\n"
+# echo $#
 
-if [ -n "$4" ]
-    then
-        printf "$USAGE" 
-        exit  1
-fi
 
-test=$(find  ../asm_test_folder/valid_s_files/ -type f | shuf -n1)
-echo $test
 
-function    one_file_compare()
-{
+# function    one_file_compare()
+# {
+    while (( $# )); do
+    PLAYER=$1
+    # echo "test"
+    # printf "$OUR_COR $1 $FLAG -d $DUMP"
     rm diff_folder/our_output diff_folder/og_output
     $OUR_COR $PLAYER $FLAG -d $DUMP > diff_folder/our_output
     $OG_COR $PLAYER $FLAG_OG -d $DUMP > diff_folder/og_output
@@ -72,18 +87,25 @@ function    one_file_compare()
         printf "\033[0;31mOutput is NOT the same with flag [%s]\n\033[0m" "$FLAG" ;
         diff "diff_folder/our_output" "diff_folder/og_output"
         cp $PLAYER ../vm_test_folder/need_fixing
-        PLAYER=$(basename $PLAYER)
+        filename=$(basename $PLAYER)
+        extension="${filename##*.}"
+        filename="${filename%.*}"
         # echo $test
-        cp "../asm_test_folder/valid_s_files/${PLAYER:0:-3}s" ../vm_test_folder/need_fixing
+        # PLAYER = ${PLAYER:0:-3}
+        cp "../asm_test_folder/valid_s_files/"$filename".s" ../vm_test_folder/need_fixing/
+        exit 1
     else
         printf '\033[0m[%10s] ' "$PLAYER"
         printf '\033[0;32mPerfect! Output is the same until %s cylcles\n\033[0m' "$DUMP"
     fi
 
-}
+    shift
 
-one_file_compare
+    done
+# }
 
+# one_file_compare
+# ${PLAYER:0:-3}s
 
 # function    test_players()
 # {
