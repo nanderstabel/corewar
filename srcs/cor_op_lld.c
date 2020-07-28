@@ -6,7 +6,7 @@
 /*   By: lhageman <lhageman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 14:08:58 by lhageman      #+#    #+#                 */
-/*   Updated: 2020/07/27 13:49:49 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/28 14:12:06 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ int			op_lld(t_vm *vm, t_cursor *cursor)
 	{
 		params[2] = \
 			convert_to_int(vm->arena, new_idx(cursor->pc, params[0], 0), 1);
-		if (params[2] > 0 && params[2] <= REG_NUMBER)
-			cursor->reg[params[2]] = params[1];
-		params[0]++;
+		if (!(params[2] > 0 && params[2] <= REG_NUMBER))
+			return (ERROR);
+		cursor->reg[params[2]] = params[1];
 		cursor->carry = (cursor->reg[params[2]]) ? 0 : 1;
 		if (vm->a_option)
 			ft_printf(" r%i\n", params[2]);
