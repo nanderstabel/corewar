@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/17 15:12:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/07/27 13:24:47 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/28 11:59:21 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int			op_ldi(t_vm *vm, t_cursor *cursor)
 				new_idx(cursor->pc, params[1] + params[2], 0), 4);
 		params[0]++;
 		if (vm->a_option)
-			ft_printf(" r%i\n", params[3]);
+			ft_printf(" r%i\n%8c -> load from %i + %i = %i (with pc and mod %i)\n", params[3], '|', params[1], params[2], params[1] + params[2], cursor->pc + ((params[1] + params[2]) % IDX_MOD));
 	}
 	return (SUCCESS);
 }
