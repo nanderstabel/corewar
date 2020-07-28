@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/08 16:51:53 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/27 13:29:33 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/28 14:04:49 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ int			op_sub(t_vm *vm, t_cursor *cursor)
 	{
 		params[3] = \
 			convert_to_int(vm->arena, new_idx(cursor->pc, params[0], 0), 1);
-		if (params[3] > 0 && params[3] <= REG_NUMBER)
-			cursor->reg[params[3]] = (params[1] - params[2]);
-		params[0]++;
+		if (!(params[3] > 0 && params[3] <= REG_NUMBER))
+			return (ERROR);
+		cursor->reg[params[3]] = (params[1] - params[2]);
 		cursor->carry = (cursor->reg[params[3]]) ? 0 : 1;
 		if (vm->a_option)
 			ft_printf(" r%i\n", params[3]);
