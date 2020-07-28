@@ -6,7 +6,7 @@
 /*   By: lhageman <lhageman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 14:09:12 by lhageman      #+#    #+#                 */
-/*   Updated: 2020/07/27 13:49:39 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/28 12:01:48 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int			op_lldi(t_vm *vm, t_cursor *cursor)
 		params[0]++;
 		cursor->carry = (cursor->reg[params[3]]) ? 0 : 1;
 		if (vm->a_option)
-			ft_printf(" r%i\n", params[3]);
+			ft_printf(" r%i\n%8c -> load from %i + %i = %i (with pc and mod %i)\n", params[3], '|', params[1], params[2], params[1] + params[2], cursor->pc + (params[1] + params[2]));
 	}
 	return (SUCCESS);
 }
