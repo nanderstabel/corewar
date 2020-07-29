@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/16 21:05:44 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/09 20:33:33 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/29 10:43:50 by mgross        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ typedef struct		s_buffer
 	char		str[BUFF_SIZE + 1];
 	ssize_t		count;
 	ssize_t		idx;
+	char		*sprint_buf;
 	int			fd;
 }					t_buffer;
 
@@ -318,5 +319,6 @@ t_list				*ft_list_last_elem(t_list *head);
 int					get_next_endline(const int fd, char **line);
 char				*ft_strrev(char *str);
 void				*ft_memrev(void *src, size_t len);
+char    			*ft_catprintf(char *old_str, const char *format, ...);
 
 #endif
