@@ -6,11 +6,26 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/03 14:18:51 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/04/22 17:44:08 by moana         ########   odam.nl         */
+/*   Updated: 2020/07/29 10:47:41 by mgross        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+
+static void	catprintf_buf(t_buffer *buf)
+{
+	char	*temp;
+
+	if (!buf->sprint_buf)
+			buf->sprint_buf = ft_strdup(buf->str);
+	else
+	{
+		temp = buf->sprint_buf;
+		buf->sprint_buf = ft_strjoin(buf->sprint_buf, buf->str);
+		free(temp);
+	}
+}
 
 /*
 ** -------------------------------------------------------------------------- **
@@ -36,7 +51,10 @@ void	buff_push(t_buffer *buf, char *str, size_t n)
 	{
 		if (buf->idx == BUFF_SIZE)
 		{
-			ft_putnstr_fd(buf->str, BUFF_SIZE, buf->fd);
+			if (buf->fd == -2)
+				catprintf_buf(buf);
+			else
+				ft_putnstr_fd(buf->str, BUFF_SIZE, buf->fd);
 			buf->idx = 0;
 		}
 		buf->str[buf->idx] = str[i];
@@ -78,6 +96,18 @@ void	buff_filler(t_buffer *buf, char c, unsigned int n)
 
 void	buff_print_dump(t_buffer *buf)
 {
-	ft_putnstr_fd(buf->str, buf->idx, buf->fd);
+	char		*temp;
+
+	if (buf->fd == -2)
+		if (!buf->sprint_buf)
+			buf->sprint_buf = ft_strdup(buf->str);
+		else
+		{
+			temp = buf->sprint_buf;
+			buf->sprint_buf = ft_strjoin(buf->sprint_buf, buf->str);
+			free(temp);
+		}
+	else
+		ft_putnstr_fd(buf->str, buf->idx, buf->fd);
 	buf->idx = 0;
 }
