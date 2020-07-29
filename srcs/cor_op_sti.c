@@ -6,7 +6,7 @@
 /*   By: lhageman <lhageman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 15:10:22 by lhageman      #+#    #+#                 */
-/*   Updated: 2020/07/27 17:50:02 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/28 12:01:27 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ int			op_sti(t_vm *vm, t_cursor *cursor)
 		if (vm->a_option)
 			ft_printf("%8c -> store to %i + %i = %i (with pc and mod %i)\n", \
 				'|', arg_2_value, arg_3_value, arg_2_value + arg_3_value, \
-				store_idx);
+				cursor->pc + ((arg_2_value + arg_3_value) % IDX_MOD));
 	}
 	return (SUCCESS);
 }

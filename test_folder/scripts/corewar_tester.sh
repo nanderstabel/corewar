@@ -16,22 +16,29 @@ if [ -z "$1" ] || [ "$1" == "-help" ]
         exit 1
 fi
 echo $#
-if [ "$1" == "-a" ] || [ "$1" == "-b" ] || [ "$1" = "-c" ]
+if [ "$1" == "-a" ] || [ "$1" == "-b" ] || [ "$1" = "-c" ] || [ "$1" = "-e" ] || [ "$1" = "-f" ]
     then
         FLAG=$1
-        shift
         if  [ "$1" == "-a" ]
             then
                 FLAG_OG="-v  4"
+                shift
         elif [ "$1" == "-b" ]
             then
                 FLAG_OG="-v  16"
-                # shift
+                shift
         elif [ "$1" == "-c" ]
             then
                 FLAG_OG="-v  8"
-                # shift
-
+                shift
+        elif [ "$1" == "-e" ]
+            then
+                FLAG_OG="-v  2"
+                shift
+        elif [ "$1" == "-f" ]
+            then
+                FLAG_OG="-v  1"
+                shift
         fi
 else
     printf "test = $USAGE" 
