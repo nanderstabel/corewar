@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/17 15:12:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/07/27 13:24:47 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/28 14:10:34 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,12 @@ int			op_ldi(t_vm *vm, t_cursor *cursor)
 	{
 		params[3] = \
 			convert_to_int(vm->arena, new_idx(cursor->pc, params[0], 0), 1);
-		if (params[3] > 0 && params[3] <= REG_NUMBER)
-			cursor->reg[params[3]] = convert_to_int(vm->arena, \
+		if (!(params[3] > 0 && params[3] <= REG_NUMBER))
+			return (ERROR);
+		cursor->reg[params[3]] = convert_to_int(vm->arena, \
 				new_idx(cursor->pc, params[1] + params[2], 0), 4);
-		params[0]++;
 		if (vm->a_option)
-			ft_printf(" r%i\n", params[3]);
+			ft_printf(" r%i\n%8c -> load from %i + %i = %i (with pc and mod %i)\n", params[3], '|', params[1], params[2], params[1] + params[2], cursor->pc + ((params[1] + params[2]) % IDX_MOD));
 	}
 	return (SUCCESS);
 }
