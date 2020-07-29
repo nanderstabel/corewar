@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/07/27 13:28:48 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/29 10:57:01 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef struct		s_vm
 	unsigned int	check_count;
 	unsigned int	live_count;
 	unsigned int	a_option;
+	char			*a_string;
 	unsigned int	b_option;
 	unsigned int	c_option;
 	unsigned int	e_option;
