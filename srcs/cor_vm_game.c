@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/05 17:44:34 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/29 14:28:05 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/29 20:31:34 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void		game_loop(t_vm *vm, t_op_table operations)
 	++(vm->cycle_count);
 	++(vm->total_cycle_count);
 	if (vm->e_option)
-		ft_printf("It is now cycle %i\n", vm->total_cycle_count);
+		ft_printf("It is now cycle %i, live_count: %i\n", vm->total_cycle_count, vm->live_count);
 	while (cursor != NULL)
 	{
 		play(vm, cursor, operations);
