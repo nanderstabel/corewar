@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/08 16:47:25 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/29 14:14:45 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/29 20:26:27 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int		op_fork(t_vm *vm, t_cursor *cursor)
 	new_cursor->pc = new_idx(cursor->pc, arg, FALSE);
 	++vm->cursor_count;
 	new_cursor->p = vm->cursor_count;
+	new_cursor->p = 0;
 	new_cursor->next = vm->cursors;
 	vm->cursors = new_cursor;
 	if (vm->a_option)
