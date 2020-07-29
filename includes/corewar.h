@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/07/29 12:24:20 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/29 21:24:03 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ typedef struct		s_vm
 	int				last_live;
 	unsigned int	cycle_count;
 	unsigned int	total_cycle_count;
-	unsigned int	ctd;
+	int				ctd;
 	unsigned int	check_count;
 	unsigned int	live_count;
 	unsigned int	a_option;
