@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/08 16:51:19 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/29 11:18:27 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/29 11:30:47 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int			op_st(t_vm *vm, t_cursor *cursor)
 				return (ERROR);
 			cursor->reg[params[2]] = params[1];
 			if (vm->a_option)
-				vm->a_string = ft_catprintf(vm->a_string, " %i\n", params[2]);
+				ft_putstr(ft_catprintf(vm->a_string, " %i\n", params[2]));
 		}
 		else
 		{
@@ -78,7 +78,7 @@ int			op_st(t_vm *vm, t_cursor *cursor)
 				new_idx(cursor->pc, params[2], 0), 4, params[1]);
 			vis_st(vm, cursor, params[2]);
 			if (vm->a_option)
-				vm->a_string = ft_catprintf(vm->a_string, " %i\n", params[2]);
+				ft_putstr(ft_catprintf(vm->a_string, " %i\n", params[2]));
 		}
 	}
 	return (SUCCESS);

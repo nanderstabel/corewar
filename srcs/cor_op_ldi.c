@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/17 15:12:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/07/29 11:14:52 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/29 11:27:19 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int			op_ldi(t_vm *vm, t_cursor *cursor)
 		cursor->reg[params[3]] = convert_to_int(vm->arena, \
 				new_idx(cursor->pc, params[1] + params[2], 0), 4);
 		if (vm->a_option)
-			vm->a_string = ft_catprintf(vm->a_string, " r%i\n%8c -> load from %i + %i = %i (with pc and mod %i)\n", params[3], '|', params[1], params[2], params[1] + params[2], cursor->pc + ((params[1] + params[2]) % IDX_MOD));
+			ft_putstr(ft_catprintf(vm->a_string, " r%i\n%8c -> load from %i + %i = %i (with pc and mod %i)\n", params[3], '|', params[1], params[2], params[1] + params[2], cursor->pc + ((params[1] + params[2]) % IDX_MOD)));
 	}
 	return (SUCCESS);
 }

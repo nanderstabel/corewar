@@ -6,7 +6,7 @@
 /*   By: lhageman <lhageman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 14:08:37 by lhageman      #+#    #+#                 */
-/*   Updated: 2020/07/29 11:17:15 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/29 14:13:40 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,6 @@ int		op_lfork(t_vm *vm, t_cursor *cursor)
 	new_cursor->next = vm->cursors;
 	vm->cursors = new_cursor;
 	if (vm->a_option)
-		ft_printf(vm->a_string, " %i (%i)\n", arg, new_cursor->pc);
+		ft_putstr(ft_catprintf(vm->a_string, " %i (%i)\n", arg, cursor->pc + arg));
 	return (SUCCESS);
 }
