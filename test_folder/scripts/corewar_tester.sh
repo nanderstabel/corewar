@@ -1,7 +1,13 @@
 #!/bin/bash
 OUR_COR="../../corewar"
+DIR="../vm_test_folder/valid_cor_files/"
 
 USAGE="Usage: ./corewar_tester [ -a | -b | -c ] <champion.cor [ N ]\n\t-a\t: Tequivalent to original -v  4\n\t-b\t: Tequivalent to original -v 16\n\t-b\t: Tequivalent to original -v  8\n\t N\t: Number of cycles befor dump. Default is 1000 cycles\n"
+
+if [ -z "$(ls -A $DIR)" ]; then
+    ./all_compile.sh ../asm_test_folder/valid_s_files/*.s
+fi
+
 OS=$(uname -s)
 if [ $OS == Linux ]
     then
@@ -15,7 +21,7 @@ if [ -z "$1" ] || [ "$1" == "-help" ]
         printf "$USAGE" 
         exit 1
 fi
-echo $#
+# echo $@
 if [ "$1" == "-a" ] || [ "$1" == "-b" ] || [ "$1" = "-c" ] || [ "$1" = "-e" ] || [ "$1" = "-f" ]
     then
         FLAG=$1
@@ -40,12 +46,20 @@ if [ "$1" == "-a" ] || [ "$1" == "-b" ] || [ "$1" = "-c" ] || [ "$1" = "-e" ] ||
                 FLAG_OG="-v  1"
                 shift
         fi
-else
-    printf "test = $USAGE" 
+elif [ "$1" != "-all" ] && [ "$1" != "-d" ]
+    then
+    printf "$USAGE" 
     exit 1
 fi
 
-# printf 'var flag %s\n' "$FLAG"
+if [ "$1" == "-all" ]
+then
+    ALL=1
+    shift
+else
+    ALL=0
+fi
+
 if [ "$1" == "-d" ]
   then
     shift
@@ -54,35 +68,18 @@ if [ "$1" == "-d" ]
     else
         DUMP=12000
 fi
-# printf 'DUMP = %s\n' "$DUMP"
+
 if [ -z "$1" ]
     then
     printf "$USAGE" 
         exit  1
 fi
-# printf 'var flag %s\n' "$PLAYER"
-# echo $FLAG
-# echo $PLAYER
-# echo $DUMP
-# if [ -n "$4" ]
-#     then
-#         printf "$USAGE" 
-#         exit  1
-# fi
 
-# test=$(find  ../asm_test_folder/valid_s_files/ -type f | shuf -n1)
-# echo $test
-# printf "arguments $1\n"
-# echo $#
+PATH_PLAYERS=$@
 
-
-
-# function    one_file_compare()
-# {
-    while (( $# )); do
-    PLAYER=$1
-    # echo "test"
-    # printf "$OUR_COR $1 $FLAG -d $DUMP"
+function    one_file_compare()
+{
+    for PLAYER in $PATH_PLAYERS; do
     rm diff_folder/our_output diff_folder/og_output
     $OUR_COR $PLAYER $FLAG -d $DUMP > diff_folder/our_output
     $OG_COR $PLAYER $FLAG_OG -d $DUMP > diff_folder/og_output
@@ -97,21 +94,29 @@ fi
         filename=$(basename $PLAYER)
         extension="${filename##*.}"
         filename="${filename%.*}"
-        # echo $test
-        # PLAYER = ${PLAYER:0:-3}
+
         cp "../asm_test_folder/valid_s_files/"$filename".s" ../vm_test_folder/need_fixing/
-        exit 1
+        if [ $ALL == 0 ]
+        then
+            exit 1
+        fi
     else
         printf '\033[0m[%10s] ' "$PLAYER"
         printf '\033[0;32mPerfect! Output is the same until %s cylcles\n\033[0m' "$DUMP"
     fi
 
-    shift
-
     done
-# }
+}
 
-# one_file_compare
+if [ $ALL == 1 ]
+then
+    # CYCLES=30000
+    # for (( i=1; ( ( i <= $CYCLES ) && ( $error == 0 ) ) ; i+=100))
+    echo "ALL"
+else
+    one_file_compare
+fi
+
 # ${PLAYER:0:-3}s
 
 # function    test_players()
