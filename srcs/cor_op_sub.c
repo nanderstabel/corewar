@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/08 16:51:53 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/28 14:04:49 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/29 11:19:52 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ static int	op_sub_check(t_vm *vm, t_cursor *cursor)
 		get_arg_type(enc, 1) != REG)
 		return (ERROR);
 	if (vm->a_option)
-		ft_printf(FORMAT_A, cursor->p, g_op_tab[cursor->op_code - 1].operation);
+		vm->a_string = ft_catprintf(vm->a_string, FORMAT_A, cursor->p, \
+			g_op_tab[cursor->op_code - 1].operation);
 	return (SUCCESS);
 }
 
@@ -46,7 +47,7 @@ int			op_sub(t_vm *vm, t_cursor *cursor)
 		cursor->reg[params[3]] = (params[1] - params[2]);
 		cursor->carry = (cursor->reg[params[3]]) ? 0 : 1;
 		if (vm->a_option)
-			ft_printf(" r%i\n", params[3]);
+			vm->a_string = ft_catprintf(vm->a_string, " r%i\n", params[3]);
 	}
 	return (SUCCESS);
 }
