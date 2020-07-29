@@ -128,8 +128,11 @@ char    *ft_catprintf(char *old_str, const char *format, ...)
 
     va_start(ap, format);
     new_str = start_printf(-2, format, ap);
-    temp = new_str;
-    new_str = ft_strjoin(old_str, new_str);
-    free(temp);
+	if (old_str)
+	{
+  		temp = new_str;
+	    new_str = ft_strjoin(old_str, new_str);
+    	free(temp);
+	}
     return (new_str);
 }

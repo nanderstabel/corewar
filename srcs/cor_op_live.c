@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 11:20:48 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/28 11:18:59 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/29 20:37:08 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,13 @@ static void	vis_live(t_vm *vm, t_cursor *cursor)
 int			op_live(t_vm *vm, t_cursor *cursor)
 {
 	int				arg;
-
 	if (vm->a_option)
-		ft_printf(FORMAT_A, cursor->p, g_op_tab[cursor->op_code - 1].operation);
+		vm->a_string = ft_catprintf(vm->a_string, FORMAT_A, cursor->p, \
+			g_op_tab[cursor->op_code - 1].operation);
 	arg = convert_to_int(vm->arena, new_idx(cursor->pc, 1, FALSE), 4);
-	if (arg == cursor->reg[1])
+	if (arg == cursor->reg[1] && 0 < -arg && -arg <= (int)vm->champ_count)
 	{
-		vm->last_live = arg;
+		vm->last_live = -arg;
 		if (vm->f_option)
 			ft_printf(FORMAT_F, -arg, vm->champ[-arg]->header.prog_name);
 	}
@@ -53,6 +53,6 @@ int			op_live(t_vm *vm, t_cursor *cursor)
 	cursor->decay = 0;//
 	vis_live(vm, cursor);
 	if (vm->a_option)
-		ft_printf(" %i\n", arg);
+		ft_putstr(ft_catprintf(vm->a_string, " %i\n", arg));
 	return (SUCCESS);
 }

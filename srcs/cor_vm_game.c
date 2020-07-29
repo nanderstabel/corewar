@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/05 17:44:34 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/28 09:35:06 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/29 21:26:32 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static int	get_num_bytes(t_vm *vm, t_cursor *cursor)
 	return (bytes);
 }
 
-static void	put_adv(t_vm *vm, t_cursor *cursor, size_t size)
+void		put_adv(t_vm *vm, t_cursor *cursor, size_t size)
 {
 	unsigned int	idx;
 
@@ -64,7 +64,7 @@ static void	put_adv(t_vm *vm, t_cursor *cursor, size_t size)
 		size, cursor->pc, cursor->pc + size);
 	while (idx < size)
 	{
-		ft_printf("%s ", vis_itoa(vm->arena[cursor->pc + idx]));
+		ft_printf("%s ", vis_itoa(vm->arena[new_idx(cursor->pc, idx, 0)]));
 		idx += 1;
 	}
 	ft_putchar('\n');
@@ -88,10 +88,14 @@ static void	play(t_vm *vm, t_cursor *cursor, t_op_table operations)
 		if (cursor->op_code > 0 && cursor->op_code <= 16)
 		{
 			size = get_num_bytes(vm, cursor);
-			put_adv(vm, cursor, size);
 			operations[cursor->op_code](vm, cursor);
+			if (vm->a_option)
+				ft_strdel(&(vm->a_string));
 			if (cursor->op_code != 9)
+			{
+				put_adv(vm, cursor, size);
 				cursor->pc = new_idx(cursor->pc, size, FALSE);
+			}
 		}
 		else
 			cursor->pc = new_idx(cursor->pc, 1, FALSE);
@@ -106,7 +110,7 @@ void		game_loop(t_vm *vm, t_op_table operations)
 	++(vm->cycle_count);
 	++(vm->total_cycle_count);
 	if (vm->e_option)
-		ft_printf("It is now cycle %i\n", vm->total_cycle_count);
+		ft_printf("It is now cycle %i\n", vm->total_cycle_count, vm->live_count);
 	while (cursor != NULL)
 	{
 		play(vm, cursor, operations);
@@ -114,6 +118,6 @@ void		game_loop(t_vm *vm, t_op_table operations)
 		if (vm->visualizer == TRUE)
 			vis_print_data(vm);
 	}
-	if (vm->cycle_count == vm->ctd)
+	if ((int)vm->cycle_count == vm->ctd || vm->ctd <= 0)
 		perform_check(vm);
 }
