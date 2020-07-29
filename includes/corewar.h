@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/07/29 10:57:01 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/29 12:24:20 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ int					vm_start(t_vm *vm);
 int					cursors_init(t_vm *vm);
 
 void				game_loop(t_vm *vm, t_op_table operations);
+void				put_adv(t_vm *vm, t_cursor *cursor, size_t size);
 
 int					get_arg_type(unsigned char enc, unsigned int no);
 void				store_in_arena(unsigned char *arena, unsigned int idx, \

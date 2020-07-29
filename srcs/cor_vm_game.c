@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/05 17:44:34 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/28 23:07:13 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/29 14:28:05 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static int	get_num_bytes(t_vm *vm, t_cursor *cursor)
 	return (bytes);
 }
 
-static void	put_adv(t_vm *vm, t_cursor *cursor, size_t size)
+void		put_adv(t_vm *vm, t_cursor *cursor, size_t size)
 {
 	unsigned int	idx;
 
@@ -61,7 +61,7 @@ static void	put_adv(t_vm *vm, t_cursor *cursor, size_t size)
 	if (cursor->op_code == 9 && cursor->carry)
 		return ;
 	ft_printf("ADV %i (0x%04x -> 0x%04x) ", \
-		size, cursor->pc, new_idx(cursor->pc, size, 0));
+		size, cursor->pc, cursor->pc + size);
 	while (idx < size)
 	{
 		ft_printf("%s ", vis_itoa(vm->arena[new_idx(cursor->pc, idx, 0)]));
@@ -88,10 +88,14 @@ static void	play(t_vm *vm, t_cursor *cursor, t_op_table operations)
 		if (cursor->op_code > 0 && cursor->op_code <= 16)
 		{
 			size = get_num_bytes(vm, cursor);
-			put_adv(vm, cursor, size);
 			operations[cursor->op_code](vm, cursor);
+			if (vm->a_option)
+				ft_strdel(&(vm->a_string));
 			if (cursor->op_code != 9)
+			{
+				put_adv(vm, cursor, size);
 				cursor->pc = new_idx(cursor->pc, size, FALSE);
+			}
 		}
 		else
 			cursor->pc = new_idx(cursor->pc, 1, FALSE);
