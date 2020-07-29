@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/05 17:44:34 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/27 13:46:12 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/28 09:35:06 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,6 @@ static void	play(t_vm *vm, t_cursor *cursor, t_op_table operations)
 	size_t	size;
 
 	++(cursor->decay);
-	if (vm->total_cycle_count == 6112 && cursor->p == 16)
-		ft_printf("cycle_count: %i, ctd: %i, cursor_decay: %i\n", vm->cycle_count, vm->ctd, cursor->decay);
 	if (cursor->ctw == 0)
 	{
 		cursor->op_code = convert_to_int(vm->arena, cursor->pc, 1);
