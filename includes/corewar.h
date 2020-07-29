@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/07/27 13:28:48 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/29 21:24:03 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,10 +59,11 @@ typedef struct		s_vm
 	int				last_live;
 	unsigned int	cycle_count;
 	unsigned int	total_cycle_count;
-	unsigned int	ctd;
+	int				ctd;
 	unsigned int	check_count;
 	unsigned int	live_count;
 	unsigned int	a_option;
+	char			*a_string;
 	unsigned int	b_option;
 	unsigned int	c_option;
 	unsigned int	e_option;
@@ -121,6 +122,7 @@ int					vm_start(t_vm *vm);
 int					cursors_init(t_vm *vm);
 
 void				game_loop(t_vm *vm, t_op_table operations);
+void				put_adv(t_vm *vm, t_cursor *cursor, size_t size);
 
 int					get_arg_type(unsigned char enc, unsigned int no);
 void				store_in_arena(unsigned char *arena, unsigned int idx, \
