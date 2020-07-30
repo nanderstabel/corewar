@@ -1,12 +1,32 @@
 #!/bin/bash
 OUR_COR="../../corewar"
 DIR="../vm_test_folder/valid_cor_files/"
+FIX_DIR="../vm_test_folder/need_fixing/"
+REG_NUM='^[0-9]+$'
+FLAG=""
+DUMP=12000
+FLAG_OG=""
+ALL=0
+FLAGS_ARRAY_OG=("-v 4" "-v 16" "-v 8" "-v 2" "-v 1")
+FLAGS_ARRAY_OUR=("-a" "-b" "-c" "-e" "-f")
+NUM_OF_FLAGS=5
+LOG_FILE="../vm_test_folder/logs/error.log"
 
-USAGE="Usage: ./corewar_tester [ -a | -b | -c ] <champion.cor [ N ]\n\t-a\t: Tequivalent to original -v  4\n\t-b\t: Tequivalent to original -v 16\n\t-b\t: Tequivalent to original -v  8\n\t N\t: Number of cycles befor dump. Default is 1000 cycles\n"
+USAGE="Usage: ./manual_diff [ -a | -b | -c | -e | -f ] | & [ -d N ] <champion.cor\n\t-a\t: Equivalent to original -v  4\n\t-b\t: Equivalent to original -v 16\n\t-c\t: Equivalent to original -v  8\n\t-e\t: Equivalent to original -v  2\n\t-f\t: Equivalent to original -v  1\n\t-d N\t: Number of cycles befor dump. Default is 12000 cycles\n"
 
 if [ -z "$(ls -A $DIR)" ]; then
     ./all_compile.sh ../asm_test_folder/valid_s_files/*.s
 fi
+
+if ! [ -z "$(ls -A $FIX_DIR)" ]; then
+    rm ../vm_test_folder/need_fixing/*.s
+    rm ../vm_test_folder/need_fixing/*.cor
+fi
+
+if ! [ -z "$(ls -A ../vm_test_folder/logs/)" ]; then
+    rm ../vm_test_folder/logs/*.log
+fi
+touch $LOG_FILE
 
 OS=$(uname -s)
 if [ $OS == Linux ]
@@ -21,74 +41,81 @@ if [ -z "$1" ] || [ "$1" == "-help" ]
         printf "$USAGE" 
         exit 1
 fi
-# echo $@
-if [ "$1" == "-a" ] || [ "$1" == "-b" ] || [ "$1" = "-c" ] || [ "$1" = "-e" ] || [ "$1" = "-f" ]
-    then
-        FLAG=$1
-        if  [ "$1" == "-a" ]
-            then
-                FLAG_OG="-v  4"
-                shift
-        elif [ "$1" == "-b" ]
-            then
-                FLAG_OG="-v  16"
-                shift
-        elif [ "$1" == "-c" ]
-            then
-                FLAG_OG="-v  8"
-                shift
-        elif [ "$1" == "-e" ]
-            then
-                FLAG_OG="-v  2"
-                shift
-        elif [ "$1" == "-f" ]
-            then
-                FLAG_OG="-v  1"
-                shift
-        fi
-elif [ "$1" != "-all" ] && [ "$1" != "-d" ]
-    then
-    printf "$USAGE" 
-    exit 1
-fi
 
-if [ "$1" == "-all" ]
-then
+if [ "$1" == "-all" ]; then
     ALL=1
     shift
+    if [[ "$1" =~ ^- ]]; then
+        if [ "$1" != "-d" ]; then
+            printf "$USAGE" 
+            exit 1
+        elif ! [[ $2 =~ $REG_NUM ]] ; then
+            printf "$USAGE" 
+            exit 1
+        else
+            shift
+            DUMP=$1
+            shift
+        fi
+    fi
+
 else
-    ALL=0
-fi
+    while [[ "$1" =~ ^- ]]; do
+        if [[ "$1" =~ -[a-f] ]]; then
+            if [ "$1" == "-d" ]; then
+                shift
+                if ! [[ $1 =~ $REG_NUM ]] ; then
+                    printf "$USAGE" 
+                    exit 1
+                else
+                    DUMP=$1
+                    shift
+                fi
 
-if [ "$1" == "-d" ]
-  then
-    shift
-    DUMP=$1
-    shift
-    else
-        DUMP=12000
-fi
+            elif  [ -z "$FLAG" ]; then
+                FLAG=$1
+                if  [ "$1" == "-a" ]
+                    then
+                        FLAG_OG="-v  4"
+                        shift
+                elif [ "$1" == "-b" ]
+                    then
+                        FLAG_OG="-v  16"
+                        shift
+                elif [ "$1" == "-c" ]
+                    then
+                        FLAG_OG="-v  8"
+                        shift
+                elif [ "$1" == "-e" ]
+                    then
+                        FLAG_OG="-v  2"
+                        shift
+                elif [ "$1" == "-f" ]
+                    then
+                        FLAG_OG="-v  1"
+                        shift
+                fi
+            else
+                printf "$USAGE" 
+                exit 1
+            fi
 
-if [ -z "$1" ]
-    then
-    printf "$USAGE" 
-        exit  1
+        fi
+    done
 fi
 
 PATH_PLAYERS=$@
 
 function    one_file_compare()
 {
-    for PLAYER in $PATH_PLAYERS; do
+    for PLAYER in $1; do
     rm diff_folder/our_output diff_folder/og_output
-    $OUR_COR $PLAYER $FLAG -d $DUMP > diff_folder/our_output
-    $OG_COR $PLAYER $FLAG_OG -d $DUMP > diff_folder/og_output
+    $OUR_COR $PLAYER $2 -d $4 > diff_folder/our_output
+    $OG_COR $PLAYER $3 -d $4 > diff_folder/og_output
     DIFF=$(diff "diff_folder/our_output" "diff_folder/og_output")
-    # echo $DIFF
-    if [ "$DIFF" != "" ]
-    then
+    if [ "$DIFF" != "" ]; then
         printf '\033[0m[%10s] ' "$PLAYER"
-        printf "\033[0;31mOutput is NOT the same with flag [%s]\n\033[0m" "$FLAG" ;
+        printf "\033[0;31mOutput is NOT the same with flag [%s]\n\033[0m" "$2" ;
         diff "diff_folder/our_output" "diff_folder/og_output"
         cp $PLAYER ../vm_test_folder/need_fixing
         filename=$(basename $PLAYER)
@@ -96,89 +123,33 @@ function    one_file_compare()
         filename="${filename%.*}"
 
         cp "../asm_test_folder/valid_s_files/"$filename".s" ../vm_test_folder/need_fixing/
-        if [ $ALL == 0 ]
-        then
+        if [ $ALL == 0 ]; then
             exit 1
+        else
+            printf "./manual_diff.sh $2 -d $4 $PLAYER\n\n" >> $LOG_FILE
         fi
     else
         printf '\033[0m[%10s] ' "$PLAYER"
-        printf '\033[0;32mPerfect! Output is the same until %s cylcles\n\033[0m' "$DUMP"
+        printf '\033[0;32mPerfect! Output is the same until %s cylcles with flag [%s]\n\033[0m' "$4" "$2"
     fi
 
     done
 }
 
-if [ $ALL == 1 ]
-then
-    # CYCLES=30000
-    # for (( i=1; ( ( i <= $CYCLES ) && ( $error == 0 ) ) ; i+=100))
+if [ $ALL == 1 ]; then
+    for PLAYER in $PATH_PLAYERS; do
+        for (( i=0; i <= $DUMP ; i+=100)); do
+            INDEX=0
+            while (( $INDEX < $NUM_OF_FLAGS )); do
+                one_file_compare "$PLAYER" "${FLAGS_ARRAY_OUR[$INDEX]}" "${FLAGS_ARRAY_OG[$INDEX]}" "$i"
+                ((INDEX++))
+            done
+        done
+    done
+
+
     echo "ALL"
 else
-    one_file_compare
+    echo "NOT ALLLL"
+    one_file_compare "$PATH_PLAYERS" "$FLAG" "$FLAG_OG" "$DUMP"
 fi
-
-# ${PLAYER:0:-3}s
-
-# function    test_players()
-# {
-#     # CYCLES=10000
-#     error=0
-
-#     for player in $PATH_PLAYERS
-#     do
-#         ((error=0))
-#         # echo $player
-#         for (( i=1; ( ( i <= $CYCLES ) && ( $error == 0 ) ) ; i+=100))
-#         do
-#             $PATH_ORGN_CW $player -d $i | sed -n -e '/^0x/p' > diff/origin_output1
-#             $OUR_COR $player -dump $i | sed -n -e'/^0x/p' > diff/yours_output2
-#             if ! cmp -s "diff/origin_output1" "diff/yours_output2"; then
-#                 printf '\033[0m[%10s] ' "$player"
-#                 ((i=i-1))
-#                 printf "\033[0;31mmemory is NOT the same at cycle [%d]\n\033[0m" "$i" ;
-#                 ((error=1))
-#             fi
-#         done
-#         if [ $error == 0 ] ; then
-#             printf '\033[0m[%10s] ' "$player"
-#             ((i=i-1))
-#             printf '\033[0;32mPerfect! Memory is the same at all cycles until %s\n\033[0m' "$i"
-#         fi
-#         ((error=0))
-#     done
-# }
-
-# if [ "$1" == "-help" ] ; then
-#     echo "usage: sh vm_tester.sh <filename1.cor> <filename2.cor> <cycles>"
-#     exit 1
-# elif [ $# -lt 2 ] ; then
-#     test_players
-#     exit 1
-# fi
-
-# CYCLES=${@: -1}
-# n=$(($# - 1))
-# for arg do
-#     [ "$n" -gt 0 ] && set -- "$@" "$arg"
-#     shift
-#     n=$((n - 1))
-# done
-# for arg do
-#     if [ ! -f $arg ]; then
-#         echo "error: file $arg does not exist" ; exit 1
-#     fi
-# done
-# re='^[0-9]+$'
-# if ! [[ $CYCLES =~ $re ]]; then
-#     echo "error: $CYCLES is not a number" >&2 ; exit 1
-# fi
-# for (( i=1; i <= $CYCLES; i+=10))
-# do
-#     $PATH_ORGN_CW $@ -d $i | sed -n -e '/^0x/p' > diff/origin_output1
-#     $OUR_COR $@ -dump $i | sed -n -e'/^0x/p' > diff/yours_output2
-#     if ! cmp -s "diff/origin_output1" "diff/yours_output2"; then
-#         printf "\033[0;31mmemory is NOT the same at cycle [%d]\n\033[0m" "$i" ; exit 1
-#     fi
-# done
-#     printf '\033[0;32mperfect! memory is the same at all cycles until %s\n\033[0m' "$CYCLES"
-
