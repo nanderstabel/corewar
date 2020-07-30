@@ -147,9 +147,6 @@ if [ $ALL == 1 ]; then
         done
     done
 
-
-    echo "ALL"
 else
-    echo "NOT ALLLL"
     one_file_compare "$PATH_PLAYERS" "$FLAG" "$FLAG_OG" "$DUMP"
 fi
