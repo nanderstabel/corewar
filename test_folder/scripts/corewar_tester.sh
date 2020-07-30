@@ -7,9 +7,9 @@ FLAG=""
 DUMP=12000
 FLAG_OG=""
 ALL=0
-FLAGS_ARRAY_OG=("-v 4" "-v 16" "-v 8" "-v 2" "-v 1")
-FLAGS_ARRAY_OUR=("-a" "-b" "-c" "-e" "-f")
-NUM_OF_FLAGS=5
+FLAGS_ARRAY_OG=("-v 4" "-v 16" "-v 8" "-v 2" "-v 1" "")
+FLAGS_ARRAY_OUR=("-a" "-b" "-c" "-e" "-f" "")
+NUM_OF_FLAGS=6
 LOG_FILE="../vm_test_folder/logs/error.log"
 
 USAGE="Usage: ./manual_diff [ -a | -b | -c | -e | -f ] | & [ -d N ] <champion.cor\n\t-a\t: Equivalent to original -v  4\n\t-b\t: Equivalent to original -v 16\n\t-c\t: Equivalent to original -v  8\n\t-e\t: Equivalent to original -v  2\n\t-f\t: Equivalent to original -v  1\n\t-d N\t: Number of cycles befor dump. Default is 12000 cycles\n"
