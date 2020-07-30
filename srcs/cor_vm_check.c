@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/06 18:15:19 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/29 22:59:36 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/30 13:17:19 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void		perform_check(t_vm *vm)
 	{
 		vm->ctd -= CYCLE_DELTA;
 		if (vm->e_option)
-			ft_printf("Cycle to die is now %i\n", vm->ctd);
+			ft_printf("Cycle to die is now %i\n", vm->ctd, vm->live_count);
 		vm->check_count = 0;
 		vm->live_count = 0;
 	}
