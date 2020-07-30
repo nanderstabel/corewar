@@ -11,19 +11,20 @@ FLAGS_ARRAY_OG=("-v 4" "-v 16" "-v 8" "-v 2" "-v 1" "")
 FLAGS_ARRAY_OUR=("-a" "-b" "-c" "-e" "-f" "")
 NUM_OF_FLAGS=6
 LOG_FILE="../vm_test_folder/logs/error.log"
+INCREMENT=100
 
-USAGE="Usage: ./manual_diff [ -a | -b | -c | -e | -f ] | & [ -d N ] <champion.cor\n\t-a\t: Equivalent to original -v  4\n\t-b\t: Equivalent to original -v 16\n\t-c\t: Equivalent to original -v  8\n\t-e\t: Equivalent to original -v  2\n\t-f\t: Equivalent to original -v  1\n\t-d N\t: Number of cycles befor dump. Default is 12000 cycles\n"
+USAGE="Usage: ./manual_diff\t- [ -all | & [ -d N ] | & [ -i N ] <champion.cor\n\t\t\t- [ -a | -b | -c | -e | -f ] | & [ -d N ] <champion.cor\n\n\t\t\t-all\t: Cycles through all files from given path,\n\t\t\t\t  testing with all flags [ -a, -b, -c, -e, -f ] until\n\t\t\t\t  max dump [ -d N ] incremented by given steps [ -i N ]\n\n\t\t\t-a\t: Equivalent to original -v  4\n\t\t\t-b\t: Equivalent to original -v 16\n\t\t\t-c\t: Equivalent to original -v  8\n\t\t\t-e\t: Equivalent to original -v  2\n\t\t\t-f\t: Equivalent to original -v  1\n\t\t\t-d N\t: Number of cycles befor dump. Default is 12000 cycles\n\t\t\t-i N\t: Number to increment cycles befor dump. Default is 100 \n"
 
-if [ -z "$(ls -A $DIR)" ]; then
+if [ -z "$(ls $DIR)" ]; then
     ./all_compile.sh ../asm_test_folder/valid_s_files/*.s
 fi
 
-if ! [ -z "$(ls -A $FIX_DIR)" ]; then
+if ! [ -z "$(ls $FIX_DIR)" ]; then
     rm ../vm_test_folder/need_fixing/*.s
     rm ../vm_test_folder/need_fixing/*.cor
 fi
 
-if ! [ -z "$(ls -A ../vm_test_folder/logs/)" ]; then
+if ! [ -z "$(ls ../vm_test_folder/logs/)" ]; then
     rm ../vm_test_folder/logs/*.log
 fi
 touch $LOG_FILE
@@ -45,19 +46,27 @@ fi
 if [ "$1" == "-all" ]; then
     ALL=1
     shift
-    if [[ "$1" =~ ^- ]]; then
-        if [ "$1" != "-d" ]; then
-            printf "$USAGE" 
+    while [[ "$1" =~ ^- ]]; do
+        if [[ "$1" =~ -[di] ]]; then
+        	if ! [[ $2 =~ $REG_NUM ]] ; then
+            	printf "$USAGE"
+            	exit 1
+       		else
+			   	if [ "$1" == "-d" ]; then
+				   shift
+				   DUMP=$1
+				   shift
+				else
+            		shift
+					INCREMENT=$1
+            	shift
+				fi
+			fi
+		else
+			printf "$USAGE" 
             exit 1
-        elif ! [[ $2 =~ $REG_NUM ]] ; then
-            printf "$USAGE" 
-            exit 1
-        else
-            shift
-            DUMP=$1
-            shift
         fi
-    fi
+    done
 
 else
     while [[ "$1" =~ ^- ]]; do
@@ -95,10 +104,10 @@ else
                         FLAG_OG="-v  1"
                         shift
                 fi
-            else
-                printf "$USAGE" 
-                exit 1
             fi
+        else
+            printf "$USAGE" 
+            exit 1
 
         fi
     done
@@ -138,7 +147,7 @@ function    one_file_compare()
 
 if [ $ALL == 1 ]; then
     for PLAYER in $PATH_PLAYERS; do
-        for (( i=0; i <= $DUMP ; i+=100)); do
+        for (( i=0; i <= $DUMP ; i+=$INCREMENT)); do
             INDEX=0
             while (( $INDEX < $NUM_OF_FLAGS )); do
                 one_file_compare "$PLAYER" "${FLAGS_ARRAY_OUR[$INDEX]}" "${FLAGS_ARRAY_OG[$INDEX]}" "$i"
