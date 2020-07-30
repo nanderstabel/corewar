@@ -5,9 +5,6 @@ FLAG=""
 DUMP=12000
 FLAG_OG=""
 USAGE="Usage: ./manual_diff [ -a | -b | -c | -e | -f ] | & [ -d N ] <champion.cor\n\t-a\t: Equivalent to original -v  4\n\t-b\t: Equivalent to original -v 16\n\t-c\t: Equivalent to original -v  8\n\t-e\t: Equivalent to original -v  2\n\t-f\t: Equivalent to original -v  1\n\t-d N\t: Number of cycles befor dump. Default is 12000 cycles\n"
-# PATH_TO_PLAYER="../valid_asm/valid_cor/"
-# PLAYER=$1
-
 
 if [ -z "$1" ] || [ "$1" == "-help" ]
     then
