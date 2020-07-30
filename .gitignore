@@ -49,6 +49,7 @@ tests/asm_test
 *.idb
 *.pdb
 .vscode/*
+*.log
 
 # Kernel Module Compile Results
 *.mod*
@@ -61,4 +62,3 @@ dkms.conf
 
 # Resources
 vm-champ-linux
-
