@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 11:20:48 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/30 14:45:56 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/30 14:54:35 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,7 @@ int			op_live(t_vm *vm, t_cursor *cursor)
 			ft_printf(FORMAT_F, -arg, vm->champ[-arg]->header.prog_name);
 	}
 	++(vm->live_count);
-	if (arg == cursor->reg[1])
-		cursor->decay = 0;//
+	cursor->decay = 0;//
 	vis_live(vm, cursor);
 	if (vm->a_option)
 		ft_putstr(ft_catprintf(vm->a_string, " %i\n", arg));
