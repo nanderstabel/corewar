@@ -6,7 +6,7 @@
 #    By: mgross <mgross@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/07/31 16:13:27 by mgross        #+#    #+#                  #
-#    Updated: 2020/07/31 19:20:33 by mgross        ########   odam.nl          #
+#    Updated: 2020/07/31 22:20:16 by mgross        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -132,37 +132,106 @@ else
     done
 fi
 
+function		print_message()
+{
+	THIRD=$((NUM_TESTS/3))
+
+if ! [ $1 -gt $THIRD ]; then
+	printf "\n\n[\e[38;5;9m$1\e[0m/\e[38;5;34m$NUM_TESTS\e[0m]\n\e[0m"
+	printf "\n\e[38;5;9m  _      ____ _______ _____    ____  ______   ______ _____  _____   ____  _____   _____               
+ | |    / __ \__   __/ ____|  / __ \|  ____| |  ____|  __ \|  __ \ / __ \|  __ \ / ____|              
+ | |   | |  | | | | | (___   | |  | | |__    | |__  | |__) | |__) | |  | | |__) | (___                
+ | |   | |  | | | |  \___ \  | |  | |  __|   |  __| |  _  /|  _  /| |  | |  _  / \___ \               
+ | |___| |__| | | |  ____) | | |__| | |      | |____| | \ \| | \ \| |__| | | \ \ ____) |              
+ |______\____/  |_|_|_____/  _\____/|_|__   _|______|_|__\_\_|  \_\\____/|_|__\_\_____/ _____  ______ 
+ |  _ \   /\   / ____| |/ / |__   __/ __ \  \ \   / / __ \| |  | |  __ \   / ____/ __ \|  __ \|  ____|
+ | |_) | /  \ | |    | ' /     | | | |  | |  \ \_/ / |  | | |  | | |__) | | |   | |  | | |  | | |__   
+ |  _ < / /\ \| |    |  <      | | | |  | |   \   /| |  | | |  | |  _  /  | |   | |  | | |  | |  __|  
+ | |_) / ____ \ |____| . \     | | | |__| |    | | | |__| | |__| | | \ \  | |___| |__| | |__| | |____ 
+ |____/_/    \_\_____|_|\_\    |_|  \____/     |_|  \____/ \____/|_|  \_\  \_____\____/|_____/|______|\n\n- Find your error log in test_folder/vm_folder/logs/ and run the output in the terminal inside test_folder\n- Find the files you failed in ../vm_folder/need_fixing/\n\e[0m"
+elif ! [ $1 -gt $((THIRD*2)) ]; then
+	printf "\n\n[\e[38;5;208m$1\e[0m/\e[38;5;34m$NUM_TESTS\e[0m]\n\e[0m"
+	printf "\e[38;5;208m   _____ _______ _____ _      _        _      ____ _______ _____   _______ ____    _____   ____  
+  / ____|__   __|_   _| |    | |      | |    / __ \__   __/ ____| |__   __/ __ \  |  __ \ / __ \ 
+ | (___    | |    | | | |    | |      | |   | |  | | | | | (___      | | | |  | | | |  | | |  | |
+  \___ \   | |    | | | |    | |      | |   | |  | | | |  \___ \     | | | |  | | | |  | | |  | |
+  ____) |  | |   _| |_| |____| |____  | |___| |__| | | |  ____) |    | | | |__| | | |__| | |__| |
+ |_____/   |_|  |_____|______|______| |______\____/  |_| |_____/     |_|  \____/  |_____/ \____/ \n\n- Find your error log in test_folder/vm_folder/logs/ and run the output in the terminal inside test_folder\n- Find the files you failed in ../vm_folder/need_fixing/\n\e[0m"
+elif ! [ $1 -eq $NUM_TESTS ]; then
+	printf "\n\n[\e[38;5;11m$1\e[0m/\e[38;5;34m$NUM_TESTS\e[0m]\n\e[0m"
+	printf "\e[38;5;11m  _____  _____  ______ _______ _________     __   _____  ____   ____  _____          
+ |  __ \|  __ \|  ____|__   __|__   __\ \   / /  / ____|/ __ \ / __ \|  __ \         
+ | |__) | |__) | |__     | |     | |   \ \_/ /  | |  __| |  | | |  | | |  | |        
+ |  ___/|  _  /|  __|    | |     | |    \   /   | | |_ | |  | | |  | | |  | |        
+ | |    | | \ \| |____   | |     | |     | |    | |__| | |__| | |__| | |__| |        
+ |_|    |_|_ \_\______|_ |_|__   |_|__ __|_|__   \_____|\____/_\____/|_____/  ______ 
+     /\   | |    |  \/  |/ __ \ / ____|__   __| |__   __| |  | |  ____|  __ \|  ____|
+    /  \  | |    | \  / | |  | | (___    | |       | |  | |__| | |__  | |__) | |__   
+   / /\ \ | |    | |\/| | |  | |\___ \   | |       | |  |  __  |  __| |  _  /|  __|  
+  / ____ \| |____| |  | | |__| |____) |  | |       | |  | |  | | |____| | \ \| |____ 
+ /_/    \_\______|_|  |_|\____/|_____/   |_|       |_|  |_|  |_|______|_|  \_\______|\n\n- Find your error log in test_folder/vm_folder/logs/ and run the output in the terminal inside test_folder\n- Find the files you failed in ../vm_folder/need_fixing/\n\e[0m"
+else
+	printf "\n\n[\e[38;5;34m$1\e[0m/\e[38;5;34m$NUM_TESTS\e[0m]\n\e[0m"
+	printf "\e[38;5;34m  _____  ______ _____  ______ ______ _____ _______   _   _   _   _   _ 
+ |  __ \|  ____|  __ \|  ____|  ____/ ____|__   __| | | | | | | | | | |
+ | |__) | |__  | |__) | |__  | |__ | |       | |    | | | | | | | | | |
+ |  ___/|  __| |  _  /|  __| |  __|| |       | |    | | | | | | | | | |
+ | |    | |____| | \ \| |    | |___| |____   | |    |_| |_| |_| |_| |_|
+ |_|    |______|_|  \_\_|    |______\_____|  |_|    (_) (_) (_) (_) (_)\n\n\e[0m"
+ printf "\e[38;5;34m __     ______  _    _ _ _____  ______       __          ________  _____  ____  __  __ ______ 
+ \ \   / / __ \| |  | ( )  __ \|  ____|     /\ \        / /  ____|/ ____|/ __ \|  \/  |  ____|
+  \ \_/ / |  | | |  | |/| |__) | |__       /  \ \  /\  / /| |__  | (___ | |  | | \  / | |__   
+   \   /| |  | | |  | | |  _  /|  __|     / /\ \ \/  \/ / |  __|  \___ \| |  | | |\/| |  __|  
+    | | | |__| | |__| | | | \ \| |____   / ____ \  /\  /  | |____ ____) | |__| | |  | | |____ 
+    |_|  \____/ \____/  |_|  \_\______| /_/    \_\/  \/   |______|_____/ \____/|_|  |_|______|\n\n\e[0m"
+fi
+
+}
+
 PATH_PLAYERS=$@
 
 function    one_file_compare()
 {
     for PLAYER in $1; do
-    rm diff_folder/our_output diff_folder/og_output
-    $OUR_COR $PLAYER $2 -d $4 > diff_folder/our_output
-    $OG_COR $PLAYER $3 -d $4 > diff_folder/og_output
-    DIFF=$(diff "diff_folder/our_output" "diff_folder/og_output")
-	((NUM_TESTS++))
-    if [ "$DIFF" != "" ]; then
-		((FAIL++))
-        printf '\e[0m[%10s] ' "$PLAYER"
-        printf "\e[38;5;9mOutput is NOT the same with flag [%s]\n\e[0m" "$2" ;
-        diff "diff_folder/our_output" "diff_folder/og_output"
-        cp $PLAYER ../vm_test_folder/need_fixing
         filename=$(basename $PLAYER)
         extension="${filename##*.}"
         filename="${filename%.*}"
+		if [ "$extension" != "cor" ]; then
+			printf '\e[0m[%10s] ' "$PLAYER"
+			printf "\e[38;5;9mNot a valid file\n\e[0m"
+			exit 1
+		fi
+		rm diff_folder/our_output diff_folder/og_output
+		$OUR_COR $PLAYER $2 -d $4 > diff_folder/our_output
+		$OG_COR $PLAYER $3 -d $4 > diff_folder/og_output
+		DIFF=$(diff "diff_folder/our_output" "diff_folder/og_output")
+		((NUM_TESTS++))
+		if [ "$DIFF" != "" ]; then
+			((FAIL++))
+			printf '\e[0m[%10s] ' "$PLAYER"
+			if [ -z "$2" ]; then
+				printf "\e[38;5;9mOutput is NOT the same with flag      [-d]\n\e[0m" ;
+			else
+				printf "\e[38;5;9mOutput is NOT the same with flag [%s] [-d]\n\e[0m" "$2" ;
+			fi
+			diff "diff_folder/our_output" "diff_folder/og_output"
+			cp $PLAYER ../vm_test_folder/need_fixing
 
-        cp "../asm_test_folder/valid_s_files/"$filename".s" ../vm_test_folder/need_fixing/
-        if [ $ALL == 0 ]; then
-            exit 1
-        else
-            printf "./manual_diff.sh $2 -d $4 $PLAYER\n\n" >> $LOG_FILE
-        fi
-    else
-		((SUCCES++))
-        printf "\e[0m[%10s] " "$PLAYER"
-        printf "\e[38;5;34mPerfect! Output is the same until %s cylcles with flag [%s]\n\e[0m" "$4" "$2"
-    fi
+			cp "../asm_test_folder/valid_s_files/"$filename".s" ../vm_test_folder/need_fixing/
+			printf "./manual_diff.sh $2 -d $4 $PLAYER\n\n" >> $LOG_FILE
+			if [ $ALL == 0 ]; then
+				print_message "$SUCCESS"
+				exit 1
+			fi
+		else
+			((SUCCESS++))
+			printf "\e[0m[%10s] " "$PLAYER"
+			if [ -z "$2" ]; then
+					printf "\e[38;5;34mPerfect! Output is the same until %s cycles with flag     [-d]\n\e[0m" "$4"
+			else
+				printf "\e[38;5;34mPerfect! Output is the same until %s cycles with flag [%s][-d]\n\e[0m" "$4" "$2"
+			fi
+		fi
 
     done
 }
@@ -187,55 +256,5 @@ else
     one_file_compare "$PATH_PLAYERS" "$FLAG" "$FLAG_OG" "$DUMP"
 fi
 
-THIRD=$((NUM_TESTS/3))
+print_message "$SUCCESS" 
 
-if ! [ $SUCCES -gt $THIRD ]; then
-	printf "\n\n[\e[38;5;9m$SUCCES\e[0m/\e[38;5;34m$NUM_TESTS\e[0m]\n\e[0m"
-	printf "\n\e[38;5;9m  _    _    _____ _    _  _____ _  __
- | |  | |  / ____| |  | |/ ____| |/ /
- | |  | | | (___ | |  | | |    | ' / 
- | |  | |  \___ \| |  | | |    |  <  
- | |__| |  ____) | |__| | |____| . \ 
-  \____/  |_____/ \____/ \_____|_|\_\\n\nFind your error log in ..vm_folder/logs/\nFind the files you failed in ../vm_folder/need_fixing/\n\e[0m"
-elif ! [ $SUCCES -gt $((THIRD*2)) ]; then
-	printf "\n\n[\e[38;5;208m$SUCCES\e[0m/\e[38;5;34m$NUM_TESTS\e[0m]\n\e[0m"
-	printf "\e[38;5;208m __     ______  _    _ _ _____  ______   __  __ ______ _    _ _    _ 
- \ \   / / __ \| |  | ( )  __ \|  ____| |  \/  |  ____| |  | | |  | |
-  \ \_/ / |  | | |  | |/| |__) | |__    | \  / | |__  | |__| | |__| |
-   \   /| |  | | |  | | |  _  /|  __|   | |\/| |  __| |  __  |  __  |
-    | | | |__| | |__| | | | \ \| |____  | |  | | |____| |  | | |  | |
-    |_|  \____/ \____/  |_|  \_\______| |_|  |_|______|_|  |_|_|  |_|\n\e[0m"
-	printf "\e[38;5;208m   _____ _______ _____ _      _        _      ____ _______ _____   _______ ____    _____   ____  
-  / ____|__   __|_   _| |    | |      | |    / __ \__   __/ ____| |__   __/ __ \  |  __ \ / __ \ 
- | (___    | |    | | | |    | |      | |   | |  | | | | | (___      | | | |  | | | |  | | |  | |
-  \___ \   | |    | | | |    | |      | |   | |  | | | |  \___ \     | | | |  | | | |  | | |  | |
-  ____) |  | |   _| |_| |____| |____  | |___| |__| | | |  ____) |    | | | |__| | | |__| | |__| |
- |_____/   |_|  |_____|______|______| |______\____/  |_| |_____/     |_|  \____/  |_____/ \____/ \n\nFind your error log in ..vm_folder/logs/\nFind the files you failed in ../vm_folder/need_fixing/\n\e[0m"
-elif ! [ $SUCCES -eq $NUM_TESTS ]; then
-	printf "\n\n[\e[38;5;11m$SUCCES\e[0m/\e[38;5;34m$NUM_TESTS\e[0m]\n\e[0m"
-	printf "\e[38;5;11m  _____  _____  ______ _______ _________     __   _____  ____   ____  _____          
- |  __ \|  __ \|  ____|__   __|__   __\ \   / /  / ____|/ __ \ / __ \|  __ \         
- | |__) | |__) | |__     | |     | |   \ \_/ /  | |  __| |  | | |  | | |  | |        
- |  ___/|  _  /|  __|    | |     | |    \   /   | | |_ | |  | | |  | | |  | |        
- | |    | | \ \| |____   | |     | |     | |    | |__| | |__| | |__| | |__| |        
- |_|    |_|_ \_\______|_ |_|__   |_|__ __|_|__   \_____|\____/_\____/|_____/  ______ 
-     /\   | |    |  \/  |/ __ \ / ____|__   __| |__   __| |  | |  ____|  __ \|  ____|
-    /  \  | |    | \  / | |  | | (___    | |       | |  | |__| | |__  | |__) | |__   
-   / /\ \ | |    | |\/| | |  | |\___ \   | |       | |  |  __  |  __| |  _  /|  __|  
-  / ____ \| |____| |  | | |__| |____) |  | |       | |  | |  | | |____| | \ \| |____ 
- /_/    \_\______|_|  |_|\____/|_____/   |_|       |_|  |_|  |_|______|_|  \_\______|\n\nFind your error log in ..vm_folder/logs/\nFind the files you failed in ../vm_folder/need_fixing/\n\e[0m"
-else
-	printf "\n\n[\e[38;5;34m$SUCCES\e[0m/\e[38;5;34m$NUM_TESTS\e[0m]\n\e[0m"
-	printf "\e[38;5;34m  _____  ______ _____  ______ ______ _____ _______   _   _   _   _   _ 
- |  __ \|  ____|  __ \|  ____|  ____/ ____|__   __| | | | | | | | | | |
- | |__) | |__  | |__) | |__  | |__ | |       | |    | | | | | | | | | |
- |  ___/|  __| |  _  /|  __| |  __|| |       | |    | | | | | | | | | |
- | |    | |____| | \ \| |    | |___| |____   | |    |_| |_| |_| |_| |_|
- |_|    |______|_|  \_\_|    |______\_____|  |_|    (_) (_) (_) (_) (_)\n\n\e[0m"
- printf "\e[38;5;34m __     ______  _    _ _ _____  ______       __          ________  _____  ____  __  __ ______ 
- \ \   / / __ \| |  | ( )  __ \|  ____|     /\ \        / /  ____|/ ____|/ __ \|  \/  |  ____|
-  \ \_/ / |  | | |  | |/| |__) | |__       /  \ \  /\  / /| |__  | (___ | |  | | \  / | |__   
-   \   /| |  | | |  | | |  _  /|  __|     / /\ \ \/  \/ / |  __|  \___ \| |  | | |\/| |  __|  
-    | | | |__| | |__| | | | \ \| |____   / ____ \  /\  /  | |____ ____) | |__| | |  | | |____ 
-    |_|  \____/ \____/  |_|  \_\______| /_/    \_\/  \/   |______|_____/ \____/|_|  |_|______|\n\n\e[0m"
-fi
