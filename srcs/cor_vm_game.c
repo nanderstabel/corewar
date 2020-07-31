@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/05 17:44:34 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/30 11:30:00 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/31 13:38:55 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ static int	get_num_bytes(t_vm *vm, t_cursor *cursor)
 void		put_adv(t_vm *vm, t_cursor *cursor, size_t size)
 {
 	unsigned int	idx;
+	char			*hex;
 
 	if (!vm->b_option)
 		return ;
@@ -64,7 +65,9 @@ void		put_adv(t_vm *vm, t_cursor *cursor, size_t size)
 		size, cursor->pc, cursor->pc + size);
 	while (idx < size)
 	{
-		ft_printf("%s ", vis_itoa(vm->arena[new_idx(cursor->pc, idx, 0)]));
+		hex = vis_itoa(vm->arena[new_idx(cursor->pc, idx, 0)]);
+		ft_printf("%s ", hex);
+		free(hex);
 		idx += 1;
 	}
 	ft_putchar('\n');
