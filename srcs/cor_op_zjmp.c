@@ -36,5 +36,6 @@ int		op_zjmp(t_vm *vm, t_cursor *cursor)
 	if (vm->b_option)
 		put_adv(vm, cursor, size);
 	cursor->pc = new_idx(cursor->pc, size, FALSE);
+	print_pc(vm, cursor, size);
 	return (SUCCESS);
 }

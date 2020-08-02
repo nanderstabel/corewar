@@ -29,6 +29,7 @@ static void	vis_live(t_vm *vm, t_cursor *cursor)
 	vm->vis->bytes = bytes;
 	vis_print_cursor(vm->vis);
 	vis_print_data(vm);
+	// usleep(1000);
 	vm->vis->attr[cursor->player](vis_calc_att(FALSE, FALSE), \
 		vm->vis->graphics->arena);
 	vm->vis->index = cursor->pc;

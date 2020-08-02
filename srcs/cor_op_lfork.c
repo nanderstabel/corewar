@@ -30,5 +30,6 @@ int		op_lfork(t_vm *vm, t_cursor *cursor)
 	vm->cursors = new_cursor;
 	if (vm->a_option)
 		ft_putstr(ft_catprintf(vm->a_string, " %i (%i)\n", arg, cursor->pc + arg));
+	print_pc(vm, new_cursor, 0);
 	return (SUCCESS);
 }

@@ -98,6 +98,7 @@ static void	play(t_vm *vm, t_cursor *cursor, t_op_table operations)
 			{
 				put_adv(vm, cursor, size);
 				cursor->pc = new_idx(cursor->pc, size, FALSE);
+				print_pc(vm, cursor, size);
 			}
 		}
 		else

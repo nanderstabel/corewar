@@ -117,6 +117,7 @@ unsigned int		new_idx(unsigned int current_idx, int offset, \
 					unsigned int flag);
 void				put_arena(unsigned char *arena);
 void				put_exec_code(unsigned char *code, unsigned int size);
+void				print_pc(t_vm *vm, t_cursor *cursor, size_t size);
 
 int					vm_start(t_vm *vm);
 int					cursors_init(t_vm *vm);

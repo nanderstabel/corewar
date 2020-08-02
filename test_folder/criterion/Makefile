@@ -41,7 +41,7 @@ HDRS := $(INCLUDES_PATH)/
 PLUS := $$(tput setaf 2)+$$(tput sgr0)
 MINUS := $$(tput setaf 1)-$$(tput sgr0)
 
-all: cor_test asm_test
+all: cor_test #asm_test
 
 cor_test: $(COR_OBJS) $(COR_TEST_OBJS)
 	@$(CC) -o $@ $^ $(CFLAGS) -lcriterion $(LIBFT)
