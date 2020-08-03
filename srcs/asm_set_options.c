@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/07/09 20:09:17 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/08/03 12:48:25 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,11 @@ t_bool				find_dash(t_project *as)
 	{
 		++(*as->argv);
 		return (SUCCESS);
+	}
+	while (as->argc > 1)
+	{
+		--as->argc;
+		++as->argv;
 	}
 	return (FAIL);
 }
