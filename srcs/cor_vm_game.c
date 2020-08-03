@@ -102,7 +102,10 @@ static void	play(t_vm *vm, t_cursor *cursor, t_op_table operations)
 			}
 		}
 		else
+		{
 			cursor->pc = new_idx(cursor->pc, 1, FALSE);
+			print_pc(vm, cursor, 1);
+		}
 	}
 }
 

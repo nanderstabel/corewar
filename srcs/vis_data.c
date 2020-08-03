@@ -68,7 +68,7 @@ int		vis_print_data(t_vm *vm)
 	reset_color(vm);
 	mvwprintw(vm->vis->graphics->data, 3, 4, "CYCLE:");
 	mvwprintw(vm->vis->graphics->data, 3, 22, "     ");
-	str = ft_itoa(vm->cycle_count);
+	str = ft_itoa(vm->total_cycle_count);
 	mvwprintw(vm->vis->graphics->data, 3, 22, str);
 	ft_strdel(&str);
 	mvwprintw(vm->vis->graphics->data, 4, 4, "CHECKS TOTAL");
