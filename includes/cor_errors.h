@@ -27,10 +27,3 @@
 # define TOO_MANY_CHAMPS	"amount of players > MAX_PLAYERS\n"
 
 #endif
-// "
-// Usage: ./corewar [-d N -n N | -v ] <champion1.cor> <...>
-// 	-d N		: Dumps memory after N cycles then exits
-// 	-n N		: Defines next champion number
-// 	-v			: Visualizer output mode
-
-// "

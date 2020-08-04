@@ -67,7 +67,8 @@ void		perform_check(t_vm *vm)
 {
 	++(vm->check_count);
 	check_cursors(vm);
-	if (vm->check_count == MAX_CHECKS || vm->live_count >= NBR_LIVE || vm->ctd <= 0)
+	if (vm->check_count == MAX_CHECKS || vm->live_count >= NBR_LIVE \
+		|| vm->ctd <= 0)
 	{
 		vm->ctd -= CYCLE_DELTA;
 		if (vm->e_option)

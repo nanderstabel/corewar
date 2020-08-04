@@ -205,6 +205,6 @@ void				print_zero_bytes(t_project *as, size_t len,
 					size_t max_size);
 t_bool				byte_num_to_file(t_project *as, int num);
 void				add_strings(t_project *as, char **line);
-t_bool			check_strings_to_long(t_project *as);
+t_bool				check_strings_to_long(t_project *as);
 
 #endif
