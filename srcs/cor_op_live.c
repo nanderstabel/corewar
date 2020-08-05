@@ -37,7 +37,7 @@ static void	vis_live(t_vm *vm, t_cursor *cursor)
 	vis_print_cursor(vm->vis);
 }
 
-int			op_live(t_vm *vm, t_cursor *cursor)
+void		op_live(t_vm *vm, t_cursor *cursor)
 {
 	int				arg;
 
@@ -57,5 +57,4 @@ int			op_live(t_vm *vm, t_cursor *cursor)
 	vis_live(vm, cursor);
 	if (vm->a_option)
 		ft_putstr(ft_catprintf(vm->a_string, " %i\n", arg));
-	return (SUCCESS);
 }

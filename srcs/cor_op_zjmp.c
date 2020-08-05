@@ -12,7 +12,7 @@
 
 #include "corewar.h"
 
-int		op_zjmp(t_vm *vm, t_cursor *cursor)
+void	op_zjmp(t_vm *vm, t_cursor *cursor)
 {
 	int		arg;
 	size_t	size;
@@ -37,5 +37,4 @@ int		op_zjmp(t_vm *vm, t_cursor *cursor)
 		put_adv(vm, cursor, size);
 	cursor->pc = new_idx(cursor->pc, size, FALSE);
 	print_pc(vm, cursor, size);
-	return (SUCCESS);
 }

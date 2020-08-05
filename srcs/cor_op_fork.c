@@ -12,7 +12,7 @@
 
 #include "corewar.h"
 
-int		op_fork(t_vm *vm, t_cursor *cursor)
+void	op_fork(t_vm *vm, t_cursor *cursor)
 {
 	int			arg;
 	t_cursor	*new_cursor;
@@ -32,5 +32,4 @@ int		op_fork(t_vm *vm, t_cursor *cursor)
 		ft_putstr(ft_catprintf(vm->a_string, " %i (%i)\n", arg, \
 			cursor->pc + (arg % IDX_MOD)));
 	print_pc(vm, new_cursor, 0);
-	return (SUCCESS);
 }
