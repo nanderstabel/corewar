@@ -90,7 +90,7 @@ Test(cor_op_st, reg_reg_inv_1, .init=redirect_all_stdout)
 	unsigned int pc_before = cursor->pc;
 	cursor->reg[(int)arg_1] = value;
 	cr_assert_eq(cursor->reg[(int)arg_2], 0, "reg[arg_2] = %d not initialized to 0\n", cursor->reg[(int)arg_2]);
-	cr_assert_eq(op_st(&vm, cursor), SUCCESS, "op_st() returned ERROR with (REG)arg_1 = %d and (REG)arg_2 = %d\n", arg_1, arg_2);
+	op_st(&vm, cursor);
 	unsigned int pc_after = cursor->pc;
 	cr_assert_eq(cursor->reg[(int)arg_2], value, "stored: reg[arg_2] = %d\n expected: reg[arg_2] = %d", cursor->reg[(int)arg_2], value);
 	cr_assert_eq(cursor->reg[(int)arg_1], value, "stored: reg[arg_1] = %d\n expected: reg[arg_1] = %d", cursor->reg[(int)arg_1], value);
@@ -132,7 +132,7 @@ Test(cor_op_st, reg_reg_4, .init=redirect_all_stdout)
 	unsigned int pc_before = cursor->pc;
 	cursor->reg[(int)arg_1] = value;
 	cr_assert_eq(cursor->reg[(int)arg_2], 0, "reg[arg_2] = %d not initialized to 0\n", cursor->reg[(int)arg_2]);
-	cr_assert_eq(op_st(&vm, cursor), SUCCESS, "op_st() returned ERROR with (REG)arg_1 = %d and (REG)arg_2 = %d\n", arg_1, arg_2);
+	op_st(&vm, cursor);
 	unsigned int pc_after = cursor->pc;
 	cr_assert_eq(cursor->reg[(int)arg_2], value, "stored: reg[arg_2] = %d\n expected: reg[arg_2] = %d", cursor->reg[(int)arg_2], value);
 	cr_assert_eq(cursor->reg[(int)arg_1], value, "stored: reg[arg_1] = %d\n expected: reg[arg_1] = %d", cursor->reg[(int)arg_1], value);
@@ -174,7 +174,7 @@ Test(cor_op_st, reg_reg_3, .init=redirect_all_stdout)
 	unsigned int pc_before = cursor->pc;
 	cursor->reg[(int)arg_1] = value;
 	cr_assert_eq(cursor->reg[(int)arg_2], -champ_no, "reg[%d] = %d not initialized to %d\n", arg_2, cursor->reg[(int)arg_2], -champ_no);
-	cr_assert_eq(op_st(&vm, cursor), SUCCESS, "op_st() returned ERROR with (REG)arg_1 = %d and (REG)arg_2 = %d\n", arg_1, arg_2);
+	op_st(&vm, cursor);
 	unsigned int pc_after = cursor->pc;
 	cr_assert_eq(cursor->reg[(int)arg_2], value, "stored: reg[arg_2] = %d\n expected: reg[arg_2] = %d", cursor->reg[(int)arg_2], value);
 	cr_assert_eq(pc_after - pc_before, prog_size, "cursor moved %d bytes but should have moved %d bytes\n", pc_after - pc_before, prog_size);
@@ -215,7 +215,7 @@ Test(cor_op_st, reg_reg_2, .init=redirect_all_stdout)
 	unsigned int pc_before = cursor->pc;
 	cursor->reg[(int)arg_1] = value;
 	cr_assert_eq(cursor->reg[(int)arg_2], 0, "reg[arg_2] = %d not initialized to 0\n", cursor->reg[(int)arg_2]);
-	cr_assert_eq(op_st(&vm, cursor), SUCCESS, "op_st() returned ERROR with (REG)arg_1 = %d and (REG)arg_2 = %d\n", arg_1, arg_2);
+	op_st(&vm, cursor);
 	unsigned int pc_after = cursor->pc;
 	cr_assert_eq(cursor->reg[(int)arg_2], value, "stored: reg[arg_2] = %d\n expected: reg[arg_2] = %d", cursor->reg[(int)arg_2], value);
 	cr_assert_eq(cursor->reg[(int)arg_1], value, "stored: reg[arg_1] = %d\n expected: reg[arg_1] = %d", cursor->reg[(int)arg_1], value);
@@ -257,7 +257,7 @@ Test(cor_op_st, reg_reg_1, .init=redirect_all_stdout)
 	unsigned int pc_before = cursor->pc;
 	cursor->reg[(int)arg_1] = value;
 	cr_assert_eq(cursor->reg[(int)arg_2], 0, "reg[arg_2] = %d not initialized to 0\n", cursor->reg[(int)arg_2]);
-	cr_assert_eq(op_st(&vm, cursor), SUCCESS, "op_st() returned ERROR with (REG)arg_1 = %d and (REG)arg_2 = %d\n", arg_1, arg_2);
+	op_st(&vm, cursor);
 	unsigned int pc_after = cursor->pc;
 	cr_assert_eq(cursor->reg[(int)arg_2], value, "stored: reg[arg_2] = %d\n expected: reg[arg_2] = %d", cursor->reg[(int)arg_2], value);
 	cr_assert_eq(pc_after - pc_before, prog_size, "cursor moved %d bytes but should have moved %d bytes\n", pc_after - pc_before, prog_size);
@@ -306,7 +306,7 @@ Test(cor_op_st, reg_ind_3, .init=redirect_all_stdout)
 	unsigned int store_idx = new_idx(cursor->pc, arg_2, FALSE);
 	int	stored_value = convert_to_int(vm.arena, store_idx, 4);
 	cr_assert_eq(stored_value, 0, "arena at store_idx not initialized to 0\n");
-	cr_assert_eq(op_st(&vm, cursor), SUCCESS, "op_st() returned ERROR with (REG)arg_1 = %d and (IND)arg_2 = %d\n", arg_1, arg_2);
+	op_st(&vm, cursor);
 	unsigned int pc_after = cursor->pc;
 	stored_value = convert_to_int(vm.arena, store_idx, 4);
 	cr_assert_eq(stored_value, value, "stored_value = %d\n expected: real_value = %d", stored_value, value);
@@ -352,7 +352,7 @@ Test(cor_op_st, reg_ind_2, .init=redirect_all_stdout)
 	unsigned int store_idx = new_idx(cursor->pc, arg_2, FALSE);
 	int	stored_value = convert_to_int(vm.arena, store_idx, 4);
 	cr_assert_eq(stored_value, 0, "arena at store_idx not initialized to 0\n");
-	cr_assert_eq(op_st(&vm, cursor), SUCCESS, "op_st() returned ERROR with (REG)arg_1 = %d and (IND)arg_2 = %d\n", arg_1, arg_2);
+	op_st(&vm, cursor);
 	unsigned int pc_after = cursor->pc;
 	stored_value = convert_to_int(vm.arena, store_idx, 4);
 	cr_assert_eq(stored_value, value, "stored_value = %d\n expected: real_value = %d", stored_value, value);
@@ -398,7 +398,7 @@ Test(cor_op_st, reg_ind_1, .init=redirect_all_stdout)
 	unsigned int store_idx = new_idx(cursor->pc, arg_2, FALSE);
 	int	stored_value = convert_to_int(vm.arena, store_idx, 4);
 	cr_assert_eq(stored_value, 0, "arena at store_idx not initialized to 0\n");
-	cr_assert_eq(op_st(&vm, cursor), SUCCESS, "op_st() returned ERROR with (REG)arg_1 = %d and (IND)arg_2 = %d\n", arg_1, arg_2);
+	op_st(&vm, cursor);
 	unsigned int pc_after = cursor->pc;
 	stored_value = convert_to_int(vm.arena, store_idx, 4);
 	cr_assert_eq(stored_value, value, "stored_value = %d\n expected: real_value = %d", stored_value, value);

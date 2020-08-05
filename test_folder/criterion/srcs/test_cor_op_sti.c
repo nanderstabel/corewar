@@ -97,7 +97,7 @@ Test(cor_op_sti, reg_reg_ind_1, .init=redirect_all_stdout)
 	unsigned int pc_before = cursor->pc;
 	cursor->reg[(int)arg_1] = arg_1_value;
 	cursor->reg[(int)arg_2] = arg_2_value;
-	cr_assert_eq(op_sti(&vm, cursor), SUCCESS, "op_sti() returned ERROR with arg_1 = %d, arg_2 = %d and arg_3 = %d\n", arg_1, arg_2, arg_3);
+	op_sti(&vm, cursor);
 	unsigned int pc_after = cursor->pc;
 	int	store_idx = new_idx(champ_pos, cursor->reg[arg_2] + convert_to_int(vm.arena, champ_pos + 3 + arg_2_len, 2), FALSE);
 	cr_assert_eq(store_idx, expected_store_idx, "store_idx = %d, expected_store_idx = %d\n", store_idx, expected_store_idx);
@@ -152,7 +152,7 @@ Test(cor_op_sti, reg_reg_dir_3, .init=redirect_all_stdout)
 	unsigned int pc_before = cursor->pc;
 	cursor->reg[(int)arg_1] = arg_1_value;
 	cursor->reg[(int)arg_2] = arg_2_value;
-	cr_assert_eq(op_sti(&vm, cursor), SUCCESS, "op_sti() returned ERROR with arg_1 = %d, arg_2 = %d and arg_3 = %d\n", arg_1, arg_2, arg_3);
+	op_sti(&vm, cursor);
 	unsigned int pc_after = cursor->pc;
 	int	store_idx = new_idx(champ_pos, cursor->reg[arg_2] + convert_to_int(vm.arena, champ_pos + 3 + arg_2_len, 2), FALSE);
 	cr_assert_eq(store_idx, expected_store_idx, "store_idx = %d, expected_store_idx = %d, pc = %d, champ_pos = %d\n", store_idx, expected_store_idx, cursor->pc, champ_pos);
@@ -203,7 +203,7 @@ Test(cor_op_sti, reg_reg_dir_2, .init=redirect_all_stdout)
 	unsigned int pc_before = cursor->pc;
 	cursor->reg[(int)arg_1] = arg_1_value;
 	cursor->reg[(int)arg_2] = arg_2_value;
-	cr_assert_eq(op_sti(&vm, cursor), SUCCESS, "op_sti() returned ERROR with arg_1 = %d, arg_2 = %d and arg_3 = %d\n", arg_1, arg_2, arg_3);
+	op_sti(&vm, cursor);
 	unsigned int pc_after = cursor->pc;
 	int	store_idx = new_idx(champ_pos, cursor->reg[arg_2] + convert_to_int(vm.arena, champ_pos + 3 + arg_2_len, 2), FALSE);
 	cr_assert_eq(store_idx, expected_store_idx, "store_idx = %d, expected_store_idx = %d\n", store_idx, expected_store_idx);
@@ -254,7 +254,7 @@ Test(cor_op_sti, reg_reg_dir_1, .init=redirect_all_stdout)
 	unsigned int pc_before = cursor->pc;
 	cursor->reg[(int)arg_1] = arg_1_value;
 	cursor->reg[(int)arg_2] = arg_2_value;
-	cr_assert_eq(op_sti(&vm, cursor), SUCCESS, "op_sti() returned ERROR with arg_1 = %d, arg_2 = %d and arg_3 = %d\n", arg_1, arg_2, arg_3);
+	op_sti(&vm, cursor);
 	unsigned int pc_after = cursor->pc;
 	int	store_idx = new_idx(champ_pos, cursor->reg[arg_2] + convert_to_int(vm.arena, champ_pos + 3 + arg_2_len, 2), FALSE);
 	cr_assert_eq(store_idx, expected_store_idx, "store_idx = %d, expected_store_idx = %d\n", store_idx, expected_store_idx);
