@@ -37,7 +37,8 @@ void	vis_calc_pos(int pos, int *x, int *y)
 			i += 1;
 		}
 		if (i != pos)
-		{	*y += 1;
+		{
+			*y += 1;
 			if (*y == VIS_Y - 2)
 				*y = 2;
 		}
@@ -62,9 +63,7 @@ void	vis_print(t_vis *vis, int x, int y)
 	char			*c;
 
 	i = 0;
-/* 	vis->attr[vis->player](vis_calc_att(vis->bold, vis->inverse),\
-	vis->graphics->arena);
- */	while (i < vis->bytes)
+	while (i < vis->bytes)
 	{
 		while (x < ARENA_X - 3 && i < vis->bytes)
 		{
