@@ -40,8 +40,8 @@
 *.hex
 corewar
 asm
-tests/cor_test
-tests/asm_test
+test_folder/criterion/cor_test
+test_folder/criterion/asm_test
 
 # Debug files
 *.dSYM/
