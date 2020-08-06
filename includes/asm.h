@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/07/21 13:15:06 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/08/06 18:09:37 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,6 +205,10 @@ void				print_zero_bytes(t_project *as, size_t len,
 					size_t max_size);
 t_bool				byte_num_to_file(t_project *as, int num);
 void				add_strings(t_project *as, char **line);
-t_bool			check_strings_to_long(t_project *as);
+t_bool				check_strings_to_long(t_project *as);
+t_bool				syntax_error(t_project *as);
+t_bool				print_usage_message(t_project *as);
+void				write_byte_to_buf(t_project *as, char byte);
+void				write_str_to_buf(t_project *as, char *to_bytecode, char type);
 
 #endif
