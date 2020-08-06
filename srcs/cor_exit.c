@@ -37,6 +37,8 @@ static void	free_champions(t_champ ***champions)
 		}
 		++idx;
 	}
+	ft_bzero(*champions, sizeof(t_champ*) * (MAX_PLAYERS + 1));
+	free(*champions);
 	*champions = NULL;
 }
 
