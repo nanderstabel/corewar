@@ -22,25 +22,22 @@ static int	get_arg_2_value(t_vm *vm, t_cursor *cursor, int *value)
 	arg_pos = new_idx(cursor->pc, 3, FALSE);
 	enc = vm->arena[new_idx(cursor->pc, 1, 0)];
 	type = get_arg_type(enc, 2);
+	arg = convert_to_int(vm->arena, arg_pos, 1 + (type != REG));
 	if (type == REG)
 	{
-		arg = convert_to_int(vm->arena, arg_pos, 1);
 		if (arg <= 0 || REG_NUMBER < arg)
 			return (ERROR);
 		*value = cursor->reg[arg];
-		if (vm->a_option)
-			vm->a_string = ft_catprintf(vm->a_string, " %i", *value);
 	}
 	else if (type == DIR || type == IND)
 	{
-		arg = convert_to_int(vm->arena, arg_pos, 2);
 		if (type == DIR)
 			*value = arg;
 		else
 			*value = convert_to_int(vm->arena, new_idx(cursor->pc, arg, 0), 4);
-		if (vm->a_option)
-			vm->a_string = ft_catprintf(vm->a_string, " %i", *value);
 	}
+	if (vm->a_option)
+		vm->a_string = ft_catprintf(vm->a_string, " %i", *value);
 	return (SUCCESS);
 }
 
@@ -57,22 +54,17 @@ static int	get_arg_3_value(t_vm *vm, t_cursor *cursor, int *value)
 	else
 		arg_pos = new_idx(cursor->pc, 5, FALSE);
 	type = get_arg_type(enc, 3);
+	arg = convert_to_int(vm->arena, arg_pos, 1 + (type != REG));
 	if (type == REG)
 	{
-		arg = convert_to_int(vm->arena, arg_pos, 1);
 		if (arg <= 0 || REG_NUMBER < arg)
 			return (ERROR);
 		*value = cursor->reg[arg];
-		if (vm->a_option)
-			vm->a_string = ft_catprintf(vm->a_string, " %i\n", *value);
 	}
 	else if (type == DIR)
-	{
-		arg = convert_to_int(vm->arena, arg_pos, 2);
 		*value = arg;
-		if (vm->a_option)
-			vm->a_string = ft_catprintf(vm->a_string, " %i\n", *value);
-	}
+	if (vm->a_option)
+		vm->a_string = ft_catprintf(vm->a_string, " %i\n", *value);
 	return (SUCCESS);
 }
 
@@ -108,7 +100,7 @@ static void	vis_sti(t_vm *vm, t_cursor *cursor, unsigned int store_idx)
 	vis_print_cursor(vm->vis);
 }
 
-int			op_sti(t_vm *vm, t_cursor *cursor)
+void		op_sti(t_vm *vm, t_cursor *cursor)
 {
 	int				arg_1;
 	int				arg_2_value;
@@ -116,24 +108,23 @@ int			op_sti(t_vm *vm, t_cursor *cursor)
 	unsigned int	store_idx;
 
 	if (op_sti_check(vm, cursor) == ERROR)
-		return (ERROR);
+		return ;
 	if (vm->a_option)
 		vm->a_string = ft_catprintf(vm->a_string, FORMAT_A, cursor->p, \
 			g_op_tab[cursor->op_code - 1].operation);
 	arg_1 = convert_to_int(vm->arena, new_idx(cursor->pc, 2, 0), 1);
 	if (vm->a_option)
 		vm->a_string = ft_catprintf(vm->a_string, " r%i", arg_1);
-	if (0 < arg_1 && arg_1 <= REG_NUMBER \
-		&& get_arg_2_value(vm, cursor, &arg_2_value) == SUCCESS \
-		&& get_arg_3_value(vm, cursor, &arg_3_value) == SUCCESS)
-	{
-		store_idx = new_idx(cursor->pc, arg_2_value + arg_3_value, FALSE);
-		store_in_arena(vm->arena, store_idx, 4, cursor->reg[arg_1]);
-		vis_sti(vm, cursor, store_idx);
-		if (vm->a_option)
-			ft_putstr(ft_catprintf(vm->a_string, "%8c -> store to %i + %i = %i (with pc and mod %i)\n", \
-				'|', arg_2_value, arg_3_value, arg_2_value + arg_3_value, \
-				cursor->pc + ((arg_2_value + arg_3_value) % IDX_MOD)));
-	}
-	return (SUCCESS);
+	if (arg_1 <= 0 || arg_1 > REG_NUMBER \
+		|| get_arg_2_value(vm, cursor, &arg_2_value) == ERROR \
+		|| get_arg_3_value(vm, cursor, &arg_3_value) == ERROR)
+		return ;
+	store_idx = new_idx(cursor->pc, arg_2_value + arg_3_value, FALSE);
+	store_in_arena(vm->arena, store_idx, 4, cursor->reg[arg_1]);
+	vis_sti(vm, cursor, store_idx);
+	if (vm->a_option)
+		ft_putstr(ft_catprintf(vm->a_string, \
+		"%8c -> store to %i + %i = %i (with pc and mod %i)\n", \
+		'|', arg_2_value, arg_3_value, arg_2_value + arg_3_value, \
+		cursor->pc + ((arg_2_value + arg_3_value) % IDX_MOD)));
 }

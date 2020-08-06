@@ -52,11 +52,13 @@ static int	get_reg(t_vm *vm, t_cursor *cursor, int param[4], int i)
 	param[i] = convert_to_int(vm->arena, new_idx(cursor->pc, param[0], 0), 1);
 	if (param[i] <= 0 || param[i] > REG_NUMBER)
 		return (ERROR);
-	if (vm->a_option && !((6 <= cursor->op_code && cursor->op_code <= 8) || cursor->op_code == 10))
+	if (vm->a_option && !((6 <= cursor->op_code && cursor->op_code <= 8) \
+		|| cursor->op_code == 10))
 		vm->a_string = ft_catprintf(vm->a_string, "r%i", param[i]);
 	param[i] = cursor->reg[param[i]];
 	param[0] += 1;
-	if (vm->a_option && ((6 <= cursor->op_code && cursor->op_code <= 8) || cursor->op_code == 10))
+	if (vm->a_option && ((6 <= cursor->op_code && cursor->op_code <= 8) \
+		|| cursor->op_code == 10))
 		vm->a_string = ft_catprintf(vm->a_string, "%i", param[i]);
 	return (SUCCESS);
 }

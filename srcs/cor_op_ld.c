@@ -29,26 +29,23 @@ static int	op_ld_check(t_vm *vm, t_cursor *cursor)
 	return (SUCCESS);
 }
 
-int			op_ld(t_vm *vm, t_cursor *cursor)
+void		op_ld(t_vm *vm, t_cursor *cursor)
 {
 	int		params[4];
 
 	if (op_ld_check(vm, cursor) != SUCCESS)
-		return (ERROR);
+		return ;
 	params[0] = 2;
 	params[1] = get_arg_type(vm->arena[new_idx(cursor->pc, 1, FALSE)], 1);
 	params[2] = 0;
 	params[3] = 0;
-	if (get_value(vm, cursor, params) == SUCCESS)
-	{
-		params[2] = \
-			convert_to_int(vm->arena, new_idx(cursor->pc, params[0], 0), 1);
-		if (!(params[2] > 0 && params[2] <= REG_NUMBER))
-			return (ERROR);
-		cursor->reg[params[2]] = params[1];
-		cursor->carry = (cursor->reg[params[2]]) ? 0 : 1;
-		if (vm->a_option)
-			ft_putstr(ft_catprintf(vm->a_string, " r%i\n", params[2]));
-	}
-	return (SUCCESS);
+	if (get_value(vm, cursor, params) == ERROR)
+		return ;
+	params[2] = convert_to_int(vm->arena, new_idx(cursor->pc, params[0], 0), 1);
+	if (params[2] <= 0 || params[2] > REG_NUMBER)
+		return ;
+	cursor->reg[params[2]] = params[1];
+	cursor->carry = (cursor->reg[params[2]]) ? 0 : 1;
+	if (vm->a_option)
+		ft_putstr(ft_catprintf(vm->a_string, " r%i\n", params[2]));
 }

@@ -38,7 +38,7 @@ enum
 	DEBUG_O = (1 << 0),
 	USAGE_O = (1 << 1),
 	DEBUG_L = (1 << 2)
-}	e_flags;
+};
 
 enum
 {
@@ -49,7 +49,7 @@ enum
 	VALIDATE_ARGUMENT_OPT,
 	PRINT_USAGE_MESSAGE_OPT,
 	UNINSTALL_OPT
-}	e_state_opt;
+};
 
 enum
 {
@@ -65,7 +65,7 @@ enum
 	BYTECODE_TO_FILE,
 	FREE_PROJECT,
 	UNINSTALL
-}	e_state;
+};
 
 enum
 {
@@ -82,7 +82,7 @@ enum
 	ENDLINE,
 	INDIRECT,
 	END
-}	e_token;
+};
 
 typedef struct		s_token
 {
@@ -205,6 +205,6 @@ void				print_zero_bytes(t_project *as, size_t len,
 					size_t max_size);
 t_bool				byte_num_to_file(t_project *as, int num);
 void				add_strings(t_project *as, char **line);
-t_bool			check_strings_to_long(t_project *as);
+t_bool				check_strings_to_long(t_project *as);
 
 #endif

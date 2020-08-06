@@ -25,7 +25,7 @@ int		main(int argc, char **argv)
 	ft_bzero(vm.arena, MEM_SIZE);
 	vm.dump = -1;
 	if (argc == 1)
-		return (print_message(USAGE, NULL, STDOUT));
+		return (print_usage(0));
 	if (input_validation(&vm, argv, argc) == ERROR)
 		return (free_vm(&vm, ERROR));
 	vm_start(&vm);

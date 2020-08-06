@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/05 17:44:34 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/29 21:26:32 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/31 13:38:55 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ static int	get_num_bytes(t_vm *vm, t_cursor *cursor)
 void		put_adv(t_vm *vm, t_cursor *cursor, size_t size)
 {
 	unsigned int	idx;
+	char			*hex;
 
 	if (!vm->b_option)
 		return ;
@@ -64,7 +65,9 @@ void		put_adv(t_vm *vm, t_cursor *cursor, size_t size)
 		size, cursor->pc, cursor->pc + size);
 	while (idx < size)
 	{
-		ft_printf("%s ", vis_itoa(vm->arena[new_idx(cursor->pc, idx, 0)]));
+		hex = vis_itoa(vm->arena[new_idx(cursor->pc, idx, 0)]);
+		ft_printf("%s ", hex);
+		free(hex);
 		idx += 1;
 	}
 	ft_putchar('\n');
@@ -74,15 +77,6 @@ static void	play(t_vm *vm, t_cursor *cursor, t_op_table operations)
 {
 	size_t	size;
 
-	++(cursor->decay);
-	if (cursor->ctw == 0)
-	{
-		cursor->op_code = convert_to_int(vm->arena, cursor->pc, 1);
-		if (cursor->op_code > 0 && cursor->op_code <= 16)
-			cursor->ctw = g_op_tab[cursor->op_code - 1].cycles_to_wait;
-	}
-	if (cursor->ctw > 0)
-		--(cursor->ctw);
 	if (cursor->ctw == 0)
 	{
 		if (cursor->op_code > 0 && cursor->op_code <= 16)
@@ -95,10 +89,14 @@ static void	play(t_vm *vm, t_cursor *cursor, t_op_table operations)
 			{
 				put_adv(vm, cursor, size);
 				cursor->pc = new_idx(cursor->pc, size, FALSE);
+				print_pc(vm, cursor, size);
 			}
 		}
 		else
+		{
 			cursor->pc = new_idx(cursor->pc, 1, FALSE);
+			print_pc(vm, cursor, 1);
+		}
 	}
 }
 
@@ -110,9 +108,18 @@ void		game_loop(t_vm *vm, t_op_table operations)
 	++(vm->cycle_count);
 	++(vm->total_cycle_count);
 	if (vm->e_option)
-		ft_printf("It is now cycle %i\n", vm->total_cycle_count, vm->live_count);
+		ft_printf("It is now cycle %i\n", vm->total_cycle_count);
 	while (cursor != NULL)
 	{
+		++(cursor->decay);
+		if (cursor->ctw == 0)
+		{
+			cursor->op_code = convert_to_int(vm->arena, cursor->pc, 1);
+			if (cursor->op_code > 0 && cursor->op_code <= 16)
+				cursor->ctw = g_op_tab[cursor->op_code - 1].cycles_to_wait;
+		}
+		if (cursor->ctw > 0)
+			--(cursor->ctw);
 		play(vm, cursor, operations);
 		cursor = cursor->next;
 		if (vm->visualizer == TRUE)

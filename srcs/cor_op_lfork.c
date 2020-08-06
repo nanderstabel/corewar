@@ -6,13 +6,13 @@
 /*   By: lhageman <lhageman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/13 14:08:37 by lhageman      #+#    #+#                 */
-/*   Updated: 2020/07/29 21:00:56 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/07/31 14:30:52 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-int		op_lfork(t_vm *vm, t_cursor *cursor)
+void	op_lfork(t_vm *vm, t_cursor *cursor)
 {
 	int			arg;
 	t_cursor	*new_cursor;
@@ -26,10 +26,10 @@ int		op_lfork(t_vm *vm, t_cursor *cursor)
 	new_cursor->pc = new_idx(cursor->pc, arg, TRUE);
 	++vm->cursor_count;
 	new_cursor->p = vm->cursor_count;
-	new_cursor->decay = 0;
 	new_cursor->next = vm->cursors;
 	vm->cursors = new_cursor;
 	if (vm->a_option)
-		ft_putstr(ft_catprintf(vm->a_string, " %i (%i)\n", arg, cursor->pc + arg));
-	return (SUCCESS);
+		ft_putstr(ft_catprintf(vm->a_string, " %i (%i)\n", arg, \
+			cursor->pc + arg));
+	print_pc(vm, new_cursor, 0);
 }

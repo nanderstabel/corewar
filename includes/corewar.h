@@ -77,26 +77,27 @@ typedef struct		s_vm
 	unsigned char	arena[MEM_SIZE];
 }					t_vm;
 
-typedef int		(*t_op_table[17])(t_vm *vm, t_cursor *cursor);
+typedef void	(*t_op_table[17])(t_vm *vm, t_cursor *cursor);
 
-int					op_live(t_vm *vm, t_cursor *cursor);
-int					op_ld(t_vm *vm, t_cursor *cursor);
-int					op_st(t_vm *vm, t_cursor *cursor);
-int					op_add(t_vm *vm, t_cursor *cursor);
-int					op_sub(t_vm *vm, t_cursor *cursor);
-int					op_and(t_vm *vm, t_cursor *cursor);
-int					op_or(t_vm *vm, t_cursor *cursor);
-int					op_xor(t_vm *vm, t_cursor *cursor);
-int					op_zjmp(t_vm *vm, t_cursor *cursor);
-int					op_ldi(t_vm *vm, t_cursor *cursor);
-int					op_sti(t_vm *vm, t_cursor *cursor);
-int					op_fork(t_vm *vm, t_cursor *cursor);
-int					op_lld(t_vm *vm, t_cursor *cursor);
-int					op_lldi(t_vm *vm, t_cursor *cursor);
-int					op_lfork(t_vm *vm, t_cursor *cursor);
-int					op_aff(t_vm *vm, t_cursor *cursor);
+void				op_live(t_vm *vm, t_cursor *cursor);
+void				op_ld(t_vm *vm, t_cursor *cursor);
+void				op_st(t_vm *vm, t_cursor *cursor);
+void				op_add(t_vm *vm, t_cursor *cursor);
+void				op_sub(t_vm *vm, t_cursor *cursor);
+void				op_and(t_vm *vm, t_cursor *cursor);
+void				op_or(t_vm *vm, t_cursor *cursor);
+void				op_xor(t_vm *vm, t_cursor *cursor);
+void				op_zjmp(t_vm *vm, t_cursor *cursor);
+void				op_ldi(t_vm *vm, t_cursor *cursor);
+void				op_sti(t_vm *vm, t_cursor *cursor);
+void				op_fork(t_vm *vm, t_cursor *cursor);
+void				op_lld(t_vm *vm, t_cursor *cursor);
+void				op_lldi(t_vm *vm, t_cursor *cursor);
+void				op_lfork(t_vm *vm, t_cursor *cursor);
+void				op_aff(t_vm *vm, t_cursor *cursor);
 
 int					print_message(char *message, char *info, int fd);
+int					print_usage(int ret);
 int					free_vm(t_vm *vm, int ret);
 void				cursor_del(t_cursor *cursor);
 
@@ -117,6 +118,7 @@ unsigned int		new_idx(unsigned int current_idx, int offset, \
 					unsigned int flag);
 void				put_arena(unsigned char *arena);
 void				put_exec_code(unsigned char *code, unsigned int size);
+void				print_pc(t_vm *vm, t_cursor *cursor, size_t size);
 
 int					vm_start(t_vm *vm);
 int					cursors_init(t_vm *vm);

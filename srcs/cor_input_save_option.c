@@ -37,38 +37,26 @@ int			save_option(t_vm *vm, char **argv, int idx, int argc)
 {
 	if (ft_strstr(argv[idx], ".cor") != NULL)
 		return (1);
-	if (ft_strchr(argv[idx], 'v') != NULL)
-	{
-		vm->visualizer = TRUE;
-		return (1);
-	}
-	if (ft_strchr(argv[idx], 'a') != NULL)
-	{
-		vm->a_option = TRUE;
-		return (1);
-	}
-	if (ft_strchr(argv[idx], 'b') != NULL)
-	{
-		vm->b_option = TRUE;
-		return (1);
-	}
-	if (ft_strchr(argv[idx], 'c') != NULL)
-	{
-		vm->c_option = TRUE;
-		return (1);
-	}
-	if (ft_strchr(argv[idx], 'e') != NULL)
-	{
-		vm->e_option = TRUE;
-		return (1);
-	}
-	if (ft_strchr(argv[idx], 'f') != NULL)
-	{
-		vm->f_option = TRUE;
-		return (1);
-	}
 	if ((ft_strchr(argv[idx], 'd') != NULL || (ft_strchr(argv[idx], 'n') != NULL
 		&& (idx + 2 < argc))) && ft_isint(argv[idx + 1]) == TRUE)
 		return (save_option_input(vm, argv, idx));
+	if (ft_strchr(argv[idx], 'v') || ft_strchr(argv[idx], 'a') \
+		|| ft_strchr(argv[idx], 'b') || ft_strchr(argv[idx], 'c') \
+		|| ft_strchr(argv[idx], 'e') || ft_strchr(argv[idx], 'f'))
+	{
+		if (ft_strchr(argv[idx], 'v') != NULL)
+			vm->visualizer = TRUE;
+		if (ft_strchr(argv[idx], 'a') != NULL)
+			vm->a_option = TRUE;
+		if (ft_strchr(argv[idx], 'b') != NULL)
+			vm->b_option = TRUE;
+		if (ft_strchr(argv[idx], 'c') != NULL)
+			vm->c_option = TRUE;
+		if (ft_strchr(argv[idx], 'e') != NULL)
+			vm->e_option = TRUE;
+		if (ft_strchr(argv[idx], 'f') != NULL)
+			vm->f_option = TRUE;
+		return (1);
+	}
 	return (print_message(INV_OPT, argv[idx], STDERR));
 }

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_catprintf.c                                       :+:    :+:            */
+/*   printf_ft_catprintf.c                              :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: mgross <mgross@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
@@ -75,7 +75,7 @@ static void	start_conv(const t_conversion_table conversions, char *pos,
 		if (next_conv)
 		{
 			buff_push(buf, pos + 1, (next_conv - (pos + 1)));
-			pos = ++next_conv;
+			pos = next_conv + 1;
 		}
 		else
 		{
@@ -120,19 +120,19 @@ static char	*start_printf(const int fd, const char *format, va_list ap)
 	return (buf.sprint_buf);
 }
 
-char    *ft_catprintf(char *old_str, const char *format, ...)
+char		*ft_catprintf(char *old_str, const char *format, ...)
 {
-    char    *new_str;
-    char     *temp;
-    va_list ap;
+	char	*new_str;
+	char	*temp;
+	va_list	ap;
 
-    va_start(ap, format);
-    new_str = start_printf(-2, format, ap);
+	va_start(ap, format);
+	new_str = start_printf(-2, format, ap);
 	if (old_str)
 	{
-  		temp = new_str;
-	    new_str = ft_strjoin(old_str, new_str);
-    	free(temp);
+		temp = new_str;
+		new_str = ft_strjoin(old_str, new_str);
+		free(temp);
 	}
-    return (new_str);
+	return (new_str);
 }

@@ -6,7 +6,7 @@
 /*   By: lhageman <lhageman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/20 14:16:44 by lhageman      #+#    #+#                 */
-/*   Updated: 2020/07/21 18:26:53 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/08/01 14:04:18 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # define COLOR_PLAYER_THREE 2
 # define COLOR_PLAYER_FOUR 3
 # define VIS_X 255
-# define VIS_Y 74
+# define VIS_Y 68
 # define ARENA_X 198
 # define DATA_X 57
 

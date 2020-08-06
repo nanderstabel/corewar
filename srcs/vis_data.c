@@ -6,7 +6,7 @@
 /*   By: lhageman <lhageman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/11 08:01:52 by lhageman      #+#    #+#                 */
-/*   Updated: 2020/07/21 17:34:48 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/08/01 14:42:54 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,33 @@ void	reset_color(t_vm *vm)
 	wattron(vm->vis->graphics->data, A_BOLD);
 }
 
+void	vis_print_players(t_vm *vm)
+{
+	unsigned int	i;
+	int				y;
+	char			*name;
+
+	i = 1;
+	y = 8;
+	while (i <= vm->champ_count)
+	{
+		vm->vis->attr[i](vis_calc_att(false, false), vm->vis->graphics->data);
+		name = ft_strsub(vm->champ[i]->header.prog_name, 0, 50);
+		mvwprintw(vm->vis->graphics->data, y + i, 4, name);
+		ft_strdel(&name);
+		y += 1;
+		name = ft_strsub(vm->champ[i]->header.prog_name, 50, 50);
+		mvwprintw(vm->vis->graphics->data, y + i, 4, name);
+		ft_strdel(&name);
+		y += 1;
+		name = ft_strsub(vm->champ[i]->header.prog_name, 100, 28);
+		mvwprintw(vm->vis->graphics->data, y + i, 4, name);
+		ft_strdel(&name);
+		y += 1;
+		i += 1;
+	}
+}
+
 int		vis_print_data(t_vm *vm)
 {
 	char *str;
@@ -39,20 +66,23 @@ int		vis_print_data(t_vm *vm)
 	reset_color(vm);
 	mvwprintw(vm->vis->graphics->data, 3, 4, "CYCLE:");
 	mvwprintw(vm->vis->graphics->data, 3, 22, "     ");
-	str = ft_itoa(vm->cycle_count);
+	str = ft_itoa(vm->total_cycle_count);
 	mvwprintw(vm->vis->graphics->data, 3, 22, str);
 	ft_strdel(&str);
-	mvwprintw(vm->vis->graphics->data, 4, 4, "CYCLE_TO_DIE:");
-	str = ft_itoa(vm->ctd);
+	mvwprintw(vm->vis->graphics->data, 4, 4, "CHECKS TOTAL");
+	str = ft_itoa(vm->check_count);
 	mvwprintw(vm->vis->graphics->data, 4, 22, str);
 	ft_strdel(&str);
-	wrefresh(vm->vis->graphics->data);
-	mvwprintw(vm->vis->graphics->data, 5, 4, "LAST LIVE PLAYER:");
-	str = ft_itoa(vm->last_live);
-	vis_color(vm);
+	mvwprintw(vm->vis->graphics->data, 5, 4, "CYCLES TO DIE");
+	str = ft_itoa(vm->ctd);
 	mvwprintw(vm->vis->graphics->data, 5, 22, str);
 	ft_strdel(&str);
+	mvwprintw(vm->vis->graphics->data, 6, 4, "LAST LIVE PLAYER:");
+	str = ft_itoa(vm->last_live);
+	vis_color(vm);
+	mvwprintw(vm->vis->graphics->data, 6, 22, str);
+	ft_strdel(&str);
+	vis_print_players(vm);
 	wrefresh(vm->vis->graphics->data);
-	usleep(20000);
 	return (0);
 }
