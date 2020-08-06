@@ -11,6 +11,7 @@ branches:
         - master
         - asm
         - feature_asm_input
+        - feature_syntax
         - feature_asm_param
 install:
     - brew install snaipe/soft/criterion

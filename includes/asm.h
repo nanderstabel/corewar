@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/08/06 18:09:37 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/08/06 18:15:13 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "libft.h"
 # include "op.h"
 
-# define OPTIONS				"agul"
+// # define OPTIONS				"agul"
 # define SYNTAX_ERR				"Syntax error at token [TOKEN]"
 # define UNEXPECTED_END			"Syntax error - unexpected end of input (Perhaps you forgot to end with a newline ?)\n"
 # define INSTRUCTION_ERR		"Invalid instruction at token [TOKEN]"
@@ -38,7 +38,7 @@ enum
 	DEBUG_O = (1 << 0),
 	USAGE_O = (1 << 1),
 	DEBUG_L = (1 << 2)
-}	e_flags;
+};
 
 enum
 {
@@ -49,7 +49,7 @@ enum
 	VALIDATE_ARGUMENT_OPT,
 	PRINT_USAGE_MESSAGE_OPT,
 	UNINSTALL_OPT
-}	e_state_opt;
+};
 
 enum
 {
@@ -65,7 +65,7 @@ enum
 	BYTECODE_TO_FILE,
 	FREE_PROJECT,
 	UNINSTALL
-}	e_state;
+};
 
 enum
 {
@@ -82,7 +82,7 @@ enum
 	ENDLINE,
 	INDIRECT,
 	END
-}	e_token;
+};
 
 typedef struct		s_token
 {

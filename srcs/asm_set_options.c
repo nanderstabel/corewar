@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/08/06 17:52:43 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/08/06 18:14:56 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_bool				find_dash(t_project *as)
 t_bool				find_option(t_project *as)
 {
 	as->count = (as->flags & DEBUG_O) ? ft_printf("\t%s\n", __func__) : 0;
-	if (ft_strchr(OPTIONS, **as->argv) && **as->argv)
+	if (ft_strchr("gul", **as->argv) && **as->argv)
 	{
 		if (**as->argv == 'u')
 			return (FAIL);

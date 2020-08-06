@@ -6,13 +6,13 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/07 18:04:50 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/07/09 17:41:10 by zitzak        ########   odam.nl         */
+/*   Updated: 2020/07/30 11:22:09 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "op.h"
 
-t_op		g_op_tab[17] =
+t_op	g_op_tab[17] =
 {
 	{"live", 1, {T_DIR}, 1, 10, "alive", 0, 0},
 	{"ld", 2, {T_DIR | T_IND, T_REG}, 2, 5, "load", 1, 0},
