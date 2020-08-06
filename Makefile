@@ -12,32 +12,34 @@
 
 include srcs/_files.mk
 
-VM_NAME := corewar
+COR_NAME := corewar
 
 ASM_NAME := asm
 
-VM_OBJS := $(VM_FILES:%.c=objs/%.o) objs/vm_main.o
+COR_OBJS := $(COR_FILES:%.c=objs/%.o) objs/cor_main.o
 
 ASM_OBJS := $(ASM_FILES:%.c=objs/%.o) objs/asm_main.o
 
 CFLAGS := -Wall -Wextra -Werror -g
+LDFLAGS = -lncurses
 
 LIBFT_PATH := libft
 LIBFT := $(LIBFT_PATH)/libft.a
 
 INCLUDES_PATH := includes
 INCLUDES := -I $(INCLUDES_PATH) -I $(LIBFT_PATH)
-HDRS := $(INCLUDES_PATH)/corewar.h $(INCLUDES_PATH)/asm.h
+HDRS := $(INCLUDES_PATH)/corewar.h $(INCLUDES_PATH)/asm.h $(INCLUDES_PATH)/op.h \
+	$(INCLUDES_PATH)/vis.h $(INCLUDES_PATH)/cor_errors.h
 
 PLUS := $$(tput setaf 2)+$$(tput sgr0)
 MINUS := $$(tput setaf 1)-$$(tput sgr0)
 
 MAX_PARALLEL = 6
 
-all: $(VM_NAME) $(ASM_NAME)
+all: $(COR_NAME) $(ASM_NAME)
 
-$(VM_NAME): $(LIBFT) $(VM_OBJS)
-	@$(CC) $(CFLAGS) -o $@ $^ $(LIBFT)
+$(COR_NAME): $(LIBFT) $(COR_OBJS)
+	@$(CC) $(CFLAGS) -o $@ $^ $(LIBFT) $(LDFLAGS)
 	@echo " $(PLUS) $@"
 
 $(ASM_NAME): $(LIBFT) $(ASM_OBJS)
@@ -67,7 +69,7 @@ fclean: clean lfclean
 	@rm -fv $(LIBFT) | sed "s/^/ $(MINUS) /"
 
 lfclean: lclean
-	@rm -fv $(VM_NAME) $(ASM_NAME) | sed "s/^/ $(MINUS) /"
+	@rm -fv $(COR_NAME) $(ASM_NAME) | sed "s/^/ $(MINUS) /"
 
 re:
 	$(MAKE) fclean
@@ -78,7 +80,12 @@ lre:
 	$(MAKE) all
 
 test: $(LIBFT) $(OBJS) $(HDRS)
-	@make -C tests
+	@$(MAKE) all
+	@make re -C test_folder/criterion
+	@echo "\n		---- ASM ----		\n"
+	@./test_folder/criterion/asm_test
+	@echo "\n		---- VM ----		\n"
+	@./test_folder/criterion/cor_test
 
 FORCE:
 

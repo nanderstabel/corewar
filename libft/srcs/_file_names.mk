@@ -6,7 +6,7 @@
 #    By: mmarcell <mmarcell@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/01/08 16:46:03 by mmarcell      #+#    #+#                  #
-#    Updated: 2020/05/15 20:45:32 by zitzak        ########   odam.nl          #
+#    Updated: 2020/07/29 11:01:07 by nstabel       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,7 @@ FILES := ft_putchar.c ft_putchar_fd.c \
 	ft_strequ.c ft_strnequ.c \
 	ft_striter.c ft_striteri.c \
 	ft_strmap.c ft_strmapi.c \
+	ft_strrev.c \
 	ft_lstnew.c \
 	ft_lstadd.c ft_lstadd_back.c \
 	ft_lstdel.c ft_lstdelone.c \
@@ -70,4 +71,5 @@ FILES := ft_putchar.c ft_putchar_fd.c \
 	ft_addr_lstiter.c ft_addr_lstnew.c ft_addr_lstrev.c ft_addr_lstsrt.c \
 	ft_malloc_hash_table.c ft_hash_table_naive_resize.c ft_ndigits.c \
 	ft_strequ_wspace_delim.c ft_lstnew_ptr.c ft_nchar.c ft_strndup.c \
-	ft_lst_last_elem.c get_next_endline.c ft_strrev.c ft_memrev.c
+	ft_lst_last_elem.c get_next_endline.c ft_strrev.c ft_memrev.c \
+	printf_ft_catprintf.c
