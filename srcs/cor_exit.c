@@ -32,14 +32,12 @@ static void	free_champions(t_champ ***champions)
 		if ((*champions)[idx] != NULL)
 		{
 			ft_bzero((*champions)[idx], sizeof(t_champ));
-			free((*champions)[idx]);
-			(*champions)[idx] = NULL;
+			ft_memdel((void**)&(*champions)[idx]);
 		}
 		++idx;
 	}
 	ft_bzero(*champions, sizeof(t_champ*) * (MAX_PLAYERS + 1));
-	free(*champions);
-	*champions = NULL;
+	ft_memdel((void**)champions);
 }
 
 int			free_vm(t_vm *vm, int ret)
@@ -53,7 +51,7 @@ int			free_vm(t_vm *vm, int ret)
 		cursor_to_del = vm->cursors;
 		vm->cursors = cursor_to_del->next;
 		ft_bzero(cursor_to_del, sizeof(t_cursor));
-		free(cursor_to_del);
+		ft_memdel((void**)(&cursor_to_del));
 	}
 	ft_bzero(vm, sizeof(t_vm));
 	return (ret);

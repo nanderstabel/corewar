@@ -44,8 +44,7 @@ static void	kill_cursor(t_vm *vm, t_cursor *cursor)
 	else
 		vm->cursors = cursor->next;
 	ft_bzero(cursor, sizeof(t_cursor));
-	free(cursor);
-	cursor = NULL;
+	ft_memdel((void**)&cursor);
 }
 
 static void	check_cursors(t_vm *vm)
@@ -68,7 +67,7 @@ void		perform_check(t_vm *vm)
 	++(vm->check_count);
 	check_cursors(vm);
 	if (vm->check_count == MAX_CHECKS || vm->live_count >= NBR_LIVE \
-		|| vm->ctd <= 0)
+		/* || vm->ctd <= 0 */)
 	{
 		vm->ctd -= CYCLE_DELTA;
 		if (vm->e_option)
