@@ -12,6 +12,31 @@
 
 #include "corewar.h"
 
+void			print_pc(t_vm *vm, t_cursor *cursor, size_t size)
+{
+	int	bold;
+	int	inverse;
+	int	bytes;
+
+	bold = FALSE;
+	inverse = TRUE;
+	bytes = 1;
+	if (vm->vis == NULL)
+		return ;
+	vm->vis->bytes = bytes;
+	if (size > 0)
+	{
+		vm->vis->index = new_idx(cursor->pc, -size, TRUE);
+		vm->vis->attr[cursor->player](vis_calc_att(FALSE, FALSE), \
+			vm->vis->graphics->arena);
+		vis_print_cursor(vm->vis);
+	}
+	vm->vis->attr[cursor->player](vis_calc_att(bold, inverse), \
+		vm->vis->graphics->arena);
+	vm->vis->index = cursor->pc;
+	vis_print_cursor(vm->vis);
+}
+
 unsigned int	new_idx(unsigned int current_idx, int offset,
 				unsigned int l_flag)
 {

@@ -12,6 +12,17 @@
 
 #include "corewar.h"
 
+static void	vis_reset_pc(t_vm *vm, t_cursor *cursor)
+{
+	if (vm->vis == NULL)
+		return ;
+	vm->vis->bytes = 1;
+	vm->vis->index = cursor->pc;
+	vm->vis->attr[cursor->player](vis_calc_att(FALSE, FALSE), \
+		vm->vis->graphics->arena);
+	vis_print_cursor(vm->vis);
+}
+
 static void	kill_cursor(t_vm *vm, t_cursor *cursor)
 {
 	t_cursor	*walk;
@@ -19,6 +30,7 @@ static void	kill_cursor(t_vm *vm, t_cursor *cursor)
 	if (vm->c_option)
 		ft_printf("Process %i hasn't lived for %i cycles (CTD %i)\n", \
 			cursor->p, cursor->decay, vm->ctd);
+	vis_reset_pc(vm, cursor);
 	if (vm->cursors != cursor)
 	{
 		walk = vm->cursors;
@@ -32,8 +44,7 @@ static void	kill_cursor(t_vm *vm, t_cursor *cursor)
 	else
 		vm->cursors = cursor->next;
 	ft_bzero(cursor, sizeof(t_cursor));
-	free(cursor);
-	cursor = NULL;
+	ft_memdel((void**)&cursor);
 }
 
 static void	check_cursors(t_vm *vm)
@@ -55,7 +66,8 @@ void		perform_check(t_vm *vm)
 {
 	++(vm->check_count);
 	check_cursors(vm);
-	if (vm->check_count == MAX_CHECKS || vm->live_count >= NBR_LIVE || vm->ctd <= 0)
+	if (vm->check_count == MAX_CHECKS || vm->live_count >= NBR_LIVE \
+		/* || vm->ctd <= 0 */)
 	{
 		vm->ctd -= CYCLE_DELTA;
 		if (vm->e_option)

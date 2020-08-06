@@ -86,7 +86,7 @@ static void	start_conv(const t_conversion_table conversions, char *pos,
 		if (next_conv)
 		{
 			buff_push(buf, pos + 1, (next_conv - (pos + 1)));
-			pos = ++next_conv;
+			pos = next_conv + 1;
 		}
 		else
 		{

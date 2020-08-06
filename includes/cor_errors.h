@@ -13,7 +13,6 @@
 #ifndef COR_ERRORS_H
 # define COR_ERRORS_H
 
-# define USAGE				"Usage: ./corewar [-d N -n N | -v ] <champion1.cor> <...>\n\t-d N\t\t: Dumps memory after N cycles then exits\n"
 # define INV_OPT			"invalid option\n"
 # define INV_OPT_N			"-n option invalid\n"
 # define FILE_INV_MAGIC		"invalid magic\n"
@@ -27,10 +26,3 @@
 # define TOO_MANY_CHAMPS	"amount of players > MAX_PLAYERS\n"
 
 #endif
-// "
-// Usage: ./corewar [-d N -n N | -v ] <champion1.cor> <...>
-// 	-d N		: Dumps memory after N cycles then exits
-// 	-n N		: Defines next champion number
-// 	-v			: Visualizer output mode
-
-// "

@@ -48,38 +48,31 @@ static void	vis_st(t_vm *vm, t_cursor *cursor, int offset)
 	vis_print_cursor(vm->vis);
 }
 
-int			op_st(t_vm *vm, t_cursor *cursor)
+void		op_st(t_vm *vm, t_cursor *cursor)
 {
 	int		params[4];
+	int		type;
 
-	if (op_st_check(vm, cursor) != SUCCESS)
-		return (ERROR);
 	params[0] = 2;
 	params[1] = REG;
 	params[2] = 0;
 	params[3] = 0;
-	if (get_value(vm, cursor, params) == SUCCESS)
+	if (op_st_check(vm, cursor) == ERROR \
+		|| get_value(vm, cursor, params) == ERROR)
+		return ;
+	type = get_arg_type(vm->arena[new_idx(cursor->pc, 1, FALSE)], 2);
+	params[2] = convert_to_int(vm->arena, new_idx(cursor->pc, params[0], 0), \
+		1 + (type == IND));
+	if (type == REG && (params[2] <= 0 || params[2] > REG_NUMBER))
+		return ;
+	if (type == REG)
+		cursor->reg[params[2]] = params[1];
+	else if (type == IND)
 	{
-		if (get_arg_type(vm->arena[new_idx(cursor->pc, 1, FALSE)], 2) == REG)
-		{
-			params[2] = \
-				convert_to_int(vm->arena, new_idx(cursor->pc, params[0], 0), 1);
-			if (!(params[2] > 0 && params[2] <= REG_NUMBER))
-				return (ERROR);
-			cursor->reg[params[2]] = params[1];
-			if (vm->a_option)
-				ft_putstr(ft_catprintf(vm->a_string, " %i\n", params[2]));
-		}
-		else
-		{
-			params[2] = \
-				convert_to_int(vm->arena, new_idx(cursor->pc, params[0], 0), 2);
-			store_in_arena(vm->arena, \
-				new_idx(cursor->pc, params[2], 0), 4, params[1]);
-			vis_st(vm, cursor, params[2]);
-			if (vm->a_option)
-				ft_putstr(ft_catprintf(vm->a_string, " %i\n", params[2]));
-		}
+		store_in_arena(vm->arena, \
+			new_idx(cursor->pc, params[2], 0), 4, params[1]);
+		vis_st(vm, cursor, params[2]);
 	}
-	return (SUCCESS);
+	if (vm->a_option)
+		ft_putstr(ft_catprintf(vm->a_string, " %i\n", params[2]));
 }

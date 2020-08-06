@@ -35,8 +35,7 @@
 # define MAX_PLAYERS		4
 # define MEM_SIZE			4096
 # define IDX_MOD			512
-# define CHAMP_MAX_SIZE		MEM_SIZE / 6
-//TODO check if 4096 / 6 = 682 or 4096 / 6 = 683
+# define CHAMP_MAX_SIZE		682
 
 # define COMMENT_CHAR		'#'
 # define LABEL_CHAR			':'

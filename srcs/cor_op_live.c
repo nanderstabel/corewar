@@ -29,6 +29,7 @@ static void	vis_live(t_vm *vm, t_cursor *cursor)
 	vm->vis->bytes = bytes;
 	vis_print_cursor(vm->vis);
 	vis_print_data(vm);
+	// usleep(1000);
 	vm->vis->attr[cursor->player](vis_calc_att(FALSE, FALSE), \
 		vm->vis->graphics->arena);
 	vm->vis->index = cursor->pc;
@@ -36,7 +37,7 @@ static void	vis_live(t_vm *vm, t_cursor *cursor)
 	vis_print_cursor(vm->vis);
 }
 
-int			op_live(t_vm *vm, t_cursor *cursor)
+void		op_live(t_vm *vm, t_cursor *cursor)
 {
 	int				arg;
 
@@ -45,16 +46,15 @@ int			op_live(t_vm *vm, t_cursor *cursor)
 			g_op_tab[cursor->op_code - 1].operation);
 	arg = convert_to_int(vm->arena, new_idx(cursor->pc, 1, FALSE), 4);
 	// ft_printf("P: %i")
-	if (/* arg == cursor->reg[1] &&  */0 < -arg && -arg <= (int)vm->champ_count)
+	if (0 < -arg && -arg <= (int)vm->champ_count)
 	{
 		vm->last_live = -arg;
 		if (vm->f_option)
 			ft_printf(FORMAT_F, -arg, vm->champ[-arg]->header.prog_name);
 	}
-	cursor->decay = 0;//
+	cursor->decay = 0;
 	++(vm->live_count);
 	vis_live(vm, cursor);
 	if (vm->a_option)
 		ft_putstr(ft_catprintf(vm->a_string, " %i\n", arg));
-	return (SUCCESS);
 }

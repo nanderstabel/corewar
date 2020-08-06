@@ -12,7 +12,7 @@
 
 #include "corewar.h"
 
-int		op_aff(t_vm *vm, t_cursor *cursor)
+void	op_aff(t_vm *vm, t_cursor *cursor)
 {
 	unsigned char	enc;
 	char			arg;
@@ -22,14 +22,12 @@ int		op_aff(t_vm *vm, t_cursor *cursor)
 	enc = convert_to_int(vm->arena, new_idx(cursor->pc, 1, FALSE), 1);
 	if (get_arg_type(enc, 1) != REG || get_arg_type(enc, 2) != 0 || \
 		get_arg_type(enc, 3) != 0 || get_arg_type(enc, 4) != 0)
-		return (ERROR);
+		return ;
 	arg = convert_to_int(vm->arena, new_idx(cursor->pc, 2, FALSE), 1);
-	if (0 < arg && arg <= REG_NUMBER)
-	{
-		arg_value = (char)(cursor->reg[(int)arg]);
-		if (vm->vis != NULL)
-			ft_putchar(arg_value);
-	}
+	if (arg <= 0 || arg > REG_NUMBER)
+		return ;
+	arg_value = (char)(cursor->reg[(int)arg]);
+	if (vm->vis != NULL)
+		ft_putchar(arg_value);
 	// ft_printf(" %i\n", arg);//
-	return (SUCCESS);
 }

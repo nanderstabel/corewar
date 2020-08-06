@@ -35,12 +35,14 @@ char	*vis_itoa(unsigned char nbr)
 
 void	vis_exit(t_vm *vm)
 {
-	if (vm->vis != NULL)
+	if (vm->vis == NULL)
+		return ;
+	vis_close_windows(vm->vis);
+	if (vm->vis->graphics)
 	{
-		vis_close_windows(vm->vis);
 		ft_bzero(vm->vis->graphics, sizeof(t_graphics));
 		ft_memdel((void**)&(vm->vis->graphics));
-		ft_bzero(vm->vis, sizeof(t_vis));
-		ft_memdel((void**)&(vm->vis));
 	}
+	ft_bzero(vm->vis, sizeof(t_vis));
+	ft_memdel((void**)&(vm->vis));
 }

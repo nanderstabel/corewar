@@ -6,11 +6,20 @@
 /*   By: lhageman <lhageman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/03 16:31:49 by lhageman      #+#    #+#                 */
-/*   Updated: 2020/07/21 16:28:48 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/08/05 19:36:58 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vis.h"
+
+void	vis_attr_array(t_attr_func *attr)
+{
+	attr[0] = NULL;
+	attr[1] = vis_attr_p1;
+	attr[2] = vis_attr_p2;
+	attr[3] = vis_attr_p3;
+	attr[4] = vis_attr_p4;
+}
 
 void	vis_borders(WINDOW *window, int y, int x)
 {
@@ -69,18 +78,9 @@ int		vis_draw_arena(t_graphics *graphics)
 
 int		vis_initiate_arena(t_vm *vm)
 {
-	// char		arena[MEM_SIZE];
-	// int			i;
-
 	vis_draw_borders(vm->vis->graphics);
 	vis_print_data(vm);
 	vm->vis->arena = vm->arena;
-	// i = 0;
-	// while (i < MEM_SIZE)
-	// {
-	// 	arena[i] = '0';
-	// 	i += 1;
-	// }
 	vis_draw_arena(vm->vis->graphics);
 	vis_print_cursor(vm->vis);
 	return (0);

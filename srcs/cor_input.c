@@ -50,7 +50,7 @@ static int	is_option_or_file(char *str)
 	if (str[0] != '-' && ft_strstr(str, ".cor"))
 		return (does_file_exist(str));
 	if (str[0] != '-' || str[0] == '\0')
-		return (print_message(USAGE, NULL, STDERR));
+		return (print_usage(ERROR));
 	if (str[1] == '\0' || \
 		(ft_strchr(str, 'n') != NULL && ft_strchr(str, 'd') != NULL))
 		return (print_message(INV_OPT, str, STDERR));
