@@ -97,6 +97,7 @@ void				op_lfork(t_vm *vm, t_cursor *cursor);
 void				op_aff(t_vm *vm, t_cursor *cursor);
 
 int					print_message(char *message, char *info, int fd);
+int					print_usage(int ret);
 int					free_vm(t_vm *vm, int ret);
 void				cursor_del(t_cursor *cursor);
 

@@ -13,13 +13,20 @@
 #include "corewar.h"
 #include <stdlib.h>
 
+int			print_usage(int ret)
+{
+	ft_putstr("Usage: ./corewar [-d N -n N | -v ] <champion1.cor> ");
+	ft_putstr("<...>\n\t-d N\t\t: Dumps memory after N cycles then exits\n");
+	return (ret);
+}
+
 int			print_message(char *message, char *info, int fd)
 {
 	if (info != NULL)
 		ft_dprintf(fd, "%s:\n", info);
 	ft_dprintf(fd, "%s", message);
 	exit(0);
-	return (ERROR);
+	return (0);
 }
 
 static void	free_champions(t_champ ***champions)
