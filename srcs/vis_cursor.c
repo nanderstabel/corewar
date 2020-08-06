@@ -6,20 +6,11 @@
 /*   By: lhageman <lhageman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 09:43:31 by lhageman      #+#    #+#                 */
-/*   Updated: 2020/08/01 14:15:03 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/08/05 19:40:40 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vis.h"
-
-void	vis_attr_array(t_attr_func *attr)
-{
-	attr[0] = NULL;
-	attr[1] = vis_attr_p1;
-	attr[2] = vis_attr_p2;
-	attr[3] = vis_attr_p3;
-	attr[4] = vis_attr_p4;
-}
 
 void	vis_calc_pos(int pos, int *x, int *y)
 {
@@ -57,10 +48,18 @@ int		vis_calc_att(int bold, int inverse)
 		return (1);
 }
 
+void	vis_print_str(t_vis *vis, int y, int x, int i)
+{
+	char	*c;
+
+	c = vis_itoa(vis->arena[vis->index + i]);
+	mvwprintw(vis->graphics->arena, y, x, c);
+	ft_strdel(&c);
+}
+
 void	vis_print(t_vis *vis, int x, int y)
 {
 	unsigned int	i;
-	char			*c;
 
 	i = 0;
 	while (i < vis->bytes)
@@ -75,9 +74,7 @@ void	vis_print(t_vis *vis, int x, int y)
 				x = 3;
 				y = 2;
 			}
-			c = vis_itoa(vis->arena[vis->index + i]);
-			mvwprintw(vis->graphics->arena, y, x, c);
-			ft_strdel(&c);
+			vis_print_str(vis, y, x, i);
 			x += 3;
 			i += 1;
 		}
