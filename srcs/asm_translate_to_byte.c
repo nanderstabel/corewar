@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/08/06 18:08:29 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/08/06 20:42:02 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,10 @@ static t_bool	check_overflow(char **str)
 		return (FAIL);
 	}
 	else if (ft_strlen(*str) < ft_strlen(max_value))
+	{
+		free (max_value);
 		return (SUCCESS);
+	}
 	while ((*str)[index] != '\0')
 	{
 		if ((*str)[index] > max_value[index])
