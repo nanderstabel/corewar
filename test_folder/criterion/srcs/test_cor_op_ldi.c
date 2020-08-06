@@ -96,12 +96,9 @@ Test(cor_op_ldi, dir_reg_1, .init=redirect_all_stdout)
 	}
 	cursor->reg[arg_1] = 0x6969;
 	cursor->reg[arg_2] = 0x0420;
-	unsigned int pc_before = cursor->pc;
 	cr_assert_eq(cursor->reg[(int)arg_3], 0, "reg[arg_3] = %d not initialized to 0\n", cursor->reg[(int)arg_3]);
 	op_ldi(&vm, cursor);
-	unsigned int pc_after = cursor->pc;
 	cr_assert_eq(cursor->reg[(int)arg_3], value, "stored: reg[arg_3] = %d\n expected: reg[arg_3] = %d", cursor->reg[(int)arg_3], value);
 	// cr_assert_eq(cursor->reg[(int)arg_1], value, "stored: reg[arg_1] = %d\n expected: reg[arg_1] = %d", cursor->reg[(int)arg_1], value);
-	cr_assert_eq(pc_after - pc_before, prog_size, "cursor moved %d bytes but should have moved %d bytes\n", pc_after - pc_before, prog_size);
 	cr_assert_eq(cursor->carry, 0, "carry: %d\n expected: %d", cursor->carry, 0);
 }

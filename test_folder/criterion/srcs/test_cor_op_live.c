@@ -57,7 +57,7 @@ Test(cor_op_live, valid_id, .init=redirect_all_stdout)
 	t_cursor *cursor;
 	char	op_code = 1;
 	int		move_bytes = 5;
-	int		arg_1 = 2;
+	int		arg_1 = -2;
 	unsigned int live_count = 5;
 	unsigned int decay = 142;
 	int		champ_no = 4;
@@ -76,11 +76,8 @@ Test(cor_op_live, valid_id, .init=redirect_all_stdout)
 	vm.last_live = 4;
 	vm.live_count = live_count;
 	cursor->decay = decay;
-	unsigned int pc_before = cursor->pc;
 	op_live(&vm, cursor);
-	unsigned int pc_after = cursor->pc;
 	cr_expect_eq(vm.last_live, 2, "last live is still %d but should be %d", vm.last_live, arg_1);
 	cr_expect_eq(vm.live_count, live_count + 1, "live_count is %d but should be %d\n", vm.live_count, live_count + 1);
 	cr_expect_eq(cursor->decay, 0, "decay in cursor is %d but should be 0\n", cursor->decay);
-	cr_assert_eq(pc_after - pc_before, move_bytes, "cursor moved %d bytes but should have moved %d bytes\n", pc_after - pc_before, move_bytes);
 }
