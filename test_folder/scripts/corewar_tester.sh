@@ -6,7 +6,7 @@
 #    By: mgross <mgross@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/07/31 16:13:27 by mgross        #+#    #+#                  #
-#    Updated: 2020/07/31 22:20:16 by mgross        ########   odam.nl          #
+#    Updated: 2020/08/07 17:19:54 by mgross        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,22 +28,9 @@ FAIL=0
 SUCCESS=0
 NUM_TESTS=0
 ZERO_FLAGS=0
+MULTI=0
 
 USAGE="Usage: ./corewar_tester\t- [ -all | & [ -d N ] | & [ -i N ] <champion.cor\n\t\t\t- [ -a | -b | -c | -e | -f ] | & [ -d N ] <champion.cor\n\n\t\t\t-0\t: Run [ -all ] without extra flags\n\t\t\t-all\t: Cycles through all files from given path,\n\t\t\t\t  by default with all flags [ -a, -b, -c, -e, -f ] \n\t\t\t\t  or no flags with [ -0 ] until max dump [ -d N ] \n\t\t\t\t  incremented by given steps [ -i N ]\n\n\t\t\t-a\t: Equivalent to original -v  4\n\t\t\t-b\t: Equivalent to original -v 16\n\t\t\t-c\t: Equivalent to original -v  8\n\t\t\t-e\t: Equivalent to original -v  2\n\t\t\t-f\t: Equivalent to original -v  1\n\t\t\t-d N\t: Number of cycles befor dump. Default is 12000 cycles\n\t\t\t-i N\t: Number to increment cycles befor dump. Default is 100 \n\t\t\t-help\t: Extra info\n"
-
-if [ -z "$(ls $DIR)" ]; then
-    ./all_compile.sh ../asm_test_folder/valid_s_files/*.s
-fi
-
-if ! [ -z "$(ls $FIX_DIR)" ]; then
-    rm ../vm_test_folder/need_fixing/*.s
-    rm ../vm_test_folder/need_fixing/*.cor
-fi
-
-if ! [ -z "$(ls ../vm_test_folder/logs/)" ]; then
-    rm ../vm_test_folder/logs/*.log
-fi
-touch $LOG_FILE
 
 OS=$(uname -s)
 if [ $OS == Linux ]
@@ -57,6 +44,10 @@ if [ -z "$1" ] || [ "$1" == "-help" ]
     then
         printf "$USAGE" 
         exit 1
+fi
+if [ "$1" == "-multi" ]; then
+	shift
+	MULTI=1
 fi
 
 if [ "$1" == "-all" ]; then
@@ -86,7 +77,6 @@ if [ "$1" == "-all" ]; then
             exit 1
         fi
     done
-
 else
     while [[ "$1" =~ ^- ]]; do
         if [[ "$1" =~ -[a-f] ]]; then
@@ -131,6 +121,26 @@ else
         fi
     done
 fi
+
+if [ "$MULTI" == 1 ]; then
+	rm ../vm_test_folder/valid_cor_files/*.cor
+fi
+
+if [ -z "$(ls $DIR)" ]; then
+    ./all_compile.sh ../asm_test_folder/valid_s_files/*.s
+	rm ../vm_test_folder/valid_cor_files/salamahenagalabadoun.cor
+fi
+
+if ! [ -z "$(ls $FIX_DIR)" ]; then
+    rm ../vm_test_folder/need_fixing/*.s
+    rm ../vm_test_folder/need_fixing/*.cor
+fi
+
+if ! [ -z "$(ls ../vm_test_folder/logs/)" ]; then
+    rm ../vm_test_folder/logs/*.log
+fi
+touch $LOG_FILE
+
 
 function		print_message()
 {
@@ -190,6 +200,103 @@ fi
 
 PATH_PLAYERS=$@
 
+function	MULTI_player_compare()
+{
+
+	rm diff_folder/our_output diff_folder/og_output
+	if [ -z "$6" ] && [ -z "$7" ]; then
+		$OUR_COR $3 -d $5 "$DIR"$1 "$DIR"$2 > diff_folder/our_output
+		$OG_COR $4 -d $5 "$DIR"$1 "$DIR"$2 > diff_folder/og_output
+		DIFF=$(diff "diff_folder/our_output" "diff_folder/og_output")
+		((NUM_TESTS++))
+		if [ "$DIFF" != "" ]; then
+			((FAIL++))
+			printf '\e[0m[%s + %s] ' "$1" "$2"
+			if [ -z "$3" ]; then
+				printf "\e[38;5;9mOutput is NOT the same with flag      [-d]\n\e[0m" ;
+			else
+				printf "\e[38;5;9mOutput is NOT the same with flag [%s] [-d]\n\e[0m" "$3" ;
+			fi
+			diff "diff_folder/our_output" "diff_folder/og_output"
+			printf "./corewar_tester.sh -multi "$3" -d "$5" "$DIR"$1 "$DIR"$2 \n\n" >> $LOG_FILE
+			if [ $ALL == 0 ]; then
+				print_message "$SUCCESS"
+				exit 1
+			fi
+		else
+			((SUCCESS++))
+			printf "\e[0m[%s + %s] " "$1" "$2"
+			if [ -z "$3" ]; then
+					printf "\e[38;5;34mPerfect! Output is the same until %s cycles with flag     [-d]\n\e[0m" "$5"
+			else
+				printf "\e[38;5;34mPerfect! Output is the same until %s cycles with flag [%s][-d]\n\e[0m" "$5" "$3"
+			fi
+		fi
+
+	elif [ -z "$7" ]; then
+		$OUR_COR $4 -d $6 "$DIR"$1 "$DIR"$2 "$DIR"$3 > diff_folder/our_output
+		$OG_COR $5 -d $6 "$DIR"$1 "$DIR"$2 "$DIR"$3 > diff_folder/og_output
+		DIFF=$(diff "diff_folder/our_output" "diff_folder/og_output")
+		((NUM_TESTS++))
+		if [ "$DIFF" != "" ]; then
+			((FAIL++))
+			printf '\e[0m[%s + %s + %s] ' "$1"  "$2"  "$3"
+			if [ -z "$4" ]; then
+				printf "\e[38;5;9mOutput is NOT the same with flag      [-d]\n\e[0m" ;
+			else
+				printf "\e[38;5;9mOutput is NOT the same with flag [%s] [-d]\n\e[0m" "$4" ;
+			fi
+			diff "diff_folder/our_output" "diff_folder/og_output"
+			printf "./corewar_tester.sh -multi "$4" -d "$6" "$DIR"$1 "$DIR"$2 "$DIR"$3 \n\n" >> $LOG_FILE
+			if [ $ALL == 0 ]; then
+				print_message "$SUCCESS"
+				exit 1
+			fi
+		else
+			((SUCCESS++))
+			printf "\e[0m[%s + %s + %s] " "$1"  "$2"  "$3"
+			if [ -z "$4" ]; then
+					printf "\e[38;5;34mPerfect! Output is the same until %s cycles with flag     [-d]\n\e[0m" "$6"
+			else
+				printf "\e[38;5;34mPerfect! Output is the same until %s cycles with flag [%s][-d]\n\e[0m" "$6" "$4"
+			fi
+		fi
+
+	else
+		$OUR_COR $5 -d $7 "$DIR"$1 "$DIR"$2 "$DIR"$3 "$DIR"$4 > diff_folder/our_output
+		$OG_COR $6 -d $7 "$DIR"$1 "$DIR"$2 "$DIR"$3 "$DIR"$4 > diff_folder/og_output
+		DIFF=$(diff "diff_folder/our_output" "diff_folder/og_output")
+		((NUM_TESTS++))
+		if [ "$DIFF" != "" ]; then
+			((FAIL++))
+			printf '\e[0m[%s + %s + %s + %s] ' "$1"  "$2"  "$3"  "$4"
+			if [ -z "$5" ]; then
+				printf "\e[38;5;9mOutput is NOT the same with flag      [-d]\n\e[0m" ;
+			else
+				printf "\e[38;5;9mOutput is NOT the same with flag [%s] [-d]\n\e[0m" "$5" ;
+			fi
+			diff "diff_folder/our_output" "diff_folder/og_output"
+			printf "./corewar_tester.sh -multi "$5" -d "$7" "$DIR"$1 "$DIR"$2 "$DIR"$3 "$DIR"$4\n\n" >> $LOG_FILE
+			if [ $ALL == 0 ]; then
+				print_message "$SUCCESS"
+				exit 1
+			fi
+		else
+			((SUCCESS++))
+			printf "\e[%s + %s + %s + %s] " "$1"  "$2"  "$3"  "$4"
+			if [ -z "$5" ]; then
+					printf "\e[38;5;34mPerfect! Output is the same until %s cycles with flag     [-d]\n\e[0m" "$7"
+			else
+				printf "\e[38;5;34mPerfect! Output is the same until %s cycles with flag [%s][-d]\n\e[0m" "$7" "$5"
+			fi
+		fi
+
+	fi
+
+	
+	# printf ""$DIR"$1 -- "$DIR"$2 -- "$DIR"$3 -- "$DIR"$4 -- $5 -- $6 -- $7\n"
+}
+
 function    one_file_compare()
 {
     for PLAYER in $1; do
@@ -236,7 +343,7 @@ function    one_file_compare()
     done
 }
 
-if [ $ALL == 1 ]; then
+if [ $ALL == 1 ] && [ $MULTI != 1 ]; then
     for PLAYER in $PATH_PLAYERS; do
         for (( i=0; i <= $DUMP ; i+=$INCREMENT)); do
             INDEX=0
@@ -251,7 +358,68 @@ if [ $ALL == 1 ]; then
 			fi
         done
     done
-
+elif [ $MULTI == 1 ]; then
+	if [ $ALL != 1 ]; then
+		IFS=' ' read -r -a MULTI_PLAYERS <<< "$PATH_PLAYERS"
+		while [ ! -z "$MULTI_PLAYERS" ]; do
+			in_array=${#MULTI_PLAYERS[*]}
+			if [[ $in_array == "4" ]]; then
+				MULTI_player_compare "$(basename ${MULTI_PLAYERS[0]})" "$(basename ${MULTI_PLAYERS[1]})" "$(basename ${MULTI_PLAYERS[2]})" "$(basename ${MULTI_PLAYERS[3]})" "$FLAG" "$FLAG_OG" "$DUMP"
+			elif [ "$in_array" == "3" ]; then
+				MULTI_player_compare "$(basename ${MULTI_PLAYERS[0]})" "$(basename ${MULTI_PLAYERS[1]})" "$(basename ${MULTI_PLAYERS[2]})" "$FLAG" "$FLAG_OG" "$DUMP"
+			elif [ "$in_array" == "2" ]; then
+				MULTI_player_compare "$(basename ${MULTI_PLAYERS[0]})" "$(basename ${MULTI_PLAYERS[1]})" "$FLAG" "$FLAG_OG" "$DUMP"
+			else
+				printf "\e[38;5;11mTester stopped. Less then 2 champions to compete\e[0m\n"
+				print_message "$SUCCESS" 
+				exit 1
+			fi
+			echo "here111"
+			print_message "$SUCCESS" 
+				exit 1
+		done
+	elif [ $ALL == 1 ]; then
+		MULTI_PLAYERS=($(ls ../vm_test_folder/valid_cor_files/ | grep -v ".gitignore" | shuf -n 4))
+		while [ ! -z "$MULTI_PLAYERS" ]; do
+			in_array=${#MULTI_PLAYERS[*]}
+			for (( i=0; i <= $DUMP ; i+=$INCREMENT)); do
+				INDEX=0
+				if [ $ZERO_FLAGS == 1 ]; then
+					if [[ $in_array == "4" ]]; then
+						MULTI_player_compare ""${MULTI_PLAYERS[0]}"" ""${MULTI_PLAYERS[1]}"" ""${MULTI_PLAYERS[2]}"" ""${MULTI_PLAYERS[3]}"" "" "" "$i" 
+					elif [ "$in_array" == "3" ]; then
+						MULTI_player_compare ""${MULTI_PLAYERS[0]}"" ""${MULTI_PLAYERS[1]}"" ""${MULTI_PLAYERS[2]}"" "" "" "$i" 
+					elif [ "$in_array" == "2" ]; then
+						MULTI_player_compare ""${MULTI_PLAYERS[0]}"" ""${MULTI_PLAYERS[1]}"" "" "" "$i"
+					else
+						printf "\e[38;5;11mTester stopped. Less then 2 champions to compete\e[0m\n"
+						exit 1
+					fi
+					MULTI_player_compare
+					((INDEX++))
+				else
+					while (( $INDEX < $NUM_OF_FLAGS )); do
+						if [[ $in_array == "4" ]]; then
+							MULTI_player_compare ""${MULTI_PLAYERS[0]}"" ""${MULTI_PLAYERS[1]}"" ""${MULTI_PLAYERS[2]}"" ""${MULTI_PLAYERS[3]}"" "${FLAGS_ARRAY_OUR[$INDEX]}" "${FLAGS_ARRAY_OG[$INDEX]}" "$i" 
+						elif [ "$in_array" == "3" ]; then
+							MULTI_player_compare ""${MULTI_PLAYERS[0]}"" ""${MULTI_PLAYERS[1]}"" ""${MULTI_PLAYERS[2]}"" "${FLAGS_ARRAY_OUR[$INDEX]}" "${FLAGS_ARRAY_OG[$INDEX]}" "$i" 
+						elif [ "$in_array" == "2" ]; then
+							MULTI_player_compare ""${MULTI_PLAYERS[0]}"" ""${MULTI_PLAYERS[1]}"" "${FLAGS_ARRAY_OUR[$INDEX]}" "${FLAGS_ARRAY_OG[$INDEX]}" "$i" 
+						else
+							printf "\e[38;5;11mTester stopped. Less then 2 champions to compete\e[0m\n"
+							print_message "$SUCCESS" 
+							exit 1
+						fi
+						((INDEX++))
+					done
+				fi
+			done
+			for player in $MULTI_PLAYERS; do
+				rm "../vm_test_folder/valid_cor_files/"$player
+			done
+			MULTI_PLAYERS=($(ls ../vm_test_folder/valid_cor_files/ | grep -v ".gitignore" | shuf -n 4))
+		done		
+	fi
 else
     one_file_compare "$PATH_PLAYERS" "$FLAG" "$FLAG_OG" "$DUMP"
 fi
