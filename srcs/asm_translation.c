@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/06 18:04:26 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/08/06 18:04:44 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/08/07 15:38:48 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 t_bool			label_error(t_project *as)
 {
 	as->count = (as->flags & DEBUG_O) ? ft_printf("\t\t%s\n", __func__) : 0;
-	ft_dprintf(2, LABEL_ERR, as->string);
+	ft_dprintf(2, \
+		"No such label %s while attempting to dereference token [TOKEN]", \
+		as->string);
 	ft_dprintf(2, ERROR_FORMAT, as->current_token->row + 1, \
 	as->current_token->column + 1, \
 	g_token_tab[as->current_token->token_type].string, \

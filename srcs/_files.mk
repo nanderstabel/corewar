@@ -6,7 +6,7 @@
 #    By: mmarcell <mmarcell@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/02/28 18:56:22 by mmarcell      #+#    #+#                  #
-#    Updated: 2020/08/06 18:14:34 by nstabel       ########   odam.nl          #
+#    Updated: 2020/08/07 15:28:03 by nstabel       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,4 +65,9 @@ ASM_FILES :=	op.c						\
 				asm_syntax_error.c			\
 				asm_print_usage_message.c	\
 				asm_translation.c			\
-				asm_write_buffer.c
+				asm_write_buffer.c			\
+				asm_check_overflow.c		\
+				asm_lexicon_utils1.c		\
+				asm_lexicon_utils2.c		\
+				asm_lexicon_utils3.c		\
+				asm_lexicon_utils4.c

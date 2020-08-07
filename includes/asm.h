@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/08/06 18:15:13 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/08/07 15:39:32 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,8 @@
 # include "libft.h"
 # include "op.h"
 
-// # define OPTIONS				"agul"
 # define SYNTAX_ERR				"Syntax error at token [TOKEN]"
-# define UNEXPECTED_END			"Syntax error - unexpected end of input (Perhaps you forgot to end with a newline ?)\n"
 # define INSTRUCTION_ERR		"Invalid instruction at token [TOKEN]"
-# define LABEL_ERR				"No such label %s while attempting to dereference token [TOKEN]"
 
 # define ERROR_FORMAT			"[%3.3u:%3.3u] %s \"%s\"\n"
 # define STRING_FORMAT			"[%3.3u:%3.3u] %s \"\"%s\"\"\n"
@@ -209,6 +206,10 @@ t_bool				check_strings_to_long(t_project *as);
 t_bool				syntax_error(t_project *as);
 t_bool				print_usage_message(t_project *as);
 void				write_byte_to_buf(t_project *as, char byte);
-void				write_str_to_buf(t_project *as, char *to_bytecode, char type);
+void				write_str_to_buf(t_project *as, char *to_bytecode,
+					char type);
+t_bool				check_overflow(char **str);
+t_bool				string_token2(t_project *as, char **line, int len,
+					char *str_temp);
 
 #endif

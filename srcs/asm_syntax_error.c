@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/08/06 17:49:49 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/08/06 17:50:24 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/08/07 15:40:30 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ t_bool			syntax_error(t_project *as)
 	if (as->next_token->token_type == END && as->header_found && \
 		as->current_token->token_type != LABEL)
 	{
-		ft_dprintf(2, UNEXPECTED_END);
+		ft_dprintf(2, "Syntax error - unexpected end of input ");
+		ft_dprintf(2, "(Perhaps you forgot to end with a newline ?)\n");
 		exit(0);
 	}
 	ft_dprintf(2, SYNTAX_ERR);
