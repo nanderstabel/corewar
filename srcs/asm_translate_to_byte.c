@@ -6,65 +6,11 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/08/06 20:42:02 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/08/07 14:58:58 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
-
-static int		create_max_value_string(char *str, char **max_value)
-{
-	int		index;
-
-	if (*str == '%')
-	{
-		if (str[1] == '-')
-			*max_value = ft_strdup("%-9223372036854775808");
-		else
-			*max_value = ft_strdup("%18446744073709551615");
-		index = 1;
-	}
-	else
-	{
-		if (str[0] == '-')
-			*max_value = ft_strdup("-9223372036854775808");
-		else
-			*max_value = ft_strdup("18446744073709551615");
-		index = 0;
-	}
-	return (index);
-}
-
-static t_bool	check_overflow(char **str)
-{
-	char	*max_value;
-	int		index;
-
-	index = create_max_value_string(*str, &max_value);
-	if (ft_strlen(*str) > ft_strlen(max_value))
-	{
-		free(*str);
-		*str = max_value;
-		return (FAIL);
-	}
-	else if (ft_strlen(*str) < ft_strlen(max_value))
-	{
-		free (max_value);
-		return (SUCCESS);
-	}
-	while ((*str)[index] != '\0')
-	{
-		if ((*str)[index] > max_value[index])
-		{
-			free(*str);
-			*str = max_value;
-			return (SUCCESS);
-		}
-		index++;
-	}
-	free(max_value);
-	return (SUCCESS);
-}
 
 t_bool			translate_argument(t_project *as)
 {
