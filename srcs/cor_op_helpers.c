@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/10 14:51:50 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/29 14:11:33 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/08/07 20:24:11 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,12 @@ static void	get_dir_ind(t_vm *vm, t_cursor *cursor, int param[4], int i)
 	{
 		param[i] = convert_to_int(vm->arena, \
 			new_idx(cursor->pc, param[0], 0), 2);
-		param[i] = convert_to_int(vm->arena, \
-			new_idx(cursor->pc, param[i], 0), 4);
+		if (cursor->op_code == 13)
+			param[i] = convert_to_int(vm->arena, \
+				new_idx(cursor->pc, param[i], 1), 2);
+		else
+			param[i] = convert_to_int(vm->arena, \
+				new_idx(cursor->pc, param[i], 0), 4);
 		if (vm->a_option)
 			vm->a_string = ft_catprintf(vm->a_string, "%i", param[i]);
 		param[0] += 2;
