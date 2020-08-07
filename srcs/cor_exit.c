@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/25 17:54:31 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/10 16:54:17 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/08/07 18:47:15 by mgross        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ static void	free_champions(t_champ ***champions)
 int			free_vm(t_vm *vm, int ret)
 {
 	t_cursor	*cursor_to_del;
-
+	(void)ret;
+	//hier moeten we de ret nog aanpassen
 	if (vm->champ)
 		free_champions(&(vm->champ));
 	while (vm->cursors)
@@ -61,5 +62,5 @@ int			free_vm(t_vm *vm, int ret)
 		ft_memdel((void**)(&cursor_to_del));
 	}
 	ft_bzero(vm, sizeof(t_vm));
-	return (ret);
+	return (0);
 }
