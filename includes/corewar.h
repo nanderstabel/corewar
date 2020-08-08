@@ -6,7 +6,7 @@
 /*   By: zitzak <zitzak@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 11:17:00 by zitzak        #+#    #+#                 */
-/*   Updated: 2020/07/29 21:24:03 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/08/08 10:47:12 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void				op_aff(t_vm *vm, t_cursor *cursor);
 
 int					print_message(char *message, char *info, int fd);
 int					print_usage(int ret);
-int					free_vm(t_vm *vm, int ret);
+int					free_vm(t_vm *vm);
 void				cursor_del(t_cursor *cursor);
 
 int					input_validation(t_vm *vm, char **argv, int argc);
@@ -132,4 +132,5 @@ void				store_in_arena(unsigned char *arena, unsigned int idx, \
 int					get_value(t_vm *vm, t_cursor *cursor, int param[4]);
 
 void				perform_check(t_vm *vm);
+
 #endif

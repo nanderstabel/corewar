@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/25 17:54:31 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/08/08 10:10:16 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/08/08 10:46:42 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,8 @@
 
 int			print_usage(int ret)
 {
-	ft_putstr(\
-		"Usage: ./corewar [-d N -n N -a -b -c -e -f | -v ] <champion1.cor> ");
+	ft_putstr("Usage: ./corewar [-d N -n N | -v ] <champion1.cor> ");
 	ft_putstr("<...>\n\t-d N\t\t: Dumps memory after N cycles then exits\n");
-	ft_putstr("\t-v N\t\t: Run with visualizer\n");
-	ft_putstr("\t-a  \t\t: Show operations (Params are NOT litteral ...)\n");
-	ft_putstr("\t-b  \t\t: Show PC movements (Except for jumps)\n");
-	ft_putstr("\t-c  \t\t: Show deaths\n");
-	ft_putstr("\t-e  \t\t: Show cycles\n");
-	ft_putstr("\t-f  \t\t: Show lives\n");
 	return (ret);
 }
 
@@ -54,11 +47,10 @@ static void	free_champions(t_champ ***champions)
 	ft_memdel((void**)champions);
 }
 
-int			free_vm(t_vm *vm, int ret)
+int			free_vm(t_vm *vm)
 {
 	t_cursor	*cursor_to_del;
-	(void)ret;
-	//hier moeten we de ret nog aanpassen
+
 	if (vm->champ)
 		free_champions(&(vm->champ));
 	while (vm->cursors)

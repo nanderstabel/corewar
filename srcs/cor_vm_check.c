@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/06 18:15:19 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/31 14:50:24 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/08/08 10:46:20 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,7 @@ void		perform_check(t_vm *vm)
 {
 	++(vm->check_count);
 	check_cursors(vm);
-	if (vm->check_count == MAX_CHECKS || vm->live_count >= NBR_LIVE \
-		/* || vm->ctd <= 0 */)
+	if (vm->check_count == MAX_CHECKS || vm->live_count >= NBR_LIVE)
 	{
 		vm->ctd -= CYCLE_DELTA;
 		if (vm->e_option)

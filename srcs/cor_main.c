@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/25 12:46:51 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/07/26 12:11:55 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/08/08 10:48:07 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		main(int argc, char **argv)
 	if (argc == 1)
 		return (print_usage(0));
 	if (input_validation(&vm, argv, argc) == ERROR)
-		return (free_vm(&vm, ERROR));
+		return (free_vm(&vm));
 	vm_start(&vm);
 	if (vm.cursors != NULL && \
 		vm.dump >= 0 && (unsigned int)vm.dump == vm.total_cycle_count)
@@ -35,5 +35,5 @@ int		main(int argc, char **argv)
 	else
 		ft_printf("Contestant %d, \"%s\", has won !\n", vm.last_live, \
 			vm.champ[vm.last_live]->header.prog_name);
-	return (free_vm(&vm, SUCCESS));
+	return (free_vm(&vm));
 }
