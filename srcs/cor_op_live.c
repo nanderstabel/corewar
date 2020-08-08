@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/02 11:20:48 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/08/07 16:11:36 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/08/08 12:03:38 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ static void	vis_live(t_vm *vm, t_cursor *cursor)
 	vm->vis->bytes = bytes;
 	vis_print_cursor(vm->vis);
 	vis_print_data(vm);
+	usleep(10000);
 	vm->vis->attr[cursor->player](vis_calc_att(FALSE, FALSE), \
 		vm->vis->graphics->arena);
 	vm->vis->index = cursor->pc;

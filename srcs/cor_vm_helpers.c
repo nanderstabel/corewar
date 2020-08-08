@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/28 17:10:22 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/08/08 11:54:27 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/08/08 12:03:54 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ void			print_pc(t_vm *vm, t_cursor *cursor, size_t size)
 		vm->vis->attr[cursor->player](vis_calc_att(FALSE, TRUE), \
 		vm->vis->graphics->arena);
 		vis_print_cursor(vm->vis);
+		vis_print_data(vm);
 		usleep(10000);
 		wattron(vm->vis->graphics->arena, COLOR_PAIR(c));
 		wattroff(vm->vis->graphics->arena, A_BOLD);
 		vis_print_cursor(vm->vis);
-		usleep(5000);
 	}
 }
 
