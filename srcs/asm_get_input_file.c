@@ -6,7 +6,7 @@
 /*   By: nstabel <nstabel@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/06 19:27:58 by nstabel       #+#    #+#                 */
-/*   Updated: 2020/07/09 20:12:03 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/08/08 11:30:14 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_bool			get_input_file(t_project *as)
 	as->fd = open(*as->argv, O_RDONLY);
 	if (as->fd == -1)
 	{
-		ft_printf("Can't read source file %s\n", *as->argv);
+		ft_dprintf(2, "Can't read source file %s\n", *as->argv);
 		exit(0);
 		return (FAIL);
 	}
