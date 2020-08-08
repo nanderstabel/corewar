@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/25 17:54:31 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/08/07 18:47:15 by mgross        ########   odam.nl         */
+/*   Updated: 2020/08/08 10:10:16 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,15 @@
 
 int			print_usage(int ret)
 {
-	ft_putstr("Usage: ./corewar [-d N -n N | -v ] <champion1.cor> ");
+	ft_putstr(\
+		"Usage: ./corewar [-d N -n N -a -b -c -e -f | -v ] <champion1.cor> ");
 	ft_putstr("<...>\n\t-d N\t\t: Dumps memory after N cycles then exits\n");
+	ft_putstr("\t-v N\t\t: Run with visualizer\n");
+	ft_putstr("\t-a  \t\t: Show operations (Params are NOT litteral ...)\n");
+	ft_putstr("\t-b  \t\t: Show PC movements (Except for jumps)\n");
+	ft_putstr("\t-c  \t\t: Show deaths\n");
+	ft_putstr("\t-e  \t\t: Show cycles\n");
+	ft_putstr("\t-f  \t\t: Show lives\n");
 	return (ret);
 }
 
