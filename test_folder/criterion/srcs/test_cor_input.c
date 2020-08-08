@@ -613,16 +613,3 @@ Test(input_validation, valid_one_players)
 	free_vm(&vm);
 }
 
-Test(input_validation, no_args, .init=redirect_all_stdout)
-{
-	int		expected_return = SUCCESS;
-	int		given_argc = 1;
-	char	**given_argv = (char**)ft_memalloc(sizeof(char*) * given_argc);
-
-	given_argv[0] = ft_strdup("corewar");
-
-	t_vm	vm;
-	int		real_return = input_validation(&vm, given_argv, given_argc);
-	cr_assert_eq(real_return, expected_return, "with no arguments given, input validation returned %d when the expected return is %d", expected_return, real_return);
-	free_vm(&vm);
-}
