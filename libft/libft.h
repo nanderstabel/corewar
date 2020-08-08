@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/01/16 21:05:44 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/29 10:43:50 by mgross        ########   odam.nl         */
+/*   Updated: 2020/08/08 08:22:11 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 
 # define TRUE				1
 # define FALSE				0
-// # define SUCCESS			TRUE
 # define ERROR				FALSE
 
 # define FT_INT_MAX			2147483647
@@ -319,6 +318,6 @@ t_list				*ft_list_last_elem(t_list *head);
 int					get_next_endline(const int fd, char **line);
 char				*ft_strrev(char *str);
 void				*ft_memrev(void *src, size_t len);
-char    			*ft_catprintf(char *old_str, const char *format, ...);
+char				*ft_catprintf(char *old_str, const char *format, ...);
 
 #endif
