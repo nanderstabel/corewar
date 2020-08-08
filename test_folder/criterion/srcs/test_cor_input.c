@@ -40,10 +40,10 @@ Test(input_validation, invalid_d_and_n, .init=redirect_all_stdout)
 	given_argv[0] = ft_strdup("corewar");
 	given_argv[1] = ft_strdup("-nd");
 	given_argv[2] = ft_itoa(dump);
-	given_argv[3] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/fluttershy.cor");
-	given_argv[4] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/helltrain.cor");
-	given_argv[5] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/bigzork.cor");
-	given_argv[6] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/bee_gees.cor");
+	given_argv[3] = ft_strdup("test_folder/criterion/valid_cor_files/fluttershy.cor");
+	given_argv[4] = ft_strdup("test_folder/criterion/valid_cor_files/helltrain.cor");
+	given_argv[5] = ft_strdup("test_folder/criterion/valid_cor_files/bigzork.cor");
+	given_argv[6] = ft_strdup("test_folder/criterion/valid_cor_files/bee_gees.cor");
 
 	t_vm	vm;
 	ft_bzero(&vm, sizeof(t_vm));
@@ -69,10 +69,10 @@ Test(input_validation, invalid_d_option_too_big, .init=redirect_all_stdout)
 	given_argv[0] = ft_strdup("corewar");
 	given_argv[1] = ft_strdup("-d");
 	given_argv[2] = ft_itoa(dump);
-	given_argv[3] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/fluttershy.cor");
-	given_argv[4] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/helltrain.cor");
-	given_argv[5] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/bigzork.cor");
-	given_argv[6] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/bee_gees.cor");
+	given_argv[3] = ft_strdup("test_folder/criterion/valid_cor_files/fluttershy.cor");
+	given_argv[4] = ft_strdup("test_folder/criterion/valid_cor_files/helltrain.cor");
+	given_argv[5] = ft_strdup("test_folder/criterion/valid_cor_files/bigzork.cor");
+	given_argv[6] = ft_strdup("test_folder/criterion/valid_cor_files/bee_gees.cor");
 
 	t_vm	vm;
 	ft_bzero(&vm, sizeof(t_vm));
@@ -98,10 +98,10 @@ Test(input_validation, invalid_d_option_neg, .init=redirect_all_stdout)
 	given_argv[0] = ft_strdup("corewar");
 	given_argv[1] = ft_strdup("-d");
 	given_argv[2] = ft_itoa(dump);
-	given_argv[3] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/fluttershy.cor");
-	given_argv[4] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/helltrain.cor");
-	given_argv[5] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/bigzork.cor");
-	given_argv[6] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/bee_gees.cor");
+	given_argv[3] = ft_strdup("test_folder/criterion/valid_cor_files/fluttershy.cor");
+	given_argv[4] = ft_strdup("test_folder/criterion/valid_cor_files/helltrain.cor");
+	given_argv[5] = ft_strdup("test_folder/criterion/valid_cor_files/bigzork.cor");
+	given_argv[6] = ft_strdup("test_folder/criterion/valid_cor_files/bee_gees.cor");
 
 	t_vm	vm;
 	ft_bzero(&vm, sizeof(t_vm));
@@ -126,8 +126,8 @@ Test(input_validation, invalid_n_option_two_players, .init=redirect_all_stdout)
 	given_argv[0] = ft_strdup("corewar");
 	given_argv[1] = ft_strdup("-n");
 	given_argv[2] = ft_strdup("4");
-	given_argv[3] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/fluttershy.cor");
-	given_argv[4] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/helltrain.cor");
+	given_argv[3] = ft_strdup("test_folder/criterion/valid_cor_files/fluttershy.cor");
+	given_argv[4] = ft_strdup("test_folder/criterion/valid_cor_files/helltrain.cor");
 
 	t_vm	vm;
 	ft_bzero(&vm, sizeof(t_vm));
@@ -152,16 +152,16 @@ Test(input_validation, invalid_n_option_four_players_1, .init=redirect_all_stdou
 	given_argv[0] = ft_strdup("corewar");
 	given_argv[1] = ft_strdup("-n");
 	given_argv[2] = ft_strdup("4");
-	given_argv[3] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/fluttershy.cor");
+	given_argv[3] = ft_strdup("test_folder/criterion/valid_cor_files/fluttershy.cor");
 	given_argv[4] = ft_strdup("-n");
 	given_argv[5] = ft_strdup("5");
-	given_argv[6] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/helltrain.cor");
+	given_argv[6] = ft_strdup("test_folder/criterion/valid_cor_files/helltrain.cor");
 	given_argv[7] = ft_strdup("-n");
 	given_argv[8] = ft_strdup("2");
-	given_argv[9] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/bigzork.cor");
+	given_argv[9] = ft_strdup("test_folder/criterion/valid_cor_files/bigzork.cor");
 	given_argv[10] = ft_strdup("-n");
 	given_argv[11] = ft_strdup("3");
-	given_argv[12] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/bee_gees.cor");
+	given_argv[12] = ft_strdup("test_folder/criterion/valid_cor_files/bee_gees.cor");
 
 	t_vm	vm;
 	ft_bzero(&vm, sizeof(t_vm));
@@ -185,11 +185,11 @@ Test(input_validation, invalid_five_players, .init=redirect_all_stdout)
 	char	**given_argv = (char**)ft_memalloc(sizeof(char*) * given_argc);
 
 	given_argv[0] = ft_strdup("corewar");
-	given_argv[1] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/zork.cor");
-	given_argv[2] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/bigzork.cor");
-	given_argv[3] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/fluttershy.cor");
-	given_argv[4] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/bee_gees.cor");
-	given_argv[5] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/turtle.cor");
+	given_argv[1] = ft_strdup("test_folder/criterion/valid_cor_files/zork.cor");
+	given_argv[2] = ft_strdup("test_folder/criterion/valid_cor_files/bigzork.cor");
+	given_argv[3] = ft_strdup("test_folder/criterion/valid_cor_files/fluttershy.cor");
+	given_argv[4] = ft_strdup("test_folder/criterion/valid_cor_files/bee_gees.cor");
+	given_argv[5] = ft_strdup("test_folder/criterion/valid_cor_files/turtle.cor");
 
 	t_vm	vm;
 	ft_bzero(&vm, sizeof(t_vm));
@@ -221,16 +221,16 @@ Test(input_validation, valid_d_and_n_option_four_players)
 	given_argv[2] = ft_itoa(dump);
 	given_argv[3] = ft_strdup("-n");
 	given_argv[4] = ft_strdup("4");
-	given_argv[5] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/fluttershy.cor");
+	given_argv[5] = ft_strdup("test_folder/criterion/valid_cor_files/fluttershy.cor");
 	given_argv[6] = ft_strdup("-n");
 	given_argv[7] = ft_strdup("1");
-	given_argv[8] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/helltrain.cor");
+	given_argv[8] = ft_strdup("test_folder/criterion/valid_cor_files/helltrain.cor");
 	given_argv[9] = ft_strdup("-n");
 	given_argv[10] = ft_strdup("2");
-	given_argv[11] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/bigzork.cor");
+	given_argv[11] = ft_strdup("test_folder/criterion/valid_cor_files/bigzork.cor");
 	given_argv[12] = ft_strdup("-n");
 	given_argv[13] = ft_strdup("3");
-	given_argv[14] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/bee_gees.cor");
+	given_argv[14] = ft_strdup("test_folder/criterion/valid_cor_files/bee_gees.cor");
 
 	char	*player_1 = "helltrain";
 	char	*player_2 = "bigzork";
@@ -258,12 +258,12 @@ Test(input_validation, valid_d_option_four_players_3)
 	int		dump = 4;
 
 	given_argv[0] = ft_strdup("corewar");
-	given_argv[1] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/fluttershy.cor");
-	given_argv[2] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/helltrain.cor");
+	given_argv[1] = ft_strdup("test_folder/criterion/valid_cor_files/fluttershy.cor");
+	given_argv[2] = ft_strdup("test_folder/criterion/valid_cor_files/helltrain.cor");
 	given_argv[3] = ft_strdup("-d");
 	given_argv[4] = ft_itoa(dump);
-	given_argv[5] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/bigzork.cor");
-	given_argv[6] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/bee_gees.cor");
+	given_argv[5] = ft_strdup("test_folder/criterion/valid_cor_files/bigzork.cor");
+	given_argv[6] = ft_strdup("test_folder/criterion/valid_cor_files/bee_gees.cor");
 
 	char	*player_1 = "fluttershy";
 	char	*player_2 = "helltrain";
@@ -291,10 +291,10 @@ Test(input_validation, valid_d_option_four_players_2)
 	int		dump = 4;
 
 	given_argv[0] = ft_strdup("corewar");
-	given_argv[1] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/fluttershy.cor");
-	given_argv[2] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/helltrain.cor");
-	given_argv[3] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/bigzork.cor");
-	given_argv[4] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/bee_gees.cor");
+	given_argv[1] = ft_strdup("test_folder/criterion/valid_cor_files/fluttershy.cor");
+	given_argv[2] = ft_strdup("test_folder/criterion/valid_cor_files/helltrain.cor");
+	given_argv[3] = ft_strdup("test_folder/criterion/valid_cor_files/bigzork.cor");
+	given_argv[4] = ft_strdup("test_folder/criterion/valid_cor_files/bee_gees.cor");
 	given_argv[5] = ft_strdup("-d");
 	given_argv[6] = ft_itoa(dump);
 
@@ -326,10 +326,10 @@ Test(input_validation, valid_d_option_four_players_1)
 	given_argv[0] = ft_strdup("corewar");
 	given_argv[1] = ft_strdup("-d");
 	given_argv[2] = ft_itoa(dump);
-	given_argv[3] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/fluttershy.cor");
-	given_argv[4] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/helltrain.cor");
-	given_argv[5] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/bigzork.cor");
-	given_argv[6] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/bee_gees.cor");
+	given_argv[3] = ft_strdup("test_folder/criterion/valid_cor_files/fluttershy.cor");
+	given_argv[4] = ft_strdup("test_folder/criterion/valid_cor_files/helltrain.cor");
+	given_argv[5] = ft_strdup("test_folder/criterion/valid_cor_files/bigzork.cor");
+	given_argv[6] = ft_strdup("test_folder/criterion/valid_cor_files/bee_gees.cor");
 
 	char	*player_1 = "fluttershy";
 	char	*player_2 = "helltrain";
@@ -359,8 +359,8 @@ Test(input_validation, valid_d_option_two_players)
 	given_argv[0] = ft_strdup("corewar");
 	given_argv[1] = ft_strdup("-d");
 	given_argv[2] = ft_itoa(dump);
-	given_argv[3] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/zork.cor");
-	given_argv[4] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/bigzork.cor");
+	given_argv[3] = ft_strdup("test_folder/criterion/valid_cor_files/zork.cor");
+	given_argv[4] = ft_strdup("test_folder/criterion/valid_cor_files/bigzork.cor");
 
 	char	*player_1 = "zork";
 	char	*player_2 = "bigzork";
@@ -385,16 +385,16 @@ Test(input_validation, valid_n_option_four_players_2)
 	given_argv[0] = ft_strdup("corewar");
 	given_argv[1] = ft_strdup("-n");
 	given_argv[2] = ft_strdup("4");
-	given_argv[3] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/fluttershy.cor");
+	given_argv[3] = ft_strdup("test_folder/criterion/valid_cor_files/fluttershy.cor");
 	given_argv[4] = ft_strdup("-n");
 	given_argv[5] = ft_strdup("1");
-	given_argv[6] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/helltrain.cor");
+	given_argv[6] = ft_strdup("test_folder/criterion/valid_cor_files/helltrain.cor");
 	given_argv[7] = ft_strdup("-n");
 	given_argv[8] = ft_strdup("2");
-	given_argv[9] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/bigzork.cor");
+	given_argv[9] = ft_strdup("test_folder/criterion/valid_cor_files/bigzork.cor");
 	given_argv[10] = ft_strdup("-n");
 	given_argv[11] = ft_strdup("3");
-	given_argv[12] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/bee_gees.cor");
+	given_argv[12] = ft_strdup("test_folder/criterion/valid_cor_files/bee_gees.cor");
 
 	char	*player_1 = "helltrain";
 	char	*player_2 = "bigzork";
@@ -420,12 +420,12 @@ Test(input_validation, valid_n_option_four_players_1)
 	char	**given_argv = (char**)ft_memalloc(sizeof(char*) * given_argc);
 
 	given_argv[0] = ft_strdup("corewar");
-	given_argv[1] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/turtle.cor");
-	given_argv[2] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/zork.cor");
+	given_argv[1] = ft_strdup("test_folder/criterion/valid_cor_files/turtle.cor");
+	given_argv[2] = ft_strdup("test_folder/criterion/valid_cor_files/zork.cor");
 	given_argv[3] = ft_strdup("-n");
 	given_argv[4] = ft_strdup("2");
-	given_argv[5] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/bigzork.cor");
-	given_argv[6] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/bee_gees.cor");
+	given_argv[5] = ft_strdup("test_folder/criterion/valid_cor_files/bigzork.cor");
+	given_argv[6] = ft_strdup("test_folder/criterion/valid_cor_files/bee_gees.cor");
 
 	char	*player_1 = "turtle";
 	char	*player_2 = "bigzork";
@@ -451,11 +451,11 @@ Test(input_validation, valid_n_option_three_players_2)
 	char	**given_argv = (char**)ft_memalloc(sizeof(char*) * given_argc);
 
 	given_argv[0] = ft_strdup("corewar");
-	given_argv[1] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/turtle.cor");
-	given_argv[2] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/zork.cor");
+	given_argv[1] = ft_strdup("test_folder/criterion/valid_cor_files/turtle.cor");
+	given_argv[2] = ft_strdup("test_folder/criterion/valid_cor_files/zork.cor");
 	given_argv[3] = ft_strdup("-n");
 	given_argv[4] = ft_strdup("3");
-	given_argv[5] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/bigzork.cor");
+	given_argv[5] = ft_strdup("test_folder/criterion/valid_cor_files/bigzork.cor");
 
 	char	*player_1 = "turtle";
 	char	*player_2 = "zork";
@@ -479,11 +479,11 @@ Test(input_validation, valid_n_option_three_players_1)
 	char	**given_argv = (char**)ft_memalloc(sizeof(char*) * given_argc);
 
 	given_argv[0] = ft_strdup("corewar");
-	given_argv[1] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/turtle.cor");
+	given_argv[1] = ft_strdup("test_folder/criterion/valid_cor_files/turtle.cor");
 	given_argv[2] = ft_strdup("-n");
 	given_argv[3] = ft_strdup("1");
-	given_argv[4] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/zork.cor");
-	given_argv[5] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/bigzork.cor");
+	given_argv[4] = ft_strdup("test_folder/criterion/valid_cor_files/zork.cor");
+	given_argv[5] = ft_strdup("test_folder/criterion/valid_cor_files/bigzork.cor");
 
 	char	*player_1 = "zork";
 	char	*player_2 = "turtle";
@@ -509,8 +509,8 @@ Test(input_validation, valid_n_option_two_players)
 	given_argv[0] = ft_strdup("corewar");
 	given_argv[1] = ft_strdup("-n");
 	given_argv[2] = ft_strdup("2");
-	given_argv[3] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/zork.cor");
-	given_argv[4] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/bigzork.cor");
+	given_argv[3] = ft_strdup("test_folder/criterion/valid_cor_files/zork.cor");
+	given_argv[4] = ft_strdup("test_folder/criterion/valid_cor_files/bigzork.cor");
 
 	char	*player_1 = "bigzork";
 	char	*player_2 = "zork";
@@ -532,10 +532,10 @@ Test(input_validation, valid_four_players)
 	char	**given_argv = (char**)ft_memalloc(sizeof(char*) * given_argc);
 
 	given_argv[0] = ft_strdup("corewar");
-	given_argv[1] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/zork.cor");
-	given_argv[2] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/zork.cor");
-	given_argv[3] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/zork.cor");
-	given_argv[4] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/zork.cor");
+	given_argv[1] = ft_strdup("test_folder/criterion/valid_cor_files/zork.cor");
+	given_argv[2] = ft_strdup("test_folder/criterion/valid_cor_files/zork.cor");
+	given_argv[3] = ft_strdup("test_folder/criterion/valid_cor_files/zork.cor");
+	given_argv[4] = ft_strdup("test_folder/criterion/valid_cor_files/zork.cor");
 
 	t_vm	vm;
 	ft_bzero(&vm, sizeof(t_vm));
@@ -552,9 +552,9 @@ Test(input_validation, valid_three_players)
 	char	**given_argv = (char**)ft_memalloc(sizeof(char*) * given_argc);
 
 	given_argv[0] = ft_strdup("corewar");
-	given_argv[1] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/turtle.cor");
-	given_argv[2] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/fluttershy.cor");
-	given_argv[3] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/zork.cor");
+	given_argv[1] = ft_strdup("test_folder/criterion/valid_cor_files/turtle.cor");
+	given_argv[2] = ft_strdup("test_folder/criterion/valid_cor_files/fluttershy.cor");
+	given_argv[3] = ft_strdup("test_folder/criterion/valid_cor_files/zork.cor");
 
 	t_vm	vm;
 	ft_bzero(&vm, sizeof(t_vm));
@@ -582,8 +582,8 @@ Test(input_validation, valid_two_players)
 	char	**given_argv = (char**)ft_memalloc(sizeof(char*) * given_argc);
 
 	given_argv[0] = ft_strdup("corewar");
-	given_argv[1] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/bee_gees.cor");
-	given_argv[2] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/helltrain.cor");
+	given_argv[1] = ft_strdup("test_folder/criterion/valid_cor_files/bee_gees.cor");
+	given_argv[2] = ft_strdup("test_folder/criterion/valid_cor_files/helltrain.cor");
 
 	t_vm	vm;
 	ft_bzero(&vm, sizeof(t_vm));
@@ -600,7 +600,7 @@ Test(input_validation, valid_one_players)
 	char	**given_argv = (char**)ft_memalloc(sizeof(char*) * given_argc);
 
 	given_argv[0] = ft_strdup("corewar");
-	given_argv[1] = ft_strdup("test_folder/vm_test_folder/valid_cor_files/bigzork.cor");
+	given_argv[1] = ft_strdup("test_folder/criterion/valid_cor_files/bigzork.cor");
 
 	t_vm	vm;
 	ft_bzero(&vm, sizeof(t_vm));
