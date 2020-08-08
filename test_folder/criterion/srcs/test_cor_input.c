@@ -54,7 +54,7 @@ Test(input_validation, invalid_d_and_n, .init=redirect_all_stdout)
 		cr_assert_stdout_eq_str(expected_output, "");
 	if (expected_output_fd == STDERR)
 		cr_assert_stderr_eq_str(expected_output, "");
-	free_vm(&vm, SUCCESS);
+	free_vm(&vm);
 }
 
 Test(input_validation, invalid_d_option_too_big, .init=redirect_all_stdout)
@@ -83,7 +83,7 @@ Test(input_validation, invalid_d_option_too_big, .init=redirect_all_stdout)
 		cr_assert_stdout_eq_str(expected_output, "");
 	if (expected_output_fd == STDERR)
 		cr_assert_stderr_eq_str(expected_output, "");
-	free_vm(&vm, SUCCESS);
+	free_vm(&vm);
 }
 
 Test(input_validation, invalid_d_option_neg, .init=redirect_all_stdout)
@@ -112,7 +112,7 @@ Test(input_validation, invalid_d_option_neg, .init=redirect_all_stdout)
 		cr_assert_stdout_eq_str(expected_output, "");
 	if (expected_output_fd == STDERR)
 		cr_assert_stderr_eq_str(expected_output, "");
-	free_vm(&vm, SUCCESS);
+	free_vm(&vm);
 }
 
 Test(input_validation, invalid_n_option_two_players, .init=redirect_all_stdout)
@@ -138,7 +138,7 @@ Test(input_validation, invalid_n_option_two_players, .init=redirect_all_stdout)
 		cr_assert_stdout_eq_str(expected_output, "");
 	if (expected_output_fd == STDERR)
 		cr_assert_stderr_eq_str(expected_output, "");
-	free_vm(&vm, SUCCESS);
+	free_vm(&vm);
 }
 
 Test(input_validation, invalid_n_option_four_players_1, .init=redirect_all_stdout)
@@ -172,7 +172,7 @@ Test(input_validation, invalid_n_option_four_players_1, .init=redirect_all_stdou
 		cr_assert_stdout_eq_str(expected_output, "");
 	if (expected_output_fd == STDERR)
 		cr_assert_stderr_eq_str(expected_output, "");
-	free_vm(&vm, SUCCESS);
+	free_vm(&vm);
 }
 
 Test(input_validation, invalid_five_players, .init=redirect_all_stdout)
@@ -201,7 +201,7 @@ Test(input_validation, invalid_five_players, .init=redirect_all_stdout)
 		cr_assert_stdout_eq_str(expected_output, "");
 	if (expected_output_fd == STDERR)
 		cr_assert_stderr_eq_str(expected_output, "");
-		free_vm(&vm, SUCCESS);
+		free_vm(&vm);
 }
 
 
@@ -247,7 +247,7 @@ Test(input_validation, valid_d_and_n_option_four_players)
 	cr_expect_str_eq(vm.champ[2]->header.prog_name, player_2, "player_2 expected: %s, player_2 saved: %s", player_2, vm.champ[2]->header.prog_name);
 	cr_expect_str_eq(vm.champ[3]->header.prog_name, player_3, "player_3 expected: %s, player_3 saved: %s", player_3, vm.champ[3]->header.prog_name);
 	cr_expect_str_eq(vm.champ[4]->header.prog_name, player_4, "player_4 expected: %s, player_4 saved: %s", player_4, vm.champ[4]->header.prog_name);
-	free_vm(&vm, SUCCESS);
+	free_vm(&vm);
 }
 
 Test(input_validation, valid_d_option_four_players_3)
@@ -280,7 +280,7 @@ Test(input_validation, valid_d_option_four_players_3)
 	cr_expect_str_eq(vm.champ[2]->header.prog_name, player_2, "player_2 expected: %s, player_2 saved: %s", player_2, vm.champ[2]->header.prog_name);
 	cr_expect_str_eq(vm.champ[3]->header.prog_name, player_3, "player_3 expected: %s, player_3 saved: %s", player_3, vm.champ[3]->header.prog_name);
 	cr_expect_str_eq(vm.champ[4]->header.prog_name, player_4, "player_4 expected: %s, player_4 saved: %s", player_4, vm.champ[4]->header.prog_name);
-	free_vm(&vm, SUCCESS);
+	free_vm(&vm);
 }
 
 Test(input_validation, valid_d_option_four_players_2)
@@ -313,7 +313,7 @@ Test(input_validation, valid_d_option_four_players_2)
 	cr_expect_str_eq(vm.champ[2]->header.prog_name, player_2, "player_2 expected: %s, player_2 saved: %s", player_2, vm.champ[2]->header.prog_name);
 	cr_expect_str_eq(vm.champ[3]->header.prog_name, player_3, "player_3 expected: %s, player_3 saved: %s", player_3, vm.champ[3]->header.prog_name);
 	cr_expect_str_eq(vm.champ[4]->header.prog_name, player_4, "player_4 expected: %s, player_4 saved: %s", player_4, vm.champ[4]->header.prog_name);
-	free_vm(&vm, SUCCESS);
+	free_vm(&vm);
 }
 
 Test(input_validation, valid_d_option_four_players_1)
@@ -346,7 +346,7 @@ Test(input_validation, valid_d_option_four_players_1)
 	cr_expect_str_eq(vm.champ[2]->header.prog_name, player_2, "player_2 expected: %s, player_2 saved: %s", player_2, vm.champ[2]->header.prog_name);
 	cr_expect_str_eq(vm.champ[3]->header.prog_name, player_3, "player_3 expected: %s, player_3 saved: %s", player_3, vm.champ[3]->header.prog_name);
 	cr_expect_str_eq(vm.champ[4]->header.prog_name, player_4, "player_4 expected: %s, player_4 saved: %s", player_4, vm.champ[4]->header.prog_name);
-	free_vm(&vm, SUCCESS);
+	free_vm(&vm);
 }
 
 Test(input_validation, valid_d_option_two_players)
@@ -373,7 +373,7 @@ Test(input_validation, valid_d_option_two_players)
 	cr_expect_eq(vm.dump, dump, "dump expected: %d, dump saved: %d", dump, vm.dump);
 	cr_expect_str_eq(vm.champ[1]->header.prog_name, player_1, "player_1 expected: %s, player_1 saved: %s", player_1, vm.champ[1]->header.prog_name);
 	cr_expect_str_eq(vm.champ[2]->header.prog_name, player_2, "player_2 expected: %s, player_2 saved: %s", player_2, vm.champ[2]->header.prog_name);
-	free_vm(&vm, SUCCESS);
+	free_vm(&vm);
 }
 
 Test(input_validation, valid_n_option_four_players_2)
@@ -410,7 +410,7 @@ Test(input_validation, valid_n_option_four_players_2)
 	cr_expect_str_eq(vm.champ[2]->header.prog_name, player_2, "player_2 expected: %s, player_2 saved: %s", player_2, vm.champ[2]->header.prog_name);
 	cr_expect_str_eq(vm.champ[3]->header.prog_name, player_3, "player_3 expected: %s, player_3 saved: %s", player_3, vm.champ[3]->header.prog_name);
 	cr_expect_str_eq(vm.champ[4]->header.prog_name, player_4, "player_4 expected: %s, player_4 saved: %s", player_4, vm.champ[4]->header.prog_name);
-	free_vm(&vm, SUCCESS);
+	free_vm(&vm);
 }
 
 Test(input_validation, valid_n_option_four_players_1)
@@ -441,7 +441,7 @@ Test(input_validation, valid_n_option_four_players_1)
 	cr_expect_str_eq(vm.champ[2]->header.prog_name, player_2, "player_2 expected: %s, player_2 saved: %s", player_2, vm.champ[2]->header.prog_name);
 	cr_expect_str_eq(vm.champ[3]->header.prog_name, player_3, "player_3 expected: %s, player_3 saved: %s", player_3, vm.champ[3]->header.prog_name);
 	cr_expect_str_eq(vm.champ[4]->header.prog_name, player_4, "player_4 expected: %s, player_4 saved: %s", player_4, vm.champ[4]->header.prog_name);
-	free_vm(&vm, SUCCESS);
+	free_vm(&vm);
 }
 
 Test(input_validation, valid_n_option_three_players_2)
@@ -469,7 +469,7 @@ Test(input_validation, valid_n_option_three_players_2)
 	cr_expect_str_eq(vm.champ[1]->header.prog_name, player_1, "player_1 expected: %s, player_1 saved: %s", player_1, vm.champ[1]->header.prog_name);
 	cr_expect_str_eq(vm.champ[2]->header.prog_name, player_2, "player_2 expected: %s, player_2 saved: %s", player_2, vm.champ[2]->header.prog_name);
 	cr_expect_str_eq(vm.champ[3]->header.prog_name, player_3, "player_3 expected: %s, player_3 saved: %s", player_3, vm.champ[3]->header.prog_name);
-	free_vm(&vm, SUCCESS);
+	free_vm(&vm);
 }
 
 Test(input_validation, valid_n_option_three_players_1)
@@ -497,7 +497,7 @@ Test(input_validation, valid_n_option_three_players_1)
 	cr_expect_str_eq(vm.champ[1]->header.prog_name, player_1, "player_1 expected: %s, player_1 saved: %s", player_1, vm.champ[1]->header.prog_name);
 	cr_expect_str_eq(vm.champ[2]->header.prog_name, player_2, "player_2 expected: %s, player_2 saved: %s", player_2, vm.champ[2]->header.prog_name);
 	cr_expect_str_eq(vm.champ[3]->header.prog_name, player_3, "player_3 expected: %s, player_3 saved: %s", player_3, vm.champ[3]->header.prog_name);
-	free_vm(&vm, SUCCESS);
+	free_vm(&vm);
 }
 
 Test(input_validation, valid_n_option_two_players)
@@ -522,7 +522,7 @@ Test(input_validation, valid_n_option_two_players)
 	cr_assert_eq(real_return, expected_return, "error when validation input");
 	cr_expect_str_eq(vm.champ[1]->header.prog_name, player_1, "player_1 expected: %s, player_1 saved: %s", player_1, vm.champ[1]->header.prog_name);
 	cr_expect_str_eq(vm.champ[2]->header.prog_name, player_2, "player_2 expected: %s, player_2 saved: %s", player_2, vm.champ[2]->header.prog_name);
-	free_vm(&vm, SUCCESS);
+	free_vm(&vm);
 }
 
 Test(input_validation, valid_four_players)
@@ -542,7 +542,7 @@ Test(input_validation, valid_four_players)
 	vm.dump = -1;
 	int		real_return = input_validation(&vm, given_argv, given_argc);
 	cr_assert_eq(real_return, expected_return, "with four valid champions given, input validation returned %d when the expected return is %d", expected_return, real_return);
-	free_vm(&vm, SUCCESS);
+	free_vm(&vm);
 }
 
 Test(input_validation, valid_three_players)
@@ -571,8 +571,8 @@ Test(input_validation, valid_three_players)
 
 	cr_expect_eq(vm.champ[1]->header.prog_size, 394, "turtle should be 394 bytes heavy, not %d", vm.champ[1]->header.prog_size);
 	cr_expect_eq(vm.champ[2]->header.prog_size, 490, "fluttershy should be 490 bytes heavy, not %d", vm.champ[2]->header.prog_size);
-	cr_expect_eq(vm.champ[3]->header.prog_size, 23, "zork should be 23 bytes heavy, not %d", vm.champ[3]->header.prog_size);
-	free_vm(&vm, SUCCESS);
+	cr_expect_eq(vm.champ[3]->header.prog_size, 24, "zork should be 24 bytes heavy, not %d", vm.champ[3]->header.prog_size);
+	free_vm(&vm);
 }
 
 Test(input_validation, valid_two_players)
@@ -590,7 +590,7 @@ Test(input_validation, valid_two_players)
 	vm.dump = -1;
 	int		real_return = input_validation(&vm, given_argv, given_argc);
 	cr_assert_eq(real_return, expected_return, "with two valid champions given, input validation returned %d when the expected return is %d", expected_return, real_return);
-	free_vm(&vm, SUCCESS);
+	free_vm(&vm);
 }
 
 Test(input_validation, valid_one_players)
@@ -610,7 +610,7 @@ Test(input_validation, valid_one_players)
 	cr_expect_str_eq(vm.champ[1]->header.prog_name, "bigzork", "first champion should be bigzork but is %s\n", vm.champ[1]->header.prog_name);
 	cr_expect_str_eq(vm.champ[1]->header.comment, "I know i cant win", "comment of bigzork should be | I know i cant win | but is | %s | \n", vm.champ[1]->header.comment);
 	cr_expect_eq(vm.champ[1]->header.prog_size, 430, "bigzork should be 430 bytes heavy, not %d", vm.champ[1]->header.prog_size);
-	free_vm(&vm, SUCCESS);
+	free_vm(&vm);
 }
 
 Test(input_validation, no_args, .init=redirect_all_stdout)
@@ -624,5 +624,5 @@ Test(input_validation, no_args, .init=redirect_all_stdout)
 	t_vm	vm;
 	int		real_return = input_validation(&vm, given_argv, given_argc);
 	cr_assert_eq(real_return, expected_return, "with no arguments given, input validation returned %d when the expected return is %d", expected_return, real_return);
-	free_vm(&vm, SUCCESS);
+	free_vm(&vm);
 }
