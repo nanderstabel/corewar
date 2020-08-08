@@ -6,7 +6,7 @@
 #    By: mgross <mgross@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/07/31 16:23:47 by mgross        #+#    #+#                  #
-#    Updated: 2020/07/31 16:23:49 by mgross        ########   odam.nl          #
+#    Updated: 2020/08/08 09:43:53 by mgross        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,13 +26,7 @@ then
 fi
 
 PLAYER=$1
-# if [ ${PLAYER:(-2)} != ".s" ]
-#     then
-#         echo "not a .s file"
-#         exit 1
-# fi
 file=`echo $PLAYER | sed 's/.s$//g'`
 echo $file
-# echo  "${PLAYER:0:-2}.cor"
 $OG_ASM "${file}.s"
 mv "${PLAYER:0:-2}.cor" ../vm_test_folder/valid_cor_files/
