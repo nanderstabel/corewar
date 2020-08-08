@@ -6,7 +6,7 @@
 #    By: mgross <mgross@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/07/31 16:13:27 by mgross        #+#    #+#                  #
-#    Updated: 2020/08/07 17:19:54 by mgross        ########   odam.nl          #
+#    Updated: 2020/08/08 09:41:17 by mgross        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -128,7 +128,6 @@ fi
 
 if [ -z "$(ls $DIR)" ]; then
     ./all_compile.sh ../asm_test_folder/valid_s_files/*.s
-	rm ../vm_test_folder/valid_cor_files/salamahenagalabadoun.cor
 fi
 
 if ! [ -z "$(ls $FIX_DIR)" ]; then
