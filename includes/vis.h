@@ -6,7 +6,7 @@
 /*   By: lhageman <lhageman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/20 14:16:44 by lhageman      #+#    #+#                 */
-/*   Updated: 2020/08/01 14:04:18 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/08/08 10:32:57 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ void				vis_print_cursor(t_vis *vis);
 int					vis_calc_att(int bold, int inverse);
 int					vis_print_data(t_vm *vm);
 void				vis_attr_array(t_attr_func *attr);
+void				vis_calc_pos(int pos, int *x, int *y);
+int					vis_calc_inch(t_vm *vm);
 
 char				*vis_itoa(unsigned char nbr);
 void				vis_exit(t_vm *vm);

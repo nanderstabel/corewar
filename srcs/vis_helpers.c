@@ -6,11 +6,37 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/07/06 15:47:10 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/29 15:12:27 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/08/08 11:54:02 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vis.h"
+#include "corewar.h"
+
+int		vis_calc_inch(t_vm *vm)
+{
+	int		i;
+	int		c;
+	int		x;
+	int		y;
+	chtype	attr;
+
+	i = 0;
+	c = 0;
+	x = 3;
+	y = 2;
+	vis_calc_pos(vm->vis->index, &x, &y);
+	attr = mvwinch(vm->vis->graphics->arena, y, x);
+	while (i <= 15)
+	{
+		if ((attr & A_COLOR) == COLOR_PAIR(i))
+			c = i;
+		i += 1;
+	}
+	if (c == 0)
+		c = 13;
+	return (c);
+}
 
 char	*vis_itoa(unsigned char nbr)
 {

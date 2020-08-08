@@ -6,7 +6,7 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/05/28 17:10:22 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/29 15:12:06 by nstabel       ########   odam.nl         */
+/*   Updated: 2020/08/08 11:54:27 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,25 @@
 
 void			print_pc(t_vm *vm, t_cursor *cursor, size_t size)
 {
-	int	bold;
-	int	inverse;
-	int	bytes;
+	int c;
 
-	bold = FALSE;
-	inverse = TRUE;
-	bytes = 1;
 	if (vm->vis == NULL)
 		return ;
-	vm->vis->bytes = bytes;
+	vm->vis->bytes = 1;
+	c = 0;
 	if (size > 0)
 	{
 		vm->vis->index = new_idx(cursor->pc, -size, TRUE);
-		vm->vis->attr[cursor->player](vis_calc_att(FALSE, FALSE), \
-			vm->vis->graphics->arena);
-		vis_print_cursor(vm->vis);
-	}
-	vm->vis->attr[cursor->player](vis_calc_att(bold, inverse), \
+		c = vis_calc_inch(vm);
+		vm->vis->attr[cursor->player](vis_calc_att(FALSE, TRUE), \
 		vm->vis->graphics->arena);
-	vm->vis->index = cursor->pc;
-	vis_print_cursor(vm->vis);
+		vis_print_cursor(vm->vis);
+		usleep(10000);
+		wattron(vm->vis->graphics->arena, COLOR_PAIR(c));
+		wattroff(vm->vis->graphics->arena, A_BOLD);
+		vis_print_cursor(vm->vis);
+		usleep(5000);
+	}
 }
 
 unsigned int	new_idx(unsigned int current_idx, int offset,

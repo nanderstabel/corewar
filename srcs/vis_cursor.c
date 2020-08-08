@@ -6,7 +6,7 @@
 /*   By: lhageman <lhageman@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/06/04 09:43:31 by lhageman      #+#    #+#                 */
-/*   Updated: 2020/08/05 19:40:40 by lhageman      ########   odam.nl         */
+/*   Updated: 2020/08/08 11:53:34 by lhageman      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,11 @@ void	vis_calc_pos(int pos, int *x, int *y)
 			if (*y == VIS_Y - 2)
 				*y = 2;
 		}
+	}
+	if (*x >= ARENA_X - 3)
+	{
+		*x = 3;
+		*y += 1;
 	}
 }
 
