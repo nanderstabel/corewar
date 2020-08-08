@@ -6,19 +6,18 @@
 /*   By: mmarcell <mmarcell@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/05/03 14:18:51 by mmarcell      #+#    #+#                 */
-/*   Updated: 2020/07/29 10:47:41 by mgross        ########   odam.nl         */
+/*   Updated: 2020/08/08 08:21:02 by nstabel       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-
-static void	catprintf_buf(t_buffer *buf)
+static void		catprintf_buf(t_buffer *buf)
 {
 	char	*temp;
 
 	if (!buf->sprint_buf)
-			buf->sprint_buf = ft_strdup(buf->str);
+		buf->sprint_buf = ft_strdup(buf->str);
 	else
 	{
 		temp = buf->sprint_buf;
@@ -42,7 +41,7 @@ static void	catprintf_buf(t_buffer *buf)
 **	VOID
 */
 
-void	buff_push(t_buffer *buf, char *str, size_t n)
+void			buff_push(t_buffer *buf, char *str, size_t n)
 {
 	size_t	i;
 
@@ -76,7 +75,7 @@ void	buff_push(t_buffer *buf, char *str, size_t n)
 **	VOID
 */
 
-void	buff_filler(t_buffer *buf, char c, unsigned int n)
+void			buff_filler(t_buffer *buf, char c, unsigned int n)
 {
 	char fill[n];
 
@@ -94,7 +93,7 @@ void	buff_filler(t_buffer *buf, char c, unsigned int n)
 **	VOID
 */
 
-void	buff_print_dump(t_buffer *buf)
+void			buff_print_dump(t_buffer *buf)
 {
 	char		*temp;
 
