@@ -64,5 +64,5 @@ To check out one of them run:
 `cd test_folder/scripts/ && ./all_compile.sh ../asm_test_folder/valid_s_files/*.s && ./corewar_tester.sh -all -d 5000 -i 2500 ../vm_test_folder/valid_cor_files/*.cor`
 
 ### Details
-For more details about the requirements of this project, checkout the warning.pdf and subject.pdf
+For more details about the requirements of this project, checkout the [warning.pdf](https://github.com/nanderstabel/corewar/blob/master/warning.pdf) and [subject.pdf](https://github.com/nanderstabel/corewar/blob/master/subject.pdf)
 
