@@ -66,3 +66,8 @@ To check out one of them run:
 ### Details
 For more details about the requirements of this project, checkout the [warning.pdf](https://github.com/nanderstabel/corewar/blob/master/warning.pdf) and [subject.pdf](https://github.com/nanderstabel/corewar/blob/master/subject.pdf)
 
+This project has been a collaboration of:
+- [moCello](https://github.com/moCello)
+- [nanderstabel](https://github.com/nanderstabel)
+- [RascalCalmind](https://github.com/RascalCalmind)
+- [zitzak](https://github.com/zitzak)
